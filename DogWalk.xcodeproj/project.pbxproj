@@ -24,18 +24,29 @@
 		C477A2DE2CD0E800006B8DB6 /* DefaultSomeInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2DD2CD0E800006B8DB6 /* DefaultSomeInterface.swift */; };
 		C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2DF2CD0E80B006B8DB6 /* DefaultSomeUseCase.swift */; };
 		C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2E82CD0E84C006B8DB6 /* HomeView.swift */; };
-		C477A2F32CD0E93C006B8DB6 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F22CD0E93C006B8DB6 /* BaseView.swift */; };
 		C477A2F52CD0E959006B8DB6 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F42CD0E959006B8DB6 /* CommonButton.swift */; };
 		C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F62CD0E972006B8DB6 /* MapView.swift */; };
 		C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F82CD0E978006B8DB6 /* ChattingView.swift */; };
 		C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2FA2CD0E984006B8DB6 /* CommunityCreateView.swift */; };
 		C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2FC2CD0E98A006B8DB6 /* CommunityDetailView.swift */; };
 		C477A2FF2CD0E98F006B8DB6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2FE2CD0E98F006B8DB6 /* SettingView.swift */; };
-		C477A3022CD0E9C4006B8DB6 /* SomeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A3012CD0E9C4006B8DB6 /* SomeModifier.swift */; };
 		C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A3052CD0EA30006B8DB6 /* Font+.swift */; };
 		C477A3082CD0EA41006B8DB6 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A3072CD0EA41006B8DB6 /* Color+.swift */; };
 		C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A3092CD0EA6C006B8DB6 /* Frame+.swift */; };
 		C477A30E2CD0EB3B006B8DB6 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A30D2CD0EB3B006B8DB6 /* CustomTabView.swift */; };
+		C4A776712CD113CF00D60EEE /* BagelFatOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4A776702CD113CF00D60EEE /* BagelFatOne-Regular.ttf */; };
+		C4A7767B2CD113FB00D60EEE /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = C4A776722CD113FA00D60EEE /* Pretendard-Black.otf */; };
+		C4A7767D2CD113FB00D60EEE /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C4A776742CD113FB00D60EEE /* Pretendard-Bold.otf */; };
+		C4A7767E2CD113FB00D60EEE /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = C4A776752CD113FB00D60EEE /* Pretendard-Thin.otf */; };
+		C4A776812CD113FB00D60EEE /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C4A776782CD113FB00D60EEE /* Pretendard-Light.otf */; };
+		C4A776822CD113FB00D60EEE /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C4A776792CD113FB00D60EEE /* Pretendard-Regular.otf */; };
+		C4A776832CD113FB00D60EEE /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C4A7767A2CD113FB00D60EEE /* Pretendard-SemiBold.otf */; };
+		C4A776862CD1235D00D60EEE /* Image+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776852CD1235D00D60EEE /* Image+.swift */; };
+		C4A776882CD1251E00D60EEE /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776872CD1251E00D60EEE /* View+.swift */; };
+		C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7768A2CD125D200D60EEE /* UserDefaults.swift */; };
+		C4A7768D2CD125EE00D60EEE /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7768C2CD125EE00D60EEE /* UserManager.swift */; };
+		C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7768F2CD126C800D60EEE /* ButtonWrapper.swift */; };
+		C4A776922CD1276A00D60EEE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776912CD1276A00D60EEE /* Container.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,18 +68,30 @@
 		C477A2DD2CD0E800006B8DB6 /* DefaultSomeInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSomeInterface.swift; sourceTree = "<group>"; };
 		C477A2DF2CD0E80B006B8DB6 /* DefaultSomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSomeUseCase.swift; sourceTree = "<group>"; };
 		C477A2E82CD0E84C006B8DB6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		C477A2F22CD0E93C006B8DB6 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		C477A2F42CD0E959006B8DB6 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		C477A2F62CD0E972006B8DB6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C477A2F82CD0E978006B8DB6 /* ChattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingView.swift; sourceTree = "<group>"; };
 		C477A2FA2CD0E984006B8DB6 /* CommunityCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCreateView.swift; sourceTree = "<group>"; };
 		C477A2FC2CD0E98A006B8DB6 /* CommunityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailView.swift; sourceTree = "<group>"; };
 		C477A2FE2CD0E98F006B8DB6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		C477A3012CD0E9C4006B8DB6 /* SomeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeModifier.swift; sourceTree = "<group>"; };
 		C477A3052CD0EA30006B8DB6 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		C477A3072CD0EA41006B8DB6 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		C477A3092CD0EA6C006B8DB6 /* Frame+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Frame+.swift"; sourceTree = "<group>"; };
 		C477A30D2CD0EB3B006B8DB6 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		C4A776702CD113CF00D60EEE /* BagelFatOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BagelFatOne-Regular.ttf"; sourceTree = "<group>"; };
+		C4A776722CD113FA00D60EEE /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		C4A776742CD113FB00D60EEE /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		C4A776752CD113FB00D60EEE /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		C4A776782CD113FB00D60EEE /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		C4A776792CD113FB00D60EEE /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		C4A7767A2CD113FB00D60EEE /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		C4A776842CD1152600D60EEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C4A776852CD1235D00D60EEE /* Image+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+.swift"; sourceTree = "<group>"; };
+		C4A776872CD1251E00D60EEE /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		C4A7768A2CD125D200D60EEE /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		C4A7768C2CD125EE00D60EEE /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		C4A7768F2CD126C800D60EEE /* ButtonWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWrapper.swift; sourceTree = "<group>"; };
+		C4A776912CD1276A00D60EEE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,12 +125,11 @@
 		C477A2A82CD0E594006B8DB6 /* DogWalk */ = {
 			isa = PBXGroup;
 			children = (
+				C4A776842CD1152600D60EEE /* Info.plist */,
+				C4A776932CD129F500D60EEE /* Application */,
 				C477A2BF2CD0E65B006B8DB6 /* Data */,
 				C477A2BE2CD0E657006B8DB6 /* Domain */,
 				C477A2BD2CD0E650006B8DB6 /* Presentatiton */,
-				C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */,
-				C477A2AB2CD0E594006B8DB6 /* ContentView.swift */,
-				C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */,
 				C477A2AF2CD0E596006B8DB6 /* Preview Content */,
 			);
 			path = DogWalk;
@@ -173,6 +195,7 @@
 		C477A2C12CD0E697006B8DB6 /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				C4A776892CD125B800D60EEE /* User */,
 				C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */,
 			);
 			path = Local;
@@ -341,6 +364,7 @@
 		C477A2EB2CD0E85E006B8DB6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C4A7766F2CD113B900D60EEE /* Fonts */,
 				C477A2EC2CD0E885006B8DB6 /* Extension */,
 			);
 			path = Utils;
@@ -352,6 +376,8 @@
 				C477A3052CD0EA30006B8DB6 /* Font+.swift */,
 				C477A3072CD0EA41006B8DB6 /* Color+.swift */,
 				C477A3092CD0EA6C006B8DB6 /* Frame+.swift */,
+				C4A776852CD1235D00D60EEE /* Image+.swift */,
+				C4A776872CD1251E00D60EEE /* View+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -377,7 +403,7 @@
 		C477A2F02CD0E8B4006B8DB6 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				C477A2F22CD0E93C006B8DB6 /* BaseView.swift */,
+				C4A776912CD1276A00D60EEE /* Container.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -385,7 +411,7 @@
 		C477A3002CD0E996006B8DB6 /* Modifier */ = {
 			isa = PBXGroup;
 			children = (
-				C477A3012CD0E9C4006B8DB6 /* SomeModifier.swift */,
+				C4A7768F2CD126C800D60EEE /* ButtonWrapper.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -396,6 +422,39 @@
 				C477A30D2CD0EB3B006B8DB6 /* CustomTabView.swift */,
 			);
 			path = CustomTab;
+			sourceTree = "<group>";
+		};
+		C4A7766F2CD113B900D60EEE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C4A776722CD113FA00D60EEE /* Pretendard-Black.otf */,
+				C4A776742CD113FB00D60EEE /* Pretendard-Bold.otf */,
+				C4A776782CD113FB00D60EEE /* Pretendard-Light.otf */,
+				C4A776792CD113FB00D60EEE /* Pretendard-Regular.otf */,
+				C4A7767A2CD113FB00D60EEE /* Pretendard-SemiBold.otf */,
+				C4A776752CD113FB00D60EEE /* Pretendard-Thin.otf */,
+				C4A776702CD113CF00D60EEE /* BagelFatOne-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C4A776892CD125B800D60EEE /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C4A7768A2CD125D200D60EEE /* UserDefaults.swift */,
+				C4A7768C2CD125EE00D60EEE /* UserManager.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C4A776932CD129F500D60EEE /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */,
+				C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */,
+				C477A2AB2CD0E594006B8DB6 /* ContentView.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,9 +515,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A776822CD113FB00D60EEE /* Pretendard-Regular.otf in Resources */,
+				C4A776832CD113FB00D60EEE /* Pretendard-SemiBold.otf in Resources */,
 				C477A2B12CD0E596006B8DB6 /* Preview Assets.xcassets in Resources */,
 				C477A2B82CD0E5DC006B8DB6 /* .gitignore in Resources */,
+				C4A7767D2CD113FB00D60EEE /* Pretendard-Bold.otf in Resources */,
+				C4A776812CD113FB00D60EEE /* Pretendard-Light.otf in Resources */,
+				C4A7767E2CD113FB00D60EEE /* Pretendard-Thin.otf in Resources */,
+				C4A776712CD113CF00D60EEE /* BagelFatOne-Regular.ttf in Resources */,
 				C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */,
+				C4A7767B2CD113FB00D60EEE /* Pretendard-Black.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,11 +535,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C477A3022CD0E9C4006B8DB6 /* SomeModifier.swift in Sources */,
+				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
+				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
+				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
+				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
 				C477A30E2CD0EB3B006B8DB6 /* CustomTabView.swift in Sources */,
 				C477A2FF2CD0E98F006B8DB6 /* SettingView.swift in Sources */,
 				C477A3082CD0EA41006B8DB6 /* Color+.swift in Sources */,
@@ -484,6 +553,7 @@
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
 				C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */,
+				C4A7768D2CD125EE00D60EEE /* UserManager.swift in Sources */,
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
@@ -492,7 +562,7 @@
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
-				C477A2F32CD0E93C006B8DB6 /* BaseView.swift in Sources */,
+				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
 			);
@@ -631,11 +701,15 @@
 				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DogWalk/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "도그워크";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -643,9 +717,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -660,11 +738,15 @@
 				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DogWalk/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "도그워크";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -672,9 +754,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
