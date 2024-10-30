@@ -8,8 +8,44 @@
 import SwiftUI
 
 struct CustomTabView: View {
+    
+    enum TabCase {
+        case home
+        case map
+        case community
+        case chatting
+    }
+    
+    @State private var selectedTab: TabCase = .home
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image.asWalk
+                        .renderingMode(.template)
+                    Text("홈")
+                }
+            MapView()
+                .tabItem {
+                    Image.asWalk
+                        .renderingMode(.template)
+                    Text("산책하기")
+                }
+            CommunityView()
+                .tabItem {
+                    Image.asWalk
+                        .renderingMode(.template)
+                    Text("커뮤니티")
+                }
+            ChattingView()
+                .tabItem {
+                    Image.asWalk
+                        .renderingMode(.template)
+                    Text("멍톡")
+                }
+        }
+        .tint(Color.primaryGreen)
     }
 }
 
