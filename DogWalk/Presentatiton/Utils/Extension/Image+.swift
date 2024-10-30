@@ -15,7 +15,7 @@ extension Image {
     static let asPencil = Image("square.and.pencil")    // 게시글 작성 버튼
     static let asXmarkFill = Image("xmark.circle.fill") // 사진 지우기버튼
     static let asPlus = Image("plus")                   // 더하기
-    
+    static let asWalk = Image("TabWalk")
     
     // TEST
     static let asTestAdCell = Image("TestAdCell")

@@ -47,6 +47,7 @@
 		C4A7768D2CD125EE00D60EEE /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7768C2CD125EE00D60EEE /* UserManager.swift */; };
 		C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7768F2CD126C800D60EEE /* ButtonWrapper.swift */; };
 		C4A776922CD1276A00D60EEE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776912CD1276A00D60EEE /* Container.swift */; };
+		C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776942CD223E600D60EEE /* CommunityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		C4A7768C2CD125EE00D60EEE /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		C4A7768F2CD126C800D60EEE /* ButtonWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWrapper.swift; sourceTree = "<group>"; };
 		C4A776912CD1276A00D60EEE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		C4A776942CD223E600D60EEE /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 		C477A2E42CD0E820006B8DB6 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 				C477A2E72CD0E831006B8DB6 /* Create */,
 				C477A2E62CD0E82C006B8DB6 /* Detail */,
 			);
@@ -354,8 +357,8 @@
 				C477A30C2CD0EB21006B8DB6 /* CustomTab */,
 				C477A2E12CD0E812006B8DB6 /* Home */,
 				C477A2E32CD0E81B006B8DB6 /* Map */,
-				C477A2E52CD0E823006B8DB6 /* Chatting */,
 				C477A2E42CD0E820006B8DB6 /* Community */,
+				C477A2E52CD0E823006B8DB6 /* Chatting */,
 				C477A2E22CD0E814006B8DB6 /* Setting */,
 			);
 			path = Screens;
@@ -559,6 +562,7 @@
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
 				C477A2D32CD0E764006B8DB6 /* NetworkManager.swift in Sources */,
 				C477A2BC2CD0E636006B8DB6 /* APIKey.swift in Sources */,
+				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
