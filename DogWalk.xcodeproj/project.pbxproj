@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99CE34162CD2238E0020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE34152CD2238E0020F99E /* APIKey.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
 		C477A2B12CD0E596006B8DB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2B02CD0E596006B8DB6 /* Preview Assets.xcassets */; };
 		C477A2B82CD0E5DC006B8DB6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C477A2B72CD0E5DC006B8DB6 /* .gitignore */; };
-		C477A2BC2CD0E636006B8DB6 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2BB2CD0E636006B8DB6 /* APIKey.swift */; };
 		C477A2CB2CD0E719006B8DB6 /* DefaultRemoteDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CA2CD0E719006B8DB6 /* DefaultRemoteDTO.swift */; };
 		C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CC2CD0E729006B8DB6 /* DefaultLocalDTO.swift */; };
 		C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CE2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift */; };
@@ -51,13 +51,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		99CE34152CD2238E0020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C477A2B02CD0E596006B8DB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C477A2B72CD0E5DC006B8DB6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		C477A2BB2CD0E636006B8DB6 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C477A2CA2CD0E719006B8DB6 /* DefaultRemoteDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteDTO.swift; sourceTree = "<group>"; };
 		C477A2CC2CD0E729006B8DB6 /* DefaultLocalDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocalDTO.swift; sourceTree = "<group>"; };
 		C477A2CE2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -107,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		99CE34142CD223720020F99E /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				99CE34152CD2238E0020F99E /* APIKey.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
 		C477A29D2CD0E594006B8DB6 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +138,7 @@
 				C4A776842CD1152600D60EEE /* Info.plist */,
 				C4A776932CD129F500D60EEE /* Application */,
 				C477A2BF2CD0E65B006B8DB6 /* Data */,
+				99CE34142CD223720020F99E /* Security */,
 				C477A2BE2CD0E657006B8DB6 /* Domain */,
 				C477A2BD2CD0E650006B8DB6 /* Presentatiton */,
 				C477A2AF2CD0E596006B8DB6 /* Preview Content */,
@@ -143,14 +152,6 @@
 				C477A2B02CD0E596006B8DB6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		C477A2BA2CD0E62A006B8DB6 /* Security */ = {
-			isa = PBXGroup;
-			children = (
-				C477A2BB2CD0E636006B8DB6 /* APIKey.swift */,
-			);
-			path = Security;
 			sourceTree = "<group>";
 		};
 		C477A2BD2CD0E650006B8DB6 /* Presentatiton */ = {
@@ -180,7 +181,6 @@
 				C477A2C42CD0E6B6006B8DB6 /* DataSource */,
 				C477A2C32CD0E6A4006B8DB6 /* Network */,
 				C477A2C02CD0E689006B8DB6 /* Repositories */,
-				C477A2BA2CD0E62A006B8DB6 /* Security */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -542,6 +542,7 @@
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
+				99CE34162CD2238E0020F99E /* APIKey.swift in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
@@ -561,8 +562,11 @@
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
 				C477A2D32CD0E764006B8DB6 /* NetworkManager.swift in Sources */,
+<<<<<<< Updated upstream
 				C477A2BC2CD0E636006B8DB6 /* APIKey.swift in Sources */,
 				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,
+=======
+>>>>>>> Stashed changes
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
@@ -702,7 +706,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = Y2VDXSZQ3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -739,7 +743,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = Y2VDXSZQ3M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
