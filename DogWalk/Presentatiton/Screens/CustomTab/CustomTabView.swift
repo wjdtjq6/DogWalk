@@ -8,16 +8,6 @@
 import SwiftUI
 
 struct CustomTabView: View {
-    
-    enum TabCase {
-        case home
-        case map
-        case community
-        case chatting
-    }
-    
-    @State private var selectedTab: TabCase = .home
-    
     var body: some View {
         TabView {
             HomeView()
