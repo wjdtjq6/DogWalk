@@ -10,6 +10,7 @@
 
 		06CEA1842CD22D57003249BF /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1832CD22D57003249BF /* APIKey.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
+		99CE34162CD2238E0020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE34152CD2238E0020F99E /* APIKey.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -53,7 +54,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-
 		06CEA1832CD22D57003249BF /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,7 +185,6 @@
 				C477A2C42CD0E6B6006B8DB6 /* DataSource */,
 				C477A2C32CD0E6A4006B8DB6 /* Network */,
 				C477A2C02CD0E689006B8DB6 /* Repositories */,
-
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -569,8 +568,6 @@
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
 				C477A2D32CD0E764006B8DB6 /* NetworkManager.swift in Sources */,
-
-
 				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,

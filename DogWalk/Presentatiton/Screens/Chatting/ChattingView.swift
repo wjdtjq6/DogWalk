@@ -10,9 +10,6 @@ import SwiftUI
 struct ChattingView: View {
     @State private var searchText = "하이"
     var body: some View {
-<<<<<<< Updated upstream
-        Text("ChattingView")
-=======
         VStack {
             HStack {
                 Text("MeongTalk")
@@ -23,7 +20,6 @@ struct ChattingView: View {
             .padding(.leading, 12)
         }
         .searchable(text: $searchText)
->>>>>>> Stashed changes
     }
 }
 
