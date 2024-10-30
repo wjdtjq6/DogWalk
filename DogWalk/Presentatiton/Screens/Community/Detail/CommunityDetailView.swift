@@ -8,31 +8,33 @@
 import SwiftUI
 
 struct CommunityDetailView: View {
+    @State var commentText = ""
+    
     var body: some View {
         ScrollView(.vertical) {
-            VStack {
+            VStack(spacing: 12) {
                 communityContentView()
+                commentListView()
             }
+            .background(Color.primaryGreen.opacity(0.2))
         }
-        .navigationTitle("산책 인증")   // 상위뷰에서 카테고리명 데이터 필요
+        .scrollIndicators(.hidden)
+        .navigationTitle("산책 인증")  // 상위뷰에서 카테고리명 데이터 필요
+        commentCreateView()
     }
     
-    
+    // 게시물 콘텐츠 뷰
     private func communityContentView() -> some View {
         VStack {
             // 게시물 제목
-            Text("우리 강아지 오늘 산책 2시간하고 개뻗음ㅋㅋㅋㅋㅋ 진짜 개웃김 웃겨 죽음 으캬캬")
-                .frame(maxWidth: .infinity)
-                .frame(minHeight: 50)
+            Text("우리 강아지 오늘 산책 2시간 하고 댕뻗음 ㅋㅋㅋㅋ 댕웃김 진짜 ㅋㅋㅋㅋㅋ")
+                .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
                 .multilineTextAlignment(.leading)
                 .font(Font.pretendardBold16)
-                // .background(.blue.opacity(0.5))
             
             // 프로필 + 닉네임 + 게시물 작성일
             HStack {
-                Image(.testProfile)
-                    .resizable()
-                    .frame(width: 20, height: 20)
+                CommonProfile(image: Image.asTestProfile, size: 20)
                 Text("머니만듀")
                     .font(.pretendardBold14)
                 Spacer()
@@ -50,7 +52,12 @@ struct CommunityDetailView: View {
             
             // 게시물 사진 예시
             AsyncImage(url: URL(string: "https://static.cdn.soomgo.com/upload/portfolio/70bef49e-f3fc-4718-a61f-9613c51cdbf7.jpeg?webp=1")) { image in
-                image.image?.resizable().aspectRatio(contentMode: .fit)
+                if let image = image.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 8, height: 8)))
+                }
             }
             .padding(.top, 10)
             
@@ -64,6 +71,61 @@ struct CommunityDetailView: View {
             .frame(maxWidth: .infinity, minHeight: 60, alignment: .leading)
         }
         .padding(.horizontal)
+        .background(Color.primaryWhite)
+    }
+    
+    // 댓글 목록 뷰
+    private func commentListView() -> some View {
+        LazyVStack(spacing: 20) {
+            ForEach(0..<10) { item in
+                commentCell(image: .asTestProfile)
+            }
+        }
+        .padding([.top, .horizontal, .bottom])
+        .background(Color.primaryWhite)
+    }
+    
+    // 댓글 셀
+    private func commentCell(image: Image) -> some View {
+        // 프로필 이미지 + 닉네임 + 댓글
+        HStack(alignment: .top, spacing: 10) {
+            CommonProfile(image: image, size: 26)
+                .padding(.top, 2)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("산책요정")
+                    .font(.pretendardBold16)
+                Text("와우! 우리 댕댕이 너무 귀엽다 😍 산책 너무 즐거워 보인다! 다음엔 우리도 같이 가요 🐾💕")
+                    .font(.pretendardRegular14)
+                    .lineSpacing(2)
+            }
+        }
+    }
+    
+    // 댓글 작성 뷰
+    private func commentCreateView() -> some View {
+        HStack {
+            TextField(text: $commentText) {
+                Rectangle()
+                    .backgroundStyle(.gray.opacity(0.5))
+                    .overlay {
+                        Text("댓글을 입력해 주세요.")
+                            .font(.pretendardRegular14)
+                    }
+            }
+            CommonButton(width: 50, height: 30,
+                         cornerradius: 10, backColor: Color.primaryGreen,
+                         text: "🐾", textFont: .pretendardBold14)
+        }
+        .padding()
+        .background(Color.primaryWhite)
+        .overlay(
+            Rectangle()
+                .frame(height: 1) // 테두리의 두께를 설정
+                .foregroundColor(.gray.opacity(0.5)), // 테두리의 색상 설정
+            alignment: .top
+        )
+        .ignoresSafeArea()
+        .frame(minHeight: 50)
     }
 }
 
