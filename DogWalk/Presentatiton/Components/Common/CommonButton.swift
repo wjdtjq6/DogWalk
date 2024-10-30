@@ -48,6 +48,7 @@ struct CommonButton: View {
                     Text(text)
                         .font(textFont)
                         .foregroundStyle(textColor)
+                        .lineLimit(1)
                     rightLogo?
                         .resizable()
                         .frame(width: imageSize, height: imageSize)
