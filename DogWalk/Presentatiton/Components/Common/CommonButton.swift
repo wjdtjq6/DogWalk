@@ -17,20 +17,23 @@ struct CommonButton: View {
     let backColor: Color // 버튼 색
     let text: String
     let textFont: Font
+    let textColor: Color
     let leftLogo: Image?
     let rightLogo: Image?
     let imageSize: CGFloat // 이미지 사이즈 설정
     
-    init(width: CGFloat, height: CGFloat, cornerradius: CGFloat, backColor: Color, text: String, textFont: Font, leftLogo: Image? = nil, rightLogo: Image? = nil, imageSize: CGFloat = 30) {
+    init(width: CGFloat, height: CGFloat, cornerradius: CGFloat, backColor: Color, text: String, textFont: Font, textColor: Color = .primaryBlack, leftLogo: Image? = nil, rightLogo: Image? = nil, imageSize: CGFloat = 30) {
         self.width = width
         self.height = height
         self.cornerradius = cornerradius
         self.backColor = backColor
         self.text = text
         self.textFont = textFont
+        self.textColor = textColor
         self.imageSize = imageSize
         self.leftLogo = leftLogo
         self.rightLogo = rightLogo
+        
     }
     
     var body: some View {
@@ -44,6 +47,7 @@ struct CommonButton: View {
                         .frame(width: imageSize, height: imageSize)
                     Text(text)
                         .font(textFont)
+                        .foregroundStyle(textColor)
                     rightLogo?
                         .resizable()
                         .frame(width: imageSize, height: imageSize)
