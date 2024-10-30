@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06CEA1842CD22D57003249BF /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1832CD22D57003249BF /* APIKey.swift */; };
+		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
 		C477A2B12CD0E596006B8DB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2B02CD0E596006B8DB6 /* Preview Assets.xcassets */; };
 		C477A2B82CD0E5DC006B8DB6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C477A2B72CD0E5DC006B8DB6 /* .gitignore */; };
-		C477A2BC2CD0E636006B8DB6 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2BB2CD0E636006B8DB6 /* APIKey.swift */; };
 		C477A2CB2CD0E719006B8DB6 /* DefaultRemoteDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CA2CD0E719006B8DB6 /* DefaultRemoteDTO.swift */; };
 		C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CC2CD0E729006B8DB6 /* DefaultLocalDTO.swift */; };
 		C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CE2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift */; };
@@ -51,13 +52,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06CEA1832CD22D57003249BF /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C477A2B02CD0E596006B8DB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C477A2B72CD0E5DC006B8DB6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		C477A2BB2CD0E636006B8DB6 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C477A2CA2CD0E719006B8DB6 /* DefaultRemoteDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteDTO.swift; sourceTree = "<group>"; };
 		C477A2CC2CD0E729006B8DB6 /* DefaultLocalDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocalDTO.swift; sourceTree = "<group>"; };
 		C477A2CE2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -107,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06CEA1822CD22D46003249BF /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				06CEA1832CD22D57003249BF /* APIKey.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
 		C477A29D2CD0E594006B8DB6 = {
 			isa = PBXGroup;
 			children = (
@@ -145,14 +155,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		C477A2BA2CD0E62A006B8DB6 /* Security */ = {
-			isa = PBXGroup;
-			children = (
-				C477A2BB2CD0E636006B8DB6 /* APIKey.swift */,
-			);
-			path = Security;
-			sourceTree = "<group>";
-		};
 		C477A2BD2CD0E650006B8DB6 /* Presentatiton */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,7 +182,7 @@
 				C477A2C42CD0E6B6006B8DB6 /* DataSource */,
 				C477A2C32CD0E6A4006B8DB6 /* Network */,
 				C477A2C02CD0E689006B8DB6 /* Repositories */,
-				C477A2BA2CD0E62A006B8DB6 /* Security */,
+				06CEA1822CD22D46003249BF /* Security */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -399,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				C477A2F42CD0E959006B8DB6 /* CommonButton.swift */,
+				06CEA1852CD23181003249BF /* CommonProfile.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
 				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
+				06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */,
 				C477A30E2CD0EB3B006B8DB6 /* CustomTabView.swift in Sources */,
 				C477A2FF2CD0E98F006B8DB6 /* SettingView.swift in Sources */,
 				C477A3082CD0EA41006B8DB6 /* Color+.swift in Sources */,
@@ -561,11 +565,11 @@
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
 				C477A2D32CD0E764006B8DB6 /* NetworkManager.swift in Sources */,
-				C477A2BC2CD0E636006B8DB6 /* APIKey.swift in Sources */,
 				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
+				06CEA1842CD22D57003249BF /* APIKey.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
