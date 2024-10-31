@@ -10,10 +10,11 @@ import SwiftUI
 struct CommonProfile: View {
     let image: Image
     let size: CGFloat
-    
-    init(image: Image, size: CGFloat) {
+    let backColor: Color
+    init(image: Image, size: CGFloat, backColor: Color = .primaryWhite) {
         self.image = image
         self.size = size
+        self.backColor = backColor
     }
     
     var body: some View {
@@ -27,9 +28,10 @@ struct CommonProfile: View {
                     .stroke(Color.primaryBlack.opacity(0.5), lineWidth: 1)
             )
             
+            
     }
 }
 
 #Preview {
-    CommonProfile(image: .asTestProfile, size: 100)
+    CommonProfile(image: .asTestProfile, size: 100, backColor: .red)
 }
