@@ -11,10 +11,12 @@ struct TestData: Identifiable, Hashable {
     let id: UUID = UUID()
     var name: String
     var chat: String
+    var lastChatTime: String
     
-    init(name: String = "멋쟁이 윤우", chat: String = "제일 좋아하는 건~~~~ 유킷, 스유, mvvm, mvi, tca, 렛츠고") {
+    init(name: String = "멋쟁이 윤우", chat: String = "제일 좋아하는 건~~~~ 유킷, 스유, mvvm, mvi, tca, 렛츠고", lastChatTime: String = "20:53") {
         self.name = name
         self.chat = chat
+        self.lastChatTime = lastChatTime
     }
 }
 
@@ -24,35 +26,31 @@ struct ChattingView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack {
-                    ForEach(items, id: \.self) { item in
-                        chattingViewCell(item)
-                    }
-                }
+                chattingListView()
             }
             .searchable(text: $searchText, prompt: "검색") // SearchBar
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    appLogo("MeongTalk") // 좌상단 앱 로고
+                    appLogo() // 좌상단 앱 로고
                 }
             }
         }
     }
     
+    private func chattingListView() -> some View {
+        ForEach(items, id: \.self) { item in
+            chattingViewCell(item)
+        }
+    }
+    
     // 채팅방 Cell
-    func chattingViewCell(_ item: TestData) -> some View {
+    private func chattingViewCell(_ item: TestData) -> some View {
         // 임시로 SettingView로 해놨습니다. 추후에 채팅 디테일로 바꿔야 돼요
         NavigationLink {
             SettingView()
         } label: {
             HStack {
-                // 프로필 사진 클릭시
-                Button {
-                    print("ChattingListView ProfileImage 클릭")
-                } label: {
-                    CommonProfile(image: .asTestImage, size: 60)
-                }
-                
+                CommonProfile(image: .asTestImage, size: 60)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.name) // 이름
                         .font(.pretendardBold18)
@@ -64,10 +62,9 @@ struct ChattingView: View {
                     
                         .foregroundColor(.gray)
                 }
-                
                 Spacer()
                 
-                Text("20:53")
+                Text(item.lastChatTime)
                     .font(.pretendardRegular14)
                     .foregroundColor(.gray)
             }
@@ -76,15 +73,14 @@ struct ChattingView: View {
     }
     
     // 좌상단 앱 로고
-    func appLogo(_ text: String) -> some View {
+    private func appLogo() -> some View {
         HStack {
-            Text(text)
+            Text("MeongTalk")
                 .font(.bagelfat28)
             Spacer()
         }
     }
 }
-
 #Preview {
     ChattingView()
 }
