@@ -35,30 +35,31 @@ struct CommunityView: View {
     @State private var isShowingSheet = false
     @State private var items = Array(repeating: CummunityTestData(), count: 10) // 테스트 데이터 배열, 실제 데이터로 변경
     private var filterButton = ["전체", "시터구하기", "산책 인증", "궁금해요", "자유게시판"] // MVI 패턴 적용후 Model로 이동
+    
     var body: some View {
         NavigationView {
-                    ZStack {
-                        ScrollView {
-                            filterView()
-                            ForEach(items, id: \.id) { item in
-                                postViewCell(item) //ListCellView
-                            }
-                            .padding()
-                        }
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                areaSelectionView() // 좌상단 위치선택(ex.문래동)
-                            }
-                        }
-                        floatingButton()
+            ZStack {
+                ScrollView {
+                    filterView()
+                    ForEach(items, id: \.id) { item in
+                        postViewCell(item) //ListCellView
                     }
-                    .sheet(isPresented: $isShowingSheet) {
-                        bottomSheetView() // 문래동 버튼 탭시 올라오는 바텀시트
-                            .presentationDragIndicator(.visible)
-                            .presentationDetents([.fraction(0.3)])
+                    .padding()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        areaSelectionView() // 좌상단 위치선택(ex.문래동)
                     }
                 }
+                floatingButton()
             }
+            .sheet(isPresented: $isShowingSheet) {
+                bottomSheetView() // 문래동 버튼 탭시 올라오는 바텀시트
+                    .presentationDragIndicator(.visible)
+                    .presentationDetents([.fraction(0.3)])
+            }
+        }
+    }
     
     // 좌상단 버튼 뷰
     private func filterView() -> some View {

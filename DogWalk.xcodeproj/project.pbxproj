@@ -51,6 +51,7 @@
 		C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7768F2CD126C800D60EEE /* ButtonWrapper.swift */; };
 		C4A776922CD1276A00D60EEE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776912CD1276A00D60EEE /* Container.swift */; };
 		C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776942CD223E600D60EEE /* CommunityView.swift */; };
+		C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776962CD3441E00D60EEE /* CommunityCategorySelectedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		C4A7768F2CD126C800D60EEE /* ButtonWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWrapper.swift; sourceTree = "<group>"; };
 		C4A776912CD1276A00D60EEE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		C4A776942CD223E600D60EEE /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
+		C4A776962CD3441E00D60EEE /* CommunityCategorySelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCategorySelectedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				C477A2FA2CD0E984006B8DB6 /* CommunityCreateView.swift */,
+				C4A776962CD3441E00D60EEE /* CommunityCategorySelectedView.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -559,7 +562,7 @@
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
-				99CE34162CD2238E0020F99E /* (null) in Sources */,
+				C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
