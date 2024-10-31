@@ -37,6 +37,7 @@ struct CommunityView: View {
     private var filterButton = ["전체", "시터구하기", "산책 인증", "궁금해요", "자유게시판"] // MVI 패턴 적용후 Model로 이동
     var body: some View {
         NavigationView {
+<<<<<<< HEAD
                     ZStack {
                         ScrollView {
                             filterView()
@@ -240,6 +241,17 @@ struct CommunityView: View {
                 }
                 .padding(.bottom)
                 .padding(.trailing)
+=======
+            // NavigationLink {
+            //     CommunityDetailView()
+            // } label: {
+            //     Text("상세화면 테스트")
+            // }
+            NavigationLink {
+                CommunityCreateView()
+            } label: {
+                Text("게시물 작성 화면 테스트")
+>>>>>>> de7f6ce (UI: 커뮤니티 게시물 작성 화면 UI 구성)
             }
         }
     }
