@@ -11,7 +11,7 @@ import MapKit
 struct WarkResultView: View {
     private static let width = UIScreen.main.bounds.width
     private static let height = UIScreen.main.bounds.height
-    //임시 위치 설정
+    //임시 위치 설정.
     @State private var position: MapCameraPosition = .region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780),
