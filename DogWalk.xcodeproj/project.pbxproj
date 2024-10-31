@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		06CEA1842CD22D57003249BF /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1832CD22D57003249BF /* APIKey.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
-		99CE34162CD2238E0020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE34152CD2238E0020F99E /* APIKey.swift */; };
+		99CE34162CD2238E0020F99E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		99CE341C2CD247B50020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE341B2CD247B50020F99E /* APIKey.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -56,6 +55,7 @@
 /* Begin PBXFileReference section */
 		06CEA1832CD22D57003249BF /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
+		99CE341B2CD247B50020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,10 +111,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		06CEA1822CD22D46003249BF /* Security */ = {
+		99CE34192CD247460020F99E /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				06CEA1832CD22D57003249BF /* APIKey.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		99CE341A2CD2479E0020F99E /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				99CE341B2CD247B50020F99E /* APIKey.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -125,6 +133,7 @@
 				C477A2B72CD0E5DC006B8DB6 /* .gitignore */,
 				C477A2A82CD0E594006B8DB6 /* DogWalk */,
 				C477A2A72CD0E594006B8DB6 /* Products */,
+				99CE34192CD247460020F99E /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,7 +151,6 @@
 				C4A776842CD1152600D60EEE /* Info.plist */,
 				C4A776932CD129F500D60EEE /* Application */,
 				C477A2BF2CD0E65B006B8DB6 /* Data */,
-				99CE34142CD223720020F99E /* Security */,
 				C477A2BE2CD0E657006B8DB6 /* Domain */,
 				C477A2BD2CD0E650006B8DB6 /* Presentatiton */,
 				C477A2AF2CD0E596006B8DB6 /* Preview Content */,
@@ -185,6 +193,7 @@
 				C477A2C42CD0E6B6006B8DB6 /* DataSource */,
 				C477A2C32CD0E6A4006B8DB6 /* Network */,
 				C477A2C02CD0E689006B8DB6 /* Repositories */,
+				99CE341A2CD2479E0020F99E /* Security */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -547,7 +556,7 @@
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
-				99CE34162CD2238E0020F99E /* APIKey.swift in Sources */,
+				99CE34162CD2238E0020F99E /* (null) in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
@@ -559,6 +568,7 @@
 				C477A2F52CD0E959006B8DB6 /* CommonButton.swift in Sources */,
 				C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */,
 				C477A2CB2CD0E719006B8DB6 /* DefaultRemoteDTO.swift in Sources */,
+				99CE341C2CD247B50020F99E /* APIKey.swift in Sources */,
 				C477A2DE2CD0E800006B8DB6 /* DefaultSomeInterface.swift in Sources */,
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
@@ -572,7 +582,6 @@
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
-				06CEA1842CD22D57003249BF /* APIKey.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
