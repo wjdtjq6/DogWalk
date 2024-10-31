@@ -26,7 +26,7 @@ extension MapView {
     var body: some View {
         ZStack {
             mapView()
-            defaultBottomView()
+            timerBottomView()
                 .vBottom()
         } //:ZSTACK
         .sheet(isPresented: $isShowingSheet) {
