@@ -586,6 +586,7 @@
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
+				BF92413C2CD2444100D3A699 /* APIKey.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,

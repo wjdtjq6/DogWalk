@@ -33,7 +33,7 @@ struct ChattingView: View {
             .searchable(text: $searchText, prompt: "검색") // SearchBar
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    appLogo() // 좌상단 앱 로고
+                    appLogo("MeongTalk") // 좌상단 앱 로고
                 }
             }
         }
@@ -76,9 +76,9 @@ struct ChattingView: View {
     }
     
     // 좌상단 앱 로고
-    func appLogo() -> some View {
+    func appLogo(_ text: String) -> some View {
         HStack {
-            Text("MeongTalk")
+            Text(text)
                 .font(.bagelfat28)
             Spacer()
         }
