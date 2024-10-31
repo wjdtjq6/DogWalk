@@ -10,6 +10,7 @@
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
 		06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1892CD398F0003249BF /* ChattingRoomView.swift */; };
 		06CEA18C2CD39DA7003249BF /* CommonMessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18B2CD39DA7003249BF /* CommonMessageInput.swift */; };
+		06CEA1882CD365C6003249BF /* WarkResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1872CD365C6003249BF /* WarkResultView.swift */; };
 		99CE34162CD2238E0020F99E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		99CE341C2CD247B50020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE341B2CD247B50020F99E /* APIKey.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
@@ -59,6 +60,7 @@
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
 		06CEA1892CD398F0003249BF /* ChattingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomView.swift; sourceTree = "<group>"; };
 		06CEA18B2CD39DA7003249BF /* CommonMessageInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMessageInput.swift; sourceTree = "<group>"; };
+		06CEA1872CD365C6003249BF /* WarkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarkResultView.swift; sourceTree = "<group>"; };
 		99CE341B2CD247B50020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				C477A2F62CD0E972006B8DB6 /* MapView.swift */,
+				06CEA1872CD365C6003249BF /* WarkResultView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				C477A2DE2CD0E800006B8DB6 /* DefaultSomeInterface.swift in Sources */,
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
+				06CEA1882CD365C6003249BF /* WarkResultView.swift in Sources */,
 				C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */,
 				C4A7768D2CD125EE00D60EEE /* UserManager.swift in Sources */,
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,

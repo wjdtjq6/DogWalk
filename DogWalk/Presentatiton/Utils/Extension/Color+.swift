@@ -13,6 +13,7 @@ extension Color {
     static let primaryOrange = Color(hex: "#FFA131")
     static let primaryWhite = Color(hex: "#FFFFFF")
     static let primaryBlack = Color(hex: "#000000")
+    static let primaryGray = Color(hex: "#D3D3D3")
 }
 
 extension Color {
