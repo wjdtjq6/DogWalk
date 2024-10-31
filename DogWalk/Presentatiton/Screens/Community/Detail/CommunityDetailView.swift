@@ -112,6 +112,7 @@ struct CommunityDetailView: View {
                             .font(.pretendardRegular14)
                     }
             }
+            .font(.pretendardRegular14)
             CommonButton(width: 50, height: 30,
                          cornerradius: 10, backColor: Color.primaryGreen,
                          text: "🐾", textFont: .pretendardBold14)
