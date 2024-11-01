@@ -13,13 +13,13 @@ struct AuthView: View {
     
     var body: some View {
             VStack {                
-                VStack(spacing: 15) {
-                    Text("반가워요!")
-                        .font(.bagelfat28)
+                VStack(spacing: 25) {
+                    Text("반가워요! 🐾")
+                        .font(.bagelfat50)
                         .foregroundColor(Color.primaryBlack)
                     
-                    Text("도그워크와 함께\n즐거운 산책을 시작해볼까요?")
-                        .font(.pretendardBlack20)
+                    Text("우리 댕댕이의 하루를 더 즐겁게!\n 도그워크와 함께 산책을 시작해  보세요!")
+                        .font(.pretendardSemiBold20)
                         .foregroundColor(Color.primaryBlack)
                         .multilineTextAlignment(.center)
                 }
