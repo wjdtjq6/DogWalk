@@ -43,7 +43,7 @@ struct ChattingView: View {
     func chattingViewCell(_ item: TestData) -> some View {
         // 임시로 SettingView로 해놨습니다. 추후에 채팅 디테일로 바꿔야 돼요
         NavigationLink {
-            SettingView()
+            ChattingRoomView()
         } label: {
             HStack {
                 // 프로필 사진 클릭시

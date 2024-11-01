@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
-		06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1892CD398F0003249BF /* ChattingRoomView.swift */; };
-		06CEA18C2CD39DA7003249BF /* CommonMessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18B2CD39DA7003249BF /* CommonMessageInput.swift */; };
 		06CEA1882CD365C6003249BF /* WarkResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1872CD365C6003249BF /* WarkResultView.swift */; };
+		06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1892CD398F0003249BF /* ChattingRoomView.swift */; };
+		06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18D2CD3E28E003249BF /* CommonSendView.swift */; };
 		99CE34162CD2238E0020F99E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		99CE341C2CD247B50020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE341B2CD247B50020F99E /* APIKey.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
@@ -58,9 +58,9 @@
 /* Begin PBXFileReference section */
 		06CEA1832CD22D57003249BF /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
-		06CEA1892CD398F0003249BF /* ChattingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomView.swift; sourceTree = "<group>"; };
-		06CEA18B2CD39DA7003249BF /* CommonMessageInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMessageInput.swift; sourceTree = "<group>"; };
 		06CEA1872CD365C6003249BF /* WarkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarkResultView.swift; sourceTree = "<group>"; };
+		06CEA1892CD398F0003249BF /* ChattingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomView.swift; sourceTree = "<group>"; };
+		06CEA18D2CD3E28E003249BF /* CommonSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSendView.swift; sourceTree = "<group>"; };
 		99CE341B2CD247B50020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
@@ -421,7 +421,7 @@
 			children = (
 				C477A2F42CD0E959006B8DB6 /* CommonButton.swift */,
 				06CEA1852CD23181003249BF /* CommonProfile.swift */,
-				06CEA18B2CD39DA7003249BF /* CommonMessageInput.swift */,
+				06CEA18D2CD3E28E003249BF /* CommonSendView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -567,7 +567,6 @@
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
 				99CE34162CD2238E0020F99E /* (null) in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
-				06CEA18C2CD39DA7003249BF /* CommonMessageInput.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
 				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
@@ -581,6 +580,7 @@
 				99CE341C2CD247B50020F99E /* APIKey.swift in Sources */,
 				06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */,
 				C477A2DE2CD0E800006B8DB6 /* DefaultSomeInterface.swift in Sources */,
+				06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */,
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
 				06CEA1882CD365C6003249BF /* WarkResultView.swift in Sources */,
