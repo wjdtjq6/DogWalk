@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import Photos
 import AVKit
 enum LibraryStatus {
@@ -15,13 +16,12 @@ enum LibraryStatus {
 }
 struct Asset: Identifiable {
     var id = UUID().uuidString
-    
     var asset: PHAsset
     var image: UIImage
 }
 
 class ImagePickerVM: NSObject,ObservableObject {
-    //static let size = CGSize(width: 150, height: 150)
+    static let size = CGSize(width: 300, height: 300)
     @Published var showImagePicker = false
     @Published var librayStatus = LibraryStatus.denied
     @Published var fetchedPhotos: [Asset] = []
@@ -29,6 +29,11 @@ class ImagePickerVM: NSObject,ObservableObject {
     @Published var showPreview = false
     @Published var selectedImagePreView: UIImage!
     @Published var selectedVideoPreview: AVAsset!
+    
+    private var currentIndex = 0
+    private let fetchLimit = 50
+    private var isFetching = false
+    private let fetchTrigger = PassthroughSubject<Void, Never>()
     func openImagePicker() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil) //키보드 내림
         if fetchedPhotos.isEmpty { //이미지 빈 경우 불러오기~
@@ -56,30 +61,50 @@ class ImagePickerVM: NSObject,ObservableObject {
             
         }
         PHPhotoLibrary.shared().register(self)
+        //.filter { [weak self] in self?.}
     }
     // 사용자 사진 불러오기
-    
     private func fetchPhotos() {
+        guard !isFetching else { return } //페이지네이션 안해도 되면 리턴
+        isFetching = true
+        
         let options = PHFetchOptions()
         options.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
-        options.includeHiddenAssets = false
-        options.fetchLimit = 20 //이미지 갯수 제한
+        options.includeHiddenAssets = false // 비동기 처리
+        //options.fetchLimit = 50 //이미지 갯수 제한
         
-        let fetchResults = PHAsset.fetchAssets(with: options)
+        //        let fetchResults = PHAsset.fetchAssets(with: options)
         
-        allPhotos = fetchResults
+        //allPhotos = fetchResults
+        allPhotos = PHAsset.fetchAssets(with: options)
+        let fetchRange = NSMakeRange(currentIndex, min(fetchLimit, allPhotos.count - currentIndex))
+        guard fetchRange.location < allPhotos.count else {
+            isFetching = false
+            return
+        } //이미 모든 사진가져왔으면 페이징 false
+        let paginatedFetchResults = allPhotos.objects(at: IndexSet(integersIn: fetchRange.location..<fetchRange.location + fetchRange.length))
         
-        fetchResults.enumerateObjects { [self] asset, index, _ in
+        paginatedFetchResults.forEach { asset in
             if asset.mediaType == .image {
-                //가져온 이미지들
-                getImageFromAsset(asset: asset, size: CGSize(width: 150, height: 150)) { image in
+                self.getImageFromAsset(asset: asset, size: Self.size) { image in
                     self.fetchedPhotos.append(Asset(asset: asset, image: image))
                 }
             }
         }
+        currentIndex += fetchLimit
+        isFetching = false
+        //        fetchResults.enumerateObjects { asset, index, _ in
+        //            if asset.mediaType == .image {
+        //                //가져온 이미지들
+        //                self.getImageFromAsset(asset: asset, size: CGSize(width: 300, height: 300)) { image in
+        //                    self.fetchedPhotos.append(Asset(asset: asset, image: image))
+        //                }
+        //            }
+        //        }
     }
+    //영상 안쓰면 필요없음!
     private func getImageFromAsset(asset: PHAsset, size: CGSize, completion: @escaping (UIImage) -> ()) {
         
         let imageManager = PHCachingImageManager()
@@ -89,10 +114,9 @@ class ImagePickerVM: NSObject,ObservableObject {
         // TODO: 이미지 캐싱 구현 시 캐싱 해주기
         imageOptions.isSynchronous = true //이미지 캐싱 로직 작성해주기~
         
-        let size = CGSize(width: 230, height: 230) //이미지 사이즈 조절
         imageManager.requestImage(
             for: asset,
-            targetSize: size,
+            targetSize: Self.size,
             contentMode: .aspectFill,
             options: imageOptions) { image, _ in
                 guard let resizedImage = image else { return }
@@ -100,8 +124,8 @@ class ImagePickerVM: NSObject,ObservableObject {
             }
     }
     func extractPreviewData(asset: PHAsset) {
-  //      let manager = PHCachingImageManager()
-         
+        //      let manager = PHCachingImageManager()
+        
         if asset.mediaType == .image {
             getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { image in
                 DispatchQueue.main.async {
@@ -109,16 +133,23 @@ class ImagePickerVM: NSObject,ObservableObject {
                 }
             }
         }
-//        if asset.mediaType == .video {
-//            let videoManager = PHVideoRequestOptions()
-//            videoManager.deliveryMode = .highQualityFormat
-//            manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
-//                guard let videoUrl = videoAsset else { return }
-//                DispatchQueue.global().async {
-//                    self.selectedVideoPreview = videoUrl
-//                }
-//            }
-//        }
+        //        if asset.mediaType == .video {
+        //            let videoManager = PHVideoRequestOptions()
+        //            videoManager.deliveryMode = .highQualityFormat
+        //            manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
+        //                guard let videoUrl = videoAsset else { return }
+        //                DispatchQueue.global().async {
+        //                    self.selectedVideoPreview = videoUrl
+        //                }
+        //            }
+        //        }
+    }
+    func loadMorePhotosIfNeeded(currentItem item: Asset?) {
+        guard let item = item else { return }
+        let thresholdIndex = fetchedPhotos.index(fetchedPhotos.endIndex, offsetBy: -5)
+        if fetchedPhotos.firstIndex(where: { $0.id == item.id }) == thresholdIndex {
+            fetchPhotos()
+        }
     }
 }
 // MARK: - 갤러리 업데이트 관찰
@@ -130,8 +161,8 @@ extension ImagePickerVM: PHPhotoLibraryChangeObserver {
             let updatedPhotos = updates.fetchResultAfterChanges
             updatedPhotos.enumerateObjects { [self] asset, index, _ in
                 if !allPhotos.contains(asset) {
-                    getImageFromAsset(asset: asset, size: CGSize(width: 150, height: 150)) { image in
-                        DispatchQueue.global().async {
+                    getImageFromAsset(asset: asset, size: Self.size) { image in
+                        DispatchQueue.main.async {
                             self.fetchedPhotos.append(Asset(asset: asset, image: image))
                         }
                     }
@@ -360,6 +391,13 @@ private extension CommonSendView {
                             imagePicker.extractPreviewData(asset: photo.asset)
                             imagePicker.showPreview.toggle()
                         }
+                        .background(GeometryReader { geo in
+                            Color.clear.onAppear {
+                                imagePicker.loadMorePhotosIfNeeded(currentItem: photo)
+                            }
+                            
+                        }
+                        ) //페이지네이션 기능 구현
                 }
                 //Image
                 if imagePicker.librayStatus == .denied || imagePicker.librayStatus == .limited {
@@ -387,7 +425,7 @@ private extension CommonSendView {
                 }
             } //:HSTACK
             .padding()
-        }
+        } //:SCROLL
         .frame(height: imagePicker.showImagePicker ? 250 : 0) //플러스 버튼 누를경우 나옴
         .background(Color.primaryWhite.ignoresSafeArea(.all, edges: .bottom))
         .opacity(imagePicker.showImagePicker ? 1 : 0)
@@ -402,12 +440,12 @@ private extension CommonSendView {
                 .cornerRadius(10)
                 .padding(.bottom)
             //이미지만 가져올까????
-//            if photo.asset.mediaType == .video {
-//                Image(systemName: "video.fill")
-//                    .font(.title2)
-//                    .foregroundStyle(.white)
-//                    .padding(10)
-//            }
+            //            if photo.asset.mediaType == .video {
+            //                Image(systemName: "video.fill")
+            //                    .font(.title2)
+            //                    .foregroundStyle(.white)
+            //                    .padding(10)
+            //            }
         }
     }
 }
