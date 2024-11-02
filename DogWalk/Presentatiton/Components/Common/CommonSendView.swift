@@ -9,20 +9,24 @@ import SwiftUI
 
 struct CommonSendView: View {
     var proxy: GeometryProxy
+    @Binding var yOffset: CGFloat //키보드 높이 측정
+    @Binding var showKeyboard: Bool //키보드 여부
     @State private var text = ""
     @State private var bottomPadding: CGFloat = 0.0
     @State private var sendHeigh: CGFloat = 36.0
-    @State private var showKeyboard = false //키보드 여부
+    //@State private var showKeyboard = false //키보드 여부
     @State private var isSendable = false // 보내기 버튼 활성화 여부
     @State private var isCamera = false //카메라 클릭 여부
     private let tfHeight: CGFloat = 36.0
     private var size: CGSize {
         return proxy.size
     }
+    private var bottomSafeArea: CGFloat {
+        return UIApplication.shared.bottomPadding
+    }
     var completionSendText: ((String) -> ())?
     
     var body: some View {
-        let bottomSafeArea = UIApplication.shared.bottomPadding
         HStack(alignment: .bottom, spacing: 10.0) {
             cameraButton()
             textField()
@@ -36,7 +40,7 @@ struct CommonSendView: View {
             topTrailingRadius: 20.0)
         )
         .shadow(radius: 1.0, y: -1.0)
-        .offset(y: size.height - (bottomSafeArea + bottomPadding + sendHeigh - (bottomPadding == 0 ? -20 : 14)))
+        .offset(y: size.height - yOffset)
         .onReceive(NotificationCenter.default.publisher(for: .keyboardWillShow), perform: { notif in
             //keyboard 높이에 따른 bottom 높이 조절
             if let keyboardHeight = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height,
@@ -45,6 +49,7 @@ struct CommonSendView: View {
                 withAnimation(.snappy(duration: duration)) {
                     bottomPadding = keyboardHeight
                     showKeyboard = true
+                    self.updateYOffset()
                 }
             }
         })
@@ -54,9 +59,18 @@ struct CommonSendView: View {
                 withAnimation(.snappy(duration: duration)) {
                     bottomPadding = 0.0
                     showKeyboard = false
+                    self.updateYOffset()
                 }
             }
         })
+        .onAppear {
+            self.updateYOffset()
+        }
+    }
+}
+private extension CommonSendView {
+    func updateYOffset() {
+        yOffset = (bottomSafeArea + bottomPadding + sendHeigh - (bottomPadding == 0 ? -20 : 14))
     }
 }
 // MARK: - 텍스트 부분
@@ -91,6 +105,7 @@ private extension CommonSendView {
                     .preference(key: TextFieldSize.self, value: $0.size)
                     .onPreferenceChange(TextFieldSize.self, perform: { value in
                         sendHeigh = value.height
+                        self.updateYOffset()
                     })
             }
             
