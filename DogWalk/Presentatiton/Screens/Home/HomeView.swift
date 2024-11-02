@@ -51,9 +51,9 @@ struct HomeView: View {
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
                         ForEach(1..<10, id: \.self) {_ in
-                            Image(.testAdCell)
-                                .resizable()
-                                .scaledToFit()
+//                            Image(.testAdCell)
+//                                .resizable()
+//                                .scaledToFit()
                         }
                     }
                 }
