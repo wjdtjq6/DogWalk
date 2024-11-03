@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
-
+import AuthenticationServices
+class AuthVM {
+    
+}
 struct AuthView: View {
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
@@ -39,11 +42,29 @@ struct AuthView: View {
                             .scaledToFit()
                     })
                     
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Button(action: {
+                        
+                    }, label: {
                         Image("appleid_button (4)")
                             .resizable()
                             .scaledToFit()
                     })
+                    .overlay {
+                        SignInWithAppleButton  { request in
+                            print(request)
+                        } onCompletion: { result in
+                            switch result {
+                            case .success(let data):
+                                guard let credential = data.credential as? ASAuthorizationAppleIDCredential else { return }
+                                print(credential.email)
+                                print(credential.fullName)
+                                print(credential.identityToken)
+                            case .failure(let err):
+                                print(err)
+                            }
+                        }
+                        .blendMode(.overlay)
+                    }
                 }
                 .padding(.horizontal, 20)
             }
