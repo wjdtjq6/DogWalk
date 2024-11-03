@@ -19,6 +19,7 @@ struct WarkResultView: View {
             longitudinalMeters: 1000
         )
     )
+    @Binding var isPresented: Bool
 }
 
 extension WarkResultView {
@@ -56,6 +57,7 @@ private extension WarkResultView {
                 .padding(.trailing)
                 .wrapToButton {
                     print("x버튼 눌림") // 뷰 dismiss 진행
+                    isPresented = false
                 }
         } //:HSTACK
     }
@@ -155,6 +157,6 @@ private extension WarkResultView {
     }
 }
 
-#Preview {
-    WarkResultView()
-}
+//#Preview {
+//    WarkResultView()
+//}
