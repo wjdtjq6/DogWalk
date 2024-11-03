@@ -1,4 +1,4 @@
-//
+    //
 //  ChattingView.swift
 //  DogWalk
 //
@@ -47,7 +47,7 @@ struct ChattingView: View {
     private func chattingViewCell(_ item: TestData) -> some View {
         // 임시로 SettingView로 해놨습니다. 추후에 채팅 디테일로 바꿔야 돼요
         NavigationLink {
-            SettingView()
+            ChattingRoomView()
         } label: {
             HStack {
                 CommonProfile(image: .asTestImage, size: 60)
