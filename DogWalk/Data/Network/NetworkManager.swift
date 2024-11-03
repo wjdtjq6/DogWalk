@@ -6,7 +6,15 @@
 //
 
 import Foundation
+import Combine
 
-class NetworkManager {
-    
+protocol NetworkCall {
+    // func callRequest<T: Decodable>(target: APITarget, of type: T.Type) async throws -> Result<T, NetworkError>
+    // func callRequest<T: Decodable>(router: Router, type: T.Type) -> Single<Result<T, NetworkError>>
 }
+
+final class NetworkManager: NetworkCall {
+    static let shared = NetworkManager()
+    private init() { }
+}
+
