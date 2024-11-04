@@ -19,20 +19,30 @@ struct MapView: View {
             longitudinalMeters: 1000
         )
     )
-    @State private var isShowingSheet = false // 임시 바텀 시트 변수
+    @State var isShowingSheet = false // 임시 바텀 시트 변수
+    //Timer
+    @State private var start = false
+    @State private var to: CGFloat = 0
+    @State private var count = 0
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var isTimerOn = false
 }
 
 extension MapView {
     var body: some View {
         ZStack {
             mapView()
-            timerBottomView()
-                .vBottom()
+            if isTimerOn {
+                timerBottomView()
+                    .vBottom()
+            } else {
+                defaultBottomView()
+                    .vBottom()
+            }
         } //:ZSTACK
-        .sheet(isPresented: $isShowingSheet) {
-            userInfoBottomSheet()
-                .presentationDetents([.fraction(0.3)])
-        } //바텀시트
+        .fullScreenCover(isPresented: $isShowingSheet, content: {
+            WarkResultView(isPresented: $isShowingSheet)
+        })
     }
 }
 
@@ -89,6 +99,9 @@ private extension MapView {
                 .shadow(color: .black.opacity(0.6), radius: 5, x: 0, y: 5) // 버튼 그림자
                 .wrapToButton {
                     print("산책 시작 버튼 클릭")
+                    isTimerOn = true//Timer
+                    count = 0
+                    start = true
                 }
             
         } //:HSTACK
@@ -100,7 +113,10 @@ private extension MapView {
             Rectangle()
                 .fill(Color.primaryGreen)
                 .overlay {
-                    Text("00:10:57") // 시간 넣기
+                    let hours = self.count / 3600
+                    let minutes = String(format: "%02d", (self.count % 3600) / 60)
+                    let seconds = String(format: "%02d", self.count % 3600 % 60)
+                    Text("\(hours):\(minutes):\(seconds)") // 시간 넣기
                         .font(.pretendardBold16)
                         .foregroundStyle(.white)
                 }
@@ -113,6 +129,7 @@ private extension MapView {
                             .wrapToButton {
                                 print("산책 종료 버튼 클릭")
                                 self.isShowingSheet.toggle()//임시 바텀시트 동작
+                                self.isTimerOn.toggle()//Timer
                             }
                         Text("산책 종료")
                             .font(.pretendardBold16)
@@ -120,6 +137,21 @@ private extension MapView {
                 }
         } //:HSTACK
         .frame(height: Self.height * 0.07)
+        //Timer
+        .onReceive(self.timer, perform: { _ in
+            if self.start {
+                if self.count < 6 * 60 * 60 {//6시간까지 count
+                    self.count += 1
+                    print(self.count)
+                }
+                else {
+                    self.start.toggle()
+                }
+            }
+        })
+        .onDisappear(perform: {
+            print(#function)
+        })
     }
     //지도 마커 클릭 시 바텀 시트
     func userInfoBottomSheet() -> some View {
