@@ -36,7 +36,10 @@ extension ChattingRoomView {
                 ) { text in
                     print(text) // 보낼 경우 텍스트 반환
                     message.addMessage(text: text)
+                } completionSendImage: { UIImage in //이미지 보낼 경우
+                    message.addImage(image: UIImage)
                 }
+                
             }
         }  //:VSTACK
         .ignoresSafeArea()
@@ -58,8 +61,13 @@ private extension ChattingRoomView {
             ScrollView {
                 LazyVStack(spacing: 2.0) {
                     ForEach(message.modles) { model in
-                        MessageView(size: size, model: model)
-                            .padding(.bottom, 10)
+                        if model.type == .text {
+                            messageView(size: size, model: model)
+                                .padding(.bottom, 10)
+                        } else {
+                            imageMessageView(size: size, model: model)
+                                .padding(.bottom, 10)
+                        }
                     }
                 } //:VSTACK
                 .onAppear {
@@ -94,7 +102,7 @@ private extension ChattingRoomView {
 // MARK: - 말풍선 부분
 private extension ChattingRoomView {
     @ViewBuilder
-    func MessageView(size: CGSize, model: MessageModel) -> some View {
+    func messageView(size: CGSize, model: MessageModel) -> some View {
         let isRight = model.userID == "나" //userID 변경해주기
         //말풍선 size 지정
         let minBubbleHeight: CGFloat = 18.0
@@ -102,7 +110,7 @@ private extension ChattingRoomView {
         let maxBubbleWidth: CGFloat = Self.width * 0.62
         
         //mesRect -> 텍스트 너비가 작으면 가장 작은 너비, 텍스트가 길변 큰 폭을 차지하도록 구현
-        let mesRect = model.message.estimatedTextRect(width: maxBubbleWidth)
+        let mesRect = model.content.estimatedTextRect(width: maxBubbleWidth)
         let mesWidth = mesRect.width <= minBubbleWidth ?
         minBubbleWidth :
         (mesRect.width >= maxBubbleWidth) ? maxBubbleWidth : mesRect.width
@@ -117,7 +125,7 @@ private extension ChattingRoomView {
                     .offset(x: -xOffSet + 55)
             } else { // 나 날짜 부분
                 dateChattView()
-                    .offset(x: xOffSet - 27, y: 4)
+                    .offset(x: xOffSet - 15, y: 4)
             }
             //말풍선 부분
             Rectangle()
@@ -131,15 +139,15 @@ private extension ChattingRoomView {
                         .frame(width: bubbleWidth - 5, height: bubbleHeight)
                         .aspectRatio(contentMode: .fit)
                         .scaleEffect(x: isRight ? 1.0 : -1.0) // 이미지 뒤집기~
-                        .offset(x: isRight ? xOffSet - 35 : -xOffSet + 55)
+                        .offset(x: isRight ? xOffSet - 25 : -xOffSet + 55) //여기고침
                     
                 )
                 .overlay(alignment: isRight ? .trailing : .leading) {
                     HStack {
-                        Text(model.message)
+                        Text(model.content)
                             .font(.pretendardRegular16)
                             .frame(width: mesWidth, height: mesHeight)
-                            .padding(isRight ? .trailing : .leading, 15)
+                            .padding(isRight ? .trailing : .leading, isRight ? 5 : 15)
                             .offset(x: isRight ? xOffSet - 30 : -xOffSet + 50)
                     }
                     //.foregroundStyle(isRight ? ) // 채팅 색 변경
@@ -152,6 +160,46 @@ private extension ChattingRoomView {
             }
         } //:HSTACK
         .id(model.id) //각 cell 아이디 부여
+    }
+}
+// MARK: - 채팅이 이미지일 경우
+private extension ChattingRoomView {
+    @ViewBuilder
+    func imageMessageView(size: CGSize, model: MessageModel) -> some View {
+        let isRight = model.userID == "나"
+        let width = size.width
+        HStack {
+            if !isRight { // 상대 프로필
+                userProfileView()
+                    .offset(x: -width * 0.0985)
+            } else {
+                dateChattView()
+                    .offset(x: width * 0.1985)
+                    .padding(.bottom, 5)
+            }
+            // 이미지 말풍선 부분
+            Image(uiImage: model.image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 150, height: 150) // 이미지 크기 조정
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(isRight ? Color.primaryOrange.opacity(0.8) : Color.primaryGray.opacity(0.6))
+                        .frame(width: 150, height: 150)
+                        .scaleEffect(x: isRight ? 1.0 : -1.0) // 이미지 말풍선 방향
+                )
+                .offset(x: isRight ? width * 0.2 : -width * 0.12)
+                .padding(isRight ? .trailing : .leading, 15)
+                .padding(.bottom, 10)
+            
+            if !isRight { // 상대방 날짜
+                dateChattView()
+                    .offset(x: -width * 0.12)
+                    .padding(.bottom, 5)
+            }
+        }
+        .id(model.id) // 각 셀에 고유 아이디 부여
     }
 }
 // MARK: - 사용자 프로필 부분

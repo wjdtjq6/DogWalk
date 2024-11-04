@@ -27,8 +27,7 @@ class ImagePickerVM: NSObject,ObservableObject {
     @Published var fetchedPhotos: [Asset] = []
     @Published var allPhotos: PHFetchResult<PHAsset>!
     @Published var showPreview = false
-    @Published var selectedImagePreView: UIImage!
-    @Published var selectedVideoPreview: AVAsset!
+    @Published var selectedImage: UIImage! //선택한 이미지
     
     private var currentIndex = 0
     private let fetchLimit = 50
@@ -40,28 +39,27 @@ class ImagePickerVM: NSObject,ObservableObject {
             fetchPhotos()
         }
         withAnimation {showImagePicker.toggle()}
+        if !showImagePicker { //이미지 선택 해제 시 선택한 이미지 초기화
+            selectedImage = nil
+        }
     }
     deinit {
         //옵저버 해제
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     func setUp() {
-        //[self]를 하는 이유가 멀까????
-        //명시적 강한 참조? 갤러리여서???
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) {[self] status in
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             DispatchQueue.main.async {
                 switch status {
                 case .denied: self.librayStatus = .denied
                 case .authorized: self.librayStatus = .approved
                 case .limited: self.librayStatus = .limited
                 default: self.librayStatus = .denied
-                    
                 }
             }
             
         }
         PHPhotoLibrary.shared().register(self)
-        //.filter { [weak self] in self?.}
     }
     // 사용자 사진 불러오기
     private func fetchPhotos() {
@@ -73,11 +71,6 @@ class ImagePickerVM: NSObject,ObservableObject {
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         options.includeHiddenAssets = false // 비동기 처리
-        //options.fetchLimit = 50 //이미지 갯수 제한
-        
-        //        let fetchResults = PHAsset.fetchAssets(with: options)
-        
-        //allPhotos = fetchResults
         allPhotos = PHAsset.fetchAssets(with: options)
         let fetchRange = NSMakeRange(currentIndex, min(fetchLimit, allPhotos.count - currentIndex))
         guard fetchRange.location < allPhotos.count else {
@@ -95,18 +88,9 @@ class ImagePickerVM: NSObject,ObservableObject {
         }
         currentIndex += fetchLimit
         isFetching = false
-        //        fetchResults.enumerateObjects { asset, index, _ in
-        //            if asset.mediaType == .image {
-        //                //가져온 이미지들
-        //                self.getImageFromAsset(asset: asset, size: CGSize(width: 300, height: 300)) { image in
-        //                    self.fetchedPhotos.append(Asset(asset: asset, image: image))
-        //                }
-        //            }
-        //        }
     }
-    //영상 안쓰면 필요없음!
+    
     private func getImageFromAsset(asset: PHAsset, size: CGSize, completion: @escaping (UIImage) -> ()) {
-        
         let imageManager = PHCachingImageManager()
         imageManager.allowsCachingHighQualityImages = true
         let imageOptions = PHImageRequestOptions()
@@ -123,27 +107,17 @@ class ImagePickerVM: NSObject,ObservableObject {
                 completion(resizedImage)
             }
     }
+    //이미지 배열에 넣기
     func extractPreviewData(asset: PHAsset) {
-        //      let manager = PHCachingImageManager()
-        
         if asset.mediaType == .image {
             getImageFromAsset(asset: asset, size: PHImageManagerMaximumSize) { image in
                 DispatchQueue.main.async {
-                    self.selectedImagePreView = image
+                    self.selectedImage = image
                 }
             }
         }
-        //        if asset.mediaType == .video {
-        //            let videoManager = PHVideoRequestOptions()
-        //            videoManager.deliveryMode = .highQualityFormat
-        //            manager.requestAVAsset(forVideo: asset, options: videoManager) { videoAsset, _, _ in
-        //                guard let videoUrl = videoAsset else { return }
-        //                DispatchQueue.global().async {
-        //                    self.selectedVideoPreview = videoUrl
-        //                }
-        //            }
-        //        }
     }
+    //페이지네이션
     func loadMorePhotosIfNeeded(currentItem item: Asset?) {
         guard let item = item else { return }
         let thresholdIndex = fetchedPhotos.index(fetchedPhotos.endIndex, offsetBy: -5)
@@ -188,17 +162,20 @@ extension ImagePickerVM: PHPhotoLibraryChangeObserver {
     
 }
 struct CommonSendView: View {
+    private static let width = UIScreen.main.bounds.width
+    private static var height = UIScreen.main.bounds.height
     var proxy: GeometryProxy
     @Binding var yOffset: CGFloat //키보드 높이 측정
     @Binding var showKeyboard: Bool //키보드 여부
     
-    @State private var text = ""
+    @StateObject var imagePicker = ImagePickerVM()
+    @State private var text = "" //키보드 입력값
     @State private var bottomPadding: CGFloat = 0.0
     @State private var sendHeigh: CGFloat = 36.0
     @State private var isSendable = false // 보내기 버튼 활성화 여부
     
     @FocusState private var isKeyboardFocused: Bool //키보드 포커스 상태
-    @StateObject var imagePicker = ImagePickerVM()
+    @State private var rotationAngle: Double = 0 // +버튼 각도 변수
     private let tfHeight: CGFloat = 36.0
     private var size: CGSize {
         return proxy.size
@@ -206,11 +183,12 @@ struct CommonSendView: View {
     private var bottomSafeArea: CGFloat {
         return UIApplication.shared.bottomPadding
     }
-    private var cameraImage: Image { //카메라 이미지
-        return self.imagePicker.showImagePicker ?  .asXmark : .asPlus
+    private var bottomSheetHegiht: CGFloat { // 바텀 시트 사이즈
+        return Self.height * 0.33
     }
     
-    var completionSendText: ((String) -> ())?
+    var completionSendText: ((String) -> ())? //텍스트 전달
+    var completionSendImage: ((UIImage) -> ())? //이미지 전달
     
     var body: some View {
         VStack {
@@ -253,15 +231,18 @@ struct CommonSendView: View {
             }
         })
         .onChange(of: imagePicker.showImagePicker, { oldValue, newValue in
+            defer {
+                withAnimation(.spring) {
+                        rotationAngle += 45 // showImagePicker 상태 변할 때마다 각도 45도 추가해주기
+                    }
+            }
             if newValue {
                 withAnimation(.snappy(duration: 0.2)) {
-                    bottomPadding = 250
+                    bottomPadding = bottomSheetHegiht
                     self.updateYOffset()
                 }
-                
-                
-                
             } else {
+                imagePicker.selectedImage = nil //이미지 선택 종료 시 선택 이미지 초기화
                 withAnimation(.snappy(duration: 0.2)) {
                     bottomPadding = 0
                     self.updateYOffset()
@@ -276,13 +257,13 @@ struct CommonSendView: View {
                 withAnimation {imagePicker.showImagePicker.toggle()}
             }
         })
-        .sheet(isPresented: $imagePicker.showPreview, onDismiss: {
-            imagePicker.selectedVideoPreview = nil
-            imagePicker.selectedImagePreView = nil
-        }, content: {
-            PreviewView()
-                .environmentObject(imagePicker)
-        })
+        // MARK: - 이미지 자세히 보기 구현시 필요
+//        .sheet(isPresented: $imagePicker.showPreview, onDismiss: {
+//            imagePicker.selectedImage = nil
+//        }, content: {
+//            PreviewView()
+//                .environmentObject(imagePicker)
+//        })
         .onAppear {
             self.updateYOffset()
         }
@@ -319,6 +300,14 @@ private extension CommonSendView {
                 }
                 isSendable = !text.isEmpty
             }
+            //이미지 선택 시 보내기 기능 활성화
+            .onChange(of: imagePicker.selectedImage) { oldValue, newValue in
+                if newValue != nil {
+                    isSendable = true
+                } else {
+                    isSendable = !text.isEmpty
+                }
+            }
         } //:HSTACK
         .padding(.vertical, 8)
         .padding(.horizontal, 12)
@@ -346,12 +335,11 @@ private extension CommonSendView {
             imagePicker.setUp()
             imagePicker.openImagePicker()
         } label: {
-            // TODO: 바뀔때 애니메이션 변경해주기
-            cameraImage
+            Image.asPlus
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .aspectRatio(0.5, contentMode: .fit)
-            
+                .rotationEffect(Angle(degrees: rotationAngle))
         }
         .buttonStyle(.plain)
         .frame(width: tfHeight, height: tfHeight)
@@ -363,8 +351,15 @@ private extension CommonSendView {
     func sendButton() -> some View {
         Button {
             if isSendable {
-                self.completionSendText?(text)
-                self.text = ""
+                //보내는게 이미지일 경우
+                if imagePicker.selectedImage != nil {
+                    self.completionSendImage?(imagePicker.selectedImage)
+                    self.imagePicker.selectedImage = nil
+                    self.imagePicker.showImagePicker.toggle()
+                } else { //텍스트인 경우
+                    self.completionSendText?(text)
+                    self.text = ""
+                }
             }
         } label: {
             Image(systemName: "paperplane")
@@ -387,19 +382,20 @@ private extension CommonSendView {
             LazyHStack(spacing: 10) {
                 ForEach(imagePicker.fetchedPhotos) { photo in
                     imageCell(photo)
-                        .onTapGesture {
-                            imagePicker.extractPreviewData(asset: photo.asset)
-                            imagePicker.showPreview.toggle()
-                        }
+                    // TODO: 이미지 클릭 시 해당 이미지만 보여주는 뷰를 띄울지 정하기
+                    //                        .onTapGesture {
+                    //                            imagePicker.extractPreviewData(asset: photo.asset)
+                    //                            imagePicker.showPreview.toggle()
+                    //                        }
                         .background(GeometryReader { geo in
                             Color.clear.onAppear {
                                 imagePicker.loadMorePhotosIfNeeded(currentItem: photo)
                             }
-                            
                         }
                         ) //페이지네이션 기능 구현
                 }
                 //Image
+                // MARK: - 권한이 없는 경우
                 if imagePicker.librayStatus == .denied || imagePicker.librayStatus == .limited {
                     VStack {
                         Text(imagePicker.librayStatus == .denied ? "사진 접근 권한 허용 하기" : "더 많은 사진 선택하기")
@@ -426,7 +422,7 @@ private extension CommonSendView {
             } //:HSTACK
             .padding()
         } //:SCROLL
-        .frame(height: imagePicker.showImagePicker ? 250 : 0) //플러스 버튼 누를경우 나옴
+        .frame(height: imagePicker.showImagePicker ? bottomSheetHegiht : 0) //플러스 버튼 누를경우 나옴
         .background(Color.primaryWhite.ignoresSafeArea(.all, edges: .bottom))
         .opacity(imagePicker.showImagePicker ? 1 : 0)
     }
@@ -436,51 +432,55 @@ private extension CommonSendView {
             Image(uiImage: photo.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 180, height: 230)
-                .cornerRadius(10)
+                .frame(width: 180, height: bottomSheetHegiht - 20)
+                .cornerRadius(5)
                 .padding(.bottom)
-            //이미지만 가져올까????
-            //            if photo.asset.mediaType == .video {
-            //                Image(systemName: "video.fill")
-            //                    .font(.title2)
-            //                    .foregroundStyle(.white)
-            //                    .padding(10)
-            //            }
+            // MARK: - 이미지 선택하기 원
+            Circle()
+                .foregroundStyle(
+                    imagePicker.selectedImage == photo.image ?
+                    Color.primaryOrange.opacity(0.8) :
+                        Color.primaryGray.opacity(0.6)
+                )
+                .frame(width: 30, height: 30)
+                .vTop()
+                .hTrailing()
+                .padding(10)
+                .wrapToButton {
+                    imagePicker.selectedImage = photo.image
+                }
+                
         }
     }
 }
 
-import AVKit
 // MARK: - 이미지 보는 뷰
-struct PreviewView: View {
-    @EnvironmentObject var imagePicker: ImagePickerVM
-    var body: some View {
-        NavigationView {
-            ZStack {
-                if imagePicker.selectedVideoPreview != nil {
-                    VideoPlayer(player: AVPlayer(playerItem: AVPlayerItem(asset: imagePicker.selectedVideoPreview)))
-                }
-                if imagePicker.selectedImagePreView != nil {
-                    Image(uiImage: imagePicker.selectedImagePreView)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                }
-            } //:ZSTACK
-            .ignoresSafeArea(.all, edges: .bottom)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing, content: {
-                    Button {
-                        // Action
-                        
-                    } label: {
-                        Text("Send")
-                    }
-                })
-            })
-        }
-    }
-}
+//struct PreviewView: View {
+//    @EnvironmentObject var imagePicker: ImagePickerVM
+//    var body: some View {
+//        NavigationView {
+//            ZStack {
+//                if imagePicker.selectedImage != nil {
+//                    Image(uiImage: imagePicker.selectedImage)
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                }
+//            } //:ZSTACK
+//            .ignoresSafeArea(.all, edges: .bottom)
+//            .navigationBarTitleDisplayMode(.inline)
+//            .toolbar(content: {
+//                ToolbarItem(placement: .navigationBarTrailing, content: {
+//                    Button {
+//                        // Action
+//                        
+//                    } label: {
+//                        Text("Send")
+//                    }
+//                })
+//            })
+//        }
+//    }
+//}
 
 #Preview {
     ChattingRoomView()
