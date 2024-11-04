@@ -14,16 +14,16 @@ import Foundation
  `420` Header에 SesacKey가 없거나 틀린 경우
  `421` Header에 ProductId가 로그인 중인 계정에 대해 유효하지 않은 경우
  `429` 서버 과호출
- `444`비정상 URL
+ `444` 비정상 URL
  `500` 서버 에러
 */
 
 enum NetworkError: Int, Error, CaseIterable {
-    case InvalidAccountOrToken = 401
+    case InvalidToken = 401
     case Forbidden = 403
     case ExpiredAccessToken = 419
-    case NoSesacKey = 420
-    case NoProductID = 421
+    case NoSesacKeyInHeader = 420
+    case NoProductIDInHeader = 421
     case OverCall = 429
     case InvalidURL = 444
     case ServerError = 500
