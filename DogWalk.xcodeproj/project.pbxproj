@@ -50,6 +50,7 @@
 		C4097B132CD7AF28002155EA /* ChatRoomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */; };
 		C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */; };
 		C4097B152CD7AF28002155EA /* LastChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF82CD7AF28002155EA /* LastChatDTO.swift */; };
+		C4097B172CD8A76E002155EA /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B162CD8A76E002155EA /* String+.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -136,6 +137,7 @@
 		C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomDTO.swift; sourceTree = "<group>"; };
 		C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomResponseDTO.swift; sourceTree = "<group>"; };
 		C4097AF82CD7AF28002155EA /* LastChatDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastChatDTO.swift; sourceTree = "<group>"; };
+		C4097B162CD8A76E002155EA /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -396,12 +398,12 @@
 			children = (
 				C4097ACD2CD7AEF5002155EA /* APITarget.swift */,
 				C4097ACA2CD7AEF5002155EA /* AuthTarget.swift */,
-				C4097AC82CD7AEF5002155EA /* ChatTarget.swift */,
-				C4097AC92CD7AEF5002155EA /* NetworkError.swift */,
-				C4097AC72CD7AEF4002155EA /* NetworkManager.swift */,
-				C4097ACE2CD7AEF5002155EA /* PostTarget.swift */,
-				C4097ACB2CD7AEF5002155EA /* TargetType.swift */,
 				C4097ACC2CD7AEF5002155EA /* UserTarget.swift */,
+				C4097ACE2CD7AEF5002155EA /* PostTarget.swift */,
+				C4097AC82CD7AEF5002155EA /* ChatTarget.swift */,
+				C4097AC72CD7AEF4002155EA /* NetworkManager.swift */,
+				C4097AC92CD7AEF5002155EA /* NetworkError.swift */,
+				C4097ACB2CD7AEF5002155EA /* TargetType.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -576,6 +578,7 @@
 				C477A3092CD0EA6C006B8DB6 /* Frame+.swift */,
 				C4A776852CD1235D00D60EEE /* Image+.swift */,
 				C4A776872CD1251E00D60EEE /* View+.swift */,
+				C4097B162CD8A76E002155EA /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -792,6 +795,7 @@
 				06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */,
 				C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */,
 				C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */,
+				C4097B172CD8A76E002155EA /* String+.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C4097B112CD7AF28002155EA /* PostChatFileBody.swift in Sources */,
