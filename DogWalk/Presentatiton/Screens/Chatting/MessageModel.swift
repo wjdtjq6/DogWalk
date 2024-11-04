@@ -51,7 +51,8 @@ class Message: Equatable {
         MessageModel(userID: "나", type: .text, content: "네!", date: Date(), showProfile: true),
         MessageModel(userID: "다른유저", type: .text, content: "가까운 공원에서요.", date: Date(), showProfile: false),
         MessageModel(userID: "나", type: .text, content: "완전 좋아요! 모두 곧 만나요!", date: Date(), showProfile: true),
-        MessageModel(userID: "다른유저", type: .image, content: "어제 밤에 찍은 사진인데 정말 멋진 순간을 포착했어요.", date: Date(), showProfile: false)
+        MessageModel(userID: "다른유저", type: .image, content: "어제 밤에 찍은 사진인데 정말 멋진 순간을 포착했어요.", date: Date(), showProfile: false),
+        MessageModel(userID: "나", type: .image, content: "어제 밤에 찍은 사진인데 정말 멋진 순간을 포착했어요.", date: Date(), showProfile: false)
     ]
     
     func addMessage(text: String) {
