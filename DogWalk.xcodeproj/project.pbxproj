@@ -14,16 +14,51 @@
 		06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18F2CD52DEE003249BF /* MessageModel.swift */; };
 		99CE341C2CD247B50020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE341B2CD247B50020F99E /* APIKey.swift */; };
 		BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41B0A02CD3BC4500B67485 /* AuthView.swift */; };
+		C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC72CD7AEF4002155EA /* NetworkManager.swift */; };
+		C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC82CD7AEF5002155EA /* ChatTarget.swift */; };
+		C4097AD12CD7AEF5002155EA /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC92CD7AEF5002155EA /* NetworkError.swift */; };
+		C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ACA2CD7AEF5002155EA /* AuthTarget.swift */; };
+		C4097AD32CD7AEF5002155EA /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ACB2CD7AEF5002155EA /* TargetType.swift */; };
+		C4097AD42CD7AEF5002155EA /* UserTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ACC2CD7AEF5002155EA /* UserTarget.swift */; };
+		C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ACD2CD7AEF5002155EA /* APITarget.swift */; };
+		C4097AD62CD7AEF5002155EA /* PostTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ACE2CD7AEF5002155EA /* PostTarget.swift */; };
+		C4097AFA2CD7AF28002155EA /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AD72CD7AF28002155EA /* AuthDTO.swift */; };
+		C4097AFB2CD7AF28002155EA /* AppleLoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AD92CD7AF28002155EA /* AppleLoginBody.swift */; };
+		C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADA2CD7AF28002155EA /* KaKaoLoginBody.swift */; };
+		C4097AFD2CD7AF28002155EA /* FollowDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADC2CD7AF28002155EA /* FollowDTO.swift */; };
+		C4097AFE2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADD2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift */; };
+		C4097AFF2CD7AF28002155EA /* MyProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADE2CD7AF28002155EA /* MyProfileDTO.swift */; };
+		C4097B002CD7AF28002155EA /* UserProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADF2CD7AF28002155EA /* UserProfileDTO.swift */; };
+		C4097B012CD7AF28002155EA /* WithDrawDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE02CD7AF28002155EA /* WithDrawDTO.swift */; };
+		C4097B022CD7AF28002155EA /* GetGeoLocationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE22CD7AF28002155EA /* GetGeoLocationQuery.swift */; };
+		C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE32CD7AF28002155EA /* GetHashTagQuery.swift */; };
+		C4097B042CD7AF28002155EA /* GetPostQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE42CD7AF28002155EA /* GetPostQuery.swift */; };
+		C4097B052CD7AF28002155EA /* LikePostBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE52CD7AF28002155EA /* LikePostBody.swift */; };
+		C4097B062CD7AF28002155EA /* PostBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE62CD7AF28002155EA /* PostBody.swift */; };
+		C4097B072CD7AF28002155EA /* PostFileBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE72CD7AF28002155EA /* PostFileBody.swift */; };
+		C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE82CD7AF28002155EA /* PutPostBody.swift */; };
+		C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEA2CD7AF28002155EA /* CommentDTO.swift */; };
+		C4097B0A2CD7AF28002155EA /* CreatorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEB2CD7AF28002155EA /* CreatorDTO.swift */; };
+		C4097B0B2CD7AF28002155EA /* GeolocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEC2CD7AF28002155EA /* GeolocationDTO.swift */; };
+		C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AED2CD7AF28002155EA /* LikePostDTO.swift */; };
+		C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEE2CD7AF28002155EA /* PostDTO.swift */; };
+		C4097B0E2CD7AF28002155EA /* PostResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEF2CD7AF28002155EA /* PostResponseDTO.swift */; };
+		C4097B0F2CD7AF28002155EA /* GetChatListQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF12CD7AF28002155EA /* GetChatListQuery.swift */; };
+		C4097B102CD7AF28002155EA /* NewChatRoomBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF22CD7AF28002155EA /* NewChatRoomBody.swift */; };
+		C4097B112CD7AF28002155EA /* PostChatFileBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF32CD7AF28002155EA /* PostChatFileBody.swift */; };
+		C4097B122CD7AF28002155EA /* SendChatBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF42CD7AF28002155EA /* SendChatBody.swift */; };
+		C4097B132CD7AF28002155EA /* ChatRoomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */; };
+		C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */; };
+		C4097B152CD7AF28002155EA /* LastChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF82CD7AF28002155EA /* LastChatDTO.swift */; };
+		C4097B172CD8A76E002155EA /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B162CD8A76E002155EA /* String+.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
 		C477A2B12CD0E596006B8DB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2B02CD0E596006B8DB6 /* Preview Assets.xcassets */; };
 		C477A2B82CD0E5DC006B8DB6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C477A2B72CD0E5DC006B8DB6 /* .gitignore */; };
-		C477A2CB2CD0E719006B8DB6 /* DefaultRemoteDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CA2CD0E719006B8DB6 /* DefaultRemoteDTO.swift */; };
 		C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CC2CD0E729006B8DB6 /* DefaultLocalDTO.swift */; };
 		C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2CE2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift */; };
 		C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2D02CD0E74C006B8DB6 /* DefaultLocalDataSource.swift */; };
-		C477A2D32CD0E764006B8DB6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2D22CD0E764006B8DB6 /* NetworkManager.swift */; };
 		C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2D42CD0E786006B8DB6 /* DefaultRemoteRepository.swift */; };
 		C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */; };
 		C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2DB2CD0E7F4006B8DB6 /* DefaultSomeType.swift */; };
@@ -66,17 +101,52 @@
 		06CEA18F2CD52DEE003249BF /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		99CE341B2CD247B50020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		BF41B0A02CD3BC4500B67485 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		C4097AC72CD7AEF4002155EA /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C4097AC82CD7AEF5002155EA /* ChatTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTarget.swift; sourceTree = "<group>"; };
+		C4097AC92CD7AEF5002155EA /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		C4097ACA2CD7AEF5002155EA /* AuthTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTarget.swift; sourceTree = "<group>"; };
+		C4097ACB2CD7AEF5002155EA /* TargetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		C4097ACC2CD7AEF5002155EA /* UserTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTarget.swift; sourceTree = "<group>"; };
+		C4097ACD2CD7AEF5002155EA /* APITarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITarget.swift; sourceTree = "<group>"; };
+		C4097ACE2CD7AEF5002155EA /* PostTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTarget.swift; sourceTree = "<group>"; };
+		C4097AD72CD7AF28002155EA /* AuthDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
+		C4097AD92CD7AF28002155EA /* AppleLoginBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginBody.swift; sourceTree = "<group>"; };
+		C4097ADA2CD7AF28002155EA /* KaKaoLoginBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KaKaoLoginBody.swift; sourceTree = "<group>"; };
+		C4097ADC2CD7AF28002155EA /* FollowDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
+		C4097ADD2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KaKaoAppleLoginDTO.swift; sourceTree = "<group>"; };
+		C4097ADE2CD7AF28002155EA /* MyProfileDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileDTO.swift; sourceTree = "<group>"; };
+		C4097ADF2CD7AF28002155EA /* UserProfileDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileDTO.swift; sourceTree = "<group>"; };
+		C4097AE02CD7AF28002155EA /* WithDrawDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawDTO.swift; sourceTree = "<group>"; };
+		C4097AE22CD7AF28002155EA /* GetGeoLocationQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetGeoLocationQuery.swift; sourceTree = "<group>"; };
+		C4097AE32CD7AF28002155EA /* GetHashTagQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetHashTagQuery.swift; sourceTree = "<group>"; };
+		C4097AE42CD7AF28002155EA /* GetPostQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPostQuery.swift; sourceTree = "<group>"; };
+		C4097AE52CD7AF28002155EA /* LikePostBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikePostBody.swift; sourceTree = "<group>"; };
+		C4097AE62CD7AF28002155EA /* PostBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostBody.swift; sourceTree = "<group>"; };
+		C4097AE72CD7AF28002155EA /* PostFileBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostFileBody.swift; sourceTree = "<group>"; };
+		C4097AE82CD7AF28002155EA /* PutPostBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutPostBody.swift; sourceTree = "<group>"; };
+		C4097AEA2CD7AF28002155EA /* CommentDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
+		C4097AEB2CD7AF28002155EA /* CreatorDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatorDTO.swift; sourceTree = "<group>"; };
+		C4097AEC2CD7AF28002155EA /* GeolocationDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeolocationDTO.swift; sourceTree = "<group>"; };
+		C4097AED2CD7AF28002155EA /* LikePostDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikePostDTO.swift; sourceTree = "<group>"; };
+		C4097AEE2CD7AF28002155EA /* PostDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
+		C4097AEF2CD7AF28002155EA /* PostResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostResponseDTO.swift; sourceTree = "<group>"; };
+		C4097AF12CD7AF28002155EA /* GetChatListQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetChatListQuery.swift; sourceTree = "<group>"; };
+		C4097AF22CD7AF28002155EA /* NewChatRoomBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatRoomBody.swift; sourceTree = "<group>"; };
+		C4097AF32CD7AF28002155EA /* PostChatFileBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostChatFileBody.swift; sourceTree = "<group>"; };
+		C4097AF42CD7AF28002155EA /* SendChatBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendChatBody.swift; sourceTree = "<group>"; };
+		C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomDTO.swift; sourceTree = "<group>"; };
+		C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomResponseDTO.swift; sourceTree = "<group>"; };
+		C4097AF82CD7AF28002155EA /* LastChatDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastChatDTO.swift; sourceTree = "<group>"; };
+		C4097B162CD8A76E002155EA /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C477A2B02CD0E596006B8DB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C477A2B72CD0E5DC006B8DB6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		C477A2CA2CD0E719006B8DB6 /* DefaultRemoteDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteDTO.swift; sourceTree = "<group>"; };
 		C477A2CC2CD0E729006B8DB6 /* DefaultLocalDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocalDTO.swift; sourceTree = "<group>"; };
 		C477A2CE2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteDataSource.swift; sourceTree = "<group>"; };
 		C477A2D02CD0E74C006B8DB6 /* DefaultLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocalDataSource.swift; sourceTree = "<group>"; };
-		C477A2D22CD0E764006B8DB6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C477A2D42CD0E786006B8DB6 /* DefaultRemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteRepository.swift; sourceTree = "<group>"; };
 		C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocalRepository.swift; sourceTree = "<group>"; };
 		C477A2DB2CD0E7F4006B8DB6 /* DefaultSomeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSomeType.swift; sourceTree = "<group>"; };
@@ -144,6 +214,86 @@
 				BF41B0A02CD3BC4500B67485 /* AuthView.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		C4097AD82CD7AF28002155EA /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				C4097AD72CD7AF28002155EA /* AuthDTO.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		C4097ADB2CD7AF28002155EA /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				C4097AD92CD7AF28002155EA /* AppleLoginBody.swift */,
+				C4097ADA2CD7AF28002155EA /* KaKaoLoginBody.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		C4097AE12CD7AF28002155EA /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C4097ADB2CD7AF28002155EA /* Request */,
+				C4097ADC2CD7AF28002155EA /* FollowDTO.swift */,
+				C4097ADD2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift */,
+				C4097ADE2CD7AF28002155EA /* MyProfileDTO.swift */,
+				C4097ADF2CD7AF28002155EA /* UserProfileDTO.swift */,
+				C4097AE02CD7AF28002155EA /* WithDrawDTO.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C4097AE92CD7AF28002155EA /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				C4097AE22CD7AF28002155EA /* GetGeoLocationQuery.swift */,
+				C4097AE32CD7AF28002155EA /* GetHashTagQuery.swift */,
+				C4097AE42CD7AF28002155EA /* GetPostQuery.swift */,
+				C4097AE52CD7AF28002155EA /* LikePostBody.swift */,
+				C4097AE62CD7AF28002155EA /* PostBody.swift */,
+				C4097AE72CD7AF28002155EA /* PostFileBody.swift */,
+				C4097AE82CD7AF28002155EA /* PutPostBody.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		C4097AF02CD7AF28002155EA /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				C4097AE92CD7AF28002155EA /* Request */,
+				C4097AEA2CD7AF28002155EA /* CommentDTO.swift */,
+				C4097AEB2CD7AF28002155EA /* CreatorDTO.swift */,
+				C4097AEC2CD7AF28002155EA /* GeolocationDTO.swift */,
+				C4097AED2CD7AF28002155EA /* LikePostDTO.swift */,
+				C4097AEE2CD7AF28002155EA /* PostDTO.swift */,
+				C4097AEF2CD7AF28002155EA /* PostResponseDTO.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		C4097AF52CD7AF28002155EA /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				C4097AF12CD7AF28002155EA /* GetChatListQuery.swift */,
+				C4097AF22CD7AF28002155EA /* NewChatRoomBody.swift */,
+				C4097AF32CD7AF28002155EA /* PostChatFileBody.swift */,
+				C4097AF42CD7AF28002155EA /* SendChatBody.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		C4097AF92CD7AF28002155EA /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				C4097AF52CD7AF28002155EA /* Request */,
+				C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */,
+				C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */,
+				C4097AF82CD7AF28002155EA /* LastChatDTO.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		C477A29D2CD0E594006B8DB6 = {
@@ -246,7 +396,14 @@
 		C477A2C32CD0E6A4006B8DB6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				C477A2D22CD0E764006B8DB6 /* NetworkManager.swift */,
+				C4097ACD2CD7AEF5002155EA /* APITarget.swift */,
+				C4097ACA2CD7AEF5002155EA /* AuthTarget.swift */,
+				C4097ACC2CD7AEF5002155EA /* UserTarget.swift */,
+				C4097ACE2CD7AEF5002155EA /* PostTarget.swift */,
+				C4097AC82CD7AEF5002155EA /* ChatTarget.swift */,
+				C4097AC72CD7AEF4002155EA /* NetworkManager.swift */,
+				C4097AC92CD7AEF5002155EA /* NetworkError.swift */,
+				C4097ACB2CD7AEF5002155EA /* TargetType.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -296,7 +453,10 @@
 		C477A2C92CD0E6E6006B8DB6 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
-				C477A2CA2CD0E719006B8DB6 /* DefaultRemoteDTO.swift */,
+				C4097AD82CD7AF28002155EA /* Auth */,
+				C4097AF92CD7AF28002155EA /* Chat */,
+				C4097AF02CD7AF28002155EA /* Post */,
+				C4097AE12CD7AF28002155EA /* User */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -418,6 +578,7 @@
 				C477A3092CD0EA6C006B8DB6 /* Frame+.swift */,
 				C4A776852CD1235D00D60EEE /* Image+.swift */,
 				C4A776872CD1251E00D60EEE /* View+.swift */,
+				C4097B162CD8A76E002155EA /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -577,43 +738,78 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4097AFF2CD7AF28002155EA /* MyProfileDTO.swift in Sources */,
+				C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */,
+				C4097B002CD7AF28002155EA /* UserProfileDTO.swift in Sources */,
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
+				C4097AFA2CD7AF28002155EA /* AuthDTO.swift in Sources */,
 				C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */,
+				C4097B012CD7AF28002155EA /* WithDrawDTO.swift in Sources */,
+				C4097AD32CD7AEF5002155EA /* TargetType.swift in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
+				C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
+				C4097AD12CD7AEF5002155EA /* NetworkError.swift in Sources */,
+				C4097B0B2CD7AF28002155EA /* GeolocationDTO.swift in Sources */,
 				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
 				06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */,
 				C477A30E2CD0EB3B006B8DB6 /* CustomTabView.swift in Sources */,
 				C477A2FF2CD0E98F006B8DB6 /* SettingView.swift in Sources */,
 				C477A3082CD0EA41006B8DB6 /* Color+.swift in Sources */,
+				C4097B022CD7AF28002155EA /* GetGeoLocationQuery.swift in Sources */,
+				C4097B152CD7AF28002155EA /* LastChatDTO.swift in Sources */,
 				C477A2F52CD0E959006B8DB6 /* CommonButton.swift in Sources */,
 				BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */,
 				C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */,
-				C477A2CB2CD0E719006B8DB6 /* DefaultRemoteDTO.swift in Sources */,
 				99CE341C2CD247B50020F99E /* APIKey.swift in Sources */,
+				C4097AD42CD7AEF5002155EA /* UserTarget.swift in Sources */,
 				06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */,
 				C477A2DE2CD0E800006B8DB6 /* DefaultSomeInterface.swift in Sources */,
+				C4097AFD2CD7AF28002155EA /* FollowDTO.swift in Sources */,
+				C4097B0E2CD7AF28002155EA /* PostResponseDTO.swift in Sources */,
+				C4097B122CD7AF28002155EA /* SendChatBody.swift in Sources */,
 				06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */,
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
+				C4097B0F2CD7AF28002155EA /* GetChatListQuery.swift in Sources */,
 				06CEA1882CD365C6003249BF /* WarkResultView.swift in Sources */,
 				C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */,
 				C4A7768D2CD125EE00D60EEE /* UserManager.swift in Sources */,
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,
+				C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
+				C4097AD62CD7AEF5002155EA /* PostTarget.swift in Sources */,
+				C4097AFB2CD7AF28002155EA /* AppleLoginBody.swift in Sources */,
+				C4097B052CD7AF28002155EA /* LikePostBody.swift in Sources */,
+				C4097B042CD7AF28002155EA /* GetPostQuery.swift in Sources */,
+				C4097B0A2CD7AF28002155EA /* CreatorDTO.swift in Sources */,
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
-				C477A2D32CD0E764006B8DB6 /* NetworkManager.swift in Sources */,
+				C4097B102CD7AF28002155EA /* NewChatRoomBody.swift in Sources */,
+				C4097B072CD7AF28002155EA /* PostFileBody.swift in Sources */,
 				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,
+				C4097B062CD7AF28002155EA /* PostBody.swift in Sources */,
 				06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */,
+				C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */,
+				C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */,
+				C4097B172CD8A76E002155EA /* String+.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
+				C4097B112CD7AF28002155EA /* PostChatFileBody.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
+				C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */,
+				C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */,
+				C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */,
+				C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
+				C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
+				C4097AFE2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift in Sources */,
+				C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */,
+				C4097B132CD7AF28002155EA /* ChatRoomDTO.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
