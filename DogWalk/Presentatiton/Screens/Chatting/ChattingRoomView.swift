@@ -23,10 +23,6 @@ extension ChattingRoomView {
             GeometryReader {
                 //채팅부분
                 ChatView(size: $0.size)
-                    .onTapGesture {
-                        self.dismissKeyboard()
-                        showKeyboard = false
-                    }
                 // TODO: 키보드가 없어질때 자연스러운 조절을 위해 CommonSendView에 해당 이벤트 전달해주기
                 //키보드
                 CommonSendView(
@@ -61,13 +57,12 @@ private extension ChattingRoomView {
             ScrollView {
                 LazyVStack(spacing: 2.0) {
                     ForEach(message.modles) { model in
-                        if model.type == .text {
-                            messageView(size: size, model: model)
-                                .padding(.bottom, 10)
-                        } else {
-                            imageMessageView(size: size, model: model)
-                                .padding(.bottom, 10)
-                        }
+                        chattingView(size: size, model: model)
+                            .padding(.bottom, 10)
+                            .onTapGesture {
+                                self.dismissKeyboard()
+                                showKeyboard = false
+                            }
                     }
                 } //:VSTACK
                 .onAppear {
@@ -99,6 +94,33 @@ private extension ChattingRoomView {
         }
     }
 }
+// MARK: - 전체 채팅 뷰
+private extension ChattingRoomView {
+    @ViewBuilder
+    func chattingView(size: CGSize, model: MessageModel) -> some View {
+        let xOffSet = size.width / 2
+        switch model.type {
+        case .text:
+            ZStack {
+                if model.userID != "나" {
+                    userProfileView()
+                        .offset(x: -xOffSet + 30)
+                }
+                messageView(size: size, model: model)
+                    
+            }
+        case .image:
+            ZStack {
+                if model.userID != "나" {
+                    userProfileView()
+                        .offset(x: -xOffSet + 30)
+                }
+                imageMessageView(size: size, model: model)
+            }
+        }
+        
+    }
+}
 // MARK: - 말풍선 부분
 private extension ChattingRoomView {
     @ViewBuilder
@@ -120,10 +142,7 @@ private extension ChattingRoomView {
         let bubbleWidth = mesWidth + 20
         let xOffSet = (size.width - bubbleWidth) / 2 - 20.0 // 말풍선 offSet 설정
         HStack {
-            if model.userID != "나" { //상대 프로필
-                userProfileView()
-                    .offset(x: -xOffSet + 55)
-            } else { // 나 날짜 부분
+            if model.userID == "나" { //상대 프로필
                 dateChattView()
                     .offset(x: xOffSet - 15, y: 4)
             }
@@ -139,7 +158,7 @@ private extension ChattingRoomView {
                         .frame(width: bubbleWidth - 5, height: bubbleHeight)
                         .aspectRatio(contentMode: .fit)
                         .scaleEffect(x: isRight ? 1.0 : -1.0) // 이미지 뒤집기~
-                        .offset(x: isRight ? xOffSet - 25 : -xOffSet + 55) //여기고침
+                        .offset(x: isRight ? xOffSet - 25 : -xOffSet + 65) //여기고침
                     
                 )
                 .overlay(alignment: isRight ? .trailing : .leading) {
@@ -148,7 +167,7 @@ private extension ChattingRoomView {
                             .font(.pretendardRegular16)
                             .frame(width: mesWidth, height: mesHeight)
                             .padding(isRight ? .trailing : .leading, isRight ? 5 : 15)
-                            .offset(x: isRight ? xOffSet - 30 : -xOffSet + 50)
+                            .offset(x: isRight ? xOffSet - 30 : -xOffSet + 60)
                     }
                     //.foregroundStyle(isRight ? ) // 채팅 색 변경
                 }
@@ -156,7 +175,7 @@ private extension ChattingRoomView {
             
             if model.userID != "나" { //상대방 날짜 부분
                 dateChattView()
-                    .offset(x: -xOffSet + 45, y: 4)
+                    .offset(x: -xOffSet + 55, y: 4)
             }
         } //:HSTACK
         .id(model.id) //각 cell 아이디 부여
@@ -169,10 +188,7 @@ private extension ChattingRoomView {
         let isRight = model.userID == "나"
         let width = size.width
         HStack {
-            if !isRight { // 상대 프로필
-                userProfileView()
-                    .offset(x: -width * 0.0985)
-            } else {
+            if isRight {
                 dateChattView()
                     .offset(x: width * 0.1985)
                     .padding(.bottom, 5)
@@ -189,13 +205,13 @@ private extension ChattingRoomView {
                         .frame(width: 150, height: 150)
                         .scaleEffect(x: isRight ? 1.0 : -1.0) // 이미지 말풍선 방향
                 )
-                .offset(x: isRight ? width * 0.2 : -width * 0.12)
+                .offset(x: isRight ? width / 2 - 120 : -width / 2 + 160)
                 .padding(isRight ? .trailing : .leading, 15)
                 .padding(.bottom, 10)
             
             if !isRight { // 상대방 날짜
                 dateChattView()
-                    .offset(x: -width * 0.12)
+                    .offset(x: -width * 0.105)
                     .padding(.bottom, 5)
             }
         }
