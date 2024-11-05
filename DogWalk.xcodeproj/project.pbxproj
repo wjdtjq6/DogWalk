@@ -38,7 +38,7 @@
 		C4097B072CD7AF28002155EA /* PostFileBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE72CD7AF28002155EA /* PostFileBody.swift */; };
 		C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE82CD7AF28002155EA /* PutPostBody.swift */; };
 		C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEA2CD7AF28002155EA /* CommentDTO.swift */; };
-		C4097B0A2CD7AF28002155EA /* CreatorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEB2CD7AF28002155EA /* CreatorDTO.swift */; };
+		C4097B0A2CD7AF28002155EA /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEB2CD7AF28002155EA /* UserDTO.swift */; };
 		C4097B0B2CD7AF28002155EA /* GeolocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEC2CD7AF28002155EA /* GeolocationDTO.swift */; };
 		C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AED2CD7AF28002155EA /* LikePostDTO.swift */; };
 		C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AEE2CD7AF28002155EA /* PostDTO.swift */; };
@@ -125,7 +125,7 @@
 		C4097AE72CD7AF28002155EA /* PostFileBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostFileBody.swift; sourceTree = "<group>"; };
 		C4097AE82CD7AF28002155EA /* PutPostBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutPostBody.swift; sourceTree = "<group>"; };
 		C4097AEA2CD7AF28002155EA /* CommentDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentDTO.swift; sourceTree = "<group>"; };
-		C4097AEB2CD7AF28002155EA /* CreatorDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatorDTO.swift; sourceTree = "<group>"; };
+		C4097AEB2CD7AF28002155EA /* UserDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		C4097AEC2CD7AF28002155EA /* GeolocationDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeolocationDTO.swift; sourceTree = "<group>"; };
 		C4097AED2CD7AF28002155EA /* LikePostDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikePostDTO.swift; sourceTree = "<group>"; };
 		C4097AEE2CD7AF28002155EA /* PostDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDTO.swift; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 			children = (
 				C4097AE92CD7AF28002155EA /* Request */,
 				C4097AEA2CD7AF28002155EA /* CommentDTO.swift */,
-				C4097AEB2CD7AF28002155EA /* CreatorDTO.swift */,
+				C4097AEB2CD7AF28002155EA /* UserDTO.swift */,
 				C4097AEC2CD7AF28002155EA /* GeolocationDTO.swift */,
 				C4097AED2CD7AF28002155EA /* LikePostDTO.swift */,
 				C4097AEE2CD7AF28002155EA /* PostDTO.swift */,
@@ -446,9 +446,9 @@
 			isa = PBXGroup;
 			children = (
 				C4097AD82CD7AF28002155EA /* Auth */,
-				C4097AF92CD7AF28002155EA /* Chat */,
-				C4097AF02CD7AF28002155EA /* Post */,
 				C4097AE12CD7AF28002155EA /* User */,
+				C4097AF02CD7AF28002155EA /* Post */,
+				C4097AF92CD7AF28002155EA /* Chat */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -778,7 +778,7 @@
 				C4097AFB2CD7AF28002155EA /* AppleLoginBody.swift in Sources */,
 				C4097B052CD7AF28002155EA /* LikePostBody.swift in Sources */,
 				C4097B042CD7AF28002155EA /* GetPostQuery.swift in Sources */,
-				C4097B0A2CD7AF28002155EA /* CreatorDTO.swift in Sources */,
+				C4097B0A2CD7AF28002155EA /* UserDTO.swift in Sources */,
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
 				C4097B102CD7AF28002155EA /* NewChatRoomBody.swift in Sources */,
 				C4097B072CD7AF28002155EA /* PostFileBody.swift in Sources */,

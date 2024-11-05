@@ -13,3 +13,12 @@ struct FollowDTO: Decodable {
     let nick: String
     let profileImage: String
 }
+
+extension FollowDTO {
+    func toDomain() -> UserModel {
+        return UserModel(userID: self.user_id, 
+                         nick: self.nick,
+                         profileImage: self.profileImage)
+    }
+}
+
