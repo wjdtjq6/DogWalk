@@ -11,3 +11,9 @@ import Foundation
 struct ChatRoomResponseDTO {
     let data: [ChatRoomDTO]
 }
+
+extension ChatRoomResponseDTO {
+    func toDomain() -> [ChatRoomModel] {
+        return self.data.map { $0.toDomain() }
+    }
+}

@@ -13,3 +13,17 @@ struct WithDrawDTO: Decodable {
     let email: String
     let nick: String
 }
+
+extension WithDrawDTO {
+    func toDomain() -> WithDrawModel {
+        return WithDrawModel(userID: self.user_id,
+                             email: self.email,
+                             nick: self.nick)
+    }
+}
+
+struct WithDrawModel {
+    let userID: String
+    let email: String
+    let nick: String
+}

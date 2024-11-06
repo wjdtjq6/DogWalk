@@ -12,3 +12,14 @@ struct AuthDTO {
     let accessToken: String
     let refreshToken: String
 }
+
+extension AuthDTO {
+    func toDomain() -> AuthModel {
+        return AuthModel(accessToken: self.accessToken, refreshToken: self.refreshToken)
+    }
+}
+
+struct AuthModel {
+    let accessToken: String
+    let refreshToken: String
+}

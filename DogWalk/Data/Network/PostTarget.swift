@@ -11,12 +11,14 @@ enum PostTarget {
     case files(body: PostFileBody)                          // 파일 업로드
     case post(body: PostBody)                               // 게시글 작성
     case getPosts(query: GetPostQuery)                      // 게시글 조회
-    case getPostsDetail(postId: String)                     // 게시글 상세 조회
-    case putPost(postId: String)                            // 게시글 수정
-    case deletePost(postId: String)                         // 게시글 삭제
-    case postLike(postId: String, body: LikePostBody)       // 게시글 좋아요
+    case getPostsDetail(postID: String)                     // 게시글 상세 조회
+    case putPost(postID: String)                            // 게시글 수정
+    case deletePost(postID: String)                         // 게시글 삭제
+    case postLike(postID: String, body: LikePostBody)       // 게시글 좋아요 (Like-1)
     case myLikePosts(query: GetPostQuery)                   // 내가 좋아요한 게시물 조회
-    case userPosts(userId: String, query: GetPostQuery)     // 다른 유저가 작성한 게시물 조회
+    case postView(postID: String, body: LikePostBody)       // 게시글 방문 (Like-2)
+    case myViewPosts(query: GetPostQuery)                   // 내가 방문한 게시물 조회
+    case userPosts(userID: String, query: GetPostQuery)     // 다른 유저가 작성한 게시물 조회
     case hashtag(query: GetHashTagQuery)                    // 해시태그 검색
     case geolocation(query: GetGeoLocationQuery)            // 위치 기반 게시글 검색
 }
@@ -32,14 +34,18 @@ extension PostTarget: TargetType {
             return "/posts/files"
         case .post, .getPosts:
             return "/posts"
-        case .getPostsDetail(let postId), .putPost(let postId), .deletePost(let postId):
-            return "posts/\(postId)"
-        case .postLike(let postId, _):
-            return "/posts/\(postId)/like"
+        case .getPostsDetail(let postID), .putPost(let postID), .deletePost(let postID):
+            return "posts/\(postID)"
+        case .postLike(let postID, _):
+            return "/posts/\(postID)/like"
         case .myLikePosts:
             return "/posts/likes/me"
-        case .userPosts(let userId, _):
-            return "/posts/users/\(userId)"
+        case .postView(let postID, _):
+            return "/posts/\(postID)/like-2"
+        case .myViewPosts:
+            return "/posts/likes-2/me"
+        case .userPosts(let userID, _):
+            return "/posts/users/\(userID)"
         case .hashtag:
             return "/posts/hashtags"
         case .geolocation:
@@ -49,9 +55,9 @@ extension PostTarget: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .files, .post, .postLike:
+        case .files, .post, .postLike, .postView:
             return .post
-        case .getPosts, .getPostsDetail, .myLikePosts, .userPosts, .hashtag, .geolocation:
+        case .getPosts, .getPostsDetail, .myLikePosts, .myViewPosts, .userPosts, .hashtag, .geolocation:
             return .get
         case .putPost:
             return .put
@@ -71,7 +77,7 @@ extension PostTarget: TargetType {
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
         /// productID, application/json, authorizaiton, sesacKey
-        case .post, .putPost, .deletePost, .postLike:
+        case .post, .putPost, .deletePost, .postLike, .postView:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.contentType.rawValue: BaseHeader.json.rawValue,
@@ -79,7 +85,7 @@ extension PostTarget: TargetType {
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
         /// productID, authorizaiton, sesacKey
-        case .getPosts, .getPostsDetail, .hashtag, .geolocation, .myLikePosts, .userPosts:
+        case .getPosts, .getPostsDetail, .hashtag, .geolocation, .myLikePosts, .myViewPosts, .userPosts:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.authorization.rawValue: "",
@@ -92,7 +98,7 @@ extension PostTarget: TargetType {
         let encoder = JSONEncoder()
         
         switch self {
-        case .getPosts(let query), .myLikePosts(let query), .userPosts(_, let query):
+        case .getPosts(let query), .myLikePosts(let query), .myViewPosts(let query), .userPosts(_, let query):
             do {
                 let data = try encoder.encode(query)
                 guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return nil }
@@ -145,6 +151,14 @@ extension PostTarget: TargetType {
                 return nil
             }
         case .postLike(_, let body):
+            do {
+                let data = try encoder.encode(body)
+                return data
+            } catch {
+                print("Body to JSON Encode Error", error)
+                return nil
+            }
+        case .postView(_, let body):
             do {
                 let data = try encoder.encode(body)
                 return data

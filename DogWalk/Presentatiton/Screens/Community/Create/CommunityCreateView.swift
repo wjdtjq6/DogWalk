@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CommunityCreateView: View {
-    @State private var category: CommunityCategory = .all
+    @State private var category: CommunityCategoryType = .all
     @State private var isPresent = false    // 카테고리 선택 BottomSheet Open Control
     @State private var titleText = ""       // 게시물 제목
     @State private var priceText = ""       // 게시물 가격

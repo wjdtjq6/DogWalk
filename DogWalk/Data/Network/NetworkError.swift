@@ -18,7 +18,7 @@ import Foundation
  `500` 서버 에러
 */
 
-enum NetworkError: Int, Error, CaseIterable {
+enum NetworkError: Int, Error {
     case InvalidToken = 401
     case Forbidden = 403
     case ExpiredAccessToken = 419
@@ -27,5 +27,10 @@ enum NetworkError: Int, Error, CaseIterable {
     case OverCall = 429
     case InvalidURL = 444
     case ServerError = 500
+    
+    // 👇여기부터는 새싹에서 정의한 에러가 아니라, 내부적으로 네트워크 통신 호출 로직에서 필요한 에러 상황입니다.
+    case InvalidRequest
+    case InvalidResponse
+    case DecodingError
     case UnknownError
 }
