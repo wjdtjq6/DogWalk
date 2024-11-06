@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
-		0689C3622CDB3EB100C5FC8C /* WalkResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultModel.swift */; };
+		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
 		06CEA1882CD365C6003249BF /* WalkResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1872CD365C6003249BF /* WalkResultView.swift */; };
 		06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1892CD398F0003249BF /* ChattingRoomView.swift */; };
@@ -97,7 +97,7 @@
 
 /* Begin PBXFileReference section */
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
-		0689C3612CDB3EB100C5FC8C /* WalkResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultModel.swift; sourceTree = "<group>"; };
+		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
 		06CEA1872CD365C6003249BF /* WalkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultView.swift; sourceTree = "<group>"; };
 		06CEA1892CD398F0003249BF /* ChattingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomView.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 			children = (
 				06CEA1872CD365C6003249BF /* WalkResultView.swift */,
 				0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */,
-				0689C3612CDB3EB100C5FC8C /* WalkResultModel.swift */,
+				0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */,
 			);
 			path = WalkResult;
 			sourceTree = "<group>";
@@ -750,7 +750,7 @@
 				C4097AFF2CD7AF28002155EA /* MyProfileDTO.swift in Sources */,
 				C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */,
 				C4097B002CD7AF28002155EA /* UserProfileDTO.swift in Sources */,
-				0689C3622CDB3EB100C5FC8C /* WalkResultModel.swift in Sources */,
+				0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */,
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,

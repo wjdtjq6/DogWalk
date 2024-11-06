@@ -41,7 +41,7 @@ extension MapView {
             }
         } //:ZSTACK
         .fullScreenCover(isPresented: $isShowingSheet, content: {
-            WalkResultView(isPresented: $isShowingSheet)
+            WalkResultView.build()
         })
     }
 }
