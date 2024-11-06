@@ -11,3 +11,13 @@ import Foundation
 struct LikePostDTO: Encodable {
     let like_status: Bool
 }
+
+extension LikePostDTO {
+    func toDomain() -> LikePostModel {
+        return LikePostModel(likeStatus: self.like_status)
+    }
+}
+
+struct LikePostModel {
+    let likeStatus: Bool
+}

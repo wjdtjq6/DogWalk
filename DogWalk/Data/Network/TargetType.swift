@@ -7,14 +7,6 @@
 
 import Foundation
 
-// HTTP 통신 메서드
-enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-}
-
 protocol TargetType {
     var baseURL: String { get }
     var path: String { get }
@@ -43,23 +35,3 @@ extension TargetType {
         return request
     }
 }
-
-/*
-     func asURLRequest() throws -> URLRequest {
-         let base = try base.asURL()
-
-         var components = URLComponents(url: base.appendingPathComponent(path), resolvingAgainstBaseURL: false)
-         
-         /// query를 사용하는 경우
-         components?.queryItems = query
-         
-         /// 예외처리
-         guard let URL = components?.url else { throw URLError(.badURL) }
-         
-         var request = try URLRequest(url: URL, method: method)
-         request.allHTTPHeaderFields = header
-         request.httpBody = body
-         return request
-     }
- */
-
