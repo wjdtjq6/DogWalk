@@ -1,5 +1,5 @@
 //
-//  WarkResultView.swift
+//  WalkResultView.swift
 //  DogWalk
 //
 //  Created by 박성민 on 10/31/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import MapKit
 
-struct WarkResultView: View {
+struct WalkResultView: View {
     private static let width = UIScreen.main.bounds.width
     private static let height = UIScreen.main.bounds.height
     //임시 위치 설정.
@@ -22,7 +22,7 @@ struct WarkResultView: View {
     @Binding var isPresented: Bool
 }
 
-extension WarkResultView {
+extension WalkResultView {
     var body: some View {
         VStack {
             topView()
@@ -41,7 +41,7 @@ extension WarkResultView {
     }
 }
 // MARK: - 상단 뷰 부분
-private extension WarkResultView {
+private extension WalkResultView {
     func topView() -> some View {
         HStack {
             Text("2024. 10. 29(화)") // 날짜
@@ -80,7 +80,7 @@ private extension WarkResultView {
     
 }
 // MARK: - 산책 정보
-private extension WarkResultView {
+private extension WalkResultView {
     //정보들
     func infos() -> some View {
         HStack(spacing: 35) {
@@ -116,7 +116,7 @@ private extension WarkResultView {
     }
 }
 // MARK: - 산책 지도 부분
-private extension WarkResultView {
+private extension WalkResultView {
     func warkMapView() -> some View {
         Map(position: $position) { //position: 표시할 지도 위치
             //맵에 추가적인 정보
