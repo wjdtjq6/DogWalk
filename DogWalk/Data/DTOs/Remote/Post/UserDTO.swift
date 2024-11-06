@@ -11,14 +11,14 @@ import Foundation
 struct UserDTO: Decodable {
     let user_id: String
     let nick: String
-    let profileImage: String
+    let profileImage: String?
 }
 
 extension UserDTO {
     func toDomain() -> UserModel {
         return UserModel(userID: self.user_id,
                          nick: self.nick,
-                         profileImage: self.profileImage)
+                         profileImage: self.profileImage ?? "")     // TODO: 기본 프로필 사진 지정 필요한지 체크
     }
 }
 

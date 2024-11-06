@@ -51,6 +51,7 @@
 		C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */; };
 		C4097B152CD7AF28002155EA /* LastChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF82CD7AF28002155EA /* LastChatDTO.swift */; };
 		C4097B172CD8A76E002155EA /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B162CD8A76E002155EA /* String+.swift */; };
+		C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B182CDB0921002155EA /* HTTPMethod.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -138,6 +139,7 @@
 		C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomResponseDTO.swift; sourceTree = "<group>"; };
 		C4097AF82CD7AF28002155EA /* LastChatDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastChatDTO.swift; sourceTree = "<group>"; };
 		C4097B162CD8A76E002155EA /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		C4097B182CDB0921002155EA /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				C4097AC72CD7AEF4002155EA /* NetworkManager.swift */,
 				C4097AC92CD7AEF5002155EA /* NetworkError.swift */,
 				C4097ACB2CD7AEF5002155EA /* TargetType.swift */,
+				C4097B182CDB0921002155EA /* HTTPMethod.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,
 				C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
+				C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */,
 				C4097AD62CD7AEF5002155EA /* PostTarget.swift in Sources */,
 				C4097AFB2CD7AF28002155EA /* AppleLoginBody.swift in Sources */,
 				C4097B052CD7AF28002155EA /* LikePostBody.swift in Sources */,

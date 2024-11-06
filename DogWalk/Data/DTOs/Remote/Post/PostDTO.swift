@@ -34,7 +34,7 @@ extension PostDTO {
                          content: self.content,
                          creator: UserModel(userID: self.creator.user_id, 
                                             nick: self.creator.nick, 
-                                            profileImage: self.creator.profileImage),
+                                            profileImage: self.creator.profileImage ?? ""),
                          files: self.files,
                          likes: self.likes,
                          views: self.likes.count,
@@ -44,8 +44,8 @@ extension PostDTO {
                                                                     createdAt: $0.createdAt, 
                                                                     creator: UserModel(userID: creator.user_id, 
                                                                                        nick: creator.nick,
-                                                                                       profileImage: $0.creator.profileImage))},
-                         geolocation: GeolocationModel(lat: self.geolocation.latitude, 
+                                                                                       profileImage: $0.creator.profileImage ?? ""))},
+                         geolocation: GeolocationModel(lat: self.geolocation.latitude,
                                                        lon: self.geolocation.longitude),
                          distance: self.distance)
     }

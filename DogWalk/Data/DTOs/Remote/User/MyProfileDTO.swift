@@ -12,7 +12,7 @@ struct MyProfileDTO: Decodable {
     let user_id: String
     // let email: String
     let nick: String
-    let profileImage: String
+    let profileImage: String?
     // let phoneNum: String
     // let gender: String
     // let birthDay: String
@@ -30,7 +30,7 @@ extension MyProfileDTO {
     func toDomain() -> ProfileModel {
         return ProfileModel(userID: self.user_id, 
                               nick: self.nick,
-                              profileImage: self.profileImage,
+                              profileImage: self.profileImage ?? "",        // TODO: 기본 프로필 지정 필요한지 체크
                               address: self.info1,
                               location: GeolocationModel(lat: Double(self.info2) ?? 0.0, 
                                                          lon: Double(self.info3) ?? 0.0),

@@ -7,14 +7,6 @@
 
 import Foundation
 
-// HTTP 통신 메서드
-enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-}
-
 protocol TargetType {
     var baseURL: String { get }
     var path: String { get }
