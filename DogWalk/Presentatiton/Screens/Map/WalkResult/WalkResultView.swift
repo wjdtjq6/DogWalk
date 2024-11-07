@@ -1,5 +1,5 @@
 //
-//  WarkResultView.swift
+//  WalkResultView.swift
 //  DogWalk
 //
 //  Created by 박성민 on 10/31/24.
@@ -8,9 +8,13 @@
 import SwiftUI
 import MapKit
 
-struct WarkResultView: View {
+struct WalkResultView: View {
     private static let width = UIScreen.main.bounds.width
     private static let height = UIScreen.main.bounds.height
+    @StateObject var container: Container<WalkResultIntentProtocol, WalkResultStateProtocol>
+    private var state: WalkResultStateProtocol { container.state }
+    private var intent: WalkResultIntentProtocol { container.intent }
+    
     //임시 위치 설정.
     @State private var position: MapCameraPosition = .region(
         MKCoordinateRegion(
@@ -19,10 +23,23 @@ struct WarkResultView: View {
             longitudinalMeters: 1000
         )
     )
-    @Binding var isPresented: Bool
 }
 
-extension WarkResultView {
+extension WalkResultView {
+    static func build() -> some View {
+        let state = WalkResultState()
+        let intent = WalkResultIntent(state: state)
+        let container = Container(
+            intent: intent as WalkResultIntentProtocol,
+            state: state as WalkResultStateProtocol,
+            modelChangePublisher: state.objectWillChange
+        )
+        let view = WalkResultView(container: container)
+        return view
+    }
+}
+
+extension WalkResultView {
     var body: some View {
         VStack {
             topView()
@@ -41,10 +58,10 @@ extension WarkResultView {
     }
 }
 // MARK: - 상단 뷰 부분
-private extension WarkResultView {
+private extension WalkResultView {
     func topView() -> some View {
         HStack {
-            Text("2024. 10. 29(화)") // 날짜
+            Text(state.postDate) // 날짜
                 .font(.pretendardBold16)
                 .lineLimit(1)
                 .padding(.leading)
@@ -56,8 +73,7 @@ private extension WarkResultView {
                 .hTrailing()
                 .padding(.trailing)
                 .wrapToButton {
-                    print("x버튼 눌림") // 뷰 dismiss 진행
-                    isPresented = false
+                    intent.dismissButtonTap()
                 }
         } //:HSTACK
     }
@@ -69,7 +85,7 @@ private extension WarkResultView {
                 .padding(.horizontal, 30)
             HStack {
                 CommonProfile(image: .asTestImage, size: 30)
-                Text("이임과 함께 산책했어요!") // 강아지 닉네임 입력
+                Text("\(state.dogNick)과 함께 산책했어요!") // 강아지 닉네임 입력
                     .font(.pretendardBold15)
                     .lineLimit(1)
             } //:HSTACK
@@ -80,23 +96,23 @@ private extension WarkResultView {
     
 }
 // MARK: - 산책 정보
-private extension WarkResultView {
+private extension WalkResultView {
     //정보들
     func infos() -> some View {
         HStack(spacing: 35) {
-            info(top: "산책 시간", mid: "59", bottom: "min")
+            info(top: "산책 시간", mid: state.walkTime, bottom: "min")
             
             Rectangle()
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "거리", mid: "30", bottom: "km")
+            info(top: "거리", mid: state.walkDistance, bottom: "km")
             
             Rectangle()
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "칼로리", mid: "331", bottom: "kcal")
+            info(top: "칼로리", mid: state.walkCalorie, bottom: "kcal")
             
         } //:HSTACK
     }
@@ -116,7 +132,7 @@ private extension WarkResultView {
     }
 }
 // MARK: - 산책 지도 부분
-private extension WarkResultView {
+private extension WalkResultView {
     func warkMapView() -> some View {
         Map(position: $position) { //position: 표시할 지도 위치
             //맵에 추가적인 정보
@@ -151,7 +167,7 @@ private extension WarkResultView {
             CommonButton(width: Self.width * 0.9, height: Self.height * 0.06, cornerradius: 0, backColor: .primaryOrange, text: "게시글 작성하기", textFont: .pretendardBold16, textColor: .primaryWhite, leftLogo: .asPlus, imageSize: 15)
                 .foregroundStyle(Color.primaryWhite)
                 .wrapToButton {
-                    print("게시글 작성 버튼 눌림")
+                    intent.startPosttingButtonTap()
                 }
         } //:VSTACK
     }
