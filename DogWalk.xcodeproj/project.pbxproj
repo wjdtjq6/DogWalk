@@ -10,7 +10,6 @@
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
-		06CEA1882CD365C6003249BF /* WalkResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1872CD365C6003249BF /* WalkResultView.swift */; };
 		06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1892CD398F0003249BF /* ChattingRoomView.swift */; };
 		06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18D2CD3E28E003249BF /* CommonSendView.swift */; };
 		06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18F2CD52DEE003249BF /* MessageModel.swift */; };
@@ -18,6 +17,7 @@
 		9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */; };
 		9966F6D52CDDE3C500E7569E /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */; };
 		99CE341C2CD247B50020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE341B2CD247B50020F99E /* APIKey.swift */; };
+		BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF02CDE4633001933C0 /* WalkResultView.swift */; };
 		BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */; };
 		BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41B0A02CD3BC4500B67485 /* AuthView.swift */; };
 		C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC72CD7AEF4002155EA /* NetworkManager.swift */; };
@@ -103,7 +103,6 @@
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
-		06CEA1872CD365C6003249BF /* WalkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultView.swift; sourceTree = "<group>"; };
 		06CEA1892CD398F0003249BF /* ChattingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomView.swift; sourceTree = "<group>"; };
 		06CEA18D2CD3E28E003249BF /* CommonSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSendView.swift; sourceTree = "<group>"; };
 		06CEA18F2CD52DEE003249BF /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
@@ -112,6 +111,7 @@
 		9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 		99CE341B2CD247B50020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		BF159EF02CDE4633001933C0 /* WalkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultView.swift; sourceTree = "<group>"; };
 		BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BF41B0A02CD3BC4500B67485 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		C4097AC72CD7AEF4002155EA /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -209,9 +209,9 @@
 		0689C35E2CDB3E6900C5FC8C /* WalkResult */ = {
 			isa = PBXGroup;
 			children = (
-				06CEA1872CD365C6003249BF /* WalkResultView.swift */,
 				0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */,
 				0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */,
+				BF159EF02CDE4633001933C0 /* WalkResultView.swift */,
 			);
 			path = WalkResult;
 			sourceTree = "<group>";
@@ -533,7 +533,6 @@
 			children = (
 				0689C35E2CDB3E6900C5FC8C /* WalkResult */,
 				C477A2F62CD0E972006B8DB6 /* MapView.swift */,
-				06CEA1872CD365C6003249BF /* WarkResultView.swift */,
 				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
 			);
 			path = Map;
@@ -808,7 +807,6 @@
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
 				C4097B0F2CD7AF28002155EA /* GetChatListQuery.swift in Sources */,
-				06CEA1882CD365C6003249BF /* WalkResultView.swift in Sources */,
 				C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */,
 				C4A7768D2CD125EE00D60EEE /* UserManager.swift in Sources */,
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,
@@ -828,6 +826,7 @@
 				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,
 				C4097B062CD7AF28002155EA /* PostBody.swift in Sources */,
 				06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */,
+				BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */,
 				C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */,
 				C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */,
 				C4097B172CD8A76E002155EA /* String+.swift in Sources */,
