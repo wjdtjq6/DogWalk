@@ -865,7 +865,6 @@
 				C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */,
 				C4097B002CD7AF28002155EA /* UserProfileDTO.swift in Sources */,
 				0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */,
-				9966F6912CD9D28D00E7569E /* Chat.xcdatamodeld in Sources */,
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				067F5DC22CE2167800BD9ADD /* SMTestView.swift in Sources */,
@@ -1189,20 +1188,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		9966F68F2CD9D28D00E7569E /* Chat.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				9966F6902CD9D28D00E7569E /* Chat.xcdatamodel */,
-			);
-			currentVersion = 9966F6902CD9D28D00E7569E /* Chat.xcdatamodel */;
-			name = Chat.xcdatamodeld;
-			path = /Users/yoonwoo/Desktop/sessac/SLP/DogWalk/Data/Repositories/Local/CoreData/Chat.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = C477A29E2CD0E594006B8DB6 /* Project object */;
 }

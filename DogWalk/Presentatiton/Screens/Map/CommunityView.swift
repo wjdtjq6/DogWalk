@@ -10,7 +10,7 @@ import SwiftUI
 //더미 데이터 구조체 추후 삭제
 struct CummunityTestData: Identifiable, Hashable {
     let id: UUID = UUID()
-    var title: String
+    var location: String // 타입 알아서 바꾸셈
     var content: String
     var createdAt: String
     var commentCount: Int
@@ -21,7 +21,7 @@ struct CummunityTestData: Identifiable, Hashable {
          createdAt: String = "24.10.11",
          commentCount: Int = 123,
          likeCount: Int = 12) {
-        self.title = title
+        self.location = title
         self.content = content
         self.createdAt = createdAt
         self.commentCount = commentCount
@@ -163,7 +163,7 @@ struct CommunityView: View {
             
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
-                    Text(item.title) // 제목
+                    Text(item.location) // 제목
                         .font(.pretendardBold16)
                     Spacer()
                     Text(item.createdAt) // 게시된 시간

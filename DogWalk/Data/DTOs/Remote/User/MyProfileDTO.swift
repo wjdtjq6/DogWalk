@@ -48,4 +48,11 @@ struct ProfileModel {
     let location: GeolocationModel
     let point: Int
     let rating: Double
+    // let email: String
+    // let phoneNum: String
+    // let gender: String
+    // let birthDay: String
+    // let followers: [FollowDTO]
+    // let following: [FollowDTO]
+    // let posts: [String]
 }
