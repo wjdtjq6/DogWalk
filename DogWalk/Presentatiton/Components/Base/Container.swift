@@ -8,15 +8,15 @@
 import SwiftUI
 import Combine
 
-final class Container<Intent, Model>: ObservableObject {
+final class Container<Intent, state>: ObservableObject {
     let intent: Intent // Input
-    let model: Model // Output
+    let state: state // Output
     
     private var cancellable: Set<AnyCancellable> = []
     
-    init(intent: Intent, model: Model, modelChangePublisher: ObjectWillChangePublisher) {
+    init(intent: Intent, state: state, modelChangePublisher: ObjectWillChangePublisher) {
         self.intent = intent
-        self.model = model
+        self.state = state
         
         modelChangePublisher
             .receive(on: RunLoop.main)
