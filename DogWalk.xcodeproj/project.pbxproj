@@ -748,7 +748,7 @@
 				INFOPLIST_FILE = DogWalk/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "도그워크";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "강아지 산책 경로 추적 및 현재 위치를 사용하여 산책 중인 위치를 보여주기 위해 사용됩니다.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "갤러리 접근 권한 필요!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "갤러리 접근 권한 필요!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -787,7 +787,7 @@
 				INFOPLIST_FILE = DogWalk/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "도그워크";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "강아지 산책 경로 추적 및 현재 위치를 사용하여 산책 중인 위치를 보여주기 위해 사용됩니다.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "갤러리 접근 권한 필요!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "갤러리 접근 권한 필요!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
