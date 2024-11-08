@@ -44,14 +44,14 @@ extension ChatTarget: TargetType {
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.contentType.rawValue: BaseHeader.json.rawValue, // json
-                BaseHeader.authorization.rawValue: "",
+                BaseHeader.authorization.rawValue: UserManager.shared.acess,
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
         case .postChatFiles:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.contentType.rawValue: BaseHeader.multipart.rawValue, // multipart-form
-                BaseHeader.authorization.rawValue: "",
+                BaseHeader.authorization.rawValue: UserManager.shared.acess,
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
         }

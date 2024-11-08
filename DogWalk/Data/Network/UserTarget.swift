@@ -57,7 +57,7 @@ extension UserTarget: TargetType {
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.contentType.rawValue: BaseHeader.json.rawValue,
-                BaseHeader.authorization.rawValue: "", // UserDefaults에 저장된 액세스 토큰
+                BaseHeader.authorization.rawValue: UserManager.shared.acess,
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
         }

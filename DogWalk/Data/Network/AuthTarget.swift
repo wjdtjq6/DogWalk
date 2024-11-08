@@ -27,8 +27,9 @@ extension AuthTarget: TargetType {
     var header: [String : String] {
         return [
             BaseHeader.productId.rawValue: APIKey.appID,
-            BaseHeader.contentType.rawValue: BaseHeader.json.rawValue,
-            BaseHeader.refresh.rawValue: "" // UserDefaults에 저장된 리프레시 토큰
+            BaseHeader.authorization.rawValue: UserManager.shared.acess,
+            BaseHeader.refresh.rawValue: UserManager.shared.refresh,
+            BaseHeader.sesacKey.rawValue: APIKey.key
         ]
     }
     
