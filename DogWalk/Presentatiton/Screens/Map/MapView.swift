@@ -11,14 +11,6 @@ import MapKit
 struct MapView: View {
     private static let width = UIScreen.main.bounds.width
     private static let height = UIScreen.main.bounds.height
-    //임시 위치 설정
-    @State private var position: MapCameraPosition = .region(
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780),
-            latitudinalMeters: 1000,
-            longitudinalMeters: 1000
-        )
-    )
     @State var isShowingSheet = false // 임시 바텀 시트 변수
     //Timer
     @State private var start = false
@@ -26,6 +18,10 @@ struct MapView: View {
     @State private var count = 0
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var isTimerOn = false
+    @State private var isAlert = false
+    //현위치
+    @StateObject private var locationManager = LocationManager()
+    @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
 }
 
 extension MapView {
@@ -50,7 +46,8 @@ extension MapView {
 private extension MapView {
     func mapView() -> some View {
         Map(position: $position) { //position: 표시할 지도 위치
-            setAnnotation(lat: 37.5665, lng: 126.9780)
+            //setAnnotation(lat: 37.5665, lng: 126.9780)
+            UserAnnotation()
         }
     }
     //Annotation
@@ -99,11 +96,21 @@ private extension MapView {
                 .shadow(color: .black.opacity(0.6), radius: 5, x: 0, y: 5) // 버튼 그림자
                 .wrapToButton {
                     print("산책 시작 버튼 클릭")
-                    isTimerOn = true//Timer
-                    count = 0
-                    start = true
+                    if locationManager.locationManager.authorizationStatus == .authorizedAlways || locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+                        isTimerOn = true//Timer
+                        count = 0
+                        start = true
+                    } else {
+                        isAlert = true
+                    }
                 }
-            
+                .alert("위치 권한 허용하러 갈멍?", isPresented: $isAlert) {
+                    Button("이동", role: .destructive) {
+                        openAppSettings()
+                    }
+                    Button("취소", role: .cancel) {
+                    }
+                }
         } //:HSTACK
         .padding(.bottom)
     }
@@ -148,9 +155,6 @@ private extension MapView {
                     self.start.toggle()
                 }
             }
-        })
-        .onDisappear(perform: {
-            print(#function)
         })
     }
     //지도 마커 클릭 시 바텀 시트
@@ -203,8 +207,20 @@ private extension MapView {
                 .foregroundStyle(Color.gray) // 나중에 색 변경해주기
                 .lineLimit(subTextLimit)
         } //:VSTACK
-        
     }
+    //위치 권한 허용하기 위한 설정으로 이동
+    func openAppSettings() {
+        if let appSettingURL = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(appSettingURL) {
+                UIApplication.shared.open(appSettingURL)
+            }
+        }
+    }
+}
+
+//MARK: - 위치 권한 부분
+private extension MapView {
+    
 }
 
 #Preview {

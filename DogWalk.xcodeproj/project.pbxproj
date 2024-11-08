@@ -13,6 +13,7 @@
 		06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18D2CD3E28E003249BF /* CommonSendView.swift */; };
 		06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18F2CD52DEE003249BF /* MessageModel.swift */; };
 		99CE341C2CD247B50020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE341B2CD247B50020F99E /* APIKey.swift */; };
+		BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */; };
 		BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41B0A02CD3BC4500B67485 /* AuthView.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
@@ -58,13 +59,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		06CEA1832CD22D57003249BF /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
 		06CEA1872CD365C6003249BF /* WarkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarkResultView.swift; sourceTree = "<group>"; };
 		06CEA1892CD398F0003249BF /* ChattingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomView.swift; sourceTree = "<group>"; };
 		06CEA18D2CD3E28E003249BF /* CommonSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSendView.swift; sourceTree = "<group>"; };
 		06CEA18F2CD52DEE003249BF /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		99CE341B2CD247B50020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BF41B0A02CD3BC4500B67485 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
@@ -122,14 +123,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		99CE34192CD247460020F99E /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				06CEA1832CD22D57003249BF /* APIKey.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		99CE341A2CD2479E0020F99E /* Security */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,7 +145,6 @@
 				C477A2B72CD0E5DC006B8DB6 /* .gitignore */,
 				C477A2A82CD0E594006B8DB6 /* DogWalk */,
 				C477A2A72CD0E594006B8DB6 /* Products */,
-				99CE34192CD247460020F99E /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -346,6 +338,7 @@
 			children = (
 				C477A2F62CD0E972006B8DB6 /* MapView.swift */,
 				06CEA1872CD365C6003249BF /* WarkResultView.swift */,
+				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -615,6 +608,7 @@
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
+				BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,7 +667,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -730,7 +724,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -753,6 +747,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "도그워크";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "강아지 산책 경로 추적 및 현재 위치를 사용하여 산책 중인 위치를 보여주기 위해 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -790,6 +785,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "도그워크";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "강아지 산책 경로 추적 및 현재 위치를 사용하여 산책 중인 위치를 보여주기 위해 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
