@@ -28,7 +28,7 @@ extension TargetType {
         guard let URL = components?.url else { throw URLError(.badURL) }
         var request = URLRequest(url: URL,
                                  cachePolicy: .reloadIgnoringLocalCacheData,
-                                 timeoutInterval: 30)
+                                 timeoutInterval: 10)
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = header
         request.httpBody = body
