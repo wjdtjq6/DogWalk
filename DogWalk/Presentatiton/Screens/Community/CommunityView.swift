@@ -33,7 +33,7 @@ struct CommunityView: View {
     static private let width = UIScreen.main.bounds.width
     static private let height = UIScreen.main.bounds.height
     @State private var isShowingSheet = false
-    @State private var items = Array(repeating: CummunityTestData(), count: 10) // 테스트 데이터 배열, 실제 데이터로 변경
+    @State private var items = (0..<10).map { _ in CummunityTestData() } // 테스트 데이터 배열, 실제 데이터로 변경
     private var filterButton = ["전체", "시터구하기", "산책 인증", "궁금해요", "자유게시판"] // MVI 패턴 적용후 Model로 이동
     
     var body: some View {
