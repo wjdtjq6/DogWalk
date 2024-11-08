@@ -50,11 +50,13 @@ final class NetworkManager: Requestable {
                     let (data, response) = try await self.session.data(for: request)
 
                     print("3️⃣ 네트워크 응답 받음")
-                    print(data)
-                    print(response)
-                    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                        print("🚨 유효하지 않은 응답")
-                        promise(.failure(.InvalidResponse))
+                    if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                        print("🚨 유효하지 않은 응답 (StatusCode: \(httpResponse.statusCode))")
+                        if let error = NetworkError(rawValue: httpResponse.statusCode) {
+                            promise(.failure(error))
+                        } else {
+                            promise(.failure(.InvalidResponse))
+                        }
                         return
                     }
 
