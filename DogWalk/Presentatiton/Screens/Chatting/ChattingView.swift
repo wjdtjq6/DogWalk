@@ -22,9 +22,9 @@ struct TestData: Identifiable, Hashable {
 
 struct ChattingView: View {
     @State private var searchText = ""
-    @State private var items = Array(repeating: TestData(), count: 10) // 테스트 데이터 배열, 실제 데이터로 변경
+    @State private var items = (0..<10).map { _ in TestData() } // 테스트 데이터 배열, 실제 데이터로 변경
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 chattingListView()
             }
@@ -34,11 +34,12 @@ struct ChattingView: View {
                     appLogo() // 좌상단 앱 로고
                 }
             }
+            .toolbar(.visible, for: .tabBar)
         }
     }
     
     private func chattingListView() -> some View {
-        ForEach(items, id: \.self) { item in
+        ForEach(items, id: \.id) { item in
             chattingViewCell(item)
         }
     }
