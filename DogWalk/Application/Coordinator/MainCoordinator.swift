@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-final class CoordinatorImpl: DogWalkCoordinatorProtocol {
+final class MainCoordinator: DogWalkCoordinatorProtocol {
     @Published var path: NavigationPath = NavigationPath()
     @Published var sheet: Sheet?
     @Published var fullScreenCover: FullScreenCover?
+    @Published var selectedTab: Tab?
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -29,7 +30,7 @@ final class CoordinatorImpl: DogWalkCoordinatorProtocol {
     }
     
     func popToRoot() {
-        path.removeLast(path.count)
+        path.removeLast(path.count) // 빈 배열로 초기화시 RootView
     }
     
     func dismissSheet() {
@@ -40,7 +41,7 @@ final class CoordinatorImpl: DogWalkCoordinatorProtocol {
         self.fullScreenCover = nil
     }
     
-    // Push
+    // 화면
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
         switch screen {
@@ -58,13 +59,21 @@ final class CoordinatorImpl: DogWalkCoordinatorProtocol {
         }
     }
     
+    // 시트
     @ViewBuilder
     func build(_ sheet: Sheet) -> some View {
-        
+        //MARK: 추가 구현시 예시 실제 사용시 삭제하고 사용하시면 됩니다.
+//        switch sheet {
+//        case .dogProfile(let dogID): DogProfileView(dogID: dogID)
+//        }
     }
     
+    // 풀스크린 커버
     @ViewBuilder
     func build(_ fullScreenCover: FullScreenCover) -> some View {
-        
+        //MARK: 추가 구현시 예시 실제 사용시 삭제하고 사용하시면 됩니다.
+//        switch fullScreenCover {
+//        case .dogWalkResult: WalkResultView.build()
+//        }
     }
 }

@@ -21,8 +21,9 @@ struct TestData: Identifiable, Hashable {
 }
 
 struct ChattingView: View {
+    @EnvironmentObject var coordinator: MainCoordinator
     @State private var searchText = ""
-    @State private var items = Array(repeating: TestData(), count: 10) // 테스트 데이터 배열, 실제 데이터로 변경
+    @State private var items = (0..<10).map { _ in TestData() } // 테스트 데이터 배열, 실제 데이터로 변경
     var body: some View {
         NavigationView {
             ScrollView {
@@ -45,9 +46,9 @@ struct ChattingView: View {
     
     // 채팅방 Cell
     private func chattingViewCell(_ item: TestData) -> some View {
-        // 임시로 SettingView로 해놨습니다. 추후에 채팅 디테일로 바꿔야 돼요
-        NavigationLink {
-            ChattingRoomView()
+        //MARK: coordinator 적용 후 버튼으로 변경
+        Button {
+            coordinator.push(.chattingRoom)
         } label: {
             HStack {
                 CommonProfile(image: .asTestImage, size: 60)

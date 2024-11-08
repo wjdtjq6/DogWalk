@@ -31,6 +31,7 @@ enum Screen: Identifiable, Hashable {
     case login // 로그인 뷰
     case home // 홈 뷰
     case tab
+    
     // 산책하기 탭
     case map // 산책하기 탭 첫 화면
     case dogWalkResult // 산책 결과 화면
@@ -50,32 +51,28 @@ enum Screen: Identifiable, Hashable {
     
 }
 
+// 탭 뷰
+enum Tab: Identifiable, Hashable {
+    var id: Self { return self }
+    
+    case home
+    case dogWalk
+    case community
+    case chatting
+    
+}
 //MARK: 필요한 뷰 추가해서 사용
 enum Sheet: Identifiable, Hashable {
     var id: Self { return self } 
     
-    case dogProfile // 강아지 프로필 시트
+    case dogProfile(dogID: String) // 강아지 프로필 시트
 }
+
 
 //MARK: 필요한 뷰 추가해서 사용
 enum FullScreenCover:  Identifiable, Hashable {
     var id: Self { return self }
+    
     case dogWalkResult
     
-}
-
-extension FullScreenCover {
-    
-    func hash(into hasher: inout Hasher) {
-        //        switch self {
-        //
-        //        }
-    }
-    
-    static func == (lhs: FullScreenCover, rhs: FullScreenCover) -> Bool {
-        //        switch (lhs, rhs) {
-        //        case (.addHabit, .addHabit):
-        return true
-        //        }
-    }
 }
