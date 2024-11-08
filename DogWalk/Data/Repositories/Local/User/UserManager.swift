@@ -7,51 +7,37 @@
 
 import Foundation
 
-private enum UserDefaultsKeys {
-    static let userNick = "userNickname" // 닉네임
-    static let lon = "lon" // 위도
-    static let lat = "lat" // 경도
-    static let roadAddress = "roadAddress" // 도로명 주소
-    static let points = "points" // 포인트
-    static let totalWalkTime = "totalWalkTime" // 산책시간
-    static let postCount = "postCount" // 게시물 작성 횟수
-    static let gender = "gender" // 성별
-    static let acess = "acess" // acess token
-    static let refresh = "refresh" // refresh token
-}
-
 final class UserManager {
     static let shared = UserManager()
     private init() {}
     
-    @UserDefault(key: UserDefaultsKeys.userNick, defaultValue: "도그워크")
+    @UserDefault(key: .userNick, defaultValue: "도그워크")
     var userNick: String
     
-    @UserDefault(key: UserDefaultsKeys.lon, defaultValue: 0.0)
+    @UserDefault(key: .lon, defaultValue: 0.0)
     var lon: Double
     
-    @UserDefault(key: UserDefaultsKeys.lat, defaultValue: 0.0)
+    @UserDefault(key: .lat, defaultValue: 0.0)
     var lat: Double
     
-    @UserDefault(key: UserDefaultsKeys.roadAddress, defaultValue: "")
+    @UserDefault(key: .roadAddress, defaultValue: "")
     var roadAddress: String
     
-    @UserDefault(key: UserDefaultsKeys.points, defaultValue: 0)
+    @UserDefault(key: .points, defaultValue: 0)
     var points: Int
     
-    @UserDefault(key: UserDefaultsKeys.totalWalkTime, defaultValue: 0)
+    @UserDefault(key: .totalWalkTime, defaultValue: 0)
     var totalWalkTime: Int
     
-    @UserDefault(key: UserDefaultsKeys.postCount, defaultValue: 0)
+    @UserDefault(key: .postCount, defaultValue: 0)
     var postCount: Int
     
-    @UserDefault(key: UserDefaultsKeys.gender, defaultValue: "")
+    @UserDefault(key: .gender, defaultValue: "")
     var gender: String
     
-    @UserDefault(key: UserDefaultsKeys.acess, defaultValue: "")
+    @UserDefault(key: .acess, defaultValue: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTE1YjExOTc0ODhmOTBkM2U3ZTZlNSIsImlhdCI6MTcxMjQxMzgyMiwiZXhwIjoxNzEyNzczODIyLCJpc3MiOiJzZXNhY18zIn0.fYNU0m-3oilabkh-MP65OKwTkFHkpqSGigQG5YbHuWE")
     var acess: String
     
-    @UserDefault(key: UserDefaultsKeys.refresh, defaultValue: "")
+    @UserDefault(key: .refresh, defaultValue: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTE1YjExOTc0ODhmOTBkM2U3ZTZlNSIsImlhdCI6MTcxMjQxMzgyMiwiZXhwIjoxNzE2MDEzODIyLCJpc3MiOiJzZXNhY18zIn0.VvA9hxyCUHfp-RgBNgCsCu6VDdD3kXEJfgzuiRXlkuQ")
     var refresh: String
-    
 }

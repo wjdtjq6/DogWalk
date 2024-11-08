@@ -8,7 +8,7 @@
 import Foundation
 
 // 토큰 갱신 응답 데이터 (Response)
-struct AuthDTO {
+struct AuthDTO: Decodable {
     let accessToken: String
     let refreshToken: String
 }
