@@ -38,6 +38,6 @@ final class UserManager {
     @UserDefault(key: .acess, defaultValue: "")
     var acess: String
     
-    @UserDefault(key: .refresh, defaultValue: "Q")
+    @UserDefault(key: .refresh, defaultValue: "")
     var refresh: String
 }
