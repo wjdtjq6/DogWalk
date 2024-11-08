@@ -42,8 +42,7 @@ extension ChattingRoomView {
         .background(Color.primaryWhite)
         .padding(.top, 1.0)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(.hidden, for: .tabBar)
-        
+        .tabBarHidden(true)
     }
     
     
@@ -241,11 +240,6 @@ private extension ChattingRoomView {
     ChattingRoomView()
 }
 
-extension View {
-    func tabBarHidden(_ hidden: Bool) -> some View {
-        self.toolbar(hidden ? .hidden : .visible, for: .tabBar)
-    }
-}
 
 // MARK: - 채팅 텍스트에 따른 크기 조절
 extension String {
