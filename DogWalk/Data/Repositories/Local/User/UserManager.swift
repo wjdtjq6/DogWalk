@@ -35,9 +35,9 @@ final class UserManager {
     @UserDefault(key: .gender, defaultValue: "")
     var gender: String
     
-    @UserDefault(key: .acess, defaultValue: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTE1YjExOTc0ODhmOTBkM2U3ZTZlNSIsImlhdCI6MTcxMjQxMzgyMiwiZXhwIjoxNzEyNzczODIyLCJpc3MiOiJzZXNhY18zIn0.fYNU0m-3oilabkh-MP65OKwTkFHkpqSGigQG5YbHuWE")
+    @UserDefault(key: .acess, defaultValue: "")
     var acess: String
     
-    @UserDefault(key: .refresh, defaultValue: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTE1YjExOTc0ODhmOTBkM2U3ZTZlNSIsImlhdCI6MTcxMjQxMzgyMiwiZXhwIjoxNzE2MDEzODIyLCJpc3MiOiJzZXNhY18zIn0.VvA9hxyCUHfp-RgBNgCsCu6VDdD3kXEJfgzuiRXlkuQ")
+    @UserDefault(key: .refresh, defaultValue: "Q")
     var refresh: String
 }
