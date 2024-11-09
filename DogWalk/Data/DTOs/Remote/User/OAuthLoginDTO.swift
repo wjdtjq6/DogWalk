@@ -1,5 +1,5 @@
 //
-//  KaKaoAppleLoginDTO.swift
+//  OAuthLoginDTO.swift
 //  DogWalk
 //
 //  Created by junehee on 11/3/24.
