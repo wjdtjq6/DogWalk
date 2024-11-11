@@ -11,6 +11,12 @@ final class UserManager {
     static let shared = UserManager()
     private init() {}
     
+    @UserDefault(key: .isUser, defaultValue: false)
+    var isUser: Bool
+    
+    @UserDefault(key: .userID, defaultValue: "")
+    var userID: String
+    
     @UserDefault(key: .userNick, defaultValue: "도그워크")
     var userNick: String
     

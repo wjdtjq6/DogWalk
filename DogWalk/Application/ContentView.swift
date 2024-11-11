@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var appCoordinator: MainCoordinator
+
     var body: some View {
         CoordinatorView()
+            .environmentObject(appCoordinator)
     }
 }
 

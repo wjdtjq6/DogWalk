@@ -8,6 +8,7 @@
 import Foundation
 
 enum UserTarget {
+    case emailLogin(body: EmailLoginBody)       // 이메일 로그인
     case kakaoLogin(body: KaKaoLoginBody)       // 카카오 로그인
     case appleLogin(body: AppleLoginBody)       // 애플 로그인
     case myProfile                              // 내 프로필 조회
@@ -22,7 +23,9 @@ extension UserTarget: TargetType {
     
     var path: String {
         switch self {
-        case .kakaoLogin: 
+        case .emailLogin:
+            return "/users/login"
+        case .kakaoLogin:
             return "/users/login/kakao"
         case .appleLogin:
             return "/users/login/apple"
@@ -37,7 +40,7 @@ extension UserTarget: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .kakaoLogin, .appleLogin: 
+        case .emailLogin, .kakaoLogin, .appleLogin:
             return .post
         case .myProfile, .userProfile, .withdraw:
             return .get
@@ -47,9 +50,10 @@ extension UserTarget: TargetType {
     var header: [String : String] {
         switch self {
         /// productId, application/json
-        case .kakaoLogin, .appleLogin:
+        case .emailLogin, .kakaoLogin, .appleLogin:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
+                BaseHeader.sesacKey.rawValue: APIKey.key,
                 BaseHeader.contentType.rawValue: BaseHeader.json.rawValue,
             ]
         /// productId, application/json, AccessToken, SesacKey
@@ -71,6 +75,14 @@ extension UserTarget: TargetType {
         let encoder = JSONEncoder()
         
         switch self {
+        case .emailLogin(let body):
+            do {
+                let data = try encoder.encode(body)
+                return data
+            } catch {
+                print("Body to JSON Encode Error", error)
+                return nil
+            }
         case .kakaoLogin(let body):
             do {
                 let data = try encoder.encode(body)
