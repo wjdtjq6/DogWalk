@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct CoordinatorView: View {
-    @StateObject var appCoordinator: MainCoordinator = MainCoordinator()
+    // @StateObject var appCoordinator: MainCoordinator = MainCoordinator()
+    @EnvironmentObject var appCoordinator: MainCoordinator
     
     var body: some View {
         NavigationStack(path: $appCoordinator.path) {
-            appCoordinator.build(.tab)
+            appCoordinator.build(.login)
                 .navigationDestination(for: Screen.self) { screen in
                     appCoordinator.build(screen)
                 }

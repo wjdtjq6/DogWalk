@@ -19,4 +19,16 @@ extension View {
     func wrapToButton(action: @escaping () -> Void) -> some View {
         modifier(ButtonWrapper(action: action))
     }
+    
+    // 비동기
+    func wrapToButton(asyncAction: @escaping () async -> Void) -> some View {
+        let action = {
+            DispatchQueue.main.async {
+                Task {
+                    await asyncAction()
+                }
+            }
+        }
+        return modifier(ButtonWrapper(action: action))
+    }
 }

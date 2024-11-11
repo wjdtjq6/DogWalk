@@ -105,6 +105,7 @@ final class NetworkManager: Requestable {
         }
     }
     
+    // MARK: - User
     // 내 프로필 조회 함수 예시!
     func fetchProfile() async {
         do {
@@ -126,6 +127,7 @@ final class NetworkManager: Requestable {
         }
     }
     
+    // MARK: - Auth
     // 토큰 갱신
     func refreshToken() async -> Bool {
         let retryHandler = NetworkRetryHandler()

@@ -58,6 +58,17 @@
 		C4097B152CD7AF28002155EA /* LastChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF82CD7AF28002155EA /* LastChatDTO.swift */; };
 		C4097B172CD8A76E002155EA /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B162CD8A76E002155EA /* String+.swift */; };
 		C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B182CDB0921002155EA /* HTTPMethod.swift */; };
+		C4097B1D2CE1A943002155EA /* CommonTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B1C2CE1A943002155EA /* CommonTitleView.swift */; };
+		C4097B1F2CE1AE33002155EA /* CreateChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B1E2CE1AE33002155EA /* CreateChattingRoomView.swift */; };
+		C4097B242CE1B286002155EA /* ChattingListIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B232CE1B286002155EA /* ChattingListIntent.swift */; };
+		C4097B262CE1B290002155EA /* ChattingListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B252CE1B290002155EA /* ChattingListState.swift */; };
+		C4097B282CE1B36C002155EA /* CreateChattingRoomIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B272CE1B36C002155EA /* CreateChattingRoomIntent.swift */; };
+		C4097B2A2CE1B375002155EA /* CreateChattingRoomState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B292CE1B375002155EA /* CreateChattingRoomState.swift */; };
+		C4097B2D2CE1EF4A002155EA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B2C2CE1EF4A002155EA /* LoginView.swift */; };
+		C4097B2F2CE1F2B5002155EA /* TestLoginAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B2E2CE1F2B5002155EA /* TestLoginAccount.swift */; };
+		C4097B312CE1F552002155EA /* EmailLoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B302CE1F552002155EA /* EmailLoginBody.swift */; };
+		C4097B332CE1F749002155EA /* LoginIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B322CE1F749002155EA /* LoginIntent.swift */; };
+		C4097B352CE1F74E002155EA /* LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B342CE1F74E002155EA /* LoginState.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -74,7 +85,7 @@
 		C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2E82CD0E84C006B8DB6 /* HomeView.swift */; };
 		C477A2F52CD0E959006B8DB6 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F42CD0E959006B8DB6 /* CommonButton.swift */; };
 		C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F62CD0E972006B8DB6 /* MapView.swift */; };
-		C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F82CD0E978006B8DB6 /* ChattingView.swift */; };
+		C477A2F92CD0E978006B8DB6 /* ChattingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2F82CD0E978006B8DB6 /* ChattingListView.swift */; };
 		C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2FA2CD0E984006B8DB6 /* CommunityCreateView.swift */; };
 		C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2FC2CD0E98A006B8DB6 /* CommunityDetailView.swift */; };
 		C477A2FF2CD0E98F006B8DB6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2FE2CD0E98F006B8DB6 /* SettingView.swift */; };
@@ -152,6 +163,17 @@
 		C4097AF82CD7AF28002155EA /* LastChatDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastChatDTO.swift; sourceTree = "<group>"; };
 		C4097B162CD8A76E002155EA /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		C4097B182CDB0921002155EA /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		C4097B1C2CE1A943002155EA /* CommonTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTitleView.swift; sourceTree = "<group>"; };
+		C4097B1E2CE1AE33002155EA /* CreateChattingRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChattingRoomView.swift; sourceTree = "<group>"; };
+		C4097B232CE1B286002155EA /* ChattingListIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListIntent.swift; sourceTree = "<group>"; };
+		C4097B252CE1B290002155EA /* ChattingListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListState.swift; sourceTree = "<group>"; };
+		C4097B272CE1B36C002155EA /* CreateChattingRoomIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChattingRoomIntent.swift; sourceTree = "<group>"; };
+		C4097B292CE1B375002155EA /* CreateChattingRoomState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChattingRoomState.swift; sourceTree = "<group>"; };
+		C4097B2C2CE1EF4A002155EA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C4097B2E2CE1F2B5002155EA /* TestLoginAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLoginAccount.swift; sourceTree = "<group>"; };
+		C4097B302CE1F552002155EA /* EmailLoginBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginBody.swift; sourceTree = "<group>"; };
+		C4097B322CE1F749002155EA /* LoginIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginIntent.swift; sourceTree = "<group>"; };
+		C4097B342CE1F74E002155EA /* LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginState.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -169,7 +191,7 @@
 		C477A2E82CD0E84C006B8DB6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C477A2F42CD0E959006B8DB6 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		C477A2F62CD0E972006B8DB6 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		C477A2F82CD0E978006B8DB6 /* ChattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingView.swift; sourceTree = "<group>"; };
+		C477A2F82CD0E978006B8DB6 /* ChattingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListView.swift; sourceTree = "<group>"; };
 		C477A2FA2CD0E984006B8DB6 /* CommunityCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCreateView.swift; sourceTree = "<group>"; };
 		C477A2FC2CD0E98A006B8DB6 /* CommunityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailView.swift; sourceTree = "<group>"; };
 		C477A2FE2CD0E98F006B8DB6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -253,6 +275,7 @@
 		C4097ADB2CD7AF28002155EA /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				C4097B302CE1F552002155EA /* EmailLoginBody.swift */,
 				C4097AD92CD7AF28002155EA /* AppleLoginBody.swift */,
 				C4097ADA2CD7AF28002155EA /* KaKaoLoginBody.swift */,
 			);
@@ -320,6 +343,45 @@
 				C4097AF82CD7AF28002155EA /* LastChatDTO.swift */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		C4097B202CE1B223002155EA /* CreateChattingRoom */ = {
+			isa = PBXGroup;
+			children = (
+				C4097B272CE1B36C002155EA /* CreateChattingRoomIntent.swift */,
+				C4097B292CE1B375002155EA /* CreateChattingRoomState.swift */,
+				C4097B1E2CE1AE33002155EA /* CreateChattingRoomView.swift */,
+			);
+			path = CreateChattingRoom;
+			sourceTree = "<group>";
+		};
+		C4097B212CE1B23B002155EA /* ChattingList */ = {
+			isa = PBXGroup;
+			children = (
+				C4097B232CE1B286002155EA /* ChattingListIntent.swift */,
+				C4097B252CE1B290002155EA /* ChattingListState.swift */,
+				C477A2F82CD0E978006B8DB6 /* ChattingListView.swift */,
+			);
+			path = ChattingList;
+			sourceTree = "<group>";
+		};
+		C4097B222CE1B248002155EA /* ChattingRoom */ = {
+			isa = PBXGroup;
+			children = (
+				06CEA1892CD398F0003249BF /* ChattingRoomView.swift */,
+			);
+			path = ChattingRoom;
+			sourceTree = "<group>";
+		};
+		C4097B2B2CE1EF3A002155EA /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C4097B322CE1F749002155EA /* LoginIntent.swift */,
+				C4097B342CE1F74E002155EA /* LoginState.swift */,
+				C4097B2C2CE1EF4A002155EA /* LoginView.swift */,
+				C4097B2E2CE1F2B5002155EA /* TestLoginAccount.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		C477A29D2CD0E594006B8DB6 = {
@@ -534,6 +596,7 @@
 				0689C35E2CDB3E6900C5FC8C /* WalkResult */,
 				C477A2F62CD0E972006B8DB6 /* MapView.swift */,
 				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
+				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -541,7 +604,6 @@
 		C477A2E42CD0E820006B8DB6 /* Community */ = {
 			isa = PBXGroup;
 			children = (
-				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 				C477A2E72CD0E831006B8DB6 /* Create */,
 				C477A2E62CD0E82C006B8DB6 /* Detail */,
 			);
@@ -551,8 +613,9 @@
 		C477A2E52CD0E823006B8DB6 /* Chatting */ = {
 			isa = PBXGroup;
 			children = (
-				C477A2F82CD0E978006B8DB6 /* ChattingView.swift */,
-				06CEA1892CD398F0003249BF /* ChattingRoomView.swift */,
+				C4097B202CE1B223002155EA /* CreateChattingRoom */,
+				C4097B212CE1B23B002155EA /* ChattingList */,
+				C4097B222CE1B248002155EA /* ChattingRoom */,
 				06CEA18F2CD52DEE003249BF /* MessageModel.swift */,
 			);
 			path = Chatting;
@@ -578,8 +641,9 @@
 		C477A2EA2CD0E854006B8DB6 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C477A30C2CD0EB21006B8DB6 /* CustomTab */,
+				BF41B09F2CD3BC3B00B67485 /* Auth */,
+				C4097B2B2CE1EF3A002155EA /* Login */,
 				C477A2E12CD0E812006B8DB6 /* Home */,
 				C477A2E32CD0E81B006B8DB6 /* Map */,
 				C477A2E42CD0E820006B8DB6 /* Community */,
@@ -627,6 +691,7 @@
 				C477A2F42CD0E959006B8DB6 /* CommonButton.swift */,
 				06CEA1852CD23181003249BF /* CommonProfile.swift */,
 				06CEA18D2CD3E28E003249BF /* CommonSendView.swift */,
+				C4097B1C2CE1A943002155EA /* CommonTitleView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -783,9 +848,11 @@
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */,
-				C477A2F92CD0E978006B8DB6 /* ChattingView.swift in Sources */,
+				C477A2F92CD0E978006B8DB6 /* ChattingListView.swift in Sources */,
+				C4097B332CE1F749002155EA /* LoginIntent.swift in Sources */,
 				C4097AD12CD7AEF5002155EA /* NetworkError.swift in Sources */,
 				C4097B0B2CD7AF28002155EA /* GeolocationDTO.swift in Sources */,
+				C4097B1F2CE1AE33002155EA /* CreateChattingRoomView.swift in Sources */,
 				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
 				06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */,
 				C477A30E2CD0EB3B006B8DB6 /* CustomTabView.swift in Sources */,
@@ -796,9 +863,13 @@
 				C477A2F52CD0E959006B8DB6 /* CommonButton.swift in Sources */,
 				BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */,
 				C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */,
+				C4097B2D2CE1EF4A002155EA /* LoginView.swift in Sources */,
+				C4097B2F2CE1F2B5002155EA /* TestLoginAccount.swift in Sources */,
 				99CE341C2CD247B50020F99E /* APIKey.swift in Sources */,
 				C4097AD42CD7AEF5002155EA /* UserTarget.swift in Sources */,
 				06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */,
+				C4097B312CE1F552002155EA /* EmailLoginBody.swift in Sources */,
+				C4097B262CE1B290002155EA /* ChattingListState.swift in Sources */,
 				C477A2DE2CD0E800006B8DB6 /* DefaultSomeInterface.swift in Sources */,
 				C4097AFD2CD7AF28002155EA /* FollowDTO.swift in Sources */,
 				C4097B0E2CD7AF28002155EA /* PostResponseDTO.swift in Sources */,
@@ -813,9 +884,12 @@
 				C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
 				C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */,
+				C4097B242CE1B286002155EA /* ChattingListIntent.swift in Sources */,
 				C4097AD62CD7AEF5002155EA /* PostTarget.swift in Sources */,
 				9966F6D52CDDE3C500E7569E /* CoordinatorView.swift in Sources */,
 				C4097AFB2CD7AF28002155EA /* AppleLoginBody.swift in Sources */,
+				C4097B352CE1F74E002155EA /* LoginState.swift in Sources */,
+				C4097B1D2CE1A943002155EA /* CommonTitleView.swift in Sources */,
 				C4097B052CD7AF28002155EA /* LikePostBody.swift in Sources */,
 				C4097B042CD7AF28002155EA /* GetPostQuery.swift in Sources */,
 				C4097B0A2CD7AF28002155EA /* UserDTO.swift in Sources */,
@@ -829,6 +903,7 @@
 				BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */,
 				C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */,
 				C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */,
+				C4097B2A2CE1B375002155EA /* CreateChattingRoomState.swift in Sources */,
 				C4097B172CD8A76E002155EA /* String+.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
@@ -836,6 +911,7 @@
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
 				C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */,
 				C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */,
+				C4097B282CE1B36C002155EA /* CreateChattingRoomIntent.swift in Sources */,
 				C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */,
 				C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
@@ -982,7 +1058,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = N727744RT8;
+				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1024,7 +1100,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = N727744RT8;
+				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;

@@ -28,7 +28,7 @@ struct CustomTabView: View {
                         .renderingMode(.template)
                     Text("커뮤니티")
                 }
-            ChattingView()
+            ChattingListView.build()
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)
