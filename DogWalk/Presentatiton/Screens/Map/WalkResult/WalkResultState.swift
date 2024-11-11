@@ -35,7 +35,6 @@ final class WalkResultState: WalkResultStateProtocol, ObservableObject {
     var walkTime: String = ""
     var walkDistance: String = ""
     var walkCalorie: String = ""
-    
 }
 
 // MARK: - intent에 줄 함수

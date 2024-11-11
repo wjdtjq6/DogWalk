@@ -18,7 +18,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObj
     override init() {
         super.init()
         locationManager.delegate =  self
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer // 정확도 설정 (원하는 정확도 설정 가능)
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest// 정확도 설정 (원하는 정확도 설정 가능)
         locationManager.distanceFilter = 1 //TODO: Test / 5미터마다 위치 갱신 수정!
         checkLocationAuthorization()
     }
