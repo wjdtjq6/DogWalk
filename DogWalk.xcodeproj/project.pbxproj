@@ -32,7 +32,7 @@
 		C4097AFB2CD7AF28002155EA /* AppleLoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AD92CD7AF28002155EA /* AppleLoginBody.swift */; };
 		C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADA2CD7AF28002155EA /* KaKaoLoginBody.swift */; };
 		C4097AFD2CD7AF28002155EA /* FollowDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADC2CD7AF28002155EA /* FollowDTO.swift */; };
-		C4097AFE2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADD2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift */; };
+		C4097AFE2CD7AF28002155EA /* OAuthLoginDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADD2CD7AF28002155EA /* OAuthLoginDTO.swift */; };
 		C4097AFF2CD7AF28002155EA /* MyProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADE2CD7AF28002155EA /* MyProfileDTO.swift */; };
 		C4097B002CD7AF28002155EA /* UserProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097ADF2CD7AF28002155EA /* UserProfileDTO.swift */; };
 		C4097B012CD7AF28002155EA /* WithDrawDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AE02CD7AF28002155EA /* WithDrawDTO.swift */; };
@@ -126,7 +126,7 @@
 		C4097AD92CD7AF28002155EA /* AppleLoginBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginBody.swift; sourceTree = "<group>"; };
 		C4097ADA2CD7AF28002155EA /* KaKaoLoginBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KaKaoLoginBody.swift; sourceTree = "<group>"; };
 		C4097ADC2CD7AF28002155EA /* FollowDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowDTO.swift; sourceTree = "<group>"; };
-		C4097ADD2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KaKaoAppleLoginDTO.swift; sourceTree = "<group>"; };
+		C4097ADD2CD7AF28002155EA /* OAuthLoginDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthLoginDTO.swift; sourceTree = "<group>"; };
 		C4097ADE2CD7AF28002155EA /* MyProfileDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileDTO.swift; sourceTree = "<group>"; };
 		C4097ADF2CD7AF28002155EA /* UserProfileDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileDTO.swift; sourceTree = "<group>"; };
 		C4097AE02CD7AF28002155EA /* WithDrawDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawDTO.swift; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 			children = (
 				C4097ADB2CD7AF28002155EA /* Request */,
 				C4097ADC2CD7AF28002155EA /* FollowDTO.swift */,
-				C4097ADD2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift */,
+				C4097ADD2CD7AF28002155EA /* OAuthLoginDTO.swift */,
 				C4097ADE2CD7AF28002155EA /* MyProfileDTO.swift */,
 				C4097ADF2CD7AF28002155EA /* UserProfileDTO.swift */,
 				C4097AE02CD7AF28002155EA /* WithDrawDTO.swift */,
@@ -841,7 +841,7 @@
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
-				C4097AFE2CD7AF28002155EA /* KaKaoAppleLoginDTO.swift in Sources */,
+				C4097AFE2CD7AF28002155EA /* OAuthLoginDTO.swift in Sources */,
 				C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */,
 				9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */,
 				C4097B132CD7AF28002155EA /* ChatRoomDTO.swift in Sources */,

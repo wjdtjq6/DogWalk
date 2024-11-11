@@ -187,23 +187,29 @@ final class NetworkRetryHandler: RequestRetrier {
     }
     
     /**
-     `retry`가 `maxRetry`보다 작고
-     URL 상태가 notConnectedToInternet, timedOut, networkConnectionLost면 `true`
-     그 외에는 `false`를 반환
+    `true` - 계속 재시도
+     `false` - 재시도 종료
      */
     func retry(for error: Error) -> Bool {
         print("⚠️ 네트워크 재시도")
         if retry < maxRetry {
             if let urlError = error as? URLError {
                 switch urlError.code {
-                case .notConnectedToInternet, .timedOut, .networkConnectionLost: 
+                case .notConnectedToInternet, .timedOut, .networkConnectionLost:
+                    print("재시도 : \(retry) | 최대시도 : \(maxRetry)")
                     return true
                 default: 
-                    return false
+                    return true
                 }
             }
+        } else {
+            print("🚨 재시도 횟수 초과! 재시도 종료")
+            return false
         }
-        return false
+        incrementRetryCount()
+        print("Retry: ", retry)
+        print("Max: ", maxRetry)
+        return true
     }
     
     func incrementRetryCount() {
