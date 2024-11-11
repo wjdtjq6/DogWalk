@@ -9,14 +9,17 @@ import Foundation
 import CoreLocation
 
 final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObject {
-    @Published var lastKnownLocation: CLLocationCoordinate2D?
     var locationManager =  CLLocationManager ()
-    
+
+    @Published var lastKnownLocation: CLLocationCoordinate2D?
+    @Published var locations: [CLLocationCoordinate2D] = []//사용자의 경로 저장
+    @Published var isTrackingPath = false // 산책 경로 기록 중인지 확인
+
     override init() {
         super.init()
         locationManager.delegate =  self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // 정확도 설정 (원하는 정확도 설정 가능)
-        locationManager.distanceFilter = 5 // 5미터마다 위치 갱신
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer // 정확도 설정 (원하는 정확도 설정 가능)
+        locationManager.distanceFilter = 1 //TODO: Test / 5미터마다 위치 갱신 수정!
         checkLocationAuthorization()
     }
     // 위치 권한 확인 및 위치 업데이트 시작
@@ -49,10 +52,18 @@ final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObj
     }
     // 위치 정보가 업데이트되면 호출되는 메서드
     func locationManager ( _  manager : CLLocationManager , didUpdateLocations  locations : [ CLLocation ]) {
-        guard let newLocation = locations.first else { return }
-            
         // 위치 정보 업데이트
-        lastKnownLocation = newLocation.coordinate
-        print("\(Date.now)현재 위치: \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
+        guard let newLocation = locations.last else { return }
+        let coordinate = newLocation.coordinate
+        lastKnownLocation = coordinate
+        // 경로 기록이 활성화된 경우에만 위치 변경 시마다 경로에 추가
+        if isTrackingPath {
+            self.locations.append(coordinate)
+            print("\(Date.now) 현재 위치: \(coordinate.latitude), \(coordinate.longitude)")
+        }
+    }
+    // 경로 기록 초기화
+    func resetLocations() {
+        locations.removeAll()
     }
 }
