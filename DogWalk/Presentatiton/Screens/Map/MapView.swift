@@ -22,6 +22,11 @@ struct MapView: View {
     //현위치
     @StateObject private var locationManager = LocationManager()
     @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
+    @State private var polylineColor: Color = Color(
+        red: Double.random(in: 0...1),
+        green: Double.random(in: 0...1),
+        blue: Double.random(in: 0...1)
+    )
 }
 
 extension MapView {
@@ -37,6 +42,13 @@ extension MapView {
             }
         } //:ZSTACK
         .fullScreenCover(isPresented: $isShowingSheet, content: {
+            /*
+             보낼거
+             1. 산책시간
+             2. 거리(랑 시간 계산해서 칼로리)
+             3. Polyline자체 or 캡쳐해서 사진으로
+             4. Polyline의 중간을 cameraposition으로
+             */
             WalkResultView.build()
         })
     }
@@ -46,8 +58,13 @@ extension MapView {
 private extension MapView {
     func mapView() -> some View {
         Map(position: $position) { //position: 표시할 지도 위치
-            //setAnnotation(lat: 37.5665, lng: 126.9780)
             UserAnnotation()
+            
+            if locationManager.locations.count > 1 {
+                let polylineCoordinates = locationManager.locations
+                MapPolyline(coordinates: polylineCoordinates)
+                    .stroke(polylineColor, lineWidth: 5)
+            }
         }
     }
     //Annotation
@@ -100,6 +117,8 @@ private extension MapView {
                         isTimerOn = true//Timer
                         count = 0
                         start = true
+                        locationManager.isTrackingPath = true // 경로 기록 시작
+                        locationManager.resetLocations() // 이전 기록 초기화
                     } else {
                         isAlert = true
                     }
