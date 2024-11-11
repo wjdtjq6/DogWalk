@@ -9,6 +9,7 @@ import Foundation
 
 enum UserDefaultsKeys: String {
     case isUser              // 유저 여부 - 첫 화면 핸들링 위함
+    case userID              // ID
     case userNick            // 닉네임
     case lon                 // 위도
     case lat                 // 경도

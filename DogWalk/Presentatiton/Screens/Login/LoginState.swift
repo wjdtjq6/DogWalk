@@ -40,13 +40,14 @@ extension LoginState: LoginActionProtocol {
                         print("🚨 로그인 실패", error)
                     }
                 } receiveValue: { [weak self] data in
+                    let domain = data.toDomain()
                     // 로그인 성공 응답값을 UserDefaults에 저장
-                    print("유저디폴트에 저장")
-                    UserManager.shared.acess = data.accessToken
-                    UserManager.shared.refresh = data.refreshToken
+                    UserManager.shared.userID = domain.userID
+                    UserManager.shared.userNick = domain.nick
+                    UserManager.shared.acess = domain.accessToken
+                    UserManager.shared.refresh = domain.refreshToken
                     UserManager.shared.isUser = true
                     self?.isLoginDone = true
-                    print("유저디폴트에 저장 완료")
                 }
                 .store(in: &cancellables)
         } catch {
