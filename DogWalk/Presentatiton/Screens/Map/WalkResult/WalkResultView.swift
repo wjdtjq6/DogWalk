@@ -167,7 +167,7 @@ private extension WalkResultView {
             CommonButton(width: Self.width * 0.9, height: Self.height * 0.06, cornerradius: 0, backColor: .primaryOrange, text: "게시글 작성하기", textFont: .pretendardBold16, textColor: .primaryWhite, leftLogo: .asPlus, imageSize: 15)
                 .foregroundStyle(Color.primaryWhite)
                 .wrapToButton {
-                    intent.startPosttingButtonTap()
+                    print("게시글 작성 탭함")
                 }
         } //:VSTACK
     }

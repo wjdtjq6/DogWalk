@@ -29,6 +29,8 @@
 		9966F7102CE2EFF600E7569E /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F70F2CE2EFF600E7569E /* ChatRepository.swift */; };
 		99CE341C2CD247B50020F99E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE341B2CD247B50020F99E /* APIKey.swift */; };
 		BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF02CDE4633001933C0 /* WalkResultView.swift */; };
+		BF159EF62CE33B5D001933C0 /* MapIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF52CE33B5D001933C0 /* MapIntent.swift */; };
+		BF159EF82CE33B6C001933C0 /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF72CE33B6C001933C0 /* MapState.swift */; };
 		BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */; };
 		BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41B0A02CD3BC4500B67485 /* AuthView.swift */; };
 		C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC72CD7AEF4002155EA /* NetworkManager.swift */; };
@@ -145,6 +147,8 @@
 		9966F70F2CE2EFF600E7569E /* ChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
 		99CE341B2CD247B50020F99E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		BF159EF02CDE4633001933C0 /* WalkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultView.swift; sourceTree = "<group>"; };
+		BF159EF52CE33B5D001933C0 /* MapIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapIntent.swift; sourceTree = "<group>"; };
+		BF159EF72CE33B6C001933C0 /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BF41B0A02CD3BC4500B67485 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		C4097AC72CD7AEF4002155EA /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -314,6 +318,16 @@
 				99CE341B2CD247B50020F99E /* APIKey.swift */,
 			);
 			path = Security;
+			sourceTree = "<group>";
+		};
+		BF159EF42CE33B41001933C0 /* MapOverview */ = {
+			isa = PBXGroup;
+			children = (
+				C477A2F62CD0E972006B8DB6 /* MapView.swift */,
+				BF159EF52CE33B5D001933C0 /* MapIntent.swift */,
+				BF159EF72CE33B6C001933C0 /* MapState.swift */,
+			);
+			path = MapOverview;
 			sourceTree = "<group>";
 		};
 		BF41B09F2CD3BC3B00B67485 /* Auth */ = {
@@ -656,8 +670,8 @@
 		C477A2E32CD0E81B006B8DB6 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				BF159EF42CE33B41001933C0 /* MapOverview */,
 				0689C35E2CDB3E6900C5FC8C /* WalkResult */,
-				C477A2F62CD0E972006B8DB6 /* MapView.swift */,
 				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
 				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 			);
@@ -916,6 +930,7 @@
 				C4097AFA2CD7AF28002155EA /* AuthDTO.swift in Sources */,
 				C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */,
 				C4097B012CD7AF28002155EA /* WithDrawDTO.swift in Sources */,
+				BF159EF62CE33B5D001933C0 /* MapIntent.swift in Sources */,
 				C4097AD32CD7AEF5002155EA /* TargetType.swift in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
@@ -994,6 +1009,7 @@
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
+				BF159EF82CE33B6C001933C0 /* MapState.swift in Sources */,
 				C4097AFE2CD7AF28002155EA /* OAuthLoginDTO.swift in Sources */,
 				C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */,
 				9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */,
