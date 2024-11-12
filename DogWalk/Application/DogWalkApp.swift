@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct DogWalkApp: App {
+    @StateObject var appCoordinator: MainCoordinator = MainCoordinator()
+    private var isUser = UserManager.shared.isUser
+    
     init() {
         let appearance = UINavigationBarAppearance()
         // 뒤로 가기 버튼의 텍스트 제거
@@ -24,7 +27,13 @@ struct DogWalkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isUser {
+                ContentView()
+                    .environmentObject(appCoordinator)
+            } else {
+                LoginView.build()
+                    .environmentObject(appCoordinator)
+            }
         }
     }
 }

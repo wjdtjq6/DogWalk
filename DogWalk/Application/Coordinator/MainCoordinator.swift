@@ -45,17 +45,18 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
         switch screen {
-        case .tab: CustomTabView() // 탭
-        case .login: AuthView() // 로그인
-        case .home: HomeView() // 홈
-        case .map: MapView() // 산책하기 탭 첫
-        case .dogWalkResult: WalkResultView.build() // 산책 결과
-        case .communityCreate: CommunityCreateView() // 게시글 작성
-        case .community: CommunityView() // 커뮤니티 리스트 화면
-        case .communityDetail: CommunityDetailView() // 커뮤니티 게시글 디테일
-        case .chatting: ChattingView() // 채팅방 리스트 화면
-        case .chattingRoom: ChattingRoomView() // 채팅방
-        case .setting: SettingView() // 세팅
+        case .tab: CustomTabView()                      // 탭
+        case .auth: AuthView()                          // 회원가입
+        case .login: LoginView.build()                  // 로그인
+        case .home: HomeView()                          // 홈
+        case .map: MapView()                            // 산책하기 탭 첫
+        case .dogWalkResult: WalkResultView.build()     // 산책 결과
+        case .communityCreate: CommunityCreateView()    // 게시글 작성
+        case .community: CommunityView()                // 커뮤니티 리스트 화면
+        case .communityDetail: CommunityDetailView()    // 커뮤니티 게시글 디테일
+        case .chatting: ChattingListView.build()        // 채팅방 리스트 화면
+        case .chattingRoom: ChattingRoomView()          // 채팅방
+        case .setting: SettingView()                    // 세팅
         }
     }
     

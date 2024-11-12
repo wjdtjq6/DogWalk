@@ -28,14 +28,15 @@ enum Screen: Identifiable, Hashable {
     var id: Self { return self } //  각 케이스가 자신을 반환하여  고유하게 식별됨
     
     // 로그인 , 홈탭
-    case login // 로그인 뷰
-    case home // 홈 뷰
+    case auth   // 회원가입
+    case login  // 로그인 뷰
+    case home   // 홈 뷰
     case tab
     
     // 산책하기 탭
-    case map // 산책하기 탭 첫 화면
-    case dogWalkResult // 산책 결과 화면
-    case communityCreate // 게시글 작성 화면
+    case map                // 산책하기 탭 첫 화면
+    case dogWalkResult      // 산책 결과 화면
+    case communityCreate    // 게시글 작성 화면
     
     // 커뮤니티 탭
     case community

@@ -23,6 +23,6 @@ extension String {
     
     // String -> Date -> String
     func getFormattedDateString(_ formatType: DateFormatType = .dot) -> String {
-        return "구현해주슈!!"
+        return self
     }
 }

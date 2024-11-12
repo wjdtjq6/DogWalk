@@ -8,7 +8,7 @@
 import Foundation
 
 // 채팅방 리스트 조회 응답 (Response)
-struct ChatRoomResponseDTO {
+struct ChatRoomResponseDTO: Decodable {
     let data: [ChatRoomDTO]
 }
 
