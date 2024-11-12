@@ -119,6 +119,8 @@
 		C4A776922CD1276A00D60EEE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776912CD1276A00D60EEE /* Container.swift */; };
 		C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776942CD223E600D60EEE /* CommunityView.swift */; };
 		C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776962CD3441E00D60EEE /* CommunityCategorySelectedView.swift */; };
+		C4D48E792CE3483D006E39A0 /* ChattingRoomIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E782CE3483D006E39A0 /* ChattingRoomIntent.swift */; };
+		C4D48E7B2CE34847006E39A0 /* ChattingRoomState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E7A2CE34847006E39A0 /* ChattingRoomState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -237,6 +239,8 @@
 		C4A776912CD1276A00D60EEE /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		C4A776942CD223E600D60EEE /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
 		C4A776962CD3441E00D60EEE /* CommunityCategorySelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCategorySelectedView.swift; sourceTree = "<group>"; };
+		C4D48E782CE3483D006E39A0 /* ChattingRoomIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomIntent.swift; sourceTree = "<group>"; };
+		C4D48E7A2CE34847006E39A0 /* ChattingRoomState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +432,8 @@
 		C4097B222CE1B248002155EA /* ChattingRoom */ = {
 			isa = PBXGroup;
 			children = (
+				C4D48E782CE3483D006E39A0 /* ChattingRoomIntent.swift */,
+				C4D48E7A2CE34847006E39A0 /* ChattingRoomState.swift */,
 				06CEA1892CD398F0003249BF /* ChattingRoomView.swift */,
 			);
 			path = ChattingRoom;
@@ -529,7 +535,6 @@
 			isa = PBXGroup;
 			children = (
 				067F5DBD2CE1F67700BD9ADD /* Image */,
-				990476052CD74770006B530C /* CoreData */,
 				C4A776892CD125B800D60EEE /* User */,
 				C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */,
 			);
@@ -706,7 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				067F5DC02CE2166C00BD9ADD /* Test */,
-				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C477A30C2CD0EB21006B8DB6 /* CustomTab */,
 				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C4097B2B2CE1EF3A002155EA /* Login */,
@@ -942,6 +946,7 @@
 				C4097AD42CD7AEF5002155EA /* UserTarget.swift in Sources */,
 				06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */,
 				C4097B312CE1F552002155EA /* EmailLoginBody.swift in Sources */,
+				C4D48E792CE3483D006E39A0 /* ChattingRoomIntent.swift in Sources */,
 				C4097B262CE1B290002155EA /* ChattingListState.swift in Sources */,
 				C477A2DE2CD0E800006B8DB6 /* DefaultSomeInterface.swift in Sources */,
 				C4097AFD2CD7AF28002155EA /* FollowDTO.swift in Sources */,
@@ -980,6 +985,7 @@
 				BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */,
 				C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */,
 				C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */,
+				C4D48E7B2CE34847006E39A0 /* ChattingRoomState.swift in Sources */,
 				C4097B2A2CE1B375002155EA /* CreateChattingRoomState.swift in Sources */,
 				C4097B172CD8A76E002155EA /* String+.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
@@ -1136,7 +1142,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = G9LS4YQCM2;
 				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1179,7 +1184,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = G9LS4YQCM2;
 				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1242,7 +1246,6 @@
 				9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */,
 			);
 			currentVersion = 9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */;
-			name = Chat.xcdatamodeld;
 			path = Chat.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
