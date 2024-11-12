@@ -2,7 +2,7 @@
 //  UserManager.swift
 //  DogWalk
 //
-//  Created by junehee on 10/29/24.
+//  Created by junehee,김윤우 on 10/29/24.
 //
 
 import Foundation
