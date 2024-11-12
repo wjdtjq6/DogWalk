@@ -5,14 +5,14 @@
 //  Created by 박성민 on 11/2/24.
 //
 
-//import Foundation
-import UIKit
+import SwiftUI
+
 struct MessageModel: Identifiable {
-    
     enum MessageType: String {
         case text
         case image
     }
+    
     //let room: UUID = UUID() //방 id
     let id: UUID = UUID() //채팅 하나 id
     let userID: String // 상대방 id
@@ -29,7 +29,6 @@ class Message: Equatable {
     static func == (lhs: Message, rhs: Message) -> Bool {
         return false
     }
-    
     
     var modles: [MessageModel] = [
         MessageModel(userID: "나", type: .text, content: "안녕!", date: Date(), showProfile: true),

@@ -18,7 +18,7 @@ struct ChattingRoomView: View {
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
     @State private var text: String = ""     // 임시 키보드 입력
-    @State private var message = Message()   // 임시 채팅 내역
+    // @State private var message = Message()   // 임시 채팅 내역
     @State private var sendTest = false
 }
 
@@ -48,9 +48,9 @@ extension ChattingRoomView {
                     showKeyboard: $showKeyboard
                 ) { text in
                     print(text) // 보낼 경우 텍스트 반환
-                    message.addMessage(text: text)
-                } completionSendImage: { UIImage in //이미지 보낼 경우
-                    message.addImage(image: UIImage)
+                    // message.addMessage(text: text)
+                } completionSendImage: { UIImage in // 이미지 보낼 경우
+                    // message.addImage(image: UIImage)
                 }
             }
         }  //:VSTACK
@@ -61,6 +61,8 @@ extension ChattingRoomView {
         .tabBarHidden(true)
         .task {
             await intent.onAppearTrigger(roomID: "673313242cced3080561033c")    // TODO: roomID 어떻게 적용할지?
+            // JACK 66386735e7696bd61fd5ef14
+            // HUE 673313242cced3080561033c
         }
     }
 }
@@ -72,7 +74,7 @@ private extension ChattingRoomView {
         ScrollViewReader { scroll in
             ScrollView {
                 LazyVStack(spacing: 2.0) {
-                    ForEach(message.modles) { model in
+                    ForEach(state.chattingData) { model in
                         chattingView(size: size, model: model)
                             .padding(.bottom, 10)
                             .onTapGesture {
@@ -83,22 +85,25 @@ private extension ChattingRoomView {
                 } //:VSTACK
                 .onAppear {
                     //마지막 채팅 내역으로 스크롤 이동
-                    scroll.scrollTo(message.modles.last?.id, anchor: .top)
+                    // scroll.scrollTo(message.modles.last?.id, anchor: .top)
+                    scroll.scrollTo(state.chattingData.last?.chatID, anchor: .top)
                 }
                 .onChange(of: showKeyboard) { oldValue, newValue in //키보드 감지
                     guard newValue else { return }
                     //자연스러운 스크롤 구현
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation {
-                            scroll.scrollTo(message.modles.last?.id, anchor: .top)
+                            // scroll.scrollTo(message.modles.last?.id, anchor: .top)
+                            scroll.scrollTo(state.chattingData.last?.chatID, anchor: .top)
                         }
                     }
                     
                 }
-                .onChange(of: message) { oldValue, newValue in //새로운 메시지 감지
+                .onChange(of: state.chattingData) { oldValue, newValue in //새로운 메시지 감지
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation {
-                            scroll.scrollTo(message.modles.last?.id, anchor: .top)
+                            // scroll.scrollTo(message.modles.last?.id, anchor: .top)
+                            scroll.scrollTo(state.chattingData.last?.chatID, anchor: .top)
                         }
                     }
                 }//새로운 데이터가 들어올 경우 스크롤 위치 하단으로
@@ -114,12 +119,12 @@ private extension ChattingRoomView {
 // MARK: - 전체 채팅 뷰
 private extension ChattingRoomView {
     @ViewBuilder
-    func chattingView(size: CGSize, model: MessageModel) -> some View {
+    func chattingView(size: CGSize, model: ChattingRoomModel) -> some View {
         let xOffSet = size.width / 2
         switch model.type {
         case .text:
             ZStack {
-                if model.userID != "나" {
+                if model.sender.userID != UserManager.shared.userID {
                     userProfileView()
                         .offset(x: -xOffSet + 30)
                 }
@@ -128,7 +133,7 @@ private extension ChattingRoomView {
             }
         case .image:
             ZStack {
-                if model.userID != "나" {
+                if model.sender.userID != UserManager.shared.userID {
                     userProfileView()
                         .offset(x: -xOffSet + 30)
                 }
@@ -142,8 +147,8 @@ private extension ChattingRoomView {
 // MARK: - 말풍선 부분
 private extension ChattingRoomView {
     @ViewBuilder
-    func messageView(size: CGSize, model: MessageModel) -> some View {
-        let isRight = model.userID == "나" //userID 변경해주기
+    func messageView(size: CGSize, model: ChattingRoomModel) -> some View {
+        let isRight = model.sender.userID == UserManager.shared.userID
         //말풍선 size 지정
         let minBubbleHeight: CGFloat = 18.0
         let minBubbleWidth: CGFloat = 15.0
@@ -160,8 +165,8 @@ private extension ChattingRoomView {
         let bubbleWidth = mesWidth + 20
         let xOffSet = (size.width - bubbleWidth) / 2 - 20.0 // 말풍선 offSet 설정
         HStack {
-            if model.userID == "나" { //상대 프로필
-                dateChattView()
+            if model.sender.userID == UserManager.shared.userID { //상대 프로필
+                chatDateView()
                     .offset(x: xOffSet - 15, y: 4)
             }
             //말풍선 부분
@@ -190,8 +195,8 @@ private extension ChattingRoomView {
                     //.foregroundStyle(isRight ? ) // 채팅 색 변경
                 }
             
-            if model.userID != "나" { //상대방 날짜 부분
-                dateChattView()
+            if model.sender.userID != UserManager.shared.userID { //상대방 날짜 부분
+                chatDateView()
                     .offset(x: -xOffSet + 55, y: 4)
             }
         } //:HSTACK
@@ -202,17 +207,17 @@ private extension ChattingRoomView {
 // MARK: - 채팅이 이미지일 경우
 private extension ChattingRoomView {
     @ViewBuilder
-    func imageMessageView(size: CGSize, model: MessageModel) -> some View {
-        let isRight = model.userID == "나"
+    func imageMessageView(size: CGSize, model: ChattingRoomModel) -> some View {
+        let isRight = model.sender.userID == UserManager.shared.userID
         let width = size.width
         HStack {
             if isRight {
-                dateChattView()
+                chatDateView()
                     .offset(x: width * 0.1985)
                     .padding(.bottom, 5)
             }
             // 이미지 말풍선 부분
-            Image(uiImage: model.image)
+            Image(uiImage: UIImage.test)  // TODO: 채팅방 이미지!!!!!!
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 150, height: 150) // 이미지 크기 조정
@@ -228,7 +233,7 @@ private extension ChattingRoomView {
                 .padding(.bottom, 10)
             
             if !isRight { // 상대방 날짜
-                dateChattView()
+                chatDateView()
                     .offset(x: -width * 0.105)
                     .padding(.bottom, 5)
             }
@@ -249,15 +254,10 @@ private extension ChattingRoomView {
 // MARK: - 채팅 날짜 부분
 private extension ChattingRoomView {
     @ViewBuilder
-    func dateChattView() -> some View {
+    func chatDateView() -> some View {
         Text("오전 88:88")
             .font(.pretendardLight12)
             .frame(width: 60, height: 25)
             .vBottom()
     }
 }
-
-// // MARK: - 채팅 텍스트에 따른 크기 조절
-// extension String {
-//     
-// }

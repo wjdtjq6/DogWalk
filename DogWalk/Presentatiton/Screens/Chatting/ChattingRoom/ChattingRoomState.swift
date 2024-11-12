@@ -41,6 +41,7 @@ extension ChattingRoomState: ChattingRoomActionProtocol {
                         print("🚨 채팅방 목록 가져오기 실패", error)
                     }
                 } receiveValue: { [weak self] chattingList in
+                    print(chattingList)
                     self?.chattingData = chattingList.data.map { $0.toDomain() }
                 }
                 .store(in: &cancellables)
