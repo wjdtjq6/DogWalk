@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		067F5DBF2CE1F69600BD9ADD /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067F5DBE2CE1F69600BD9ADD /* ImageCacheManager.swift */; };
+		067F5DC22CE2167800BD9ADD /* SMTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067F5DC12CE2167800BD9ADD /* SMTestView.swift */; };
+		067F5DC42CE2374700BD9ADD /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067F5DC32CE2374700BD9ADD /* CommonImageView.swift */; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -111,6 +114,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		067F5DBE2CE1F69600BD9ADD /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		067F5DC12CE2167800BD9ADD /* SMTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTestView.swift; sourceTree = "<group>"; };
+		067F5DC32CE2374700BD9ADD /* CommonImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
@@ -228,6 +234,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		067F5DBD2CE1F67700BD9ADD /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				067F5DBE2CE1F69600BD9ADD /* ImageCacheManager.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		067F5DC02CE2166C00BD9ADD /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				067F5DC12CE2167800BD9ADD /* SMTestView.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		0689C35E2CDB3E6900C5FC8C /* WalkResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +489,7 @@
 		C477A2C12CD0E697006B8DB6 /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				067F5DBD2CE1F67700BD9ADD /* Image */,
 				C4A776892CD125B800D60EEE /* User */,
 				C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */,
 			);
@@ -641,6 +664,8 @@
 		C477A2EA2CD0E854006B8DB6 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				067F5DC02CE2166C00BD9ADD /* Test */,
+				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C477A30C2CD0EB21006B8DB6 /* CustomTab */,
 				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C4097B2B2CE1EF3A002155EA /* Login */,
@@ -691,6 +716,7 @@
 				C477A2F42CD0E959006B8DB6 /* CommonButton.swift */,
 				06CEA1852CD23181003249BF /* CommonProfile.swift */,
 				06CEA18D2CD3E28E003249BF /* CommonSendView.swift */,
+				067F5DC32CE2374700BD9ADD /* CommonImageView.swift */,
 				C4097B1C2CE1A943002155EA /* CommonTitleView.swift */,
 			);
 			path = Common;
@@ -838,6 +864,7 @@
 				0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */,
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
+				067F5DC22CE2167800BD9ADD /* SMTestView.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
 				9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */,
@@ -876,6 +903,7 @@
 				C4097B122CD7AF28002155EA /* SendChatBody.swift in Sources */,
 				06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */,
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
+				067F5DBF2CE1F69600BD9ADD /* ImageCacheManager.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
 				C4097B0F2CD7AF28002155EA /* GetChatListQuery.swift in Sources */,
 				C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */,
@@ -923,6 +951,7 @@
 				C4097B132CD7AF28002155EA /* ChatRoomDTO.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
 				BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */,
+				067F5DC42CE2374700BD9ADD /* CommonImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1058,6 +1087,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
+				DEVELOPMENT_TEAM = G9LS4YQCM2;
 				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1100,6 +1130,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
+				DEVELOPMENT_TEAM = G9LS4YQCM2;
 				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
