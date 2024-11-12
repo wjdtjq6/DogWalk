@@ -11,11 +11,27 @@ struct ChattingRoomView: View {
     private static let width = UIScreen.main.bounds.width
     private static var height = UIScreen.main.bounds.height
     
+    @StateObject var container: Container<ChattingRoomIntentProtocol, ChattingRoomStateProtocol>
+    private var state: ChattingRoomStateProtocol { container.state }
+    private var intent: ChattingRoomIntentProtocol { container.intent }
+    
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
-    @State private var text: String = "" //임시 키보드 입력
-    @State private var message = Message() // 임시 채팅 내역
+    @State private var text: String = ""     // 임시 키보드 입력
+    @State private var message = Message()   // 임시 채팅 내역
     @State private var sendTest = false
+}
+
+extension ChattingRoomView {
+    static func build() -> some View {
+        let state = ChattingRoomState()
+        let intent = ChattingRoomIntent(state: state)
+        let container = Container(intent: intent as ChattingRoomIntentProtocol,
+                                  state: state as ChattingRoomStateProtocol,
+                                  modelChangePublisher: state.objectWillChange)
+        let view = ChattingRoomView(container: container)
+        return view
+    }
 }
 
 extension ChattingRoomView {
@@ -36,7 +52,6 @@ extension ChattingRoomView {
                 } completionSendImage: { UIImage in //이미지 보낼 경우
                     message.addImage(image: UIImage)
                 }
-                
             }
         }  //:VSTACK
         .ignoresSafeArea()
@@ -44,9 +59,10 @@ extension ChattingRoomView {
         .padding(.top, 1.0)
         .navigationBarTitleDisplayMode(.inline)
         .tabBarHidden(true)
+        .task {
+            await intent.onAppearTrigger(roomID: "673313242cced3080561033c")    // TODO: roomID 어떻게 적용할지?
+        }
     }
-    
-    
 }
 
 // MARK: - 채팅 내역 부분
@@ -94,6 +110,7 @@ private extension ChattingRoomView {
         }
     }
 }
+
 // MARK: - 전체 채팅 뷰
 private extension ChattingRoomView {
     @ViewBuilder
@@ -121,6 +138,7 @@ private extension ChattingRoomView {
         
     }
 }
+
 // MARK: - 말풍선 부분
 private extension ChattingRoomView {
     @ViewBuilder
@@ -172,7 +190,6 @@ private extension ChattingRoomView {
                     //.foregroundStyle(isRight ? ) // 채팅 색 변경
                 }
             
-            
             if model.userID != "나" { //상대방 날짜 부분
                 dateChattView()
                     .offset(x: -xOffSet + 55, y: 4)
@@ -181,6 +198,7 @@ private extension ChattingRoomView {
         .id(model.id) //각 cell 아이디 부여
     }
 }
+
 // MARK: - 채팅이 이미지일 경우
 private extension ChattingRoomView {
     @ViewBuilder
@@ -218,6 +236,7 @@ private extension ChattingRoomView {
         .id(model.id) // 각 셀에 고유 아이디 부여
     }
 }
+
 // MARK: - 사용자 프로필 부분
 private extension ChattingRoomView {
     @ViewBuilder
@@ -226,6 +245,7 @@ private extension ChattingRoomView {
             .vTop()
     }
 }
+
 // MARK: - 채팅 날짜 부분
 private extension ChattingRoomView {
     @ViewBuilder
@@ -237,26 +257,7 @@ private extension ChattingRoomView {
     }
 }
 
-#Preview {
-    ChattingRoomView()
-}
-
-
-// MARK: - 채팅 텍스트에 따른 크기 조절
-extension String {
-    func estimatedTextRect(width: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGRect {
-        let size = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let option: NSStringDrawingOptions = [
-            .usesLineFragmentOrigin
-        ]
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 16.0, weight: .regular)
-        ]
-        return NSString(string: self).boundingRect(
-            with: size,
-            options: option,
-            attributes: attributes,
-            context: nil
-        )
-    }
-}
+// // MARK: - 채팅 텍스트에 따른 크기 조절
+// extension String {
+//     
+// }

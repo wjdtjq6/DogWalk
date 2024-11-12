@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol ChattingListStateProtocol {
-    var chattingRoomList: [ChatRoomModel] { get }       // 채팅방 목록
+    var chattingRoomList: [ChattingListModel] { get }       // 채팅방 목록
 }
 
 protocol ChattingListActionProtocol: AnyObject {
@@ -21,14 +21,14 @@ final class ChattingListState: ChattingListStateProtocol, ObservableObject {
     private let network = NetworkManager()
     private var cancellables = Set<AnyCancellable>()
     
-    var chattingRoomList: [ChatRoomModel] = []
+    var chattingRoomList: [ChattingListModel] = []
 }
 
 extension ChattingListState: ChattingListActionProtocol {
     // 채팅방 목록 가져오기
     func getChattingRoomList() async {
         do {
-            let future = try await network.request(target: .chat(.getChatRoomList), of: ChatRoomResponseDTO.self)
+            let future = try await network.request(target: .chat(.getChatRoomList), of: ChattingListResponseDTO.self)
             
             future
                 .sink { result in

@@ -64,8 +64,8 @@
 		C4097B102CD7AF28002155EA /* NewChatRoomBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF22CD7AF28002155EA /* NewChatRoomBody.swift */; };
 		C4097B112CD7AF28002155EA /* PostChatFileBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF32CD7AF28002155EA /* PostChatFileBody.swift */; };
 		C4097B122CD7AF28002155EA /* SendChatBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF42CD7AF28002155EA /* SendChatBody.swift */; };
-		C4097B132CD7AF28002155EA /* ChatRoomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */; };
-		C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */; };
+		C4097B132CD7AF28002155EA /* ChattingListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF62CD7AF28002155EA /* ChattingListDTO.swift */; };
+		C4097B142CD7AF28002155EA /* ChattingListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF72CD7AF28002155EA /* ChattingListResponseDTO.swift */; };
 		C4097B152CD7AF28002155EA /* LastChatDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AF82CD7AF28002155EA /* LastChatDTO.swift */; };
 		C4097B172CD8A76E002155EA /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B162CD8A76E002155EA /* String+.swift */; };
 		C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B182CDB0921002155EA /* HTTPMethod.swift */; };
@@ -121,6 +121,8 @@
 		C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A776962CD3441E00D60EEE /* CommunityCategorySelectedView.swift */; };
 		C4D48E792CE3483D006E39A0 /* ChattingRoomIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E782CE3483D006E39A0 /* ChattingRoomIntent.swift */; };
 		C4D48E7B2CE34847006E39A0 /* ChattingRoomState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E7A2CE34847006E39A0 /* ChattingRoomState.swift */; };
+		C4D48E7D2CE35246006E39A0 /* ChattingRoomDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E7C2CE35246006E39A0 /* ChattingRoomDTO.swift */; };
+		C4D48E7F2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E7E2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,8 +184,8 @@
 		C4097AF22CD7AF28002155EA /* NewChatRoomBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatRoomBody.swift; sourceTree = "<group>"; };
 		C4097AF32CD7AF28002155EA /* PostChatFileBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostChatFileBody.swift; sourceTree = "<group>"; };
 		C4097AF42CD7AF28002155EA /* SendChatBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendChatBody.swift; sourceTree = "<group>"; };
-		C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomDTO.swift; sourceTree = "<group>"; };
-		C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomResponseDTO.swift; sourceTree = "<group>"; };
+		C4097AF62CD7AF28002155EA /* ChattingListDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingListDTO.swift; sourceTree = "<group>"; };
+		C4097AF72CD7AF28002155EA /* ChattingListResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingListResponseDTO.swift; sourceTree = "<group>"; };
 		C4097AF82CD7AF28002155EA /* LastChatDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastChatDTO.swift; sourceTree = "<group>"; };
 		C4097B162CD8A76E002155EA /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		C4097B182CDB0921002155EA /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -241,6 +243,8 @@
 		C4A776962CD3441E00D60EEE /* CommunityCategorySelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCategorySelectedView.swift; sourceTree = "<group>"; };
 		C4D48E782CE3483D006E39A0 /* ChattingRoomIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomIntent.swift; sourceTree = "<group>"; };
 		C4D48E7A2CE34847006E39A0 /* ChattingRoomState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomState.swift; sourceTree = "<group>"; };
+		C4D48E7C2CE35246006E39A0 /* ChattingRoomDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomDTO.swift; sourceTree = "<group>"; };
+		C4D48E7E2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomResponseDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,9 +406,11 @@
 			isa = PBXGroup;
 			children = (
 				C4097AF52CD7AF28002155EA /* Request */,
-				C4097AF62CD7AF28002155EA /* ChatRoomDTO.swift */,
-				C4097AF72CD7AF28002155EA /* ChatRoomResponseDTO.swift */,
+				C4097AF62CD7AF28002155EA /* ChattingListDTO.swift */,
+				C4097AF72CD7AF28002155EA /* ChattingListResponseDTO.swift */,
 				C4097AF82CD7AF28002155EA /* LastChatDTO.swift */,
+				C4D48E7C2CE35246006E39A0 /* ChattingRoomDTO.swift */,
+				C4D48E7E2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -928,6 +934,7 @@
 				C477A2F92CD0E978006B8DB6 /* ChattingListView.swift in Sources */,
 				C4097B332CE1F749002155EA /* LoginIntent.swift in Sources */,
 				C4097AD12CD7AEF5002155EA /* NetworkError.swift in Sources */,
+				C4D48E7D2CE35246006E39A0 /* ChattingRoomDTO.swift in Sources */,
 				C4097B0B2CD7AF28002155EA /* GeolocationDTO.swift in Sources */,
 				C4097B1F2CE1AE33002155EA /* CreateChattingRoomView.swift in Sources */,
 				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
@@ -989,13 +996,14 @@
 				C4097B2A2CE1B375002155EA /* CreateChattingRoomState.swift in Sources */,
 				C4097B172CD8A76E002155EA /* String+.swift in Sources */,
 				C477A2E02CD0E80B006B8DB6 /* DefaultSomeUseCase.swift in Sources */,
+				C4D48E7F2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C4097B112CD7AF28002155EA /* PostChatFileBody.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
 				C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */,
 				C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */,
 				C4097B282CE1B36C002155EA /* CreateChattingRoomIntent.swift in Sources */,
-				C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */,
+				C4097B142CD7AF28002155EA /* ChattingListResponseDTO.swift in Sources */,
 				C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */,
@@ -1003,7 +1011,7 @@
 				C4097AFE2CD7AF28002155EA /* OAuthLoginDTO.swift in Sources */,
 				C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */,
 				9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */,
-				C4097B132CD7AF28002155EA /* ChatRoomDTO.swift in Sources */,
+				C4097B132CD7AF28002155EA /* ChattingListDTO.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
 				BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */,
 				067F5DC42CE2374700BD9ADD /* CommonImageView.swift in Sources */,

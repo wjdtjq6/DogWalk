@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ChattingRoomIntentProtocol {
-    
+    func onAppearTrigger(roomID: String) async
 }
 
 final class ChattingRoomIntent {
@@ -20,5 +20,8 @@ final class ChattingRoomIntent {
 }
 
 extension ChattingRoomIntent: ChattingRoomIntentProtocol {
-    
+    func onAppearTrigger(roomID: String) async {
+        print(#function, "멍톡 채팅방 진입")
+        await state?.getChattingData(roomID: roomID)
+    }
 }

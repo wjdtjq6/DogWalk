@@ -482,10 +482,6 @@ private extension CommonSendView {
 //    }
 //}
 
-#Preview {
-    ChattingRoomView()
-}
-
 extension Notification.Name {
     static let keyboardWillShow = UIResponder.keyboardWillShowNotification
     static let keyboardWillHide = UIResponder.keyboardWillHideNotification
