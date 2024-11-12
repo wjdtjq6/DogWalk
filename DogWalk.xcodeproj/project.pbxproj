@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A12CE265BB00860F7A /* CommunityIntent.swift */; };
+		062284A42CE265CE00860F7A /* CommunityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A32CE265CE00860F7A /* CommunityState.swift */; };
+		062284A62CE26CD200860F7A /* CommunityContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A52CE26CD200860F7A /* CommunityContentState.swift */; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -111,6 +114,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		062284A12CE265BB00860F7A /* CommunityIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityIntent.swift; sourceTree = "<group>"; };
+		062284A32CE265CE00860F7A /* CommunityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityState.swift; sourceTree = "<group>"; };
+		062284A52CE26CD200860F7A /* CommunityContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityContentState.swift; sourceTree = "<group>"; };
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
@@ -228,6 +234,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		062284A02CE265A400860F7A /* MainCommunity */ = {
+			isa = PBXGroup;
+			children = (
+				C4A776942CD223E600D60EEE /* CommunityView.swift */,
+				062284A12CE265BB00860F7A /* CommunityIntent.swift */,
+				062284A32CE265CE00860F7A /* CommunityState.swift */,
+				062284A52CE26CD200860F7A /* CommunityContentState.swift */,
+			);
+			path = MainCommunity;
+			sourceTree = "<group>";
+		};
 		0689C35E2CDB3E6900C5FC8C /* WalkResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,7 +613,6 @@
 				0689C35E2CDB3E6900C5FC8C /* WalkResult */,
 				C477A2F62CD0E972006B8DB6 /* MapView.swift */,
 				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
-				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -604,6 +620,7 @@
 		C477A2E42CD0E820006B8DB6 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				062284A02CE265A400860F7A /* MainCommunity */,
 				C477A2E72CD0E831006B8DB6 /* Create */,
 				C477A2E62CD0E82C006B8DB6 /* Detail */,
 			);
@@ -839,6 +856,7 @@
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
+				062284A62CE26CD200860F7A /* CommunityContentState.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
 				9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */,
 				C4097AFA2CD7AF28002155EA /* AuthDTO.swift in Sources */,
@@ -894,6 +912,7 @@
 				C4097B042CD7AF28002155EA /* GetPostQuery.swift in Sources */,
 				C4097B0A2CD7AF28002155EA /* UserDTO.swift in Sources */,
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
+				062284A42CE265CE00860F7A /* CommunityState.swift in Sources */,
 				C4097B102CD7AF28002155EA /* NewChatRoomBody.swift in Sources */,
 				0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */,
 				C4097B072CD7AF28002155EA /* PostFileBody.swift in Sources */,
@@ -911,6 +930,7 @@
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
 				C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */,
 				C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */,
+				062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */,
 				C4097B282CE1B36C002155EA /* CreateChattingRoomIntent.swift in Sources */,
 				C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */,
 				C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */,

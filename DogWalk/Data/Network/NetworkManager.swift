@@ -26,7 +26,7 @@ extension URLSession: SessionDatable { }
 
 // 네트워크 호출 매니저
 final class NetworkManager: Requestable {
-
+    private var page: String = "" // 페이지네이션
     private let session: SessionDatable
     private var cancellables = Set<AnyCancellable>()
 
@@ -173,6 +173,15 @@ final class NetworkManager: Requestable {
     }
 }
 
+extension NetworkManager {
+    func fetchPosts(category: [String]?, isPaging: Bool) async throws -> Future<PostDTO, NetworkError> {
+        if (isPaging == false) {
+            self.page = ""
+        }
+        let query = GetPostQuery(next: self.page, limit: "20", category: category)
+        return try await request(target: .post(.getPosts(query: query)), of: PostDTO.self)
+    }
+}
 
 protocol RequestRetrier {
     func retry(for error: Error) -> Bool

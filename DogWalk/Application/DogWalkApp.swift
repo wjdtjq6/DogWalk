@@ -27,13 +27,13 @@ struct DogWalkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if isUser {
+//            if isUser {
                 ContentView()
                     .environmentObject(appCoordinator)
-            } else {
-                LoginView.build()
-                    .environmentObject(appCoordinator)
-            }
+//            } else {
+//                LoginView.build()
+//                    .environmentObject(appCoordinator)
+//            }
         }
     }
 }
