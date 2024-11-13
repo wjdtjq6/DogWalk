@@ -105,6 +105,13 @@ final class NetworkManager: Requestable {
         }
     }
     
+    // MARK: - Post
+    // 게시물 포스팅 함수 예시 (리턴값 ver)
+    func postCommunity() async throws -> Future<PostDTO, NetworkError> {
+        let body = PostBody(category: "자유게시판", title: "강아지 산책 잘 시키는 법", price: 0, content: "강아지 산책 어케 시키나요;;?? 처음이라", files: [], longitude: 126.886557, latitude: 37.51775)
+        return try await request(target: .post(.post(body: body)), of: PostDTO.self)
+    }
+    
     // MARK: - User
     // 내 프로필 조회 함수 예시!
     func fetchProfile() async {

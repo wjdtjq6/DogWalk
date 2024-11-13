@@ -18,11 +18,11 @@ struct PostDTO: Decodable {
     let creator: UserDTO
     let files: [String]
     let likes: [String]         // 게시글 좋아요한 사람 목록
-    let views: [String]         // 게시글 방문한 사람 목록
+    let likes2: [String]        // 게시글 방문한 사람 목록
     let hashTags: [String]
     let comments: [CommentDTO]
     let geolocation: GeolocationDTO
-    let distance: Double
+    let distance: Double?
 }
 
 extension PostDTO {
@@ -37,7 +37,7 @@ extension PostDTO {
                                             profileImage: self.creator.profileImage ?? ""),
                          files: self.files,
                          likes: self.likes,
-                         views: self.likes.count,
+                         views: self.likes2.count,
                          hashTags: self.hashTags,
                          comments: self.comments.map { CommentModel(commentID: $0.comment_id, 
                                                                     content: $0.content,
@@ -47,7 +47,7 @@ extension PostDTO {
                                                                                        profileImage: $0.creator.profileImage ?? ""))},
                          geolocation: GeolocationModel(lat: self.geolocation.latitude,
                                                        lon: self.geolocation.longitude),
-                         distance: self.distance)
+                         distance: self.distance ?? 0)
     }
 }
 

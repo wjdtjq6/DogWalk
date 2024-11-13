@@ -14,6 +14,7 @@ protocol ChattingRoomStateProtocol {
 
 protocol ChattingRoomActionProtocol: AnyObject {
     func getChattingData(roomID: String) async
+    func sendTextMessage(roomID: String, message: String) async
 }
 
 @Observable
@@ -47,6 +48,30 @@ extension ChattingRoomState: ChattingRoomActionProtocol {
                 .store(in: &cancellables)
         } catch {
             print("채팅 내역 요청 실패", error)
+        }
+    }
+    
+    // 채팅방에서 채팅 전송하기 (텍스트)
+    func sendTextMessage(roomID: String, message: String) async {
+        print("채팅 전송하기 시작")
+        do {
+            let body = SendChatBody(content: message, files: [])
+            let future = try await network.request(target: .chat(.sendChat(roomId: roomID, body: body)), of: LastChatDTO.self)
+            
+            future
+                .sink { result in
+                    switch result {
+                    case .finished:
+                        print("✨ 채팅 전송 성공")
+                    case .failure(let error):
+                        print("🚨 채팅 전송 실패", error)
+                    }
+                } receiveValue: { chatData in
+                    print(chatData)
+                }
+                .store(in: &cancellables)
+        } catch {
+            print("채팅 전송 요청 실패", error)
         }
     }
 }

@@ -17,7 +17,7 @@ struct ChattingRoomView: View {
     
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
-    @State private var text: String = ""     // 임시 키보드 입력
+    // @State private var text: String = ""     // 임시 키보드 입력
     // @State private var message = Message()   // 임시 채팅 내역
     @State private var sendTest = false
 }
@@ -48,6 +48,9 @@ extension ChattingRoomView {
                     showKeyboard: $showKeyboard
                 ) { text in
                     print(text) // 보낼 경우 텍스트 반환
+                    Task {
+                        await intent.sendTextMessage(roomID: "673313242cced3080561033c", message: text)
+                    }
                     // message.addMessage(text: text)
                 } completionSendImage: { UIImage in // 이미지 보낼 경우
                     // message.addImage(image: UIImage)
