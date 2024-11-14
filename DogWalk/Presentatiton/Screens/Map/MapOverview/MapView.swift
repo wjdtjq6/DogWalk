@@ -11,29 +11,17 @@ import MapKit
 struct MapView: View {
     private static let width = UIScreen.main.bounds.width
     private static let height = UIScreen.main.bounds.height
-    @State var isShowingSheet = false // 임시 바텀 시트 변수
-    //Timer
-    @State private var start = false
-    @State private var to: CGFloat = 0
-    @State private var count = 0
-    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State private var isTimerOn = false
-    @State private var isAlert = false
-    //현위치
-    @StateObject private var locationManager = LocationManager()
-    @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
-    @State private var polylineColor: Color = Color(
-        red: Double.random(in: 0...1),
-        green: Double.random(in: 0...1),
-        blue: Double.random(in: 0...1)
-    )
+    @StateObject var container: Container<MapIntentProtocol, MapStateProtocol>
+    private var state: MapStateProtocol { container.state }
+    private var intent: MapIntentProtocol { container.intent }
+    @EnvironmentObject var coordinator: MainCoordinator
 }
 
 extension MapView {
     var body: some View {
         ZStack {
             mapView()
-            if isTimerOn {
+            if state.isTimerOn {
                 timerBottomView()
                     .vBottom()
             } else {
@@ -41,7 +29,7 @@ extension MapView {
                     .vBottom()
             }
         } //:ZSTACK
-        .fullScreenCover(isPresented: $isShowingSheet, content: {
+        //.fullScreenCover(isPresented: $state.isShowingSheet, content: {
             /*
              보낼거
              1. 산책시간
@@ -49,21 +37,28 @@ extension MapView {
              3. Polyline자체 or 캡쳐해서 사진으로
              4. Polyline의 중간을 cameraposition으로
              */
-            WalkResultView.build()
-        })
+        //})
     }
 }
 
 // MARK: - 지도 관련 부분
 private extension MapView {
     func mapView() -> some View {
-        Map(position: $position) { //position: 표시할 지도 위치
+        /*
+         get: 현재 값을 가져오는 역할
+         set: 변경된 값을 ViewModel(State)로 반영
+         container.state as? MapState: 프로토콜 타입을 실제 타입으로 변환해 속성에 접근
+         */
+        Map(position: Binding(get: {
+            state.position
+        }, set: { _ in
+        })) { //position: 표시할 지도 위치
             UserAnnotation()
             
-            if locationManager.locations.count > 1 {
-                let polylineCoordinates = locationManager.locations
+            if state.locationManager.locations.count > 1 {
+                let polylineCoordinates = state.locationManager.locations
                 MapPolyline(coordinates: polylineCoordinates)
-                    .stroke(polylineColor, lineWidth: 5)
+                    .stroke(state.polylineColor, lineWidth: 5)
             }
         }
     }
@@ -113,22 +108,21 @@ private extension MapView {
                 .shadow(color: .black.opacity(0.6), radius: 5, x: 0, y: 5) // 버튼 그림자
                 .wrapToButton {
                     print("산책 시작 버튼 클릭")
-                    if locationManager.locationManager.authorizationStatus == .authorizedAlways || locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
-                        isTimerOn = true//Timer
-                        count = 0
-                        start = true
-                        locationManager.isTrackingPath = true // 경로 기록 시작
-                        locationManager.resetLocations() // 이전 기록 초기화
+                    if state.locationManager.locationManager.authorizationStatus == .authorizedAlways || state.locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+                        intent.startWalk()
                     } else {
-                        isAlert = true
+                        intent.showAlert()
                     }
                 }
-                .alert("위치 권한 허용하러 갈멍?", isPresented: $isAlert) {
-                    Button("이동", role: .destructive) {
-                        openAppSettings()
+                .alert("위치 권한 허용하러 갈멍?", isPresented: Binding(get: {
+                    state.isAlert
+                }, set: { newAlert in
+                    if !newAlert {
+                        intent.closeAlert()
                     }
-                    Button("취소", role: .cancel) {
-                    }
+                })) {
+                    Button("이동", role: .destructive) { openAppSettings() }
+                    Button("취소", role: .cancel) {}
                 }
         } //:HSTACK
         .padding(.bottom)
@@ -139,9 +133,9 @@ private extension MapView {
             Rectangle()
                 .fill(Color.primaryGreen)
                 .overlay {
-                    let hours = self.count / 3600
-                    let minutes = String(format: "%02d", (self.count % 3600) / 60)
-                    let seconds = String(format: "%02d", self.count % 3600 % 60)
+                    let hours = state.count / 3600
+                    let minutes = String(format: "%02d", (state.count % 3600) / 60)
+                    let seconds = String(format: "%02d", state.count % 3600 % 60)
                     Text("\(hours):\(minutes):\(seconds)") // 시간 넣기
                         .font(.pretendardBold16)
                         .foregroundStyle(.white)
@@ -154,8 +148,8 @@ private extension MapView {
                             .fill(Color.clear)
                             .wrapToButton {
                                 print("산책 종료 버튼 클릭")
-                                self.isShowingSheet.toggle()//임시 바텀시트 동작
-                                self.isTimerOn.toggle()//Timer
+                                intent.stopWalk()
+                                coordinator.push(.dogWalkResult)
                             }
                         Text("산책 종료")
                             .font(.pretendardBold16)
@@ -164,16 +158,16 @@ private extension MapView {
         } //:HSTACK
         .frame(height: Self.height * 0.07)
         //Timer
-        .onReceive(self.timer, perform: { _ in
-            if self.start {
-                if self.count < 6 * 60 * 60 {//6시간까지 count
-                    self.count += 1
-                    print(self.count)
+        .onReceive(state.timer, perform: { _ in
+            //if state.start {
+                if state.count < 6 * 60 * 60 {//6시간까지 count
+                    intent.incrementTimer()
+                    print(state.count)
                 }
                 else {
-                    self.start.toggle()
+                    intent.stopWalk()
                 }
-            }
+            //}
         })
     }
     //지도 마커 클릭 시 바텀 시트
@@ -237,11 +231,16 @@ private extension MapView {
     }
 }
 
-//MARK: - 위치 권한 부분
-private extension MapView {
-    
-}
-
-#Preview {
-    MapView()
+extension MapView {
+    static func build() -> some View {
+        let state = MapState()
+        let intent = MapIntent(state: state)
+        let container = Container(
+            intent: intent as MapIntentProtocol,
+            state: state as MapStateProtocol,
+            modelChangePublisher: state.objectWillChange
+        )
+        let view = MapView(container: container)
+        return view
+    }
 }
