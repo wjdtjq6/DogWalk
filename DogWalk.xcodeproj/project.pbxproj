@@ -1169,7 +1169,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junhee1.DogWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junhee.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1211,7 +1211,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junhee1.DogWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junhee.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1254,7 +1254,6 @@
 				9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */,
 			);
 			currentVersion = 9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */;
-			name = Chat.xcdatamodeld;
 			path = Chat.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
