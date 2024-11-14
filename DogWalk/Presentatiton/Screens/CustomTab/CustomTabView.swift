@@ -16,7 +16,7 @@ struct CustomTabView: View {
                         .renderingMode(.template)
                     Text("홈")
                 }
-            MapView()
+            MapView.build()
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)

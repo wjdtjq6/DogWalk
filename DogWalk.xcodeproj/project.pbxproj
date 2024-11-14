@@ -543,7 +543,6 @@
 			isa = PBXGroup;
 			children = (
 				067F5DBD2CE1F67700BD9ADD /* Image */,
-				990476052CD74770006B530C /* CoreData */,
 				C4A776892CD125B800D60EEE /* User */,
 				C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */,
 			);
@@ -720,7 +719,6 @@
 			isa = PBXGroup;
 			children = (
 				067F5DC02CE2166C00BD9ADD /* Test */,
-				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C477A30C2CD0EB21006B8DB6 /* CustomTab */,
 				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C4097B2B2CE1EF3A002155EA /* Login */,
@@ -1152,8 +1150,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = G9LS4YQCM2;
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = N727744RT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1172,7 +1169,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junhee.DogWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junhee1.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1195,8 +1192,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = G9LS4YQCM2;
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = N727744RT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1215,7 +1211,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junhee.DogWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junhee1.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1258,7 +1254,10 @@
 				9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */,
 			);
 			currentVersion = 9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */;
+<<<<<<< HEAD
 			name = Chat.xcdatamodeld;
+=======
+>>>>>>> 6f9b820 (Refactor: MapView-MVI)
 			path = Chat.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
