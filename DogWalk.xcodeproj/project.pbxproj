@@ -1254,6 +1254,7 @@
 				9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */,
 			);
 			currentVersion = 9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */;
+            name = Chat.xcdatamodeld;
 			path = Chat.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
