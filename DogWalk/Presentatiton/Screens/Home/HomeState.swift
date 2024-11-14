@@ -3,11 +3,10 @@
 //  DogWalk
 //
 //  Created by 김윤우 on 11/12/24.
-//
+
 
 import Foundation
 import Combine
-
 
 protocol HomeStateProtocol {
     var popularityDogWalkList: [PostModel] { get }  // 인기산책 인증 데이터
