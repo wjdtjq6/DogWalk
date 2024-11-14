@@ -1254,10 +1254,7 @@
 				9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */,
 			);
 			currentVersion = 9966F6DF2CE1CC3700E7569E /* Chat.xcdatamodel */;
-<<<<<<< HEAD
 			name = Chat.xcdatamodeld;
-=======
->>>>>>> 6f9b820 (Refactor: MapView-MVI)
 			path = Chat.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
