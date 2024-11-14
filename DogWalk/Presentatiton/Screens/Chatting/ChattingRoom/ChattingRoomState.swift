@@ -9,7 +9,9 @@ import Foundation
 import Combine
 
 protocol ChattingRoomStateProtocol {
+    var roomID: String { get }
     var chattingData: [ChattingRoomModel] { get }       // 채팅방 채팅 내역
+    var isSent: Bool { get }                            // 채팅 전송 완료 여부
 }
 
 protocol ChattingRoomActionProtocol: AnyObject {
@@ -19,10 +21,17 @@ protocol ChattingRoomActionProtocol: AnyObject {
 
 @Observable
 final class ChattingRoomState: ChattingRoomStateProtocol, ObservableObject {
+    let roomID: String
+    
+    init(roomID: String) {
+        self.roomID = roomID
+    }
+    
     private let network = NetworkManager()
     private var cancellables = Set<AnyCancellable>()
-    
+
     var chattingData: [ChattingRoomModel] = []
+    var isSent: Bool = false
 }
 
 extension ChattingRoomState: ChattingRoomActionProtocol {
@@ -66,8 +75,10 @@ extension ChattingRoomState: ChattingRoomActionProtocol {
                     case .failure(let error):
                         print("🚨 채팅 전송 실패", error)
                     }
-                } receiveValue: { chatData in
+                } receiveValue: { [weak self] chatData in
+                    print("채팅 전송 완료")
                     print(chatData)
+                    self?.isSent = true
                 }
                 .store(in: &cancellables)
         } catch {

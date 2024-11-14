@@ -19,12 +19,12 @@ struct ChattingRoomView: View {
     @State private var showKeyboard = false
     // @State private var text: String = ""     // 임시 키보드 입력
     // @State private var message = Message()   // 임시 채팅 내역
-    @State private var sendTest = false
+    // @State private var sendTest = false
 }
 
 extension ChattingRoomView {
-    static func build() -> some View {
-        let state = ChattingRoomState()
+    static func build(roomID: String) -> some View {
+        let state = ChattingRoomState(roomID: roomID)
         let intent = ChattingRoomIntent(state: state)
         let container = Container(intent: intent as ChattingRoomIntentProtocol,
                                   state: state as ChattingRoomStateProtocol,
@@ -49,7 +49,8 @@ extension ChattingRoomView {
                 ) { text in
                     print(text) // 보낼 경우 텍스트 반환
                     Task {
-                        await intent.sendTextMessage(roomID: "673313242cced3080561033c", message: text)
+                        await intent.sendTextMessage(roomID: state.roomID, message: text)
+                        await intent.onAppearTrigger(roomID: state.roomID)
                     }
                     // message.addMessage(text: text)
                 } completionSendImage: { UIImage in // 이미지 보낼 경우
@@ -63,9 +64,7 @@ extension ChattingRoomView {
         .navigationBarTitleDisplayMode(.inline)
         .tabBarHidden(true)
         .task {
-            await intent.onAppearTrigger(roomID: "673313242cced3080561033c")    // TODO: roomID 어떻게 적용할지?
-            // JACK 66386735e7696bd61fd5ef14
-            // HUE 673313242cced3080561033c
+            await intent.onAppearTrigger(roomID: state.roomID)
         }
     }
 }
