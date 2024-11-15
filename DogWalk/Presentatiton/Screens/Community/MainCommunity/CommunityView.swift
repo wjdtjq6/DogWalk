@@ -58,6 +58,10 @@ private extension CommunityView {
                 filterView()
                 ForEach(state.postList, id: \.postID) { item in
                     postViewCell(item) //ListCellView
+                        .onTapGesture {
+                            appCoordinator.push(.communityDetail(postID: item.postID))
+                        }
+                        
                 }
                 .padding()
             }
@@ -106,9 +110,10 @@ private extension CommunityView {
         CommonButton(width: Self.width * 0.22,
                      height: Self.height * 0.04,
                      cornerradius: 12,
-                     backColor: .primaryLime,
+                     backColor: state.selectCategory == button ? .primaryOrange : .primaryLime,
                      text: button.rawValue,
                      textFont: .pretendardBlack15)
+        
         .background {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.primaryBlack, lineWidth: 1)
@@ -123,8 +128,7 @@ private extension CommunityView {
     private func areaSelectionView() -> some View {
         HStack {
             Button {
-                //intent에 showSheet
-                intent.showSheet()
+                isShowingSheet.toggle()
             } label: {
                 Group {
                     Text(state.userArea)
@@ -146,7 +150,7 @@ private extension CommunityView {
             HStack {
                 Spacer()
                 Button {
-                    // 게시물 추가 동작 구현
+                    appCoordinator.push(.communityCreate)
                 }label: {
                     Image.asPencil
                         .foregroundColor(.white)
@@ -256,6 +260,7 @@ private extension CommunityView {
             }
             .wrapToButton {
                 // 우리동네 10km 이내 게시물 필터
+                isShowingSheet.toggle()
                 intent.changeArea(area: .userArea)
             }
             
@@ -272,6 +277,7 @@ private extension CommunityView {
                     .stroke(Color.primaryBlack, lineWidth: 1)
             }
             .wrapToButton {
+                isShowingSheet.toggle()
                 intent.changeArea(area: .allArea)
             }
             Spacer()

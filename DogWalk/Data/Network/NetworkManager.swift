@@ -60,11 +60,10 @@ final class NetworkManager: Requestable {
                             promise(.failure(.InvalidRequest))
                             return
                         }
-
                         print("✨ URLRequest 생성 성공")
                         print("2️⃣ 네트워크 요청 시작")
                         let (data, response) = try await self.session.data(for: request)
-
+                
                         print("3️⃣ 네트워크 응답 받음")
                         if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
                             // 응답은 왔지만 상태코드가 200이 아닐 때
@@ -143,7 +142,7 @@ final class NetworkManager: Requestable {
                 print("✨ 토큰 갱신 URLRequest 생성 성공")
                 print("🍀 토큰 갱신 요청 시작")
                 let (data, response) = try await session.data(for: request)
-
+            
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
                     // 응답은 왔지만 상태코드가 200이 아닐 때
                     print("🚨 유효하지 않은 응답 (StatusCode: \(httpResponse.statusCode))")
@@ -174,12 +173,22 @@ final class NetworkManager: Requestable {
 }
 
 extension NetworkManager {
-    func fetchPosts(category: [String]?, isPaging: Bool) async throws -> Future<PostDTO, NetworkError> {
+    //전체 포스터 조회
+    func fetchPosts(category: [String]?, isPaging: Bool) async throws -> Future<PostResponseDTO, NetworkError> {
         if (isPaging == false) {
             self.page = ""
         }
         let query = GetPostQuery(next: self.page, limit: "20", category: category)
-        return try await request(target: .post(.getPosts(query: query)), of: PostDTO.self)
+        return try await request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
+    }
+    //위치 포스터 조회
+    func fetchAreaPosts(category: [String]?, lon: String, lat: String) async throws -> Future<PostDTO, NetworkError> {
+        let query = GetGeoLocationQuery(category: category, longitude: lon, latitude: lat, maxDistance: "10000", order_by: OrderType.distance.rawValue, sort_by: SortType.asc.rawValue)
+        return try await request(target: .post(.geolocation(query: query)), of: PostDTO.self)
+    }
+    //게시글 작성
+    func writePost(body: PostBody) async throws -> Future<PostDTO, NetworkError> {
+        return try await request(target: .post(.post(body: body)), of: PostDTO.self)
     }
 }
 

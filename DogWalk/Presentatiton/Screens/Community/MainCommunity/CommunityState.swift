@@ -17,7 +17,9 @@ protocol CommunityStateProtocol { // 속성들을 가지는 프토코롤
 }
 
 protocol CommunityActionProtocol: AnyObject { //메서드을 가지고있는 프로토콜
-    
+    func getPosts(_ posts: [PostModel]) //게시글
+    func changeSelectCategory(_ select: CommunityCategoryType) //카테고리 변경
+    func changeArea(_ area: String) //위치 설정
 }
 // MARK: - view에게 전달할 데이터
 @Observable
@@ -31,7 +33,16 @@ final class CommunityState: CommunityStateProtocol, ObservableObject {
 
 // MARK: - intent에 줄 함수
 extension CommunityState: CommunityActionProtocol {
+    func changeSelectCategory(_ select: CommunityCategoryType) {
+        self.selectCategory = select
+    }
     
+    func getPosts(_ posts: [PostModel]) {
+        self.postList = posts
+    }
+    func changeArea(_ area: String) {
+        self.userArea = area
+    }
 }
 
 

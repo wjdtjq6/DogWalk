@@ -10,6 +10,7 @@
 		062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A12CE265BB00860F7A /* CommunityIntent.swift */; };
 		062284A42CE265CE00860F7A /* CommunityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A32CE265CE00860F7A /* CommunityState.swift */; };
 		062284A62CE26CD200860F7A /* CommunityContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A52CE26CD200860F7A /* CommunityContentState.swift */; };
+		062284AA2CE39CAF00860F7A /* CommunityUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A92CE39CAF00860F7A /* CommunityUseCase.swift */; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -117,6 +118,7 @@
 		062284A12CE265BB00860F7A /* CommunityIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityIntent.swift; sourceTree = "<group>"; };
 		062284A32CE265CE00860F7A /* CommunityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityState.swift; sourceTree = "<group>"; };
 		062284A52CE26CD200860F7A /* CommunityContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityContentState.swift; sourceTree = "<group>"; };
+		062284A92CE39CAF00860F7A /* CommunityUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityUseCase.swift; sourceTree = "<group>"; };
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				C477A2DF2CD0E80B006B8DB6 /* DefaultSomeUseCase.swift */,
+				062284A92CE39CAF00860F7A /* CommunityUseCase.swift */,
 			);
 			path = UserCases;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				C4097B152CD7AF28002155EA /* LastChatDTO.swift in Sources */,
 				C477A2F52CD0E959006B8DB6 /* CommonButton.swift in Sources */,
 				BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */,
+				062284AA2CE39CAF00860F7A /* CommunityUseCase.swift in Sources */,
 				C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */,
 				C4097B2D2CE1EF4A002155EA /* LoginView.swift in Sources */,
 				C4097B2F2CE1F2B5002155EA /* TestLoginAccount.swift in Sources */,
