@@ -284,6 +284,116 @@ private extension CommunityView {
         }
         .padding(.top, 16)
     }
+    
+    // 좌상단 거리별 리스트 변경 버튼
+    private func areaSelectionView() -> some View {
+        HStack {
+            Button {
+                isShowingSheet = true
+            } label: {
+                Group {
+                    Text("문래동")
+                        .font(.bagelfat28)
+                    Image.asDownChevron
+                }
+                .foregroundColor(.primaryBlack)
+            }
+            Spacer()
+        }
+    }
+    
+    // PostCell
+    private func postViewCell(_ item: CummunityTestData) -> some View {
+        HStack {
+            Image.asTestImage
+                .resizable()
+                .scaledToFill()
+                .frame(width: Self.width * 0.25, height: Self.width * 0.25)
+                .cornerRadius(8)
+            
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(item.location) // 제목
+                        .font(.pretendardBold16)
+                    Spacer()
+                    Text(item.createdAt) // 게시된 시간
+                        .font(.pretendardRegular12)
+                        .foregroundStyle(.gray)
+                }
+                
+                Text(item.content) // 본문
+                    .font(.pretendardRegular14)
+                    .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
+                    .multilineTextAlignment(.leading)
+                Spacer()
+                HStack {
+                    categoryLabel()
+                    Spacer()
+                    Button {
+                        // 댓글 동작 구현
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image.asMessage  // 댓글
+                                .foregroundColor(.primaryBlack)
+                            Text("\(item.commentCount)") // 댓글 수
+                                .font(.pretendardRegular14)
+                                .foregroundColor(.gray)
+                        }
+                        Button {
+                            // 좋아요 동작 구현
+                        } label: {
+                            HStack(spacing: 4) {
+                                Image.asHeart
+                                    .foregroundColor(.primaryBlack)
+                                Text("\(item.likeCount)") // 좋아요 수
+                                    .font(.pretendardRegular14)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.leading, 4)
+            Spacer()
+        }
+    }
+    
+    // 카테고리 라벨
+    private func categoryLabel() -> some View {
+        Text("자유게시판")
+                   .font(.pretendardRegular12)
+                   .foregroundColor(.white)
+                   .padding(.horizontal, 8)
+                   .padding(.vertical, 2)
+                   .background(
+                       RoundedRectangle(cornerRadius: 4)
+                           .fill(Color.red.opacity(0.5))
+                   )
+    }
+    
+    // Floating Button
+    private func floatingButton() -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    // 게시물 추가 동작 구현
+                }label: {
+                    Image.asPencil
+                        .foregroundColor(.white)
+                        .font(.system(size: 24))
+                        .frame(width: 60, height: 60)
+                        .background(
+                            Circle()
+                                .fill(Color.primaryGreen)
+                        )
+                }
+                .padding(.bottom)
+                .padding(.trailing)
+            }
+        }
+    }
 }
 #Preview {
     CommunityView.build()

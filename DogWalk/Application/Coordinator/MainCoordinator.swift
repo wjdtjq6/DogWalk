@@ -49,7 +49,7 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
         case .auth: AuthView()                          // 회원가입
         case .login: LoginView.build()                  // 로그인
         case .home: HomeView()                          // 홈
-        case .map: MapView()                            // 산책하기 탭 첫
+        case .map: MapView.build()                      // 산책하기 탭 첫
         case .dogWalkResult: WalkResultView.build()     // 산책 결과
         case .communityCreate: CommunityCreateView()    // 게시글 작성
         case .community: CommunityView.build()                // 커뮤니티 리스트 화면

@@ -88,6 +88,9 @@ struct HomeView: View {
                     CommonProfile(image: .asTestProfile, size: 44)
                 }
             }
+            .task {
+                await NetworkManager().fetchProfile()
+            }
         }
         .onAppear {
             UserManager.shared.isUser = false
