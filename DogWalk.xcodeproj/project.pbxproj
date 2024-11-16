@@ -21,8 +21,8 @@
 		99646D042CEB104300B94C0B /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D032CEB104300B94C0B /* CommonImageView.swift */; };
 		993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704A2CE59E6E0003FA0C /* HomeState.swift */; };
 		993A704D2CE59E800003FA0C /* HomeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704C2CE59E800003FA0C /* HomeIntent.swift */; };
-		99646CF92CEB0A1400B94C0B /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646CF72CEB0A1400B94C0B /* ImageCacheManager.swift */; };
-		99646CFB2CEB0A3900B94C0B /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646CFA2CEB0A3900B94C0B /* CommonImageView.swift */; };
+		993A70DC2CE8B6450003FA0C /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */; };
+		993A70DE2CE8B6890003FA0C /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A70DD2CE8B6890003FA0C /* CommonImageView.swift */; };
 		9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D02CDDE37900E7569E /* MainCoordinator.swift */; };
 		9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */; };
 		9966F6D52CDDE3C500E7569E /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */; };
@@ -152,8 +152,8 @@
 		99646D032CEB104300B94C0B /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		993A704A2CE59E6E0003FA0C /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		993A704C2CE59E800003FA0C /* HomeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeIntent.swift; sourceTree = "<group>"; };
-		99646CF72CEB0A1400B94C0B /* ImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
-		99646CFA2CEB0A3900B94C0B /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
+		993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		993A70DD2CE8B6890003FA0C /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		9966F6D02CDDE37900E7569E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
@@ -301,13 +301,15 @@
 			path = WalkResult;
 			sourceTree = "<group>";
 		};
-		99646CF82CEB0A1400B94C0B /* Image */ = {
+
+		993A70D52CE8B6040003FA0C /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				99646CF72CEB0A1400B94C0B /* ImageCacheManager.swift */,
+				993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */,
 			);
-			path = Image;
-			sourceTree = "<group>";
+			name = Image;
+			path = DogWalk/Data/Repositories/Local/Image;
+			sourceTree = SOURCE_ROOT;
 		};
 		9966F6CF2CDDE35100E7569E /* Coordinator */ = {
 			isa = PBXGroup;
@@ -575,7 +577,7 @@
 		C477A2C12CD0E697006B8DB6 /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				99646CF82CEB0A1400B94C0B /* Image */,
+				993A70D52CE8B6040003FA0C /* Image */,
 				C4A776892CD125B800D60EEE /* User */,
 				C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */,
 			);
@@ -802,7 +804,7 @@
 		C477A2EF2CD0E8A8006B8DB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				99646CFA2CEB0A3900B94C0B /* CommonImageView.swift */,
+				993A70DD2CE8B6890003FA0C /* CommonImageView.swift */,
 				C477A2F42CD0E959006B8DB6 /* CommonButton.swift */,
 				06CEA1852CD23181003249BF /* CommonProfile.swift */,
 				06CEA18D2CD3E28E003249BF /* CommonSendView.swift */,
@@ -1028,6 +1030,7 @@
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,
 				C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
+				993A70DE2CE8B6890003FA0C /* CommonImageView.swift in Sources */,
 				C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */,
 				C4097B242CE1B286002155EA /* ChattingListIntent.swift in Sources */,
 				C4097AD62CD7AEF5002155EA /* PostTarget.swift in Sources */,
@@ -1061,6 +1064,7 @@
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
 				C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */,
 				C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */,
+				993A70DC2CE8B6450003FA0C /* ImageCacheManager.swift in Sources */,
 				062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */,
 				C4097B282CE1B36C002155EA /* CreateChattingRoomIntent.swift in Sources */,
 				993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */,
