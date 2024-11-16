@@ -48,7 +48,7 @@ final class MapState: MapStateProtocol, ObservableObject {
     var isShowingSheet: Bool = false
     //Timer
     var count: Int = 0
-    //TODO: 
+    //g
     var timer: Publishers.Autoconnect<Timer.TimerPublisher> {
         return Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
