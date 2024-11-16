@@ -18,7 +18,8 @@ struct PostDTO: Decodable {
     let creator: UserDTO
     let files: [String]
     let likes: [String]         // 게시글 좋아요한 사람 목록
-    let views: [String]         // 게시글 방문한 사람 목록
+    let likes2: [String]         // 게시글 방문한 사람 목록
+    let buyers: [String]
     let hashTags: [String]
     let comments: [CommentDTO]
     let geolocation: GeolocationDTO
@@ -27,7 +28,8 @@ struct PostDTO: Decodable {
 
 extension PostDTO {
     func toDomain() -> PostModel {
-        return PostModel(postID: self.post_id, 
+        return PostModel(postID: self.post_id,
+                         created: self.createdAt.getFormattedDateString(),
                          category: CommunityCategoryType(rawValue: self.category) ?? .free,   // 매칭되는 카테고리 없을 시 자유게시판
                          title: self.title,
                          price: self.price,
@@ -37,7 +39,7 @@ extension PostDTO {
                                             profileImage: self.creator.profileImage ?? ""),
                          files: self.files,
                          likes: self.likes,
-                         views: self.likes.count,
+                         views: self.likes2.count,
                          hashTags: self.hashTags,
                          comments: self.comments.map { CommentModel(commentID: $0.comment_id, 
                                                                     content: $0.content,
@@ -63,6 +65,7 @@ enum CommunityCategoryType: String, CaseIterable {
 
 struct PostModel {
     let postID: String
+    let created: String
     let category: CommunityCategoryType
     let title: String
     let price: Int

@@ -68,7 +68,7 @@ extension PostTarget: TargetType {
     
     var header: [String : String] {
         switch self {
-        /// productID, multipart-form, authorizaiton, sesacKey
+            /// productID, multipart-form, authorizaiton, sesacKey
         case .files:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
@@ -76,7 +76,7 @@ extension PostTarget: TargetType {
                 BaseHeader.authorization.rawValue: UserManager.shared.acess,
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
-        /// productID, application/json, authorizaiton, sesacKey
+            /// productID, application/json, authorizaiton, sesacKey
         case .post, .putPost, .deletePost, .postLike, .postView:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
@@ -84,7 +84,7 @@ extension PostTarget: TargetType {
                 BaseHeader.authorization.rawValue: UserManager.shared.acess,
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
-        /// productID, authorizaiton, sesacKey
+            /// productID, authorizaiton, sesacKey
         case .getPosts, .getPostsDetail, .hashtag, .geolocation, .myLikePosts, .myViewPosts, .userPosts:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
@@ -98,7 +98,26 @@ extension PostTarget: TargetType {
         let encoder = JSONEncoder()
         
         switch self {
-        case .getPosts(let query), .myLikePosts(let query), .myViewPosts(let query), .userPosts(_, let query):
+        case .getPosts(let query):
+            do {
+                let data = try encoder.encode(query)
+                guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return nil }
+                var items = [URLQueryItem]()
+                for (key, value) in json {
+                    if let array = value as? [Any] {
+                        for element in array {
+                            items.append(URLQueryItem(name: key, value: "\(element)"))
+                        }
+                    } else {
+                        items.append(URLQueryItem(name: key, value: "\(value)"))
+                    }
+                }
+                return items
+            } catch {
+                print("Query to JSON Encode Error!", error)
+                return nil
+            }
+        case .myLikePosts(let query), .myViewPosts(let query), .userPosts(_, let query):
             do {
                 let data = try encoder.encode(query)
                 guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return nil }
