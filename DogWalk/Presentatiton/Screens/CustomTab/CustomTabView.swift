@@ -16,13 +16,13 @@ struct CustomTabView: View {
                         .renderingMode(.template)
                     Text("홈")
                 }
-            MapView()
+            MapView.build()
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)
                     Text("산책하기")
                 }
-            CommunityView()
+            CommunityView.build()
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)

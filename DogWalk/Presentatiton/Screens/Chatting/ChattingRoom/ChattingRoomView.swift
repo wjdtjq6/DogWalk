@@ -66,6 +66,9 @@ extension ChattingRoomView {
         .task {
             await intent.onAppearTrigger(roomID: state.roomID)
         }
+        .onDisappear {
+            
+        }
     }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol WalkResultIntentProtocol {
-    func startPosttingButtonTap()
+    func startPostingButtonTap()
     func dismissButtonTap()
 }
 
@@ -23,7 +23,7 @@ final class WalkResultIntent {
 
 
 extension WalkResultIntent: WalkResultIntentProtocol {
-    func startPosttingButtonTap() {
+    func startPostingButtonTap() {
         print("게시글 작성버튼 눌림")
     }
     func dismissButtonTap() {

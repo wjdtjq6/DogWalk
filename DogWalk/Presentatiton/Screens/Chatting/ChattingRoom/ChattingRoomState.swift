@@ -15,6 +15,8 @@ protocol ChattingRoomStateProtocol {
 }
 
 protocol ChattingRoomActionProtocol: AnyObject {
+    func openSocket()
+    func closeSocket()
     func getChattingData(roomID: String) async
     func sendTextMessage(roomID: String, message: String) async
 }
@@ -29,12 +31,29 @@ final class ChattingRoomState: ChattingRoomStateProtocol, ObservableObject {
     
     private let network = NetworkManager()
     private var cancellables = Set<AnyCancellable>()
+    
+    private let socket = WebSocketManager()
 
     var chattingData: [ChattingRoomModel] = []
     var isSent: Bool = false
 }
 
 extension ChattingRoomState: ChattingRoomActionProtocol {
+    // 소켓 연결하기
+    func openSocket() {
+        print(#function)
+        do {
+            try socket.open()
+        } catch {
+            print("🚨 Socket Open Failed!", error)
+        }
+    }
+    
+    // 소켓 연결 해제하기
+    func closeSocket() {
+        socket.close()
+    }
+    
     // 채팅방 채팅 내역 가져오기
     func getChattingData(roomID: String) async {
         print("채팅방 대화 내역 가져오기")

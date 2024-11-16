@@ -26,6 +26,10 @@ extension String {
         return self
     }
     
+    func getFormattedTimeString(_ formatType: DateFormatType = .dot) -> String {
+        return ""
+    }
+    
     // 채팅 텍스트에 따른 크기 조절
     func estimatedTextRect(width: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGRect {
         let size = CGSize(width: width, height: .greatestFiniteMagnitude)

@@ -18,7 +18,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObj
     override init() {
         super.init()
         locationManager.delegate =  self
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer // 정확도 설정 (원하는 정확도 설정 가능)
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest// 정확도 설정 (원하는 정확도 설정 가능)
         locationManager.distanceFilter = 1 //TODO: Test / 5미터마다 위치 갱신 수정!
         checkLocationAuthorization()
     }
@@ -43,11 +43,10 @@ final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObj
             
         @unknown default :
             print ( "위치 서비스 비활성화됨" )
-            
         }
     }
     // 위치 권한 상태 변경 시 호출되는 메서드
-    func locationManagerDidChangeAuthorization ( _  manager : CLLocationManager ) { //인증 상태가 변경될 때마다 트리거됨
+    func locationManagerDidChangeAuthorization ( _ manager: CLLocationManager ) { //인증 상태가 변경될 때마다 트리거됨
         checkLocationAuthorization()
     }
     // 위치 정보가 업데이트되면 호출되는 메서드

@@ -31,7 +31,8 @@ final class WebSocketManager: NSObject, SocketProvider {
     // 웹소켓 연결
     /// 주어진 URL을 이용해 WebSocketTask 생성 후 연결
     func open() throws {
-        guard let URL = URL(string: APIKey.baseURL) else { throw WebSocketError.InvalidURL }
+        let testURL = "ws://slp2.sesac.co.kr:34593/v1/chats/673313242cced3080561033c"
+        guard let URL = URL(string: testURL) else { throw WebSocketError.InvalidURL }
         let session = URLSession(configuration: .default,
                                  delegate: self,
                                  delegateQueue: nil)
