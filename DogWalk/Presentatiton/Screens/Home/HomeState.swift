@@ -4,7 +4,6 @@
 //
 //  Created by 김윤우 on 11/12/24.
 
-
 import Foundation
 import Combine
 
@@ -27,7 +26,6 @@ protocol HomeIntentActionProtocol: AnyObject {
 
 @Observable
 final class HomeState: HomeStateProtocol, ObservableObject {
-    
     var popularityDogWalkList: [PostModel] = []
     var isProfileButtonTap = false
     var isHomeViewFirstInit = true

@@ -21,6 +21,8 @@
 		99646D042CEB104300B94C0B /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D032CEB104300B94C0B /* CommonImageView.swift */; };
 		993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704A2CE59E6E0003FA0C /* HomeState.swift */; };
 		993A704D2CE59E800003FA0C /* HomeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704C2CE59E800003FA0C /* HomeIntent.swift */; };
+		99646CF92CEB0A1400B94C0B /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646CF72CEB0A1400B94C0B /* ImageCacheManager.swift */; };
+		99646CFB2CEB0A3900B94C0B /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646CFA2CEB0A3900B94C0B /* CommonImageView.swift */; };
 		9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D02CDDE37900E7569E /* MainCoordinator.swift */; };
 		9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */; };
 		9966F6D52CDDE3C500E7569E /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */; };
@@ -150,6 +152,8 @@
 		99646D032CEB104300B94C0B /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		993A704A2CE59E6E0003FA0C /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		993A704C2CE59E800003FA0C /* HomeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeIntent.swift; sourceTree = "<group>"; };
+		99646CF72CEB0A1400B94C0B /* ImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		99646CFA2CEB0A3900B94C0B /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		9966F6D02CDDE37900E7569E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
@@ -297,10 +301,10 @@
 			path = WalkResult;
 			sourceTree = "<group>";
 		};
-		99646D012CEB103700B94C0B /* Image */ = {
+		99646CF82CEB0A1400B94C0B /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				99646D002CEB103700B94C0B /* ImageCacheManager.swift */,
+				99646CF72CEB0A1400B94C0B /* ImageCacheManager.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -571,7 +575,7 @@
 		C477A2C12CD0E697006B8DB6 /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				99646D012CEB103700B94C0B /* Image */,
+				99646CF82CEB0A1400B94C0B /* Image */,
 				C4A776892CD125B800D60EEE /* User */,
 				C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */,
 			);
@@ -798,7 +802,7 @@
 		C477A2EF2CD0E8A8006B8DB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				99646D032CEB104300B94C0B /* CommonImageView.swift */,
+				99646CFA2CEB0A3900B94C0B /* CommonImageView.swift */,
 				C477A2F42CD0E959006B8DB6 /* CommonButton.swift */,
 				06CEA1852CD23181003249BF /* CommonProfile.swift */,
 				06CEA18D2CD3E28E003249BF /* CommonSendView.swift */,
@@ -969,9 +973,9 @@
 				9966F6EC2CE21B3800E7569E /* ChatRoom+CoreDataProperties.swift in Sources */,
 				9966F6ED2CE21B3800E7569E /* ChatMessage+CoreDataClass.swift in Sources */,
 				9966F6EE2CE21B3800E7569E /* ChatMessage+CoreDataProperties.swift in Sources */,
-				99646D042CEB104300B94C0B /* CommonImageView.swift in Sources */,
+				99646CFB2CEB0A3900B94C0B /* CommonImageView.swift in Sources */,
 				9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */,
-				99646D022CEB103700B94C0B /* ImageCacheManager.swift in Sources */,
+				99646CF92CEB0A1400B94C0B /* ImageCacheManager.swift in Sources */,
 				C4097AFA2CD7AF28002155EA /* AuthDTO.swift in Sources */,
 				C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */,
 				C4097B012CD7AF28002155EA /* WithDrawDTO.swift in Sources */,
@@ -1060,7 +1064,7 @@
 				062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */,
 				C4097B282CE1B36C002155EA /* CreateChattingRoomIntent.swift in Sources */,
 				993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */,
-				C4097B142CD7AF28002155EA /* ChatRoomResponseDTO.swift in Sources */,
+				C4097B142CD7AF28002155EA /* ChattingListResponseDTO.swift in Sources */,
 				C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */,
