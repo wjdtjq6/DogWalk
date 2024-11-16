@@ -16,12 +16,20 @@ protocol MapStateProtocol { // 속성들을 가지는 프로토콜
     //Timer
     var count: Int { get }
     var timer: Publishers.Autoconnect<Timer.TimerPublisher> { get }
+    /*TODO:
+     let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+         print("Timer is running")
+     }
+     RunLoop.current.add(timer, forMode: .common)
+     */
     var isTimerOn: Bool { get }
     var isAlert: Bool { get }
     //현위치
     var locationManager: LocationManager { get }
     var position: MapCameraPosition { get }
     var polylineColor: Color { get }
+    //지도를 이미지로 저장
+    var routeImage: UIImage { get }
 }
 
 protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로토콜
@@ -31,6 +39,8 @@ protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로�
     func startLocationTracking()
     func stopLocationTracking()
     func setAlert(_ isOn: Bool)
+    func saveCapturedRouteImage(_ image: UIImage)
+    func getPolylineColor() -> Color
 }
 //MARK: - view에 전달할 데이터
 @Observable
@@ -38,6 +48,7 @@ final class MapState: MapStateProtocol, ObservableObject {
     var isShowingSheet: Bool = false
     //Timer
     var count: Int = 0
+    //g
     var timer: Publishers.Autoconnect<Timer.TimerPublisher> {
         return Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
@@ -51,6 +62,8 @@ final class MapState: MapStateProtocol, ObservableObject {
         green: Double.random(in: 0...1),
         blue: Double.random(in: 0...1)
     )
+    //지도를 이미지로 저장
+    var routeImage: UIImage = UIImage(resource: .testProfile)
 }
 
 // MARK: - intent에 줄 함수
@@ -64,7 +77,7 @@ extension MapState: MapActionProtocol {
     }
     
     func incrementCount() {
-        count += 1800
+        count += 1
     }
     
     func startLocationTracking() {
@@ -78,5 +91,13 @@ extension MapState: MapActionProtocol {
     
     func setAlert(_ isOn: Bool) {
         isAlert = isOn
+    }
+    //지도를 이미지에 저장
+    func saveCapturedRouteImage(_ image: UIImage) {
+        self.routeImage = image
+    }
+    //지도 이미지에 색 전달
+    func getPolylineColor() -> Color {
+        return self.polylineColor
     }
 }

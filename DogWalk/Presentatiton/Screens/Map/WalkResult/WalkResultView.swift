@@ -14,20 +14,11 @@ struct WalkResultView: View {
     @StateObject var container: Container<WalkResultIntentProtocol, WalkResultStateProtocol>
     private var state: WalkResultStateProtocol { container.state }
     private var intent: WalkResultIntentProtocol { container.intent }
-    
-    //임시 위치 설정.
-    @State private var position: MapCameraPosition = .region(
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 37.5665, longitude: 126.9780),
-            latitudinalMeters: 1000,
-            longitudinalMeters: 1000
-        )
-    )
 }
 
 extension WalkResultView {
-    static func build() -> some View {
-        let state = WalkResultState()
+    static func build(walkTime: Int, walkDistance: Double, routeImage: UIImage) -> some View {
+        let state = WalkResultState(walkTime: walkTime, walkDistance: walkDistance, routeImage: routeImage)
         let intent = WalkResultIntent(state: state)
         let container = Container(
             intent: intent as WalkResultIntentProtocol,
@@ -100,19 +91,22 @@ private extension WalkResultView {
     //정보들
     func infos() -> some View {
         HStack(spacing: 35) {
-            info(top: "산책 시간", mid: state.walkTime, bottom: "min")
+            info(top: "산책 시간", mid: "\(state.walkTime/60)", bottom: "min")
             
             Rectangle()
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "거리", mid: state.walkDistance, bottom: "km")
+            info(top: "거리", mid: "\(state.walkDistance.rounded()/1000)", bottom: "km")
             
             Rectangle()
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "칼로리", mid: state.walkCalorie, bottom: "kcal")
+            info(top: "칼로리", mid: "\(Int(state.walkCalorie))", bottom: "kcal")
+                .onAppear {
+                    intent.calculateCalories()
+                }
             
         } //:HSTACK
     }
@@ -134,11 +128,11 @@ private extension WalkResultView {
 // MARK: - 산책 지도 부분
 private extension WalkResultView {
     func warkMapView() -> some View {
-        Map(position: $position) { //position: 표시할 지도 위치
-            //맵에 추가적인 정보
-        }
-        .frame(width: Self.width * 0.9, height: Self.height * 0.25)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        Image(uiImage: state.routeImage)
+            .resizable()
+            .scaledToFit()
+            .frame(width: Self.width * 0.9, height: Self.height * 0.25)
+            .clipShape(RoundedRectangle(cornerRadius: 30))
     }
     func setPostButtonView() -> some View {
         ZStack {

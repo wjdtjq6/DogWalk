@@ -41,6 +41,11 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
         self.fullScreenCover = nil
     }
     
+    func pushAndReset(_ screen: Screen) {
+        path = NavigationPath()
+        //path.append(Screen.tab)
+    }
+    
     // 화면
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
@@ -50,7 +55,7 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
         case .login: LoginView.build()                  // 로그인
         case .home: HomeView()                          // 홈
         case .map: MapView.build()                      // 산책하기 탭 첫
-        case .dogWalkResult: WalkResultView.build()     // 산책 결과
+        case .dogWalkResult(let walkTime, let walkDistance, let routeImage): WalkResultView.build(walkTime: walkTime, walkDistance: walkDistance, routeImage: routeImage)     // 산책 결과
         case .communityCreate: CommunityCreateView()    // 게시글 작성
         case .community: CommunityView.build()                // 커뮤니티 리스트 화면
         case .communityDetail: CommunityDetailView()    // 커뮤니티 게시글 디테일
@@ -72,9 +77,8 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
     // 풀스크린 커버
     @ViewBuilder
     func build(_ fullScreenCover: FullScreenCover) -> some View {
-        //MARK: 추가 구현시 예시 실제 사용시 삭제하고 사용하시면 됩니다.
-//        switch fullScreenCover {
-//        case .dogWalkResult: WalkResultView.build()
-//        }
+        switch fullScreenCover {
+        case .dogWalkResult(let walkTime, let walkDistance, let routeImage): WalkResultView.build(walkTime: walkTime, walkDistance: walkDistance, routeImage: routeImage)     // 산책 결과
+        }
     }
 }
