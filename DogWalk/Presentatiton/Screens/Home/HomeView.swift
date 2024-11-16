@@ -95,6 +95,9 @@ struct HomeView: View {
         .onAppear {
             UserManager.shared.isUser = false
         }
+        .onAppear {
+            UserManager.shared.isUser = false
+        }
     }
 }
 

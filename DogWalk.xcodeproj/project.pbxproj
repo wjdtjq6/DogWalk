@@ -670,6 +670,7 @@
 				BF159EF42CE33B41001933C0 /* MapOverview */,
 				0689C35E2CDB3E6900C5FC8C /* WalkResult */,
 				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
+				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1152,7 +1153,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = N727744RT8;
+				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1194,7 +1195,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = N727744RT8;
+				DEVELOPMENT_TEAM = 95Z2W8U6PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;

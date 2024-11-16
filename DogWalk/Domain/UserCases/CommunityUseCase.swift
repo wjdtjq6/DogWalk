@@ -21,7 +21,13 @@ enum CheckPostType {
         }
     }
 }
-final class DefaultCommunityUseCase {
+protocol CommunityUseCase {
+    func changePostType(postType: CheckPostType, isPaging: Bool) async throws -> [PostModel]
+    func changeCategory(category: CommunityCategoryType, isPaging: Bool) async throws -> [PostModel]
+    func getPosts(isPaging: Bool) async throws -> [PostModel]
+}
+// MARK: - 실제 앱에 사용할 UseCase
+final class DefaultCommunityUseCase: CommunityUseCase {
     private let network = NetworkManager()
     private let userManager = UserManager.shared
     private var checkPostType: CheckPostType
@@ -59,4 +65,21 @@ extension DefaultCommunityUseCase {
             throw err
         }
     }
+}
+
+// MARK: - 테스트를 ㅇ
+final class MockCommunityUseCase: CommunityUseCase {
+    func changePostType(postType: CheckPostType, isPaging: Bool) async throws -> [PostModel] {
+        <#code#>
+    }
+    
+    func changeCategory(category: CommunityCategoryType, isPaging: Bool) async throws -> [PostModel] {
+        <#code#>
+    }
+    
+    func getPosts(isPaging: Bool) async throws -> [PostModel] {
+        <#code#>
+    }
+    
+    
 }
