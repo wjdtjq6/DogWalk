@@ -18,14 +18,9 @@ final class CommunityIntent {
     private weak var state: CommunityActionProtocol?
     private var useCase: CommunityUseCase
     init(state: CommunityActionProtocol, useCase: CommunityUseCase) {
-            self.state = state
-            self.useCase = useCase
-        }
-//    init(state: CommunityActionProtocol, postType: CheckPostType, categoty: CommunityCategoryType) {
-//        self.state = state
-//        self.useCase = DefaultCommunityUseCase(checkPostType: postType, category: categoty)
-//    }
-    
+        self.state = state
+        self.useCase = useCase
+    }
 }
 
 extension CommunityIntent: CommunityIntentProtocol {
@@ -57,7 +52,7 @@ extension CommunityIntent: CommunityIntentProtocol {
         state?.changeContentState(state: .loading)
         Task {
             do {
-                let result = try await useCase.changePostType(postType: area, isPaging: false)
+                let result = try await useCase.changePostType(postType: area)
                 state?.getPosts(result)
                 state?.changeContentState(state: .content)
                 state?.changeArea(area)
@@ -72,7 +67,7 @@ extension CommunityIntent: CommunityIntentProtocol {
         state?.changeContentState(state: .loading)
         Task {
             do {
-                let result = try await useCase.changeCategory(category: category, isPaging: false)
+                let result = try await useCase.changeCategory(category: category)
                 state?.getPosts(result)
                 state?.changeContentState(state: .content)
                 state?.changeSelectCategory(category)

@@ -19,7 +19,10 @@ struct CommunityView: View {
 extension CommunityView {
     static func build() -> some View {
         let state = CommunityState()
-        let intent = CommunityIntent(state: state, postType: state.area, categoty: state.selectCategory)
+        /*
+         useCase를 뷰에서 실체화 시킴
+         */
+        let intent = CommunityIntent(state: state, useCase: DefaultCommunityUseCase(checkPostType: state.area, category: state.selectCategory))
         
         let container = Container(
             intent: intent as CommunityIntentProtocol,
