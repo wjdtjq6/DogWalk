@@ -5,7 +5,7 @@
 //  Created by 박성민 on 11/6/24.
 //
 
-import Foundation
+import SwiftUI
 
 // MARK: - 데이터 관련 프로토콜
 protocol WalkResultStateProtocol { // 속성들을 가지는 프토코롤
@@ -19,6 +19,8 @@ protocol WalkResultStateProtocol { // 속성들을 가지는 프토코롤
     var walkDistance: Double { get }
     var walkCalorie: Double { get }
     var METs: Double { get }
+    
+    var routeImage: UIImage { get }
 }
 
 protocol WalkResultActionProtocol: AnyObject { //메서드을 가지고있는 프로토콜
@@ -38,10 +40,13 @@ final class WalkResultState: WalkResultStateProtocol, ObservableObject {
     var walkCalorie: Double
     var METs: Double = 0.0
     
-    init(walkTime: Int = 0, walkDistance: Double = 0.0, walkCalorie: Double = 0.0) {
+    var routeImage: UIImage
+    
+    init(walkTime: Int = 0, walkDistance: Double = 0.0, walkCalorie: Double = 0.0, routeImage: UIImage = UIImage(systemName: "star")!) {
         self.walkTime = walkTime
         self.walkDistance = walkDistance
         self.walkCalorie = walkCalorie
+        self.routeImage = routeImage
     }
 }
 

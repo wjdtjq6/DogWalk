@@ -29,24 +29,12 @@ extension MapView {
                     .vBottom()
             }
         } //:ZSTACK
-        //.fullScreenCover(isPresented: $state.isShowingSheet, content: {
-            /*
-             보낼거
-             3. Polyline자체 or 캡쳐해서 사진으로
-             4. Polyline의 중간을 cameraposition으로
-             */
-        //})
     }
 }
 
 // MARK: - 지도 관련 부분
 private extension MapView {
     func mapView() -> some View {
-        /*
-         get: 현재 값을 가져오는 역할
-         set: 변경된 값을 ViewModel(State)로 반영
-         container.state as? MapState: 프로토콜 타입을 실제 타입으로 변환해 속성에 접근
-         */
         Map(position: Binding(get: {
             state.position
         }, set: { _ in
@@ -119,7 +107,7 @@ private extension MapView {
                         intent.closeAlert()
                     }
                 })) {
-                    Button("이동", role: .destructive) { openAppSettings() }
+                    Button("이동", role: .destructive) { intent.openAppSettings() }
                     Button("취소", role: .cancel) {}
                 }
         } //:HSTACK
@@ -146,8 +134,9 @@ private extension MapView {
                             .fill(Color.clear)
                             .wrapToButton {
                                 print("산책 종료 버튼 클릭")
+                                await intent.setRouteImage(route: state.locationManager.locations)
                                 intent.stopWalk()
-                                coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance))
+                                coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
                             }
                         Text("산책 종료")
                             .font(.pretendardBold16)
@@ -216,15 +205,7 @@ private extension MapView {
                 .foregroundStyle(Color.gray) // 나중에 색 변경해주기
                 .lineLimit(subTextLimit)
         } //:VSTACK
-    }
-    //위치 권한 허용하기 위한 설정으로 이동
-    func openAppSettings() {
-        if let appSettingURL = URL(string: UIApplication.openSettingsURLString) {
-            if UIApplication.shared.canOpenURL(appSettingURL) {
-                UIApplication.shared.open(appSettingURL)
-            }
-        }
-    }
+    }    
 }
 
 extension MapView {

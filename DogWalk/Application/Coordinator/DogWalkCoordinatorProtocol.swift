@@ -35,7 +35,7 @@ enum Screen: Identifiable, Hashable {
     
     // 산책하기 탭
     case map                // 산책하기 탭 첫 화면
-    case dogWalkResult(walkTime: Int, walkDistance: Double)      // 산책 결과 화면
+    case dogWalkResult(walkTime: Int, walkDistance: Double, routeImage: UIImage)      // 산책 결과 화면
     case communityCreate    // 게시글 작성 화면
     
     // 커뮤니티 탭
@@ -74,5 +74,5 @@ enum Sheet: Identifiable, Hashable {
 enum FullScreenCover:  Identifiable, Hashable {
     var id: Self { return self }
     
-    case dogWalkResult(walkTime: Int, walkDistance: Double)
+    case dogWalkResult(walkTime: Int, walkDistance: Double, routeImage: UIImage)
 }
