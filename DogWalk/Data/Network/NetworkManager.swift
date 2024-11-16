@@ -182,9 +182,9 @@ extension NetworkManager {
         return try await request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
     }
     //위치 포스터 조회
-    func fetchAreaPosts(category: [String]?, lon: String, lat: String) async throws -> Future<PostDTO, NetworkError> {
+    func fetchAreaPosts(category: [String]?, lon: String, lat: String) async throws -> Future<[PostDTO], NetworkError> {
         let query = GetGeoLocationQuery(category: category, longitude: lon, latitude: lat, maxDistance: "10000", order_by: OrderType.distance.rawValue, sort_by: SortType.asc.rawValue)
-        return try await request(target: .post(.geolocation(query: query)), of: PostDTO.self)
+        return try await request(target: .post(.geolocation(query: query)), of: [PostDTO].self)
     }
     //게시글 작성
     func writePost(body: PostBody) async throws -> Future<PostDTO, NetworkError> {
