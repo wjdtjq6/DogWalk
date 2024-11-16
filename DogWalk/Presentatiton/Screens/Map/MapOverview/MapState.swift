@@ -16,6 +16,12 @@ protocol MapStateProtocol { // 속성들을 가지는 프로토콜
     //Timer
     var count: Int { get }
     var timer: Publishers.Autoconnect<Timer.TimerPublisher> { get }
+    /*TODO:
+     let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+         print("Timer is running")
+     }
+     RunLoop.current.add(timer, forMode: .common)
+     */
     var isTimerOn: Bool { get }
     var isAlert: Bool { get }
     //현위치
@@ -38,6 +44,7 @@ final class MapState: MapStateProtocol, ObservableObject {
     var isShowingSheet: Bool = false
     //Timer
     var count: Int = 0
+    //TODO: 
     var timer: Publishers.Autoconnect<Timer.TimerPublisher> {
         return Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
@@ -64,7 +71,7 @@ extension MapState: MapActionProtocol {
     }
     
     func incrementCount() {
-        count += 1800
+        count += 1
     }
     
     func startLocationTracking() {

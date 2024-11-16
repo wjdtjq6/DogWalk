@@ -26,8 +26,8 @@ struct WalkResultView: View {
 }
 
 extension WalkResultView {
-    static func build() -> some View {
-        let state = WalkResultState()
+    static func build(walkTime: Int, walkDistance: Double) -> some View {
+        let state = WalkResultState(walkTime: walkTime, walkDistance: walkDistance)
         let intent = WalkResultIntent(state: state)
         let container = Container(
             intent: intent as WalkResultIntentProtocol,
@@ -100,19 +100,22 @@ private extension WalkResultView {
     //정보들
     func infos() -> some View {
         HStack(spacing: 35) {
-            info(top: "산책 시간", mid: state.walkTime, bottom: "min")
+            info(top: "산책 시간", mid: "\(state.walkTime/60)", bottom: "min")
             
             Rectangle()
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "거리", mid: state.walkDistance, bottom: "km")
+            info(top: "거리", mid: "\(state.walkDistance.rounded()/1000)", bottom: "km")
             
             Rectangle()
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "칼로리", mid: state.walkCalorie, bottom: "kcal")
+            info(top: "칼로리", mid: "\(Int(state.walkCalorie))", bottom: "kcal")
+                .onAppear {
+                    intent.calculateCalories()
+                }
             
         } //:HSTACK
     }

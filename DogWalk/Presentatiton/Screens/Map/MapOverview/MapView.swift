@@ -32,8 +32,6 @@ extension MapView {
         //.fullScreenCover(isPresented: $state.isShowingSheet, content: {
             /*
              보낼거
-             1. 산책시간
-             2. 거리(랑 시간 계산해서 칼로리)
              3. Polyline자체 or 캡쳐해서 사진으로
              4. Polyline의 중간을 cameraposition으로
              */
@@ -149,7 +147,7 @@ private extension MapView {
                             .wrapToButton {
                                 print("산책 종료 버튼 클릭")
                                 intent.stopWalk()
-                                coordinator.push(.dogWalkResult)
+                                coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance))
                             }
                         Text("산책 종료")
                             .font(.pretendardBold16)
@@ -159,15 +157,13 @@ private extension MapView {
         .frame(height: Self.height * 0.07)
         //Timer
         .onReceive(state.timer, perform: { _ in
-            //if state.start {
-                if state.count < 6 * 60 * 60 {//6시간까지 count
-                    intent.incrementTimer()
-                    print(state.count)
-                }
-                else {
-                    intent.stopWalk()
-                }
-            //}
+            if state.count < 6 * 60 * 60 {//6시간까지 count
+                intent.incrementTimer()
+                print(state.count)
+            }
+            else {
+                intent.stopWalk()
+            }
         })
     }
     //지도 마커 클릭 시 바텀 시트
