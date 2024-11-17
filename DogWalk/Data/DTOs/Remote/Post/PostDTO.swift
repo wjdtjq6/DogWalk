@@ -23,7 +23,7 @@ struct PostDTO: Decodable {
     let hashTags: [String]
     let comments: [CommentDTO]
     let geolocation: GeolocationDTO
-    let distance: Double
+    let distance: Double?
 }
 
 extension PostDTO {
@@ -49,7 +49,7 @@ extension PostDTO {
                                                                                        profileImage: $0.creator.profileImage ?? ""))},
                          geolocation: GeolocationModel(lat: self.geolocation.latitude,
                                                        lon: self.geolocation.longitude),
-                         distance: self.distance)
+                         distance: self.distance ?? 0)
     }
 }
 

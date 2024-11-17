@@ -48,12 +48,14 @@ private extension MapView {
             }
         }
     }
+    
     //Annotation
     func setAnnotation(lat: Double, lng: Double) -> Annotation<Text, some View> {
         Annotation("", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)) {
             customAnnotation()
         }
     }
+    
     //커스텀 마커 이미지
     func customAnnotation() -> some View {
         VStack(spacing: 0) {
@@ -113,6 +115,7 @@ private extension MapView {
         } //:HSTACK
         .padding(.bottom)
     }
+  
     //타이머 시작 시 바텀 뷰
     func timerBottomView() -> some View {
         HStack(spacing: 0) {
@@ -155,6 +158,7 @@ private extension MapView {
             }
         })
     }
+  
     //지도 마커 클릭 시 바텀 시트
     func userInfoBottomSheet() -> some View {
         VStack {
@@ -192,6 +196,7 @@ private extension MapView {
         .vTop()
         .hLeading()
     }
+  
     //바텀 시트 메인, 서브 텍스트 필드
     func userInfoTextField(_ mainText: String, _ subText: String, _ subTextLimit: Int = 1, mainFont: Font, subFont: Font) -> some View {
         VStack(alignment: .leading) {
@@ -205,7 +210,7 @@ private extension MapView {
                 .foregroundStyle(Color.gray) // 나중에 색 변경해주기
                 .lineLimit(subTextLimit)
         } //:VSTACK
-    }    
+    }
 }
 
 extension MapView {

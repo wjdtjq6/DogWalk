@@ -98,7 +98,7 @@ struct TestView: View {
         let user2 = UserModel(userID: "2", nick: "User2", profileImage: "profile2.jpg")
         
         let chatRoom = chatRepo.createChatRoom(
-            chatRoomData: ChatRoomModel(
+            chatRoomData: ChattingListModel(
                 roomID: "room\(Int.random(in: 1...10))",
                 createAt: "12",
                 updatedAt: "1123",

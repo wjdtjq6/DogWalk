@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CoordinatorView: View {
-    // @StateObject var appCoordinator: MainCoordinator = MainCoordinator()
     @EnvironmentObject var appCoordinator: MainCoordinator
     
     var body: some View {

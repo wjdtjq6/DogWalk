@@ -8,27 +8,9 @@
 import SwiftUI
 import Combine
 
-struct TestData: Identifiable, Hashable {
-    let id: UUID = UUID()
-    var name: String
-    var chat: String
-    var lastChatTime: String
-    
-    init(name: String = "멋쟁이 윤우", chat: String = "제일 좋아하는 건~~~~ 유킷, 스유, mvvm, mvi, tca, 렛츠고", lastChatTime: String = "20:53") {
-        self.name = name
-        self.chat = chat
-        self.lastChatTime = lastChatTime
-    }
-}
-
 struct ChattingListView: View {
     @EnvironmentObject var coordinator: MainCoordinator
     @State private var searchText = ""
-    // @State private var items = (0..<10).map { _ in TestData() } // 테스트 데이터 배열, 실제 데이터로 변경
-    // @State private var chattingRoomList: [ChatRoomModel] = []
-    
-    private let networkManager = NetworkManager()
-    
     @StateObject var container: Container<ChattingListIntentProtocol, ChattingListStateProtocol>
     private var state: ChattingListStateProtocol { container.state }
     private var intent: ChattingListIntentProtocol { container.intent }
@@ -75,9 +57,10 @@ extension ChattingListView {
     }
     
     // 채팅방 Cell
-    private func chattingViewCell(_ item: ChatRoomModel) -> some View {
+    private func chattingViewCell(_ item: ChattingListModel) -> some View {
         Button {
-            coordinator.push(.chattingRoom)
+            coordinator.push(.chattingRoom(roomID: item.roomID))
+            
         } label: {
             HStack {
                 CommonProfile(image: .asTestImage, size: 60)

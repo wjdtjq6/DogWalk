@@ -8,7 +8,7 @@
 import Foundation
 
 // 채팅방 정보 응답 (Response)
-struct ChatRoomDTO: Decodable {
+struct ChattingListDTO: Decodable {
     let room_id: String
     let createdAt: String
     let updatedAt: String
@@ -16,15 +16,15 @@ struct ChatRoomDTO: Decodable {
     let lastChat: LastChatDTO?
 }
 
-extension ChatRoomDTO {
-    func toDomain() -> ChatRoomModel {
+extension ChattingListDTO {
+    func toDomain() -> ChattingListModel {
         let userID = UserManager.shared.userID
         print(userID)
         print(self.participants)
         let me = self.participants.filter { $0.user_id == userID }.first ?? UserDTO(user_id: "", nick: "나", profileImage: "")
         let otherUser = self.participants.filter() { $0.user_id != userID }.first ?? UserDTO(user_id: "", nick: "알 수 없음", profileImage: "")    // 사용자가 2명 이상일 경우 변경 필요
         
-        return ChatRoomModel(roomID: self.room_id,
+        return ChattingListModel(roomID: self.room_id,
                              createAt: self.createdAt.getFormattedDateString(.dot),  // TODO: 날짜 포맷팅 처리 로직 확인 필요
                              updatedAt: self.updatedAt.getFormattedDateString(.dot), // TODO: 날짜 포맷팅 처리 로직 확인 필요
                              me: me.toDomain(),
@@ -34,7 +34,7 @@ extension ChatRoomDTO {
 }
 
 // 실제 사용할 모델
-struct ChatRoomModel {
+struct ChattingListModel {
     let roomID: String                  // 채팅방 ID
     let createAt: String                // 채팅방 생성일
     let updatedAt: String               // 채팅방 수정일 (마지막 메세지)

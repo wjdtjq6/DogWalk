@@ -9,7 +9,7 @@ import Foundation
 
 // 채팅방 생성 관련 데이터/속성 프로토콜
 protocol CreateChattingRoomStateProtocol {
-    var chattingRooms: [ChatRoomModel] { get }
+    var chattingRooms: [ChattingListModel] { get }
 }
 
 // 채팅방 생성 관련 메서드 프로토콜
@@ -20,7 +20,7 @@ protocol CreateChattingRoomActionProtocol: AnyObject {
 // View에 전달할 데이터
 @Observable
 final class CreateChattingRoomState: CreateChattingRoomStateProtocol, ObservableObject {
-    var chattingRooms: [ChatRoomModel] = []
+    var chattingRooms: [ChattingListModel] = []
 }
 
 // Intent에 넘겨줄 함수

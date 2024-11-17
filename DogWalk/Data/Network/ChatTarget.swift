@@ -11,7 +11,7 @@ enum ChatTarget {
     case newChatRoom(body: NewChatRoomBody)                         // 새로운 채팅방 생성
     case getChatRoomList                                            // 채팅방 리스트 조회
     case sendChat(roomId: String, body: SendChatBody)               // 채팅 보내기
-    case getChatList(roomId: String, query: GetChatListQuery)      // 채팅 내역 조회
+    case getChatList(roomId: String, query: GetChatListQuery?)      // 채팅 내역 조회
     case postChatFiles(roomId: String, body: PostChatFileBody)      // 채팅방 파일 업로드
 }
 

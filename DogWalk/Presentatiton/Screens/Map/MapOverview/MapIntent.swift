@@ -54,6 +54,7 @@ extension MapIntent: MapIntentProtocol {
     func closeAlert() {
         state?.setAlert(false)
     }
+  
     //설정으로 이동
     func openAppSettings() {
         if let appSettingURL = URL(string: UIApplication.openSettingsURLString) {
@@ -62,6 +63,7 @@ extension MapIntent: MapIntentProtocol {
             }
         }
     }
+  
     //지도 캡처
     func setSnapshotOptions(coordinates: [CLLocationCoordinate2D]) -> MKMapSnapshotter.Options {
         let options = MKMapSnapshotter.Options()
@@ -79,6 +81,7 @@ extension MapIntent: MapIntentProtocol {
         
         return options
     }
+  
     //경로 좌표 중심값
     func getRouteCenterCoordinate(coordinates: [CLLocationCoordinate2D]) -> CLLocationCoordinate2D? {
         guard coordinates.isEmpty == false || coordinates.count >= 1 else { return nil }
@@ -96,6 +99,7 @@ extension MapIntent: MapIntentProtocol {
         
         return CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
     }
+  
     //최대, 최소 위경도 구해서 MKCoordinateRegion 생성
     func makeRouteSizeRegion(center: CLLocationCoordinate2D, coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
         let minLatitude = coordinates.min(by: { $0.latitude < $1.latitude })?.latitude ?? 0
@@ -115,6 +119,7 @@ extension MapIntent: MapIntentProtocol {
         let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
         return MKCoordinateRegion(center: center, span: span)
     }
+  
     //이미지 가져오기
     func setRouteImage(route coordinates: [CLLocationCoordinate2D]) async {
         guard !coordinates.isEmpty else { return }

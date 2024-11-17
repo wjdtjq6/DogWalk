@@ -26,6 +26,7 @@ protocol WalkResultStateProtocol { // 속성들을 가지는 프토코롤
 protocol WalkResultActionProtocol: AnyObject { //메서드을 가지고있는 프로토콜
     func calculateCalories()
 }
+
 // MARK: - view에게 전달할 데이터
 @Observable
 final class WalkResultState: WalkResultStateProtocol, ObservableObject {

@@ -17,7 +17,7 @@ final class ChatRepository {
     // MARK: 채팅방 관련 메서드
     
     // 채팅방 생성
-    func createChatRoom(chatRoomData: ChatRoomModel) -> ChatRoom {
+    func createChatRoom(chatRoomData: ChattingListModel) -> ChatRoom {
         let chatRoom = ChatRoom(context: managedObjectContext)
         chatRoom.chatRoomID = chatRoomData.roomID                           // 채팅방 아이디
         chatRoom.meID = chatRoomData.me.userID                              // 내 userID
@@ -78,7 +78,7 @@ final class ChatRepository {
     }
     
     // 마지막 채팅 업데이트
-    func updateLastChat(chatRoomData: ChatRoomModel) {
+    func updateLastChat(chatRoomData: ChattingListModel) {
         if let chatRoom = fetchChatRoom(chatRoomID: chatRoomData.roomID) {
             chatRoom.lastChatID = chatRoomData.lastChat?.chatID              // 채팅방 ID
             chatRoom.lastChatType = chatRoomData.lastChat?.type.rawValue     // 마지막 채팅이 글자인지 사진인지
