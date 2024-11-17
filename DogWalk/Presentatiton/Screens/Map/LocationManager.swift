@@ -10,7 +10,9 @@ import CoreLocation
 
 final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObject {
     var locationManager =  CLLocationManager ()
-
+    var walkDistance: Double = 0
+    var lastLocation: CLLocation!
+    
     @Published var lastKnownLocation: CLLocationCoordinate2D?
     @Published var locations: [CLLocationCoordinate2D] = []//사용자의 경로 저장
     @Published var isTrackingPath = false // 산책 경로 기록 중인지 확인
@@ -59,7 +61,11 @@ final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObj
         if isTrackingPath {
             self.locations.append(coordinate)
             print("\(Date.now) 현재 위치: \(coordinate.latitude), \(coordinate.longitude)")
+            //움직인 거리 계산
+            walkDistance += lastLocation.distance(from: newLocation)
+            print("움직인 거리: \(walkDistance)")
         }
+        lastLocation = newLocation
     }
     // 경로 기록 초기화
     func resetLocations() {

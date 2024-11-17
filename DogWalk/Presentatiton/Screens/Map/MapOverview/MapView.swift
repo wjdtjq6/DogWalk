@@ -29,26 +29,12 @@ extension MapView {
                     .vBottom()
             }
         } //:ZSTACK
-        //.fullScreenCover(isPresented: $state.isShowingSheet, content: {
-            /*
-             보낼거
-             1. 산책시간
-             2. 거리(랑 시간 계산해서 칼로리)
-             3. Polyline자체 or 캡쳐해서 사진으로
-             4. Polyline의 중간을 cameraposition으로
-             */
-        //})
     }
 }
 
 // MARK: - 지도 관련 부분
 private extension MapView {
     func mapView() -> some View {
-        /*
-         get: 현재 값을 가져오는 역할
-         set: 변경된 값을 ViewModel(State)로 반영
-         container.state as? MapState: 프로토콜 타입을 실제 타입으로 변환해 속성에 접근
-         */
         Map(position: Binding(get: {
             state.position
         }, set: { _ in
@@ -62,12 +48,14 @@ private extension MapView {
             }
         }
     }
+    
     //Annotation
     func setAnnotation(lat: Double, lng: Double) -> Annotation<Text, some View> {
         Annotation("", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)) {
             customAnnotation()
         }
     }
+    
     //커스텀 마커 이미지
     func customAnnotation() -> some View {
         VStack(spacing: 0) {
@@ -121,12 +109,13 @@ private extension MapView {
                         intent.closeAlert()
                     }
                 })) {
-                    Button("이동", role: .destructive) { openAppSettings() }
+                    Button("이동", role: .destructive) { intent.openAppSettings() }
                     Button("취소", role: .cancel) {}
                 }
         } //:HSTACK
         .padding(.bottom)
     }
+  
     //타이머 시작 시 바텀 뷰
     func timerBottomView() -> some View {
         HStack(spacing: 0) {
@@ -148,8 +137,9 @@ private extension MapView {
                             .fill(Color.clear)
                             .wrapToButton {
                                 print("산책 종료 버튼 클릭")
+                                await intent.setRouteImage(route: state.locationManager.locations)
                                 intent.stopWalk()
-                                coordinator.push(.dogWalkResult)
+                                coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
                             }
                         Text("산책 종료")
                             .font(.pretendardBold16)
@@ -159,17 +149,16 @@ private extension MapView {
         .frame(height: Self.height * 0.07)
         //Timer
         .onReceive(state.timer, perform: { _ in
-            //if state.start {
-                if state.count < 6 * 60 * 60 {//6시간까지 count
-                    intent.incrementTimer()
-                    print(state.count)
-                }
-                else {
-                    intent.stopWalk()
-                }
-            //}
+            if state.count < 6 * 60 * 60 {//6시간까지 count
+                intent.incrementTimer()
+                print(state.count)
+            }
+            else {
+                intent.stopWalk()
+            }
         })
     }
+  
     //지도 마커 클릭 시 바텀 시트
     func userInfoBottomSheet() -> some View {
         VStack {
@@ -207,6 +196,7 @@ private extension MapView {
         .vTop()
         .hLeading()
     }
+  
     //바텀 시트 메인, 서브 텍스트 필드
     func userInfoTextField(_ mainText: String, _ subText: String, _ subTextLimit: Int = 1, mainFont: Font, subFont: Font) -> some View {
         VStack(alignment: .leading) {
@@ -220,14 +210,6 @@ private extension MapView {
                 .foregroundStyle(Color.gray) // 나중에 색 변경해주기
                 .lineLimit(subTextLimit)
         } //:VSTACK
-    }
-    //위치 권한 허용하기 위한 설정으로 이동
-    func openAppSettings() {
-        if let appSettingURL = URL(string: UIApplication.openSettingsURLString) {
-            if UIApplication.shared.canOpenURL(appSettingURL) {
-                UIApplication.shared.open(appSettingURL)
-            }
-        }
     }
 }
 

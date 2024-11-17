@@ -10,6 +10,7 @@ import Foundation
 protocol WalkResultIntentProtocol {
     func startPostingButtonTap()
     func dismissButtonTap()
+    func calculateCalories()
 }
 
 final class WalkResultIntent {
@@ -26,9 +27,13 @@ extension WalkResultIntent: WalkResultIntentProtocol {
     func startPostingButtonTap() {
         print("게시글 작성버튼 눌림")
     }
+    
     func dismissButtonTap() {
         print("뒤로가기 버튼 클릭")
     }
     
+    func calculateCalories() {
+        state?.calculateCalories()
+    }
     
 }
