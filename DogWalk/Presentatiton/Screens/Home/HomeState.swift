@@ -7,6 +7,7 @@
 import Foundation
 import Combine
 
+
 protocol HomeStateProtocol {
     var popularityDogWalkList: [PostModel] { get }  // 인기산책 인증 데이터
     var isProfileButtonTap: Bool { get }            // 프로필 버튼 트리거 변수
@@ -26,6 +27,7 @@ protocol HomeIntentActionProtocol: AnyObject {
 
 @Observable
 final class HomeState: HomeStateProtocol, ObservableObject {
+    
     var popularityDogWalkList: [PostModel] = []
     var isProfileButtonTap = false
     var isHomeViewFirstInit = true
