@@ -21,7 +21,13 @@ enum CheckPostType {
         }
     }
 }
-final class DefaultCommunityUseCase {
+protocol CommunityUseCase {
+    func changePostType(postType: CheckPostType) async throws -> [PostModel]
+    func changeCategory(category: CommunityCategoryType) async throws -> [PostModel]
+    func getPosts(isPaging: Bool) async throws -> [PostModel]
+}
+// MARK: - 실제 앱에 사용할 UseCase
+final class DefaultCommunityUseCase: CommunityUseCase {
     private let network = NetworkManager()
     private let userManager = UserManager.shared
     private var checkPostType: CheckPostType
@@ -30,17 +36,17 @@ final class DefaultCommunityUseCase {
         self.checkPostType = checkPostType
         self.category = category
     }
-    func changePostType(postType: CheckPostType, isPaging: Bool) async throws -> [PostModel] {
+    //postType 변경 시
+    func changePostType(postType: CheckPostType) async throws -> [PostModel] {
         self.checkPostType = postType
-        return try await self.getPosts(isPaging: isPaging)
+        return try await self.getPosts(isPaging: false)
     }
-    func changeCategory(category: CommunityCategoryType, isPaging: Bool) async throws -> [PostModel] {
+    //카테고리 변경 시
+    func changeCategory(category: CommunityCategoryType) async throws -> [PostModel] {
         self.category = category
-        return try await self.getPosts(isPaging: isPaging)
+        return try await self.getPosts(isPaging: false)
     }
-    
-}
-extension DefaultCommunityUseCase {
+    //실제 네트워크 처리
     func getPosts(isPaging: Bool) async throws -> [PostModel] {
         do {
             switch checkPostType {
@@ -59,4 +65,71 @@ extension DefaultCommunityUseCase {
             throw err
         }
     }
+}
+
+// MARK: - 테스트를 위한 useCase
+final class MockCommunityUseCase: CommunityUseCase {
+    private let mockData = [
+        PostModel(
+            postID: "1",
+            created: "2024-11-13",
+            category: .all,
+            title: "Used iPhone for Sale",
+            price: 300,
+            content: "Selling my iPhone in good condition.",
+            creator: UserModel(userID: "", nick: "감자", profileImage: ""),
+            files: ["iphone.jpg"],
+            likes: ["user2", "user3"],
+            views: 120,
+            hashTags: ["#iphone", "#forsale"],
+            comments: [],
+            geolocation: GeolocationModel(lat: 37.7749, lon: -122.4194),
+            distance: 5.0
+        ),
+        PostModel(
+            postID: "2",
+            created: "2024-11-12",
+            category: .free,
+            title: "Community Cleanup Event",
+            price: 0,
+            content: "Join us for a community cleanup event this weekend.",
+            creator: UserModel(userID: "", nick: "감자", profileImage: ""),
+            files: ["cleanup.jpg"],
+            likes: ["user1", "user3", "user4"],
+            views: 80,
+            hashTags: ["#community", "#cleanup"],
+            comments: [],
+            geolocation: GeolocationModel(lat: 37.7749, lon: -122.4194),
+            distance: 2.5
+        ),
+        PostModel(
+            postID: "3",
+            created: "2024-11-10",
+            category: .question,
+            title: "Looking for a Freelance Developer",
+            price: 0,
+            content: "Need a developer for a short-term project.",
+            creator: UserModel(userID: "", nick: "감자", profileImage: ""),
+            files: ["job.jpg"],
+            likes: ["user4", "user5"],
+            views: 150,
+            hashTags: ["#freelance", "#developer"],
+            comments: [],
+            geolocation: GeolocationModel(lat: 34.0522, lon: -118.2437),
+            distance: 15.0
+        ),
+    ]
+    func changePostType(postType: CheckPostType) async throws -> [PostModel] {
+        return self.mockData
+    }
+    
+    func changeCategory(category: CommunityCategoryType) async throws -> [PostModel] {
+        return self.mockData
+    }
+    
+    func getPosts(isPaging: Bool) async throws -> [PostModel] {
+        return self.mockData
+    }
+    
+    
 }
