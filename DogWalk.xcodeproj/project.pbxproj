@@ -99,6 +99,7 @@
 		C4097B312CE1F552002155EA /* EmailLoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B302CE1F552002155EA /* EmailLoginBody.swift */; };
 		C4097B332CE1F749002155EA /* LoginIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B322CE1F749002155EA /* LoginIntent.swift */; };
 		C4097B352CE1F74E002155EA /* LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097B342CE1F74E002155EA /* LoginState.swift */; };
+		C41F67E02CEB5429003BCCCC /* ChattingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F67DF2CEB5429003BCCCC /* ChattingDTO.swift */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -144,7 +145,6 @@
 		C4D48E7F2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E7E2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift */; };
 		C4D48E812CE60399006E39A0 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E802CE60399006E39A0 /* SocketIOManager.swift */; };
 		C4D48E832CE70A7C006E39A0 /* SocketError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E822CE70A7C006E39A0 /* SocketError.swift */; };
-		C4D48E872CE8DA84006E39A0 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = C4D48E862CE8DA84006E39A0 /* SocketIO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -241,6 +241,7 @@
 		C4097B302CE1F552002155EA /* EmailLoginBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginBody.swift; sourceTree = "<group>"; };
 		C4097B322CE1F749002155EA /* LoginIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginIntent.swift; sourceTree = "<group>"; };
 		C4097B342CE1F74E002155EA /* LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginState.swift; sourceTree = "<group>"; };
+		C41F67DF2CEB5429003BCCCC /* ChattingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingDTO.swift; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -477,6 +478,7 @@
 				C4097AF82CD7AF28002155EA /* LastChatDTO.swift */,
 				C4D48E7C2CE35246006E39A0 /* ChattingRoomDTO.swift */,
 				C4D48E7E2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift */,
+				C41F67DF2CEB5429003BCCCC /* ChattingDTO.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1073,6 +1075,7 @@
 				C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */,
 				062284BE2CEC8CA800860F7A /* CommentBody.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
+				C41F67E02CEB5429003BCCCC /* ChattingDTO.swift in Sources */,
 				993A70DE2CE8B6890003FA0C /* CommonImageView.swift in Sources */,
 				994775B32CEC6DB90005DBBF /* WeatherKitAPIManager.swift in Sources */,
 				C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */,
