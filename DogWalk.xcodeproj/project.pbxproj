@@ -17,8 +17,6 @@
 		06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1892CD398F0003249BF /* ChattingRoomView.swift */; };
 		06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18D2CD3E28E003249BF /* CommonSendView.swift */; };
 		06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18F2CD52DEE003249BF /* MessageModel.swift */; };
-		99646D022CEB103700B94C0B /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D002CEB103700B94C0B /* ImageCacheManager.swift */; };
-		99646D042CEB104300B94C0B /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D032CEB104300B94C0B /* CommonImageView.swift */; };
 		993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704A2CE59E6E0003FA0C /* HomeState.swift */; };
 		993A704D2CE59E800003FA0C /* HomeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704C2CE59E800003FA0C /* HomeIntent.swift */; };
 		993A70DC2CE8B6450003FA0C /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */; };
@@ -148,8 +146,6 @@
 		06CEA18D2CD3E28E003249BF /* CommonSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSendView.swift; sourceTree = "<group>"; };
 		06CEA18F2CD52DEE003249BF /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		06CEA1932CD7BC1E003249BF /* DogWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DogWalk.entitlements; sourceTree = "<group>"; };
-		99646D002CEB103700B94C0B /* ImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
-		99646D032CEB104300B94C0B /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		993A704A2CE59E6E0003FA0C /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		993A704C2CE59E800003FA0C /* HomeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeIntent.swift; sourceTree = "<group>"; };
 		993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
@@ -301,7 +297,6 @@
 			path = WalkResult;
 			sourceTree = "<group>";
 		};
-
 		993A70D52CE8B6040003FA0C /* Image */ = {
 			isa = PBXGroup;
 			children = (
@@ -975,9 +970,7 @@
 				9966F6EC2CE21B3800E7569E /* ChatRoom+CoreDataProperties.swift in Sources */,
 				9966F6ED2CE21B3800E7569E /* ChatMessage+CoreDataClass.swift in Sources */,
 				9966F6EE2CE21B3800E7569E /* ChatMessage+CoreDataProperties.swift in Sources */,
-				99646CFB2CEB0A3900B94C0B /* CommonImageView.swift in Sources */,
 				9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */,
-				99646CF92CEB0A1400B94C0B /* ImageCacheManager.swift in Sources */,
 				C4097AFA2CD7AF28002155EA /* AuthDTO.swift in Sources */,
 				C4A776972CD3441E00D60EEE /* CommunityCategorySelectedView.swift in Sources */,
 				C4097B012CD7AF28002155EA /* WithDrawDTO.swift in Sources */,
@@ -1019,7 +1012,6 @@
 				C4D48E812CE60399006E39A0 /* WebSocketManager.swift in Sources */,
 				C4097B122CD7AF28002155EA /* SendChatBody.swift in Sources */,
 				9966F6E02CE1CC3700E7569E /* Chat.xcdatamodeld in Sources */,
-				99646CFE2CEB0EF300B94C0B /* HomeIntent.swift in Sources */,
 				9966F6F92CE23B7400E7569E /* CoreDataManager.swift in Sources */,
 				06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */,
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
@@ -1074,7 +1066,6 @@
 				C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
 				BF159EF82CE33B6C001933C0 /* MapState.swift in Sources */,
-				99646CFF2CEB0EF300B94C0B /* HomeState.swift in Sources */,
 				C4097AFE2CD7AF28002155EA /* OAuthLoginDTO.swift in Sources */,
 				C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */,
 				9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */,
@@ -1216,7 +1207,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1258,7 +1249,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
