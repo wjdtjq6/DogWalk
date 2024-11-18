@@ -34,17 +34,17 @@ extension PostDTO {
                          title: self.title,
                          price: self.price,
                          content: self.content,
-                         creator: UserModel(userID: self.creator.user_id, 
-                                            nick: self.creator.nick, 
+                         creator: UserModel(userID: self.creator.user_id,
+                                            nick: self.creator.nick,
                                             profileImage: self.creator.profileImage ?? ""),
                          files: self.files,
                          likes: self.likes,
                          views: self.likes2.count,
                          hashTags: self.hashTags,
-                         comments: self.comments.map { CommentModel(commentID: $0.comment_id, 
+                         comments: self.comments.map { CommentModel(commentID: $0.comment_id,
                                                                     content: $0.content,
-                                                                    createdAt: $0.createdAt, 
-                                                                    creator: UserModel(userID: creator.user_id, 
+                                                                    createdAt: $0.createdAt,
+                                                                    creator: UserModel(userID: creator.user_id,
                                                                                        nick: creator.nick,
                                                                                        profileImage: $0.creator.profileImage ?? ""))},
                          geolocation: GeolocationModel(lat: self.geolocation.latitude,
@@ -63,7 +63,7 @@ enum CommunityCategoryType: String, CaseIterable {
     case free = "자유게시판"
 }
 
-struct PostModel {
+struct PostModel: Identifiable, Hashable {
     let postID: String
     let created: String
     let category: CommunityCategoryType
@@ -77,7 +77,19 @@ struct PostModel {
     let hashTags: [String]
     let comments: [CommentModel]
     let geolocation: GeolocationModel
-    let distance: Double                    // 유저와 포스트의 거리
+    let distance: Double // 유저와 포스트의 거리
+    
+    // List로 사용시 고유값 필요
+    var id: String { postID }
+    
+    static func == (lhs: PostModel, rhs: PostModel) -> Bool {
+            return lhs.postID == rhs.postID
+        }
+
+        // hash(into:) 메서드 구현
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(postID) // 고유한 postID를 사용하여 해시값 생성
+        }
 }
 
 /**

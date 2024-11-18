@@ -17,6 +17,10 @@
 		06CEA18A2CD398F0003249BF /* ChattingRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1892CD398F0003249BF /* ChattingRoomView.swift */; };
 		06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18D2CD3E28E003249BF /* CommonSendView.swift */; };
 		06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA18F2CD52DEE003249BF /* MessageModel.swift */; };
+		993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704A2CE59E6E0003FA0C /* HomeState.swift */; };
+		993A704D2CE59E800003FA0C /* HomeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A704C2CE59E800003FA0C /* HomeIntent.swift */; };
+		993A70DC2CE8B6450003FA0C /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */; };
+		993A70DE2CE8B6890003FA0C /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A70DD2CE8B6890003FA0C /* CommonImageView.swift */; };
 		9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D02CDDE37900E7569E /* MainCoordinator.swift */; };
 		9966F6D32CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */; };
 		9966F6D52CDDE3C500E7569E /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */; };
@@ -128,7 +132,6 @@
 		C4D48E7F2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E7E2CE352E5006E39A0 /* ChattingRoomResponseDTO.swift */; };
 		C4D48E812CE60399006E39A0 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E802CE60399006E39A0 /* WebSocketManager.swift */; };
 		C4D48E832CE70A7C006E39A0 /* WebSocketError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D48E822CE70A7C006E39A0 /* WebSocketError.swift */; };
-		C4D48E872CE8DA84006E39A0 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = C4D48E862CE8DA84006E39A0 /* SocketIO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +146,10 @@
 		06CEA18D2CD3E28E003249BF /* CommonSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSendView.swift; sourceTree = "<group>"; };
 		06CEA18F2CD52DEE003249BF /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		06CEA1932CD7BC1E003249BF /* DogWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DogWalk.entitlements; sourceTree = "<group>"; };
+		993A704A2CE59E6E0003FA0C /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
+		993A704C2CE59E800003FA0C /* HomeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeIntent.swift; sourceTree = "<group>"; };
+		993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		993A70DD2CE8B6890003FA0C /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		9966F6D02CDDE37900E7569E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		9966F6D22CDDE38B00E7569E /* DogWalkCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		9966F6D42CDDE3C500E7569E /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
@@ -263,7 +270,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4D48E872CE8DA84006E39A0 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +296,15 @@
 			);
 			path = WalkResult;
 			sourceTree = "<group>";
+		};
+		993A70D52CE8B6040003FA0C /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				993A70DB2CE8B6450003FA0C /* ImageCacheManager.swift */,
+			);
+			name = Image;
+			path = DogWalk/Data/Repositories/Local/Image;
+			sourceTree = SOURCE_ROOT;
 		};
 		9966F6CF2CDDE35100E7569E /* Coordinator */ = {
 			isa = PBXGroup;
@@ -557,7 +572,7 @@
 		C477A2C12CD0E697006B8DB6 /* Local */ = {
 			isa = PBXGroup;
 			children = (
-        067F5DBD2CE1F67700BD9ADD /* Image */,
+				993A70D52CE8B6040003FA0C /* Image */,
 				C4A776892CD125B800D60EEE /* User */,
 				C477A2D62CD0E792006B8DB6 /* DefaultLocalRepository.swift */,
 			);
@@ -671,6 +686,8 @@
 			isa = PBXGroup;
 			children = (
 				C477A2E82CD0E84C006B8DB6 /* HomeView.swift */,
+				993A704A2CE59E6E0003FA0C /* HomeState.swift */,
+				993A704C2CE59E800003FA0C /* HomeIntent.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -689,7 +706,6 @@
 				BF159EF42CE33B41001933C0 /* MapOverview */,
 				0689C35E2CDB3E6900C5FC8C /* WalkResult */,
 				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
-				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -736,7 +752,6 @@
 		C477A2EA2CD0E854006B8DB6 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-        067F5DC02CE2166C00BD9ADD /* Test */,
 				C477A30C2CD0EB21006B8DB6 /* CustomTab */,
 				BF41B09F2CD3BC3B00B67485 /* Auth */,
 				C4097B2B2CE1EF3A002155EA /* Login */,
@@ -784,10 +799,10 @@
 		C477A2EF2CD0E8A8006B8DB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				993A70DD2CE8B6890003FA0C /* CommonImageView.swift */,
 				C477A2F42CD0E959006B8DB6 /* CommonButton.swift */,
 				06CEA1852CD23181003249BF /* CommonProfile.swift */,
 				06CEA18D2CD3E28E003249BF /* CommonSendView.swift */,
-        067F5DC32CE2374700BD9ADD /* CommonImageView.swift */,
 				C4097B1C2CE1A943002155EA /* CommonTitleView.swift */,
 			);
 			path = Common;
@@ -877,7 +892,6 @@
 			);
 			name = DogWalk;
 			packageProductDependencies = (
-				C4D48E862CE8DA84006E39A0 /* SocketIO */,
 			);
 			productName = DogWalk;
 			productReference = C477A2A62CD0E594006B8DB6 /* DogWalk.app */;
@@ -908,7 +922,6 @@
 			);
 			mainGroup = C477A29D2CD0E594006B8DB6;
 			packageReferences = (
-				C4D48E852CE8DA84006E39A0 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 			);
 			productRefGroup = C477A2A72CD0E594006B8DB6 /* Products */;
 			projectDirPath = "";
@@ -950,7 +963,6 @@
 				0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */,
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
-        067F5DC22CE2167800BD9ADD /* SMTestView.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
 				062284A62CE26CD200860F7A /* CommunityContentState.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
@@ -977,6 +989,7 @@
 				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
 				06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */,
 				C477A30E2CD0EB3B006B8DB6 /* CustomTabView.swift in Sources */,
+				993A704D2CE59E800003FA0C /* HomeIntent.swift in Sources */,
 				C477A2FF2CD0E98F006B8DB6 /* SettingView.swift in Sources */,
 				C477A3082CD0EA41006B8DB6 /* Color+.swift in Sources */,
 				C4097B022CD7AF28002155EA /* GetGeoLocationQuery.swift in Sources */,
@@ -1002,7 +1015,6 @@
 				9966F6F92CE23B7400E7569E /* CoreDataManager.swift in Sources */,
 				06CEA18E2CD3E28E003249BF /* CommonSendView.swift in Sources */,
 				C477A2FD2CD0E98A006B8DB6 /* CommunityDetailView.swift in Sources */,
-        067F5DBF2CE1F69600BD9ADD /* ImageCacheManager.swift in Sources */,
 				C477A3062CD0EA30006B8DB6 /* Font+.swift in Sources */,
 				C4097B0F2CD7AF28002155EA /* GetChatListQuery.swift in Sources */,
 				C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */,
@@ -1010,6 +1022,7 @@
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,
 				C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
+				993A70DE2CE8B6890003FA0C /* CommonImageView.swift in Sources */,
 				C4097B192CDB0921002155EA /* HTTPMethod.swift in Sources */,
 				C4097B242CE1B286002155EA /* ChattingListIntent.swift in Sources */,
 				C4097AD62CD7AEF5002155EA /* PostTarget.swift in Sources */,
@@ -1043,8 +1056,10 @@
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
 				C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */,
 				C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */,
+				993A70DC2CE8B6450003FA0C /* ImageCacheManager.swift in Sources */,
 				062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */,
 				C4097B282CE1B36C002155EA /* CreateChattingRoomIntent.swift in Sources */,
+				993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */,
 				C4097B142CD7AF28002155EA /* ChattingListResponseDTO.swift in Sources */,
 				C4097B092CD7AF28002155EA /* CommentDTO.swift in Sources */,
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
@@ -1057,7 +1072,6 @@
 				C4097B132CD7AF28002155EA /* ChattingListDTO.swift in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
 				BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */,
-        067F5DC42CE2374700BD9ADD /* CommonImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1193,7 +1207,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1235,7 +1249,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = 95Z2W8U6PK;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1289,25 +1303,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C4D48E852CE8DA84006E39A0 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C4D48E862CE8DA84006E39A0 /* SocketIO */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C4D48E852CE8DA84006E39A0 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
-			productName = SocketIO;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9966F6DE2CE1CC3700E7569E /* Chat.xcdatamodeld */ = {
