@@ -255,7 +255,7 @@ extension NetworkManager {
     }
     // 댓글 작성
     func addContent(id: String, content: String) async throws -> Future<CommentModel, NetworkError> {
-        let future = try await request(target: .post(.addContent(postID: id, content: content)), of: CommentDTO.self)
+        let future = try await request(target: .post(.addContent(postID: id, body: CommentBody(content: content))), of: CommentDTO.self)
         return Future { promise in
             future
                 .sink { completion in

@@ -86,7 +86,7 @@ private extension MapView {
     //디폴트 프로필 + 산책 시작 버튼
     func defaultBottomView() -> some View {
         HStack {
-            CommonProfile(image: .asTestProfile, size: 45)
+            CommonProfile(imageURL: "", size: 45)
             
             Spacer()
                 .frame(width: 30)
@@ -163,7 +163,7 @@ private extension MapView {
     func userInfoBottomSheet() -> some View {
         VStack {
             HStack {
-                CommonProfile(image: .asTestProfile, size: 65)
+                CommonProfile(imageURL: "", size: 65)
                     .padding(.leading)
                 //게시글 유저 데이터
                 userInfoTextField("도슈니", "믹스, 7세", mainFont: .pretendardBold16, subFont: .pretendardRegular13)

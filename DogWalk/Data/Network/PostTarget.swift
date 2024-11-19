@@ -21,7 +21,7 @@ enum PostTarget {
     case userPosts(userID: String, query: GetPostQuery)     // 다른 유저가 작성한 게시물 조회
     case hashtag(query: GetHashTagQuery)                    // 해시태그 검색
     case geolocation(query: GetGeoLocationQuery)            // 위치 기반 게시글 검색
-    case addContent(postID: String, content: String)        // 댓글 작성
+    case addContent(postID: String, body: CommentBody)        // 댓글 작성
 }
 
 extension PostTarget: TargetType {

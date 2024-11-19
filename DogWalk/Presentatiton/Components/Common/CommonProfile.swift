@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct CommonProfile: View {
-    let image: Image
+    let imageURL: String
     let size: CGFloat
     let backColor: Color
-    init(image: Image, size: CGFloat, backColor: Color = .primaryWhite) {
-        self.image = image
+    init(imageURL: String, size: CGFloat, backColor: Color = .primaryWhite) {
+        self.imageURL = imageURL
         self.size = size
         self.backColor = backColor
     }
     
     var body: some View {
-        image
-            .resizable()
+        asImageView(url: imageURL, image: .asTestProfile)
             .aspectRatio(contentMode: .fill)
             .frame(width: size, height: size)
             .cornerRadius(size/2)
@@ -33,5 +32,5 @@ struct CommonProfile: View {
 }
 
 #Preview {
-    CommonProfile(image: .asTestProfile, size: 100, backColor: .red)
+    CommonProfile(imageURL: "", size: 100, backColor: .red)
 }

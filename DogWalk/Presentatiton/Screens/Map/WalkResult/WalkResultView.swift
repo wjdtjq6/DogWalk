@@ -75,7 +75,7 @@ private extension WalkResultView {
                 .hLeading()
                 .padding(.horizontal, 30)
             HStack {
-                CommonProfile(image: .asTestImage, size: 30)
+                CommonProfile(imageURL: "", size: 30)
                 Text("\(state.dogNick)과 함께 산책했어요!") // 강아지 닉네임 입력
                     .font(.pretendardBold15)
                     .lineLimit(1)
