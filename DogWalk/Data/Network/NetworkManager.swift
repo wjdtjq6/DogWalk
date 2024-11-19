@@ -147,7 +147,7 @@ final class NetworkManager: Requestable {
                         if retryHandler.retry(for: error) {
                             return try await apiCall()
                         } else {
-                            throw error   // TODO: 추가 에러 처리 확인 필요
+                            throw error   // TODO: 추가 에러 처리 확인 필요, 리프레쉬 만료 시 예외처리 해주기!
                         }
                     }
                 }
@@ -290,20 +290,20 @@ final class NetworkRetryHandler: RequestRetrier {
             if let urlError = error as? URLError {
                 switch urlError.code {
                 case .notConnectedToInternet, .timedOut, .networkConnectionLost:
-                    print("재시도 : \(retry) | 최대시도 : \(maxRetry)")
-                    return true
-                default: 
-                    return true
+                    print("🚨 Retry NetWork 연결 상태 문제")
+                default:
+                    print("🚨 Retry 알 수 없는 에러")
                 }
             }
+            incrementRetryCount()
+            print("Retry: ", retry)
+            print("Max: ", maxRetry)
+            return true
         } else {
             print("🚨 재시도 횟수 초과! 재시도 종료")
             return false
         }
-        incrementRetryCount()
-        print("Retry: ", retry)
-        print("Max: ", maxRetry)
-        return true
+        
     }
     
     func incrementRetryCount() {
