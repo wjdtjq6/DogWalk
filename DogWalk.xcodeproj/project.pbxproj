@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A12CE265BB00860F7A /* CommunityIntent.swift */; };
 		062284A42CE265CE00860F7A /* CommunityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A32CE265CE00860F7A /* CommunityState.swift */; };
-		062284A62CE26CD200860F7A /* CommunityContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A52CE26CD200860F7A /* CommunityContentState.swift */; };
 		062284AA2CE39CAF00860F7A /* CommunityUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284A92CE39CAF00860F7A /* CommunityUseCase.swift */; };
+		062284B02CEC602400860F7A /* CommunityDetailIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284AF2CEC602400860F7A /* CommunityDetailIntent.swift */; };
+		062284B22CEC602E00860F7A /* CommunityDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284B12CEC602E00860F7A /* CommunityDetailState.swift */; };
+		062284B62CEC60B200860F7A /* ContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284B52CEC60B200860F7A /* ContentState.swift */; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -137,8 +139,10 @@
 /* Begin PBXFileReference section */
 		062284A12CE265BB00860F7A /* CommunityIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityIntent.swift; sourceTree = "<group>"; };
 		062284A32CE265CE00860F7A /* CommunityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityState.swift; sourceTree = "<group>"; };
-		062284A52CE26CD200860F7A /* CommunityContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityContentState.swift; sourceTree = "<group>"; };
 		062284A92CE39CAF00860F7A /* CommunityUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityUseCase.swift; sourceTree = "<group>"; };
+		062284AF2CEC602400860F7A /* CommunityDetailIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailIntent.swift; sourceTree = "<group>"; };
+		062284B12CEC602E00860F7A /* CommunityDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailState.swift; sourceTree = "<group>"; };
+		062284B52CEC60B200860F7A /* ContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentState.swift; sourceTree = "<group>"; };
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
@@ -282,7 +286,6 @@
 				C4A776942CD223E600D60EEE /* CommunityView.swift */,
 				062284A12CE265BB00860F7A /* CommunityIntent.swift */,
 				062284A32CE265CE00860F7A /* CommunityState.swift */,
-				062284A52CE26CD200860F7A /* CommunityContentState.swift */,
 			);
 			path = MainCommunity;
 			sourceTree = "<group>";
@@ -736,6 +739,8 @@
 			isa = PBXGroup;
 			children = (
 				C477A2FC2CD0E98A006B8DB6 /* CommunityDetailView.swift */,
+				062284AF2CEC602400860F7A /* CommunityDetailIntent.swift */,
+				062284B12CEC602E00860F7A /* CommunityDetailState.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -812,6 +817,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A776912CD1276A00D60EEE /* Container.swift */,
+				062284B52CEC60B200860F7A /* ContentState.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -964,7 +970,6 @@
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
-				062284A62CE26CD200860F7A /* CommunityContentState.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
 				9966F6EB2CE21B3800E7569E /* ChatRoom+CoreDataClass.swift in Sources */,
 				9966F6EC2CE21B3800E7569E /* ChatRoom+CoreDataProperties.swift in Sources */,
@@ -978,6 +983,7 @@
 				C4097AD32CD7AEF5002155EA /* TargetType.swift in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
+				062284B62CEC60B200860F7A /* ContentState.swift in Sources */,
 				9966F7102CE2EFF600E7569E /* ChatRepository.swift in Sources */,
 				C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingListView.swift in Sources */,
@@ -989,6 +995,7 @@
 				C4A776922CD1276A00D60EEE /* Container.swift in Sources */,
 				06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */,
 				C477A30E2CD0EB3B006B8DB6 /* CustomTabView.swift in Sources */,
+				062284B02CEC602400860F7A /* CommunityDetailIntent.swift in Sources */,
 				993A704D2CE59E800003FA0C /* HomeIntent.swift in Sources */,
 				C477A2FF2CD0E98F006B8DB6 /* SettingView.swift in Sources */,
 				C477A3082CD0EA41006B8DB6 /* Color+.swift in Sources */,
@@ -1065,6 +1072,7 @@
 				C4A776902CD126C800D60EEE /* ButtonWrapper.swift in Sources */,
 				C4097AFC2CD7AF28002155EA /* KaKaoLoginBody.swift in Sources */,
 				C477A2DC2CD0E7F4006B8DB6 /* DefaultSomeType.swift in Sources */,
+				062284B22CEC602E00860F7A /* CommunityDetailState.swift in Sources */,
 				BF159EF82CE33B6C001933C0 /* MapState.swift in Sources */,
 				C4097AFE2CD7AF28002155EA /* OAuthLoginDTO.swift in Sources */,
 				C4097B0C2CD7AF28002155EA /* LikePostDTO.swift in Sources */,
