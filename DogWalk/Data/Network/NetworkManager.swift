@@ -9,7 +9,8 @@ import Foundation
 import Combine
 
 protocol Requestable {
-    func request<T: Decodable>(target: APITarget, of type: T.Type) async throws -> Future<T, NetworkError>
+    func request<T: Decodable>(target: APITarget, of type: T.Type) async throws -> Future<T, NetworkError>      // Future 반환
+    func requestDTO<T: Decodable>(target: APITarget, of type: T.Type) async throws -> T                         // DTO 반환
 }
 
 protocol SessionDatable {
@@ -102,6 +103,72 @@ final class NetworkManager: Requestable {
         }
     }
     
+    // DTO 반환값 ver.
+    func requestDTO<T>(target: APITarget, of type: T.Type) async throws -> T where T: Decodable {
+        let retryHandler = NetworkRetryHandler()
+        
+        // 재귀 호출을 위한 apiCall 내부 함수 정의
+        func apiCall(isRefresh: Bool = false) async throws -> T {
+            do {
+                print("1️⃣ URLRequest 생성 시작")
+                var request = try target.asURLRequest()
+                
+                // 토큰 갱신 후에는 Request Header를 다시 가져와야 하므로 URLRequest 재생성
+                if isRefresh {
+                    request = try target.asURLRequest()
+                }
+                
+                guard let request = request else {
+                    print("🚨 리퀘스트 생성 실패")
+                    throw NetworkError.InvalidRequest
+                }
+                
+                print("✨ URLRequest 생성 성공")
+                print("2️⃣ 네트워크 요청 시작")
+                let (data, response) = try await self.session.data(for: request)
+                
+                print("3️⃣ 네트워크 응답 받음")
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    // 응답은 왔지만 상태코드가 200이 아닐 때
+                    print("🚨 유효하지 않은 응답 (StatusCode: \(httpResponse.statusCode))")
+                    let error = NetworkError(rawValue: httpResponse.statusCode) ?? .InvalidResponse
+                    // 상태코드 419일 때 토큰 갱신 처리
+                    if error == .ExpiredAccessToken {
+                        if await self.refreshToken() {
+                            // 토큰 갱신 성공했을 때 기존 호출 재시도
+                            return try await apiCall(isRefresh: true)
+                        } else {
+                            throw error   // TODO: 추가 에러 처리 확인 필요
+                        }
+                    } else {
+                        // 그 외에는 네트워크 요청 재시도 처리
+                        if retryHandler.retry(for: error) {
+                            return try await apiCall()
+                        } else {
+                            throw error   // TODO: 추가 에러 처리 확인 필요
+                        }
+                    }
+                }
+                
+                print("4️⃣ 데이터 디코딩 시작")
+                do {
+                    let decodedData = try JSONDecoder().decode(T.self, from: data)
+                    print("✨ 데이터 디코딩 성공")
+                    return decodedData
+                } catch {
+                    print("🚨 데이터 디코딩 실패", error)
+                    throw NetworkError.DecodingError
+                }
+                
+            } catch {
+                print("🚨 네트워크 요청 실패: \(error)")
+                throw NetworkError.InvalidRequest
+            }
+        }
+        
+        return try await apiCall()
+    }
+
     // MARK: - Post
     // 게시물 포스팅 함수 예시 (리턴값 ver)
     func postCommunity() async throws -> Future<PostDTO, NetworkError> {
