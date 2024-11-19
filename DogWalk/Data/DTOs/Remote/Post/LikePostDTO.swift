@@ -8,7 +8,7 @@
 import Foundation
 
 // 게시글 좋아요 응답
-struct LikePostDTO: Encodable {
+struct LikePostDTO: Decodable {
     let like_status: Bool
 }
 

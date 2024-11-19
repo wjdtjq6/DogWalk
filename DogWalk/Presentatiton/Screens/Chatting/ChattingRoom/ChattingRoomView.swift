@@ -251,7 +251,7 @@ private extension ChattingRoomView {
 private extension ChattingRoomView {
     @ViewBuilder
     func userProfileView() -> some View {
-        CommonProfile(image: .asTestProfile, size: 33)
+        CommonProfile(imageURL: "", size: 33)
             .vTop()
     }
 }

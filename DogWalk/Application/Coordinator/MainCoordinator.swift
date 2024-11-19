@@ -58,7 +58,7 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
         case .dogWalkResult(let walkTime, let walkDistance, let routeImage): WalkResultView.build(walkTime: walkTime, walkDistance: walkDistance, routeImage: routeImage)     // 산책 결과
         case .communityCreate: CommunityCreateView()    // 게시글 작성
         case .community: CommunityView.build()          // 커뮤니티 리스트 화면
-        case .communityDetail: CommunityDetailView()    // 커뮤니티 게시글 디테일
+        case .communityDetail(let id): CommunityDetailView.build(postID: id)    // 커뮤니티 게시글 디테일
         case .chatting: ChattingListView.build()        // 채팅방 리스트 화면
         case .chattingRoom(let roomID): ChattingRoomView.build(roomID: roomID)    // 채팅방
         case .setting: SettingView()                    // 세팅

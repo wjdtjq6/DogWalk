@@ -17,7 +17,7 @@ final class ImageCacheManager {
     }
     
     func getImage(_ urlStr: String) async -> UIImage {
-        guard let url = URL(string: APIKey.baseURL + urlStr) else { return .test }
+        guard let url = URL(string: APIKey.baseURL + "/" + urlStr) else { return .test }
         if let cacheImage = try? await getToCache(url: url) { //캐싱된 이미지 가져옴
             return cacheImage
         }
@@ -33,7 +33,7 @@ private extension ImageCacheManager {
     func getToCache(url: URL) async throws -> UIImage? {
         let request = URLRequest(url: url)
         if let cacheData = cache.cachedResponse(for: request)?.data, let image = UIImage(data: cacheData) {
-            print("캐싱 이미지 가져옴")
+            //print("캐싱 이미지 가져옴")
             return image
         } else {
             return try await fetchImage(url: url)
@@ -52,7 +52,7 @@ private extension ImageCacheManager {
         let (data, response) = try await urlSession.data(for: request)
         guard let httpURLResponse = response as? HTTPURLResponse else { throw URLError(.badServerResponse) }
         if httpURLResponse.statusCode == 200 {
-            print("네트워크 후 가져옴")
+            //print("네트워크 후 가져옴")
             let image = UIImage(data: data)
             saveToCache(url: url, response: response, data: data)
             return image
@@ -74,7 +74,7 @@ private extension ImageCacheManager {
     }
     //Document에서 id로 이미지 가져오기
     func getToDocument(id: String) -> UIImage? {
-        print("Document에서 가져옴")
+        //print("Document에서 가져옴")
         return .test
     }
 }

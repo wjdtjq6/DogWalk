@@ -18,8 +18,7 @@ struct PostDTO: Decodable {
     let creator: UserDTO
     let files: [String]
     let likes: [String]         // 게시글 좋아요한 사람 목록
-    let likes2: [String]         // 게시글 방문한 사람 목록
-    let buyers: [String]
+    let likes2: [String]        // 게시글 방문한 사람 목록
     let hashTags: [String]
     let comments: [CommentDTO]
     let geolocation: GeolocationDTO
@@ -49,7 +48,7 @@ extension PostDTO {
                                                                                        profileImage: $0.creator.profileImage ?? ""))},
                          geolocation: GeolocationModel(lat: self.geolocation.latitude,
                                                        lon: self.geolocation.longitude),
-                         distance: self.distance ?? 0)
+                         distance: self.distance ?? 0.0)
     }
 }
 
@@ -75,21 +74,54 @@ struct PostModel: Identifiable, Hashable {
     let likes: [String]                     // 게시글 좋아요한 사람 목록
     let views: Int                          // 게시글 방문한 사람 카운팅
     let hashTags: [String]
-    let comments: [CommentModel]
+    var comments: [CommentModel]
     let geolocation: GeolocationModel
     let distance: Double // 유저와 포스트의 거리
     
     // List로 사용시 고유값 필요
     var id: String { postID }
-    
+    init(postID: String, created: String, category: CommunityCategoryType, title: String, price: Int, content: String, creator: UserModel, files: [String], likes: [String], views: Int, hashTags: [String], comments: [CommentModel], geolocation: GeolocationModel, distance: Double) {
+        self.postID = postID
+        self.created = created
+        self.category = category
+        self.title = title
+        self.price = price
+        self.content = content
+        self.creator = creator
+        self.files = files
+        self.likes = likes
+        self.views = views
+        self.hashTags = hashTags
+        self.comments = comments
+        self.geolocation = geolocation
+        self.distance = distance
+    }
+    init() {
+        self.postID = ""
+        self.created = ""
+        self.category = .all
+        self.title = ""
+        self.price = 0
+        self.content = ""
+        self.creator = UserModel(userID: "", nick: "", profileImage: "")
+        self.files = []
+        self.likes = []
+        self.views = 0
+        self.hashTags = []
+        self.comments = []
+        self.geolocation = GeolocationModel(lat: 0.0, lon: 0.0)
+        self.distance = 0.0
+    }
     static func == (lhs: PostModel, rhs: PostModel) -> Bool {
-            return lhs.postID == rhs.postID
-        }
-
-        // hash(into:) 메서드 구현
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(postID) // 고유한 postID를 사용하여 해시값 생성
-        }
+        return lhs.postID == rhs.postID
+    }
+    
+    // hash(into:) 메서드 구현
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(postID) // 고유한 postID를 사용하여 해시값 생성
+    }
+    
+    
 }
 
 /**
