@@ -31,7 +31,7 @@ final class CommunityState: CommunityStateProtocol, ObservableObject {
     var postList: [PostModel] = []
     var categorys: [CommunityCategoryType] = CommunityCategoryType.allCases
     var selectCategory: CommunityCategoryType = .all
-    var area: CheckPostType = .userLocation
+    var area: CheckPostType = .all
     //var errTitle: String = "" //에러 얼럿
 }
 

@@ -12,6 +12,9 @@ struct PostResponseDTO: Decodable {
     let data: [PostDTO]
     let next_cursor: String
 }
+struct GeolocationPostResponseDTO: Decodable {
+    let data: [PostDTO]
+}
 
 extension PostResponseDTO {
     func toDomain() -> PostResponseModel {

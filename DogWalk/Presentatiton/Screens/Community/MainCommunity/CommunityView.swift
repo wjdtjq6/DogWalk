@@ -174,8 +174,8 @@ private extension CommunityView {
 private extension CommunityView {
     func postViewCell(_ item: PostModel) -> some View {
         HStack {
-            Image.asTestImage
-                .resizable()
+            let _ = print(item.files.first ?? "")
+            asImageView(url: item.files.first ?? "", image: .asTestImage)
                 .scaledToFill()
                 .frame(width: Self.width * 0.25, height: Self.width * 0.25)
                 .cornerRadius(8)

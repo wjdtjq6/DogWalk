@@ -21,6 +21,7 @@ enum PostTarget {
     case userPosts(userID: String, query: GetPostQuery)     // 다른 유저가 작성한 게시물 조회
     case hashtag(query: GetHashTagQuery)                    // 해시태그 검색
     case geolocation(query: GetGeoLocationQuery)            // 위치 기반 게시글 검색
+    case addContent(postID: String, content: String)        // 댓글 작성
 }
 
 extension PostTarget: TargetType {
@@ -49,13 +50,15 @@ extension PostTarget: TargetType {
         case .hashtag:
             return "/posts/hashtags"
         case .geolocation:
-            return "posts/geolocation"
+            return "/posts/geolocation"
+        case .addContent(let id, _):
+            return "/posts/\(id)/comments"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .files, .post, .postLike, .postView:
+        case .files, .post, .postLike, .postView, .addContent:
             return .post
         case .getPosts, .getPostsDetail, .myLikePosts, .myViewPosts, .userPosts, .hashtag, .geolocation:
             return .get
@@ -77,7 +80,7 @@ extension PostTarget: TargetType {
                 BaseHeader.sesacKey.rawValue: APIKey.key
             ]
             /// productID, application/json, authorizaiton, sesacKey
-        case .post, .putPost, .deletePost, .postLike, .postView:
+        case .post, .putPost, .deletePost, .postLike, .postView, .addContent:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.contentType.rawValue: BaseHeader.json.rawValue,
@@ -178,6 +181,14 @@ extension PostTarget: TargetType {
                 return nil
             }
         case .postView(_, let body):
+            do {
+                let data = try encoder.encode(body)
+                return data
+            } catch {
+                print("Body to JSON Encode Error", error)
+                return nil
+            }
+        case .addContent(_, let body):
             do {
                 let data = try encoder.encode(body)
                 return data
