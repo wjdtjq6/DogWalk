@@ -49,16 +49,20 @@ final class DefaultCommunityUseCase: CommunityUseCase {
     //실제 네트워크 처리
     func getPosts(isPaging: Bool) async throws -> [PostModel] {
         do {
+            let all = CommunityCategoryType.allCases.filter { $0 != .all }.map { $0.rawValue }
+            let categorys = self.category == .all ? all : [self.category.rawValue]
+            
             switch checkPostType {
             case .all:
-                let future = try await network.fetchPosts(category: [self.category.rawValue], isPaging: isPaging)
+                let future = try await network.fetchPosts(category: categorys, isPaging: isPaging)
                 let posts = try await future.value
-                return posts.data.map { $0.toDomain() }
-            case .userLocation:
-                let future = try await network.fetchAreaPosts(category: [self.category.rawValue], lon: String(userManager.lon), lat: String(userManager.lat))
-                let posts = try await future.value
-                return posts.map{ $0.toDomain() }
+                return posts
                 
+            case .userLocation:
+//                let future = try await network.fetchAreaPosts(category: categorys, lon: String(userManager.lon), lat: String(userManager.lat))
+                let future = try await network.fetchAreaPosts(category: categorys, lon: "126.990752", lat: "37.553217")
+                let posts = try await future.value
+                return posts
             }
         } catch {
             guard let  err = error as? NetworkError else { throw error}

@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - 데이터 관련 프로토콜
 protocol CommunityStateProtocol { // 속성들을 가지는 프토코롤
-    var contentState: CommunityContentState { get } // 뷰 상태
+    var contentState: ContentState { get } // 뷰 상태
     var postList: [PostModel] { get } //게시글들
     var categorys: [CommunityCategoryType] { get } //필터 버튼
     var selectCategory: CommunityCategoryType { get } // 선택한 필터
@@ -21,17 +21,17 @@ protocol CommunityActionProtocol: AnyObject { //메서드을 가지고있는 프
     func getPosts(_ posts: [PostModel]) //게시글
     func changeSelectCategory(_ select: CommunityCategoryType) //카테고리 변경
     func changeArea(_ area: CheckPostType) //위치 설정
-    func changeContentState(state: CommunityContentState)
+    func changeContentState(state: ContentState)
     func postPageNation(_ posts: [PostModel])
 }
 // MARK: - view에게 전달할 데이터
 @Observable
 final class CommunityState: CommunityStateProtocol, ObservableObject {
-    var contentState: CommunityContentState = .loading
+    var contentState: ContentState = .loading
     var postList: [PostModel] = []
     var categorys: [CommunityCategoryType] = CommunityCategoryType.allCases
     var selectCategory: CommunityCategoryType = .all
-    var area: CheckPostType = .userLocation
+    var area: CheckPostType = .all
     //var errTitle: String = "" //에러 얼럿
 }
 
@@ -39,7 +39,7 @@ final class CommunityState: CommunityStateProtocol, ObservableObject {
 extension CommunityState: CommunityActionProtocol {
     
     //뷰 상태 변화
-    func changeContentState(state: CommunityContentState) {
+    func changeContentState(state: ContentState) {
         self.contentState = state
     }
     //카테고리 변경

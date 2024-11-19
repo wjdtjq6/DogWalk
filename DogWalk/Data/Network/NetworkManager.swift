@@ -30,11 +30,11 @@ final class NetworkManager: Requestable {
     private var page: String = "" // 페이지네이션
     private let session: SessionDatable
     private var cancellables = Set<AnyCancellable>()
-
+    
     init(session: SessionDatable = URLSession.shared) {
         self.session = session
     }
-
+    
     func request<T>(target: APITarget, of type: T.Type) async throws -> Future<T, NetworkError> where T: Decodable {
         let retryHandler = NetworkRetryHandler()
         
@@ -45,7 +45,6 @@ final class NetworkManager: Requestable {
                     do {
                         print("1️⃣ URLRequest 생성 시작")
                         var request = try target.asURLRequest()
-                        
                         // 토큰 갱신 후에는 Request Header를 다시 가져와야 하므로 URLRequest 재생성
                         if isRefresh {
                             do {
@@ -64,7 +63,6 @@ final class NetworkManager: Requestable {
                         print("✨ URLRequest 생성 성공")
                         print("2️⃣ 네트워크 요청 시작")
                         let (data, response) = try await self.session.data(for: request)
-                
                         print("3️⃣ 네트워크 응답 받음")
                         if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
                             // 응답은 왔지만 상태코드가 200이 아닐 때
@@ -84,7 +82,7 @@ final class NetworkManager: Requestable {
                             }
                             return
                         }
-
+                        
                         print("4️⃣ 데이터 디코딩 시작")
                         do {
                             let decodedData = try JSONDecoder().decode(T.self, from: data)
@@ -94,7 +92,7 @@ final class NetworkManager: Requestable {
                             print("🚨 데이터 디코딩 실패", error)
                             promise(.failure(.DecodingError))
                         }
-
+                        
                     } catch {
                         print("🚨 네트워크 요청 실패: \(error)")
                         promise(.failure(.InvalidRequest))
@@ -216,7 +214,7 @@ final class NetworkManager: Requestable {
                 print("✨ 토큰 갱신 URLRequest 생성 성공")
                 print("🍀 토큰 갱신 요청 시작")
                 let (data, response) = try await session.data(for: request)
-            
+                
                 if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
                     // 응답은 왔지만 상태코드가 200이 아닐 때
                     print("🚨 유효하지 않은 응답 (StatusCode: \(httpResponse.statusCode))")
@@ -248,18 +246,144 @@ final class NetworkManager: Requestable {
 
 extension NetworkManager {
     //전체 포스터 조회
-    func fetchPosts(category: [String]?, isPaging: Bool) async throws -> Future<PostResponseDTO, NetworkError> {
+    func fetchPosts(category: [String]?, isPaging: Bool) async throws -> Future<[PostModel], NetworkError> {
         if (isPaging == false) {
             self.page = ""
         }
         let query = GetPostQuery(next: self.page, limit: "20", category: category)
-        return try await request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
+        let future = try await request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
+        return Future { promise in
+            future
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("✨ 게시글 요청 성공")
+                    case .failure(let error):
+                        print("🚨 게시글 요청 실패: \(error)")
+                        promise(.failure(error))
+                    }
+                } receiveValue: { [weak self] postResponse in
+                    guard let self else { return }
+                    // 페이징 커서 업데이트
+                    self.page = postResponse.next_cursor
+                    // DTO를 도메인 모델로 변환하여 반환
+                    let posts = postResponse.data.map { $0.toDomain() }
+                    promise(.success(posts))
+                }
+                .store(in: &self.cancellables)
+            
+        }
     }
+    
     //위치 포스터 조회
-    func fetchAreaPosts(category: [String]?, lon: String, lat: String) async throws -> Future<[PostDTO], NetworkError> {
+    func fetchAreaPosts(category: [String]?, lon: String, lat: String) async throws -> Future<[PostModel], NetworkError> {
         let query = GetGeoLocationQuery(category: category, longitude: lon, latitude: lat, maxDistance: "10000", order_by: OrderType.distance.rawValue, sort_by: SortType.asc.rawValue)
-        return try await request(target: .post(.geolocation(query: query)), of: [PostDTO].self)
+        let future = try await request(target: .post(.geolocation(query: query)), of: GeolocationPostResponseDTO.self)
+        print(query)
+        print("------asd-------")
+        return Future { promise in
+            future
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("✨ 게시글 요청 성공")
+                    case .failure(let error):
+                        print("🚨 게시글 요청 실패: \(error)")
+                        promise(.failure(error))
+                    }
+                } receiveValue: { postResponse in
+                    let posts = postResponse.data.map { $0.toDomain() }
+                    promise(.success(posts))
+                }
+                .store(in: &self.cancellables)
+            
+        }
     }
+    
+    // 한개 포스트 조회
+    func fetchDetailPost(id: String) async throws -> Future<PostModel, NetworkError> {
+        let future = try await request(target: .post(.getPostsDetail(postID: id)), of: PostDTO.self)
+        return Future { promise in
+            future
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("✨ 디테일 게시글 요청 성공")
+                    case .failure(let error):
+                        print("🚨 디테일 게시글 요청 실패: \(error)")
+                        promise(.failure(error))
+                    }
+                } receiveValue: { postResponse in
+                    let post = postResponse.toDomain()
+                    promise(.success(post))
+                }
+                .store(in: &self.cancellables)
+        }
+    }
+    // 댓글 작성
+    func addContent(id: String, content: String) async throws -> Future<CommentModel, NetworkError> {
+        let future = try await request(target: .post(.addContent(postID: id, body: CommentBody(content: content))), of: CommentDTO.self)
+        return Future { promise in
+            future
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("✨ 댓글 작성 요청 성공")
+                    case .failure(let error):
+                        print("🚨 댓글 작성 요청 실패: \(error)")
+                        promise(.failure(error))
+                    }
+                } receiveValue: { response in
+                    let comment = response.toDomain()
+                    promise(.success(comment))
+                }
+                .store(in: &self.cancellables)
+        }
+    }
+    // 좋아요
+    func postLike(id: String, status: Bool) async throws -> Future<LikePostModel, NetworkError> {
+        let body = LikePostBody(like_status: status)
+        let future = try await request(target: .post(.postLike(postID: id, body: body)), of: LikePostDTO.self)
+        return Future { promise in
+            future
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("✨ 좋아요 요청 성공")
+                    case .failure(let error):
+                        print("🚨 좋아요 요청 실패: \(error)")
+                        promise(.failure(error))
+                    }
+                } receiveValue: { likeResponse in
+                    let like = likeResponse.toDomain()
+                    promise(.success(like))
+                }
+                .store(in: &self.cancellables)
+        }
+    }
+    // 조회수 증가
+    func addViews(id: String) async {
+        let body = LikePostBody(like_status: true)
+        do {
+            let future = try await request(target: .post(.postView(postID: id, body: body)), of: LikePostDTO.self)
+            future
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("조회수 요청 완료")
+                    case .failure(let error):
+                        print("조회수 요청 실패: \(error)")
+                    }
+                } receiveValue: { profileData in
+                    print("성공적으로 완료!")
+                }
+                .store(in: &cancellables)
+        } catch {
+            print("조회수 증가 실패 \(error)")
+        }
+    }
+    
+    
     //게시글 작성
     func writePost(body: PostBody) async throws -> Future<PostDTO, NetworkError> {
         return try await request(target: .post(.post(body: body)), of: PostDTO.self)
@@ -281,7 +405,7 @@ final class NetworkRetryHandler: RequestRetrier {
     }
     
     /**
-    `true` - 계속 재시도
+     `true` - 계속 재시도
      `false` - 재시도 종료
      */
     func retry(for error: Error) -> Bool {
@@ -292,7 +416,7 @@ final class NetworkRetryHandler: RequestRetrier {
                 case .notConnectedToInternet, .timedOut, .networkConnectionLost:
                     print("재시도 : \(retry) | 최대시도 : \(maxRetry)")
                     return true
-                default: 
+                default:
                     return true
                 }
             }

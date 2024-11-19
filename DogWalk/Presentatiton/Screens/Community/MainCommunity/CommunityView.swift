@@ -38,12 +38,12 @@ extension CommunityView {
         NavigationView {
             switch state.contentState {
             case .loading:
-                contentView()
+                CommonLoadingView()
                 //loadingView()
             case .content:
                 contentView()
             case .error:
-                errorView()
+                CommonErrorView()
             }
         } //:NAVIGATION
         .onAppear {
@@ -62,6 +62,9 @@ private extension CommunityView {
                 ForEach(state.postList, id: \.postID) { item in
                     postViewCell(item) //ListCellView
                         .onTapGesture {
+                            print(item.postID)
+                            print("-----")
+                            //673807612cced30805615894
                             appCoordinator.push(.communityDetail(postID: item.postID))
                         }
                         
@@ -82,18 +85,6 @@ private extension CommunityView {
         }
         
     } //:NAVIGATION
-}
-//로딩 중일 경우 뷰
-func loadingView() -> some View {
-    VStack {
-        Text("로딩뷰~~~")
-    }
-}
-// 에러일 경우 뷰
-func errorView() -> some View {
-    VStack {
-        Text("에러뷰~~~")
-    }
 }
 // 좌상단 버튼 뷰
 private extension CommunityView {
@@ -174,8 +165,7 @@ private extension CommunityView {
 private extension CommunityView {
     func postViewCell(_ item: PostModel) -> some View {
         HStack {
-            Image.asTestImage
-                .resizable()
+            asImageView(url: item.files.first ?? "", image: .asTestImage)
                 .scaledToFill()
                 .frame(width: Self.width * 0.25, height: Self.width * 0.25)
                 .cornerRadius(8)

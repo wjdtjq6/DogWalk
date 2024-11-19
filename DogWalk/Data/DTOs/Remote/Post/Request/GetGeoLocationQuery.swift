@@ -34,11 +34,11 @@ struct GetGeoLocationQuery: Encodable {
 */
 
 enum OrderType: String {
-    case distance
-    case createdAt
+    case distance = "distance"
+    case createdAt = "createdAt"
 }
 
 enum SortType: String {
-    case asc
-    case desc
+    case asc = "asc"
+    case desc = "desc"
 }

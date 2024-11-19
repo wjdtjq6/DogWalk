@@ -28,7 +28,7 @@ struct HomeView: View {
                         .font(.bagelfat28)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    CommonProfile(image: .asTestProfile, size: 44)
+                    CommonProfile(imageURL: "", size: 44)
                         .wrapToButton {
                             intent.profileButtonTap()
                         }
