@@ -172,7 +172,7 @@ private extension ChattingRoomView {
         let xOffSet = (size.width - bubbleWidth) / 2 - 20.0 // 말풍선 offSet 설정
         HStack {
             if model.sender.userID == UserManager.shared.userID { //상대 프로필
-                chatDateView()
+                chatDateView("2024-05-06T06:04:52.542Z")    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
                     .offset(x: xOffSet - 15, y: 4)
             }
             //말풍선 부분
@@ -202,7 +202,7 @@ private extension ChattingRoomView {
                 }
             
             if model.sender.userID != UserManager.shared.userID { //상대방 날짜 부분
-                chatDateView()
+                chatDateView("2024-05-06T06:04:52.542Z")  // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
                     .offset(x: -xOffSet + 55, y: 4)
             }
         } //:HSTACK
@@ -218,7 +218,7 @@ private extension ChattingRoomView {
         let width = size.width
         HStack {
             if isRight {
-                chatDateView()
+                chatDateView("2024-05-06T06:04:52.542Z")    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
                     .offset(x: width * 0.1985)
                     .padding(.bottom, 5)
             }
@@ -239,7 +239,7 @@ private extension ChattingRoomView {
                 .padding(.bottom, 10)
             
             if !isRight { // 상대방 날짜
-                chatDateView()
+                chatDateView("2024-05-06T06:04:52.542Z") // TODO: Model에서 채팅 보낸 날짜가 없음! 확인 필요
                     .offset(x: -width * 0.105)
                     .padding(.bottom, 5)
             }
@@ -260,8 +260,8 @@ private extension ChattingRoomView {
 // MARK: - 채팅 날짜 부분
 private extension ChattingRoomView {
     @ViewBuilder
-    func chatDateView() -> some View {
-        Text("오전 88:88")
+    func chatDateView(_ date: String) -> some View {
+        Text(date.getFormattedDateString(.time))
             .font(.pretendardLight12)
             .frame(width: 60, height: 25)
             .vBottom()

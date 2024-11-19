@@ -26,8 +26,8 @@ extension ChattingRoomDTO {
         let otherUser = self.participants.filter() { $0.user_id != userID }.first ?? UserDTO(user_id: "", nick: "알 수 없음", profileImage: "")    // 사용자가 2명 이상일 경우 변경 필요
         
         return ChattingRoomModel(roomID: self.room_id,
-                             createAt: self.createdAt.getFormattedDateString(.dot),  // TODO: 날짜 포맷팅 처리 로직 확인 필요
-                             updatedAt: self.updatedAt.getFormattedDateString(.dot), // TODO: 날짜 포맷팅 처리 로직 확인 필요
+                             createAt: self.createdAt,
+                             updatedAt: self.updatedAt,
                              me: me.toDomain(),
                              otherUser: otherUser.toDomain(),
                              lastChat: self.lastChat?.toDomain())

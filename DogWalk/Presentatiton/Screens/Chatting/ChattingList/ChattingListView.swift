@@ -78,7 +78,7 @@ extension ChattingListView {
                 }
                 Spacer()
                 
-                Text(item.updatedAt.getFormattedDateString(.dash))
+                Text(item.updatedAt.getFormattedDateStringWithToday())
                     .font(.pretendardRegular14)
                     .foregroundColor(.gray)
             }
@@ -86,4 +86,10 @@ extension ChattingListView {
             .padding(.bottom, 10)
         }
     }
+    
+    
+    func test() {
+        
+    }
+
 }
