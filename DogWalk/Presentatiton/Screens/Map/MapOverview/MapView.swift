@@ -98,6 +98,7 @@ private extension MapView {
                     print("산책 시작 버튼 클릭")
                     if state.locationManager.locationManager.authorizationStatus == .authorizedAlways || state.locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
                         intent.startWalk()
+                        intent.startBackgroundTimer()
                     } else {
                         intent.showAlert()
                     }
@@ -139,6 +140,7 @@ private extension MapView {
                                 print("산책 종료 버튼 클릭")
                                 await intent.setRouteImage(route: state.locationManager.locations)
                                 intent.stopWalk()
+                                intent.stopBackgroundTimer()
                                 coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
                             }
                         Text("산책 종료")
@@ -147,16 +149,6 @@ private extension MapView {
                 }
         } //:HSTACK
         .frame(height: Self.height * 0.07)
-        //Timer
-        .onReceive(state.timer, perform: { _ in
-            if state.count < 6 * 60 * 60 {//6시간까지 count
-                intent.incrementTimer()
-                print(state.count)
-            }
-            else {
-                intent.stopWalk()
-            }
-        })
     }
   
     //지도 마커 클릭 시 바텀 시트

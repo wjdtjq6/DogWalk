@@ -5,7 +5,6 @@
 //  Created by 소정섭 on 11/12/24.
 //
 
-import Foundation
 import SwiftUI
 import MapKit
 import Combine
@@ -16,13 +15,7 @@ protocol MapStateProtocol { // 속성들을 가지는 프로토콜
     
     //Timer
     var count: Int { get }
-    var timer: Publishers.Autoconnect<Timer.TimerPublisher> { get }
-    /*TODO:
-     let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-         print("Timer is running")
-     }
-     RunLoop.current.add(timer, forMode: .common)
-     */
+    var timer: DispatchSourceTimer? { get }
     var isTimerOn: Bool { get }
     var isAlert: Bool { get }
     
@@ -44,6 +37,8 @@ protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로�
     func setAlert(_ isOn: Bool)
     func saveCapturedRouteImage(_ image: UIImage)
     func getPolylineColor() -> Color
+    func startBackgroundTimer()
+    func stopTimer()
 }
 
 //MARK: - view에 전달할 데이터
@@ -52,9 +47,7 @@ final class MapState: MapStateProtocol, ObservableObject {
     var isShowingSheet: Bool = false
     //Timer
     var count: Int = 0
-    var timer: Publishers.Autoconnect<Timer.TimerPublisher> {
-        return Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    }
+    var timer: DispatchSourceTimer?
     var isTimerOn : Bool = false
     var isAlert: Bool = false
     
@@ -106,5 +99,38 @@ extension MapState: MapActionProtocol {
     //지도 이미지에 색 전달
     func getPolylineColor() -> Color {
         return self.polylineColor
+    }
+    
+    func startBackgroundTimer() {
+        guard timer == nil else {
+            print("타이머가 이미 실행 중입니다.")
+            return
+        }
+        
+        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        
+        timer?.schedule(deadline: .now(), repeating: 1)
+        
+        timer?.setEventHandler { [weak self] in
+            guard let self = self else { return }
+            if self.count < 6 * 60 * 60 {
+                DispatchQueue.main.async {
+                    self.incrementCount()
+                    print(self.count)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.stopTimer()
+                }
+            }
+        }
+        timer?.resume()
+        print("타이머가 시작되었습니다.")
+    }
+    
+    func stopTimer() {
+        timer?.cancel()
+        timer = nil
+        print("타이머가 중지되었습니다.")
     }
 }
