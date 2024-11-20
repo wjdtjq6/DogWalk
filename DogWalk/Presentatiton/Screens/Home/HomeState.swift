@@ -52,29 +52,6 @@ extension HomeState: HomeIntentActionProtocol {
         self.contentState =  state
     }
     
-    func getPostList() async {
-        print("게시물 가지고오기")
-        do {
-            let query = GetPostQuery(next: "", limit: "15", category: ["산책인증"])
-            let future = try await network.request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
-            future
-                .sink { result in
-                    switch result {
-                    case .finished:
-                        print("🗒️게시물 통신 성공")
-                    case .failure(let error):
-                        print("🚨게시물 통신 실패", error)
-                    }
-                } receiveValue: { [weak self] data in
-                    guard let self else { return }
-                    let domain = data.toDomain()
-                    self.updatePopularityList(with: domain.data)
-                    isHomeViewFirstInit = false
-                }
-                .store(in: &cancellables)
-        } catch {
-            print("HomeState getPostList메서드 오류")
-        }
     //세팅 뷰 화면 전환 플래그 상태 변경하기
     func updateProfileButtonSate(_ isButtonTapState: Bool) {
         profileButtonState = isButtonTapState
