@@ -17,6 +17,7 @@ final class ChatRepository {
     // MARK: 채팅방 관련 메서드
     
     // 채팅방 생성
+    @discardableResult
     func createChatRoom(chatRoomData: ChattingListModel) -> ChatRoom {
         let chatRoom = ChatRoom(context: managedObjectContext)
         chatRoom.chatRoomID = chatRoomData.roomID                           // 채팅방 아이디

@@ -13,6 +13,7 @@ struct CommunityDetailView: View {
     private var state: CommunityDetailStateProtocol { container.state }
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
+    private let network = NetworkManager()
     var postID: String //하위뷰에서 포스트 id 받아오기
 }
 // MARK: - 빌드 부분
@@ -90,6 +91,17 @@ extension CommunityDetailView {
                             .foregroundStyle(Color.primaryOrange)
                     }
                     
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    // Action
+                    Task {
+                        await network.makeNewChattingRoom(id: state.post.creator.userID)
+                    }
+                    //intent.toggleisLike(isLike: state.isLike) //좋아요 버튼 누를 시
+                } label: {
+                    Image.asMessage
                 }
             }
         }

@@ -65,7 +65,6 @@ private extension ImageCacheManager {
             }
         } else {
             if httpURLResponse.statusCode == 444 {
-                print("이미지 캐시 url 빈값이라 오류 발생!! 걱정 ㄴㄴ")
             } else {
                 throw NetworkError.ServerError
             }
@@ -119,7 +118,6 @@ private extension ImageCacheManager {
             }
         } else {
             if httpURLResponse.statusCode == 444 {
-                print("이미지 캐시 url 빈값이라 오류 발생!! 걱정 ㄴㄴ")
             } else {
                 throw NetworkError.ServerError
             }
