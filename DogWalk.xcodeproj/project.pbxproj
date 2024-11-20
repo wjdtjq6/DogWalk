@@ -1009,7 +1009,6 @@
 				C4A7768B2CD125D200D60EEE /* UserDefaults.swift in Sources */,
 				C477A2D52CD0E786006B8DB6 /* DefaultRemoteRepository.swift in Sources */,
 				C477A30A2CD0EA6C006B8DB6 /* Frame+.swift in Sources */,
-				062284A62CE26CD200860F7A /* CommunityContentState.swift in Sources */,
 				99DF937C2CED864D0022E471 /* ChatMessagesTransformer.swift in Sources */,
 				C477A2E92CD0E84C006B8DB6 /* HomeView.swift in Sources */,
 				9966F6EB2CE21B3800E7569E /* ChatRoom+CoreDataClass.swift in Sources */,
