@@ -19,7 +19,8 @@ struct ChattingListView: View {
 extension ChattingListView {
     static func build() -> some View {
         let state = ChattingListState()
-        let intent = ChattingListIntent(state: state)
+        let useCase = DefaultChattingListUseCase()
+        let intent = ChattingListIntent(state: state, useCase: useCase)
         let container = Container(
             intent: intent as ChattingListIntentProtocol,
             state: state as ChattingListStateProtocol,
@@ -39,7 +40,7 @@ extension ChattingListView {
             .searchable(text: $searchText, prompt: "검색") // SearchBar
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    CommonTitleView(title: "MeongTalk") // 좌상단 앱 로고
+                    CommonTitleView(title: "MeongTalk")  // 좌상단 앱 로고
                 }
             }
             .toolbar(.visible, for: .tabBar)
@@ -57,7 +58,7 @@ extension ChattingListView {
     }
     
     // 채팅방 Cell
-    private func chattingViewCell(_ item: ChattingListModel) -> some View {
+    private func chattingViewCell(_ item: ChattingRoomModel) -> some View {
         Button {
             coordinator.push(.chattingRoom(roomID: item.roomID))
             
@@ -77,7 +78,7 @@ extension ChattingListView {
                 }
                 Spacer()
                 
-                Text(item.updatedAt.getFormattedDateString(.dash))
+                Text(item.updatedAt.getFormattedDateStringWithToday())
                     .font(.pretendardRegular14)
                     .foregroundColor(.gray)
             }
@@ -85,4 +86,10 @@ extension ChattingListView {
             .padding(.bottom, 10)
         }
     }
+    
+    
+    func test() {
+        
+    }
+
 }

@@ -9,5 +9,5 @@ import Foundation
 
 // 채팅방 파일 업로드 요청 (Request)
 struct PostChatFileBody: Encodable {
-    let files: [String]
+    let files: [Data]
 }

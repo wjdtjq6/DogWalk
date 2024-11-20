@@ -30,7 +30,7 @@ final class NetworkManager: Requestable {
     private var page: String = "" // 페이지네이션
     private let session: SessionDatable
     private var cancellables = Set<AnyCancellable>()
-    
+    private var coreData = ChatRepository(context: CoreDataManager().viewContext)
     init(session: SessionDatable = URLSession.shared) {
         self.session = session
     }
@@ -387,6 +387,31 @@ extension NetworkManager {
     //게시글 작성
     func writePost(body: PostBody) async throws -> Future<PostDTO, NetworkError> {
         return try await request(target: .post(.post(body: body)), of: PostDTO.self)
+    }
+}
+// MARK: - 채팅방 부분
+extension NetworkManager {
+    func makeNewChattingRoom(id: String) async {
+        let body = NewChatRoomBody(opponent_id: id)
+        do {
+            let future = try await request(target: .chat(.newChatRoom(body: body)), of: ChattingRoomDTO.self)
+            future
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("방 생성 요청 완료")
+                    case .failure(let error):
+                        print("방 생성 요청 실패: \(error)")
+                    }
+                } receiveValue: { [weak self] room in
+                    guard let self else { return }
+                    self.coreData.createChatRoom(chatRoomData: room.toDomain())
+                }
+                .store(in: &cancellables)
+
+        } catch {
+            print("채팅방 생성 실패!\(error)")
+        }
     }
 }
 

@@ -53,7 +53,6 @@ extension HomeIntent: HomeIntentProtocol {
         do {
             // WeatherData 가져오기
             let weatherData = try await useCase.userWeatherData()
-            print(weatherData, "-------------")
             // 상태 업데이트
             DispatchQueue.main.async {
                 self.state?.getWeatherData(weatherData: weatherData)
