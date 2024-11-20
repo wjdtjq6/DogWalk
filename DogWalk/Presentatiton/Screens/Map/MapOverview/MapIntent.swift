@@ -19,6 +19,8 @@ protocol MapIntentProtocol {
     func getRouteCenterCoordinate(coordinates: [CLLocationCoordinate2D]) -> CLLocationCoordinate2D?
     func makeRouteSizeRegion(center: CLLocationCoordinate2D, coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion
     func setRouteImage(route coordinates: [CLLocationCoordinate2D]) async
+    func startBackgroundTimer()
+    func stopBackgroundTimer()
 }
 
 final class MapIntent {
@@ -155,5 +157,13 @@ extension MapIntent: MapIntentProtocol {
                 continuation.resume()
             }
         }
+    }
+    
+    func startBackgroundTimer() {
+        state?.startBackgroundTimer()
+    }
+    
+    func stopBackgroundTimer() {
+        state?.stopTimer()
     }
 }
