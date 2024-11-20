@@ -75,7 +75,6 @@ extension HomeState: HomeIntentActionProtocol {
                     }
                 } receiveValue: { [weak self] data in
                     guard let self else { return }
-                    print("🔥 HomeState getPostList 함수 데이터",data)
                     let domain = data.toDomain()
                     self.updatePopularityList(with: domain.data)
                     isHomeViewFirstInit = false
