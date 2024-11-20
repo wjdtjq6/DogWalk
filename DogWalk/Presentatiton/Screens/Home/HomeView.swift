@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct HomeView: View {
     let width = UIScreen.main.bounds.width
@@ -31,14 +32,15 @@ struct HomeView: View {
                     CommonProfile(imageURL: "", size: 44)
                         .wrapToButton {
                             intent.profileButtonTap()
+                            
                         }
                 }
             }
         }
-        .onChange(of: state.isProfileButtonTap) { oldValue, newValue in
+        .onChange(of: state.profileButtonState) { oldValue, newValue in
             if newValue {
                 coordinator.push(.setting)
-                intent.resetProfileButtonState()
+                intent.resetProfileButtonSate()
             }
         }
         .onAppear {
@@ -46,6 +48,7 @@ struct HomeView: View {
         }
         .task {
             await intent.fetchPostList()
+            await intent.fetchWeatherData()
         }
     }
 }
@@ -63,9 +66,9 @@ extension HomeView {
                         .font(.pretendardSemiBold30)
                         .padding(.vertical,1)
                     VStack(alignment: .leading) {
-                        Text("위치 · 문래동6가")//위치
+                        Text("위치 · \(state.weatherData.userAddress)")//위치
                             .padding(.vertical,1)
-                        Text("날씨 · 흐림")//날씨
+                        Text("날씨 · \(state.weatherData.weather)")//날씨
                     }
                     .font(.pretendardRegular17)
                     .foregroundColor(.gray)
@@ -77,7 +80,7 @@ extension HomeView {
             
             Image(.test)
                 .resizable()
-                .frame(width: 300, height: 300)
+                .frame(width: 240, height: 240)
                 .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .bottomTrailing)
         }
         .frame(height: height/2)
@@ -123,7 +126,8 @@ extension HomeView {
                             .frame(width: 100, height: 130)
                             .clipShape(.rect(cornerRadius: 15))
                             .wrapToButton {
-                                print("\(data) 눌림")
+                                //MARK: Communitiy DetailView로 이동
+                                coordinator.push(.communityDetail(postID: data.postID))
                             }
                     }
                 }
@@ -136,7 +140,8 @@ extension HomeView {
 extension HomeView {
     static func build() -> some View {
         let state = HomeState()
-        let intent = HomeIntent(state: state)
+        let useCase = HomeViewUseCase()
+        let intent = HomeIntent(state: state, useCase: useCase)
         let container = Container(
             intent: intent as HomeIntentProtocol,
             state: state as HomeStateProtocol,
