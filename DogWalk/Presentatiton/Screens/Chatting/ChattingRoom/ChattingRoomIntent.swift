@@ -73,7 +73,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
             do {
                 guard let jpegData = image.jpegData(compressionQuality: 10) else { return }
                 let result = try await useCase.sendImageMessage(roomID: roomID, image: jpegData)
-                
+                print(result)
             } catch {
                 print(#function, error)
             }
