@@ -17,8 +17,13 @@ protocol ChattingListUseCase {
 final class DefaultChattingListUseCase: ChattingListUseCase {
     private let network = NetworkManager()
     
+    //임시
+    private let chatRepository = ChatRepository(context: CoreDataManager().viewContext)
+    
     // 채팅방 목록 가져오기
     func getChattingRoomList() async throws -> [ChattingRoomModel] {
+        print("모든 채팅방 가져왕")
+        print(chatRepository.fetchAllChatRooms())
         do {
             let DTO = try await network.requestDTO(target: .chat(.getChatRoomList), of: ChattingRoomListResponseDTO.self)
             return DTO.toDomain()

@@ -394,7 +394,7 @@ extension NetworkManager {
     func makeNewChattingRoom(id: String) async {
         let body = NewChatRoomBody(opponent_id: id)
         do {
-            let future = try await request(target: .chat(.newChatRoom(body: body)), of: ChattingListDTO.self)
+            let future = try await request(target: .chat(.newChatRoom(body: body)), of: ChattingRoomDTO.self)
             future
                 .sink { completion in
                     switch completion {
