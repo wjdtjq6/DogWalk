@@ -10,41 +10,57 @@ import Combine
 
 
 protocol HomeIntentProtocol {
-    func profileButtonTap()
-    func goToDogWalkTap()
-    func goToAddPostButtonTap()
+    func onAppear()
     func fetchPostList() async
-    func resetProfileButtonState()
+    func fetchWeatherData() async
+    func profileButtonTap()
+    func resetProfileButtonSate()
 }
 
 final class HomeIntent {
     private weak var state: HomeIntentActionProtocol?
-
-    init(state: HomeIntentActionProtocol) {
+    private let useCase: HomeUseCase
+    
+    init(state: HomeIntentActionProtocol, useCase: HomeUseCase) {
         self.state = state
+        self.useCase = useCase
     }
 }
 
 extension HomeIntent: HomeIntentProtocol {
+    func onAppear() {
+        state?.changeContentState(state: .loading)
+    }
+    
     func fetchPostList() async {
-        guard state?.isHomeViewFirstInitState() == true else { return }
-        await state?.getPostList()
-        state?.changeHomeViewInitState()
+        do {
+            let posts = try await useCase.getPostList()
+            state?.updatePostList(posts: posts)
+        }  catch {
+            
+        }
     }
     
     func profileButtonTap() {
-        state?.profileButtonTap()
+        state?.updateProfileButtonSate(true)
     }
     
-    func resetProfileButtonState() {
-        state?.isResetProfileButtonState()
-       }
-    
-    func goToDogWalkTap() {
-        print("산책하기 탭으로 이동")
+    func resetProfileButtonSate() {
+        state?.updateProfileButtonSate(false)
     }
     
-    func goToAddPostButtonTap() {
-        print("산책 인증 게시물 작성")
+    func fetchWeatherData() async {
+        do {
+            // WeatherData 가져오기
+            let weatherData = try await useCase.userWeatherData()
+            print(weatherData, "-------------")
+            // 상태 업데이트
+            DispatchQueue.main.async {
+                self.state?.getWeatherData(weatherData: weatherData)
+            }
+        } catch {
+            // 에러 메시지 처리
+            print("Failed to fetch weather data: \(error.localizedDescription)")
+        }
     }
 }

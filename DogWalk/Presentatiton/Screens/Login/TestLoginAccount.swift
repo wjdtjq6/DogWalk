@@ -41,7 +41,7 @@ enum TestLoginAccount: String {
     var pwString: String {
         switch self {
         case .common:
-            return "1234!@"
+            return "junehee"
         default:
             return self.rawValue
         }

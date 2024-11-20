@@ -11,6 +11,7 @@
         <relationship name="room" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ChatRoom" inverseName="messages" inverseEntity="ChatRoom"/>
     </entity>
     <entity name="ChatRoom" representedClassName="ChatRoom" syncable="YES">
+        <attribute name="chatMessages" optional="YES" attributeType="Transformable" valueTransformerName="ChatMessagesTransformer" customClassName="ChatMessages"/>
         <attribute name="chatRoomID" optional="YES" attributeType="String"/>
         <attribute name="createAt" optional="YES" attributeType="String"/>
         <attribute name="lastChatContent" optional="YES" attributeType="String"/>
