@@ -22,7 +22,7 @@ struct LoginView: View {
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: TestLoginAccount에 여러가지 계정 만들어두었으니 사용하실 때 참고하세요!
-    @State private var idText: String = TestLoginAccount.common.idString
+    @State private var idText: String = TestLoginAccount.junehee.idString
     @State private var pwText: String = TestLoginAccount.common.pwString
 }
 

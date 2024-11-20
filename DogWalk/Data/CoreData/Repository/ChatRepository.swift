@@ -179,3 +179,29 @@ final class ChatRepository {
         }
     }
 }
+
+extension ChatRepository {
+    
+    //채팅방 메세지 업데이트 함수 
+    func updateChatRoom(chatRoomID: String, newMessages: [ChatMessages], context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<ChatRoom> = ChatRoom.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "chatRoomID == %@", chatRoomID)
+        fetchRequest.fetchLimit = 1
+
+        do {
+            // 검색된 ChatRoom 가져오기
+            if let chatRoom = try context.fetch(fetchRequest).first {
+                // 기존 메시지에 새로운 메시지 추가 또는 대체
+                chatRoom.chatMessages = newMessages
+                
+                // 데이터 저장
+                try context.save()
+                print("ChatRoom \(chatRoomID) updated successfully!")
+            } else {
+                print("No ChatRoom found with ID \(chatRoomID)")
+            }
+        } catch {
+            print("Failed to update ChatRoom \(chatRoomID): \(error)")
+        }
+    }
+}
