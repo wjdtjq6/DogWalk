@@ -19,7 +19,7 @@ extension CommentDTO {
     func toDomain() -> CommentModel {
         return CommentModel(commentID: self.comment_id,
                             content: self.content,
-                            createdAt: self.createdAt.getFormattedDateString(),
+                            createdAt: self.createdAt,
                             creator: self.creator.toDomain())
     }
 }

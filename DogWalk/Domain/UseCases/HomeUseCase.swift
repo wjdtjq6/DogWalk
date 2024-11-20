@@ -20,7 +20,7 @@ final class HomeViewUseCase: HomeUseCase {
     private let network = NetworkManager()
     private let userManager = UserManager.shared
     private let weatherManager = WeatherKitAPIManager.shared
-    //    let coredata = ChatRepository(context: CoreDataManager.viewContext)
+    
     func getPostList() async throws  -> [PostModel] {
         let query = GetPostQuery(next: "", limit: "15", category: ["산책인증"])
         let response = try await network.requestDTO(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
@@ -43,11 +43,9 @@ final class HomeViewUseCase: HomeUseCase {
         
         await print(try address)
         await print(try weather)
-        await print("Weather condition: \(try await weather.currentWeather.condition)")
+        print("Weather condition: \(try await weather.currentWeather.condition)")
         
-        let (fetchedAddress, fetchedWeather) = try await (address, translateweather)
-        //        let weatherDescription = fetchedWeather.currentWeather.condition.description
-        
+        let (fetchedAddress, _) = try await (address, translateweather)
         return WeatherData(weather: translateweather, userAddress: fetchedAddress)
     }
     
@@ -81,7 +79,7 @@ final class HomeViewUseCase: HomeUseCase {
             return "허리케인"
         case .tropicalStorm:
             return "열대 폭풍"
-        @unknown default:
+        default:
             return "알 수 없음"
         }
     }

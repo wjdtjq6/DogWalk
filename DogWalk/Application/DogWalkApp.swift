@@ -11,7 +11,7 @@ import SwiftUI
 struct DogWalkApp: App {
     @StateObject var appCoordinator: MainCoordinator = MainCoordinator()
     private var access = UserManager.shared.acess
-//    let persistenceController = CoreDataManager.
+    
     init() {
         let appearance = UINavigationBarAppearance()
         // 뒤로 가기 버튼의 텍스트 제거
@@ -34,7 +34,6 @@ struct DogWalkApp: App {
                 LoginView.build()
                     .environmentObject(appCoordinator)
             }
-//            ContentView()
         }
     }
 }

@@ -14,11 +14,11 @@ final class ChatRepository {
         self.managedObjectContext = context
     }
     
-    // MARK: 채팅방 관련 메서드
     
+    // MARK: - 채팅방 관련 메서드
     // 채팅방 생성
     @discardableResult
-    func createChatRoom(chatRoomData: ChattingListModel) -> ChatRoom {
+    func createChatRoom(chatRoomData: ChattingRoomModel) -> ChatRoom {
         let chatRoom = ChatRoom(context: managedObjectContext)
         chatRoom.chatRoomID = chatRoomData.roomID                           // 채팅방 아이디
         chatRoom.meID = chatRoomData.me.userID                              // 내 userID
@@ -34,11 +34,11 @@ final class ChatRepository {
         return chatRoom
     }
     
-    // 특정 ID로 채팅방 가져오기
+    // 특정 ID로 채팅방 정보 가져오기
     func fetchChatRoom(chatRoomID: String) -> ChatRoom? {
         let request: NSFetchRequest<ChatRoom> = ChatRoom.fetchRequest()
         request.predicate = NSPredicate(format: "chatRoomID == %@", chatRoomID)
-        
+        print(request.predicate, "FetchCahtRoom")
         do {
             return try managedObjectContext.fetch(request).first
         } catch {
@@ -79,7 +79,7 @@ final class ChatRepository {
     }
     
     // 마지막 채팅 업데이트
-    func updateLastChat(chatRoomData: ChattingListModel) {
+    func updateLastChat(chatRoomData: ChattingRoomModel) {
         if let chatRoom = fetchChatRoom(chatRoomID: chatRoomData.roomID) {
             chatRoom.lastChatID = chatRoomData.lastChat?.chatID              // 채팅방 ID
             chatRoom.lastChatType = chatRoomData.lastChat?.type.rawValue     // 마지막 채팅이 글자인지 사진인지
@@ -90,19 +90,29 @@ final class ChatRepository {
         }
     }
     
-    // MARK: 채팅 메시지 관련 메서드
+    // 코어데이터 채팅방에 채팅 내역 업데이트
+    func updateChatMessages(messages: [ChatMessage]) {
+        // guard let chatRoom = fetchChatRoom(chatRoomID: roomID) else { return }
+        let chatRoom = ChatRoom(context: managedObjectContext)
+        for data in messages {
+            chatRoom.chatMessages?.append(data)
+        }
+        saveContext()
+    }
     
-    // 채팅 추가
+    
+    // MARK: - 채팅 메시지 관련 메서드
+    // 채팅 메세지 추가
     func createChatMessage(chatID: String, content: String, sender: UserModel, files: [String]? = nil, in chatRoom: ChatRoom) -> ChatMessage {
         let chatMessage = ChatMessage(context: managedObjectContext)
         chatMessage.chatID = chatID                             // 채팅 아이디
         chatMessage.content = content                           // 채팅 내용
         chatMessage.senderUserID = sender.userID                // 보낸 사람 ID
-        chatMessage.senderNick = sender.nick                    // 보낸 사람 닉네임
+        chatMessage.senderNick = sender.nick// 보낸 사람 닉네임
         chatMessage.senderProfileImage = sender.profileImage    // 보낸 사람 프로필 이미지
         chatMessage.files = files                               // 사진 파일
         chatMessage.room = chatRoom                             // 속해있는 채팅룸
-        
+        print(chatMessage, "createChatMessage wflkdsjflksdajflkdasjflk")
         saveContext()
         return chatMessage
     }
@@ -184,7 +194,7 @@ final class ChatRepository {
 extension ChatRepository {
     
     //채팅방 메세지 업데이트 함수 
-    func updateChatRoom(chatRoomID: String, newMessages: [ChatMessages], context: NSManagedObjectContext) {
+    func updateChatRoom(chatRoomID: String, newMessages: [ChatMessage], context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<ChatRoom> = ChatRoom.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "chatRoomID == %@", chatRoomID)
         fetchRequest.fetchLimit = 1

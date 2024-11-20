@@ -23,7 +23,7 @@ struct LoginView: View {
     
     // MARK: TestLoginAccount에 여러가지 계정 만들어두었으니 사용하실 때 참고하세요!
     @State private var idText: String = TestLoginAccount.junehee.idString
-    @State private var pwText: String = TestLoginAccount.common.pwString
+    @State private var pwText: String = TestLoginAccount.junehee.pwString
 }
 
 extension LoginView {

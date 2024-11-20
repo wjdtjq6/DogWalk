@@ -8,12 +8,13 @@
 import Foundation
 
 // 채팅 내역 조회 응답 (Response)
-struct ChattingRoomResponseDTO: Decodable {
-    let data: [ChattingRoomDTO]
+/// 특정 채팅방에서 대화한 내역 리스트
+struct ChattingResponseDTO: Decodable {
+    let data: [ChattingDTO]
 }
 
-extension ChattingRoomResponseDTO {
-    func toDomain() -> [ChattingRoomModel] {
+extension ChattingResponseDTO {
+    func toDomain() -> [ChattingModel] {
         return self.data.map { $0.toDomain() }
     }
 }

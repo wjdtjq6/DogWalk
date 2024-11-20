@@ -175,7 +175,7 @@ private extension CommunityView {
                     Text(item.title) // 제목
                         .font(.pretendardBold16)
                     Spacer()
-                    Text(item.created) // 게시된 시간
+                    Text(item.created.getFormattedDateString(.dot)) // 게시된 시간
                         .font(.pretendardRegular12)
                         .foregroundStyle(.gray)
                 }

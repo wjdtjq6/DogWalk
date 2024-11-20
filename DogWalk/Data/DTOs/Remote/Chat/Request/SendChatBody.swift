@@ -7,8 +7,8 @@
 
 import Foundation
 
-// 채팅 보내기 요청 (Request)
+// 채팅 메세지 보내기 요청 (Request)
 struct SendChatBody: Encodable {
     let content: String
-    let files: [String]
+    // let files: [String]
 }
