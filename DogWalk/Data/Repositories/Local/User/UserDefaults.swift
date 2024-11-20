@@ -20,6 +20,7 @@ enum UserDefaultsKeys: String {
     case gender              // 성별
     case acess               // acess token
     case refresh             // refresh token
+    case imageCache
 }
 
 @propertyWrapper

@@ -46,4 +46,7 @@ final class UserManager {
     
     @UserDefault(key: .refresh, defaultValue: "")
     var refresh: String
+    
+    @UserDefault(key: .imageCache, defaultValue: ["":""])
+    var imageCache: [String: String]
 }
