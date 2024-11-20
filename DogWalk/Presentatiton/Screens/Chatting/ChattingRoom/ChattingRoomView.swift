@@ -25,7 +25,8 @@ struct ChattingRoomView: View {
 extension ChattingRoomView {
     static func build(roomID: String) -> some View {
         let state = ChattingRoomState(roomID: roomID)
-        let intent = ChattingRoomIntent(state: state)
+        let useCase = DefaultChattingRoomUseCase()
+        let intent = ChattingRoomIntent(state: state, useCase: useCase)
         let container = Container(intent: intent as ChattingRoomIntentProtocol,
                                   state: state as ChattingRoomStateProtocol,
                                   modelChangePublisher: state.objectWillChange)
@@ -124,7 +125,7 @@ private extension ChattingRoomView {
 // MARK: - 전체 채팅 뷰
 private extension ChattingRoomView {
     @ViewBuilder
-    func chattingView(size: CGSize, model: ChattingRoomModel) -> some View {
+    func chattingView(size: CGSize, model: ChattingModel) -> some View {
         let xOffSet = size.width / 2
         switch model.type {
         case .text:
@@ -152,7 +153,7 @@ private extension ChattingRoomView {
 // MARK: - 말풍선 부분
 private extension ChattingRoomView {
     @ViewBuilder
-    func messageView(size: CGSize, model: ChattingRoomModel) -> some View {
+    func messageView(size: CGSize, model: ChattingModel) -> some View {
         let isRight = model.sender.userID == UserManager.shared.userID
         //말풍선 size 지정
         let minBubbleHeight: CGFloat = 18.0
@@ -212,7 +213,7 @@ private extension ChattingRoomView {
 // MARK: - 채팅이 이미지일 경우
 private extension ChattingRoomView {
     @ViewBuilder
-    func imageMessageView(size: CGSize, model: ChattingRoomModel) -> some View {
+    func imageMessageView(size: CGSize, model: ChattingModel) -> some View {
         let isRight = model.sender.userID == UserManager.shared.userID
         let width = size.width
         HStack {

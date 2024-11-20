@@ -1,60 +1,46 @@
 //
-//  DMResponseDTO.swift
+//  ChattingDTO.swift
 //  DogWalk
 //
-//  Created by junehee on 11/18/24.
+//  Created by junehee on 11/12/24.
 //
 
 import Foundation
 
-// 채팅 소켓 응답 (Response)
+// 채팅 내역 응답 (Response)
+// 특정 채팅방에서 대화한 채팅 1개에 대한 정보
 struct ChattingDTO: Decodable {
-    let dm_id: Int
-    let room_id: Int
-    let content: String
-    let createAt: String
+    let chat_id: String
+    let room_id: String
+    let content: String?
+    let sender: UserDTO
     let files: [String]
-    let user: UserDTO
 }
 
 extension ChattingDTO {
     func toDomain() -> ChattingModel {
-        return ChattingModel(dmID: self.dm_id,
-                             roomID: self.room_id,
-                             content: self.content,
-                             createdAt: self.createAt,
-                             files: self.files,
-                             user: UserModel(userID: self.user.user_id,
-                                             nick: self.user.nick,
-                                             profileImage: self.user.profileImage ?? ""))
+        let messageType: MessageType = self.content == nil ? .image : .text
+        return ChattingModel(chatID: self.chat_id,
+                                 roomID: self.room_id,
+                                 type: messageType,
+                                 content: self.content ?? "",
+                                 sender: UserModel(userID: self.sender.user_id,
+                                                   nick: self.sender.nick,
+                                                   profileImage: self.sender.profileImage ?? ""),
+                                 files: self.files)
     }
 }
 
-struct ChattingModel {
-    let dmID: Int
-    let roomID: Int
-    let content: String
-    let createdAt: String
-    let files: [String]
-    let user: UserModel
-}
-
-/* 응답 예시
-    {
-      "dm_id": 1,
-      "room_id": 1,
-      "content": "반갑습니다.",
-      "createdAt": "2024-10-21T22:47:30.236Z",
-      "files": [
-        "/static/dms/1701706651157.gif",
-        "/static/dms/1701706651161.jpeg",
-        "/static/dms/1701706651166.jpeg"
-      ],
-      "user": {
-        "user_id": 1,
-        "email": "sesac@gmail.com",
-        "nickname": "새싹",
-        "profileImage": "/static/profiles/1701706651161.jpeg"
-      }
+struct ChattingModel: Equatable, Identifiable {
+    static func == (lhs: ChattingModel, rhs: ChattingModel) -> Bool {
+        return false
     }
-*/
+    
+    let id = UUID()
+    let chatID: String                  // 채팅 ID
+    let roomID: String                  // 채팅방 ID
+    let type: MessageType               // 채팅 내용이 텍스트인지 사진인지
+    let content: String                 // 채팅 내용
+    let sender: UserModel               // 채팅 보낸 사람
+    let files: [String]                 // 마지막 채팅 정보
+}

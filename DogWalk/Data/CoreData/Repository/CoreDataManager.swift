@@ -8,7 +8,6 @@
 import CoreData
 
 final class CoreDataManager {
-    
     lazy var persistentContainer: NSPersistentContainer = {
         ChatMessagesTransformer.register()
         let container = NSPersistentContainer(name: "Chat")
