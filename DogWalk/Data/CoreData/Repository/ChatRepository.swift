@@ -35,7 +35,7 @@ final class ChatRepository {
         return chatRoom
     }
     
-    // 특정 ID로 채팅방 가져오기
+    // 특정 ID로 채팅방 정보 가져오기
     func fetchChatRoom(chatRoomID: String) -> ChatRoom? {
         let request: NSFetchRequest<ChatRoom> = ChatRoom.fetchRequest()
         request.predicate = NSPredicate(format: "chatRoomID == %@", chatRoomID)
@@ -99,7 +99,7 @@ final class ChatRepository {
         chatMessage.chatID = chatID                             // 채팅 아이디
         chatMessage.content = content                           // 채팅 내용
         chatMessage.senderUserID = sender.userID                // 보낸 사람 ID
-        chatMessage.senderNick = sender.nick                    // 보낸 사람 닉네임
+        chatMessage.senderNick = sender.nick// 보낸 사람 닉네임
         chatMessage.senderProfileImage = sender.profileImage    // 보낸 사람 프로필 이미지
         chatMessage.files = files                               // 사진 파일
         chatMessage.room = chatRoom                             // 속해있는 채팅룸

@@ -13,22 +13,33 @@ import CoreData
  `getCursorDate` DB에서 최신 대화 날짜 가져오기
  `getChattingData` cursor-date 기반 최신 대화 내용 요청
  `updateChattingData`  응답 받은 최신 대화 내용을 DB에 업데이트
+ `getAllChattingData` DB에 저장된 대화 내용 전체 가져오기
+ `openSocket` 소켓 연결
+ `sendMessage` 메세지 전송
+ `closeSocket` 소켓 해제
  */
 protocol ChattingRoomUseCase {
-    func getCursorDate() -> String
+    func getCursorDate(roomID: String) -> String
     func getChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel]
     func updateChattingData(_ data: [ChattingModel])
     func getAllChattingData() -> [ChattingModel]
+    func openSocket(roomID: String)
+    func sendTextMessage(roomID: String, message: String) async throws -> ChattingModel
+    func sendImageMessage(roomID: String, image: Data) async throws -> ChattingFilesModel
+    func closeSocket()
 }
 
 final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     private let network = NetworkManager()
+    private var socket: SocketIOManager?
     private let chatRepository = ChatRepository(context: CoreDataManager().viewContext)
     
     // DB에서 최신 대화 날짜 가져오기
-    func getCursorDate() -> String {
-        // chatRepository.fetchMessages(in: <#T##ChatRoom#>)
-        return ""
+    func getCursorDate(roomID: String) -> String {
+        let room = chatRepository.fetchChatRoom(chatRoomID: roomID)
+        guard let updateAt = room?.updatedAt else { return "" }
+        print("UpdateAt", updateAt)
+        return updateAt
     }
     
     // cursor_date 기반 최신 대화 내용 요청
@@ -52,5 +63,41 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     // DB에서 전체 대화 내용을 가져와 View 반영
     func getAllChattingData() -> [ChattingModel] {
         return []
+    }
+    
+    // 소켓 열기
+    func openSocket(roomID: String) {
+        let socket = SocketIOManager(roomID: roomID)
+        socket.connect()
+    }
+    
+    // 텍스트 보내기
+    func sendTextMessage(roomID: String, message: String) async throws  -> ChattingModel {
+        do {
+            let body = SendChatBody(content: message)
+            let DTO = try await network.requestDTO(target: .chat(.sendChat(roomId: roomID, body: body)), of: ChattingDTO.self)
+            return DTO.toDomain()
+        } catch {
+            print(#function, error)
+            throw error
+        }
+    }
+    
+    // 이미지 보내기
+    func sendImageMessage(roomID: String, image: Data) async throws -> ChattingFilesModel {
+        do {
+            let body = PostFileBody(files: [image])
+            let data = try await network.requestDTO(target: .chat(.postChatFiles(roomId: roomID, body: body)), of: ChattingFilesModel.self)
+            return data
+        } catch {
+            print(#function, error)
+            throw error
+        }
+    }
+    
+    
+    // 소켓 닫기
+    func closeSocket() {
+        socket?.disconnect()
     }
 }

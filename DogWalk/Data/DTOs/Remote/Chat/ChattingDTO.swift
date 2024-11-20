@@ -21,16 +21,17 @@ extension ChattingDTO {
     func toDomain() -> ChattingModel {
         let messageType: MessageType = self.content == nil ? .image : .text
         return ChattingModel(chatID: self.chat_id,
-                                 roomID: self.room_id,
-                                 type: messageType,
-                                 content: self.content ?? "",
-                                 sender: UserModel(userID: self.sender.user_id,
-                                                   nick: self.sender.nick,
-                                                   profileImage: self.sender.profileImage ?? ""),
-                                 files: self.files)
+                             roomID: self.room_id,
+                             type: messageType,
+                             content: self.content ?? "",
+                             sender: UserModel(userID: self.sender.user_id,
+                                               nick: self.sender.nick,
+                                               profileImage: self.sender.profileImage ?? ""),
+                             files: self.files)
     }
 }
 
+// View에서 ForEach 반복문에 id 필요하기 때문에 프로토콜 채택
 struct ChattingModel: Equatable, Identifiable {
     static func == (lhs: ChattingModel, rhs: ChattingModel) -> Bool {
         return false
@@ -42,5 +43,10 @@ struct ChattingModel: Equatable, Identifiable {
     let type: MessageType               // 채팅 내용이 텍스트인지 사진인지
     let content: String                 // 채팅 내용
     let sender: UserModel               // 채팅 보낸 사람
-    let files: [String]                 // 마지막 채팅 정보
+    let files: [String]                 // 이미지 파일
+}
+
+// 파일 업로드 후 받아오는 응답값
+struct ChattingFilesModel: Decodable {
+    let files: [String]
 }

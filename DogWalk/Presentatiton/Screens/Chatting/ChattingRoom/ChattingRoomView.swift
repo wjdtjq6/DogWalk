@@ -48,14 +48,14 @@ extension ChattingRoomView {
                     yOffset: $bottomPadding,
                     showKeyboard: $showKeyboard
                 ) { text in
-                    print(text) // 보낼 경우 텍스트 반환
+                    print(text) // 채팅 보낼 경우 텍스트 반환
                     Task {
                         await intent.sendTextMessage(roomID: state.roomID, message: text)
-                        await intent.onAppearTrigger(roomID: state.roomID)
                     }
-                    // message.addMessage(text: text)
-                } completionSendImage: { UIImage in // 이미지 보낼 경우
-                    // message.addImage(image: UIImage)
+                } completionSendImage: { image in // 이미지 보낼 경우 (UIImage)
+                    Task {
+                        
+                    }
                 }
             }
         }  //:VSTACK
@@ -65,10 +65,10 @@ extension ChattingRoomView {
         .navigationBarTitleDisplayMode(.inline)
         .tabBarHidden(true)
         .task {
-            await intent.onAppearTrigger(roomID: state.roomID)
+            intent.onAppearTrigger(roomID: state.roomID)
         }
         .onDisappear {
-            
+            intent.onDisappearTrigger()
         }
     }
 }

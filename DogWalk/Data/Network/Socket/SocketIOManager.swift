@@ -18,7 +18,8 @@ final class SocketIOManager: NSObject, SocketProvider {
     private var manager: SocketManager?
     var socket: SocketIOClient?
     
-    init(roomID: Int) {
+    // init(roomID: Int) {
+    init(roomID: String) {
         super.init()
         createSocket(roomID: roomID)
         // socket = manager?.defaultSocket
@@ -36,6 +37,8 @@ final class SocketIOManager: NSObject, SocketProvider {
                 let data = dataArr[0]
                 let jsonData = try JSONSerialization.data(withJSONObject: data)
                 let decodedData = try JSONDecoder().decode(SocketDMDTO.self, from: jsonData)
+                print("👇 Socket DecodedData")
+                print(decodedData)
                 // self.messageClosure(decodeData: decodedData)
             } catch {
                 print("🚨 채팅 데이터 디코딩 실패", error)
@@ -49,7 +52,8 @@ final class SocketIOManager: NSObject, SocketProvider {
     }
     
     // 채팅방 Socket 연결
-    private func createSocket(roomID: Int) {
+    // private func createSocket(roomID: Int) {
+    private func createSocket(roomID: String) {
         guard let baseURL = URL(string: APIKey.baseURL) else { return }
         self.manager = SocketManager(
             socketURL: baseURL, config: [
@@ -58,7 +62,7 @@ final class SocketIOManager: NSObject, SocketProvider {
                 .extraHeaders([BaseHeader.sesacKey.rawValue: APIKey.key, BaseHeader.authorization.rawValue: UserManager.shared.acess])  // 헤더를 포함해서 보낼 것인지
             ]
         )
-        socket = manager?.socket(forNamespace: "/ws-dm-\(roomID)")
+        socket = manager?.socket(forNamespace: "\(APIKey.socket)\(roomID)")
     }
 
     func connect() {
