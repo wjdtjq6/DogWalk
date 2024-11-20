@@ -25,6 +25,7 @@ extension AuthTarget: TargetType {
     }
     
     var header: [String : String] {
+        
         return [
             BaseHeader.productId.rawValue: APIKey.appID,
             BaseHeader.authorization.rawValue: UserManager.shared.acess,
