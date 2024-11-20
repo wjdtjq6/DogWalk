@@ -12,7 +12,7 @@ extension String {
     enum DateFormatType: String {
         case dot = "yyyy. MM. dd"
         case month = "MM월 dd일"
-        case time = "hh:mm"
+        case time = "HH:mm"
     }
 
     // String -> URL

@@ -30,6 +30,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         state?.changeViewState(state: .loading)
         /// 1) 최근 대화 날짜 가져오기
         let cursorDate = useCase.getCursorDate(roomID: roomID)
+        print(cursorDate)
         Task {
             do {
                 /// 2) 최근 대화 날짜 이후 채팅 데이터 요청
@@ -37,7 +38,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 print("👇 최근 대화 요청 데이터")
                 dump(result)
                 /// 3) 응답 받은 채팅 데이터를 DB 저장
-                useCase.updateChattingData(result)
+                useCase.updateChattingData(roomID: roomID, data: result)
                 /// 4) DB에 저장된 전체 채팅 데이터 가져온 후 State 전달
                 let chattingData = useCase.getAllChattingData()
                 print("👇 DB에 저장된 전체 채팅 데이터")

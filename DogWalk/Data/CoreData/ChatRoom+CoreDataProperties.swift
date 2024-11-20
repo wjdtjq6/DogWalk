@@ -53,10 +53,10 @@ extension ChatRoom : Identifiable {
 }
 
 extension ChatRoom {
-    var chatMessages: [ChatMessages]? {
+    var chatMessages: [ChatMessage]? {
             get {
                 guard let data = self.primitiveValue(forKey: "chatMessages") as? Data else { return nil }
-                return try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, ChatMessages.self], from: data) as? [ChatMessages]
+                return try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, ChatMessage.self], from: data) as? [ChatMessage]
             }
             set {
                 let data = try? NSKeyedArchiver.archivedData(withRootObject: newValue ?? [], requiringSecureCoding: true)

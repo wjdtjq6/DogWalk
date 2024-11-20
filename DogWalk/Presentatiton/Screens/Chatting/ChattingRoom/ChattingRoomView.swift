@@ -92,7 +92,7 @@ private extension ChattingRoomView {
                 .onAppear {
                     //마지막 채팅 내역으로 스크롤 이동
                     // scroll.scrollTo(message.modles.last?.id, anchor: .top)
-                    scroll.scrollTo(state.chattingData.last?.chatID, anchor: .top)
+                    scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
                 }
                 .onChange(of: showKeyboard) { oldValue, newValue in //키보드 감지
                     guard newValue else { return }
@@ -100,7 +100,7 @@ private extension ChattingRoomView {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation {
                             // scroll.scrollTo(message.modles.last?.id, anchor: .top)
-                            scroll.scrollTo(state.chattingData.last?.chatID, anchor: .top)
+                            scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
                         }
                     }
                     
@@ -109,7 +109,7 @@ private extension ChattingRoomView {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         withAnimation {
                             // scroll.scrollTo(message.modles.last?.id, anchor: .top)
-                            scroll.scrollTo(state.chattingData.last?.chatID, anchor: .top)
+                            scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
                         }
                     }
                 }//새로운 데이터가 들어올 경우 스크롤 위치 하단으로

@@ -21,7 +21,7 @@ import CoreData
 protocol ChattingRoomUseCase {
     func getCursorDate(roomID: String) -> String
     func getChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel]
-    func updateChattingData(_ data: [ChattingModel])
+    func updateChattingData(roomID: String, data: [ChattingModel])
     func getAllChattingData() -> [ChattingModel]
     func openSocket(roomID: String)
     func sendTextMessage(roomID: String, message: String) async throws -> ChattingModel
@@ -55,9 +55,17 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     }
     
     // 응답 받은 최신 대화 내용을 DB에 업데이트
-    func updateChattingData(_ data: [ChattingModel]) {
+    func updateChattingData(roomID: String, data: [ChattingModel]) {
         // DB에 업데이트 하고
-        // chatRepository.updateLastChat(chatRoomData: <#T##ChattingRoomModel#>)
+        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else { return }
+        let messages = data.map { msg in
+            chatRepository.createChatMessage(chatID: msg.chatID,
+                                             content: msg.content,
+                                             sender: msg.sender,
+                                             in: chatRoom)
+        }
+        // chatRepository.updateChatMessages(messages: messages)
+        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: messages, context: chatRoom.managedObjectContext!)
     }
     
     // DB에서 전체 대화 내용을 가져와 View 반영
@@ -94,7 +102,6 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
             throw error
         }
     }
-    
     
     // 소켓 닫기
     func closeSocket() {

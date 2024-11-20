@@ -15,8 +15,7 @@ final class ChatRepository {
     }
     
     
-    // MARK: 채팅방 관련 메서드
-    
+    // MARK: - 채팅방 관련 메서드
     // 채팅방 생성
     @discardableResult
     func createChatRoom(chatRoomData: ChattingRoomModel) -> ChatRoom {
@@ -39,7 +38,7 @@ final class ChatRepository {
     func fetchChatRoom(chatRoomID: String) -> ChatRoom? {
         let request: NSFetchRequest<ChatRoom> = ChatRoom.fetchRequest()
         request.predicate = NSPredicate(format: "chatRoomID == %@", chatRoomID)
-        
+        print(request.predicate, "FetchCahtRoom")
         do {
             return try managedObjectContext.fetch(request).first
         } catch {
@@ -91,9 +90,19 @@ final class ChatRepository {
         }
     }
     
-    // MARK: 채팅 메시지 관련 메서드
+    // 코어데이터 채팅방에 채팅 내역 업데이트
+    func updateChatMessages(messages: [ChatMessage]) {
+        // guard let chatRoom = fetchChatRoom(chatRoomID: roomID) else { return }
+        let chatRoom = ChatRoom(context: managedObjectContext)
+        for data in messages {
+            chatRoom.chatMessages?.append(data)
+        }
+        saveContext()
+    }
     
-    // 채팅 추가
+    
+    // MARK: - 채팅 메시지 관련 메서드
+    // 채팅 메세지 추가
     func createChatMessage(chatID: String, content: String, sender: UserModel, files: [String]? = nil, in chatRoom: ChatRoom) -> ChatMessage {
         let chatMessage = ChatMessage(context: managedObjectContext)
         chatMessage.chatID = chatID                             // 채팅 아이디
@@ -103,7 +112,7 @@ final class ChatRepository {
         chatMessage.senderProfileImage = sender.profileImage    // 보낸 사람 프로필 이미지
         chatMessage.files = files                               // 사진 파일
         chatMessage.room = chatRoom                             // 속해있는 채팅룸
-        
+        print(chatMessage, "createChatMessage wflkdsjflksdajflkdasjflk")
         saveContext()
         return chatMessage
     }
@@ -185,7 +194,7 @@ final class ChatRepository {
 extension ChatRepository {
     
     //채팅방 메세지 업데이트 함수 
-    func updateChatRoom(chatRoomID: String, newMessages: [ChatMessages], context: NSManagedObjectContext) {
+    func updateChatRoom(chatRoomID: String, newMessages: [ChatMessage], context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<ChatRoom> = ChatRoom.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "chatRoomID == %@", chatRoomID)
         fetchRequest.fetchLimit = 1
