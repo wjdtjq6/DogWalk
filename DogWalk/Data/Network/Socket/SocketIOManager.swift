@@ -15,40 +15,78 @@ protocol SocketProvider {
 }
 
 final class SocketIOManager: NSObject, SocketProvider {
-    private var manager: SocketManager?
-    var socket: SocketIOClient?
+    // private var manager: SocketManager?
+    // var socket: SocketIOClient?
     
-    // init(roomID: Int) {
-    init(roomID: String) {
+    var manager: SocketManager!
+    var socket: SocketIOClient!
+
+    override init() {
         super.init()
-        createSocket(roomID: roomID)
-        // socket = manager?.defaultSocket
+        guard let URL = URL(string: APIKey.baseURL) else { return }
+        manager = SocketManager(socketURL: URL, config: [ .forceWebsockets(true)])
+        socket = manager.defaultSocket
         
-        // 소켓 연결될 때 실행
-        socket?.on(clientEvent: .connect) { data, ack in
-            print("✨ Socket is Connected", data, ack)
+        socket.on(clientEvent: .connect) { data, ack in
+            print("SOCKET IS CONNECTED", data, ack)
         }
         
-        // 소켓 채팅 듣는 메서드, 이벤트로 날아온 데이터를 수신
-        // 데이터 수신 -> 디코딩 -> 모델 추가 -> 갱신
-        socket?.on("dm") { dataArr, ack in
+        socket.on(clientEvent: .disconnect) { data, ack in
+            print("SOCKET IS DISCONNECTED", data, ack)
+        }
+        
+        socket.on("chat") { dataArr, ack in
             print("📮 DM 수신", dataArr, ack)
             do {
                 let data = dataArr[0]
                 let jsonData = try JSONSerialization.data(withJSONObject: data)
                 let decodedData = try JSONDecoder().decode(SocketDMDTO.self, from: jsonData)
                 print("👇 Socket DecodedData")
+<<<<<<< HEAD
+=======
+                print(decodedData.toDomain())
+                // 데이터 전달
+>>>>>>> b71bd35 (Feat: ChatRepository fetchAllChatRoom 함수 추가, SocketIOManager 초기화 함수 수정)
                 // self.messageClosure(decodeData: decodedData)
             } catch {
                 print("🚨 채팅 데이터 디코딩 실패", error)
             }
         }
-        
-        // 소켓 해제될 때 실행
-        socket?.on(clientEvent: .disconnect) { data, ack in
-            print("⛓️‍💥 Socket is Disconnected", data, ack)
-        }
     }
+    
+    // init(roomID: Int) {
+    // init(roomID: String, messageType: MessageType) {
+    //     super.init()
+    //     createSocket(roomID: roomID)
+    //     // socket = manager?.defaultSocket
+    //     
+    //     // 소켓 연결될 때 실행
+    //     socket?.on(clientEvent: .connect) { data, ack in
+    //         print("✨ Socket is Connected", data, ack)
+    //     }
+    //     
+    //     // 소켓 채팅 듣는 메서드, 이벤트로 날아온 데이터를 수신
+    //     // 데이터 수신 -> 디코딩 -> 모델 추가 -> 갱신
+    //     socket?.on(messageType.rawValue) { dataArr, ack in
+    //         print("📮 DM 수신", dataArr, ack)
+    //         do {
+    //             let data = dataArr[0]
+    //             let jsonData = try JSONSerialization.data(withJSONObject: data)
+    //             let decodedData = try JSONDecoder().decode(SocketDMDTO.self, from: jsonData)
+    //             print("👇 Socket DecodedData")
+    //             print(decodedData.toDomain())
+    //             // 데이터 전달
+    //             // self.messageClosure(decodeData: decodedData)
+    //         } catch {
+    //             print("🚨 채팅 데이터 디코딩 실패", error)
+    //         }
+    //     }
+    //     
+    //     // 소켓 해제될 때 실행
+    //     socket?.on(clientEvent: .disconnect) { data, ack in
+    //         print("⛓️‍💥 Socket is Disconnected", data, ack)
+    //     }
+    // }
     
     // 채팅방 Socket 연결
     // private func createSocket(roomID: Int) {
@@ -66,6 +104,7 @@ final class SocketIOManager: NSObject, SocketProvider {
 
     func connect() {
         socket?.connect()
+        print("소켓 연결 됨?")
     }
     
     func disconnect() {

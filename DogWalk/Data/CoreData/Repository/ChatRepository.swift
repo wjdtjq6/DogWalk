@@ -45,7 +45,7 @@ final class ChatRepository {
         let newMessage = CoreChatMessage()
         newMessage.chatID = chatID
         newMessage.roomID = chatRoom.roomID
-        newMessage.type = "text" // 필요 시 수정 가능
+        newMessage.type = MessageType.text.rawValue // 필요 시 수정 가능
         newMessage.message = content
         newMessage.senderUserID = sender.userID
         newMessage.senderUserNick = sender.nick
@@ -74,8 +74,8 @@ final class ChatRepository {
             print("Error updating chat room: \(error.localizedDescription)")
         }
     }
-
-    //전체 채팅방 가져오기
+    
+    // 전체 채팅방 가져오기
     func fetchAllChatRoom() -> [ChattingRoomModel]? {
         let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
         do {
@@ -84,7 +84,7 @@ final class ChatRepository {
                 return ChattingRoomModel(roomID: chatRoom.roomID ?? "룸아이디 없음",
                                          createAt: chatRoom.createdAt ?? "",
                                          updatedAt: "" ,
-                                         me: UserModel(userID: chatRoom.meUserID ?? "내 아디 없음" , 
+                                         me: UserModel(userID: chatRoom.meUserID ?? "내 아디 없음" ,
                                                        nick: chatRoom.meNick ?? "내 닉 없음",
                                                        profileImage: chatRoom.meProfileImage ?? "내이미지없음"),
                                          otherUser: UserModel(userID: chatRoom.ohterUserID ?? "내 아디 없음", nick: chatRoom.otherNick ?? "내 닉 없음", profileImage: chatRoom.otherProfileImage ?? "내이미지없음"),
@@ -95,8 +95,7 @@ final class ChatRepository {
         }
     }
     
-    
-    // 채팅방 RoomID로 가져오기
+    // RoomID로 특정 채팅방 가져오기
     func fetchChatRoom(chatRoomID: String) -> CoreChatRoom? {
         let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
         request.predicate = NSPredicate(format: "roomID == %@", chatRoomID)
@@ -130,10 +129,10 @@ final class ChatRepository {
         }
     }
 
-    func createSpecificChatRoom(rooID: String) {
-        // 특정 roomID로 채팅방 생성
+    // 특정 roomID로 채팅방 생성
+    func createSpecificChatRoom(roomID: String) {
         let chatRoomData = ChattingRoomModel(
-            roomID: rooID, // 특정 roomID 사용
+            roomID: roomID, // 특정 roomID 사용
             createAt: "",  // 생성 일자
             updatedAt: "", // 업데이트 일자
             me: UserModel(userID: "", nick: "", profileImage: ""), // 사용자 정보

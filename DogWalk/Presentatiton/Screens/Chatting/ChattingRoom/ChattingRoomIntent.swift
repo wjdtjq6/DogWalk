@@ -28,6 +28,10 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
     func onAppearTrigger(roomID: String) {
         print(#function, "멍톡 채팅방 진입")
         state?.changeViewState(state: .loading)
+        
+        /// 1) DB에
+        
+        
         /// 1) 최근 대화 날짜 가져오기
         let cursorDate = useCase.getCursorDate(roomID: roomID)
         print(cursorDate)

@@ -9,6 +9,11 @@ import Foundation
 
 /**
  채팅방 리스트 (채팅 탭)
+ 
+ 1) 멍톡 탭 진입 시 DB에 저장된 모든 채팅방 정보 불러오기
+ 2) 서버에 모든 채팅방 정보 호출 후 DB에 lastChat 정보 업데이트
+ 3) 업데이트된 최신 채팅방 정보를 화면에 렌더링 (updateAt을 기준으로 정렬)
+ (서버가 끊겨도 멍톡 탭에서 채팅방 리스트를 보여주고, 채팅방 눌렀을 때도 이전 데이터를 계속 보여주기 위함.)
  */
 protocol ChattingListUseCase {
     func getChattingRoomList() async throws -> [ChattingRoomModel]
@@ -20,9 +25,14 @@ final class DefaultChattingListUseCase: ChattingListUseCase {
     //임시
     private let chatRepository = ChatRepository.shared
     
-    // 채팅방 목록 가져오기
+    // DB에서 채팅방 목록 가져오기
     func getChattingRoomList() async throws -> [ChattingRoomModel] {
-        print("모든 채팅방 가져왕")
+       
+        
+        // 1) DB에 저장된 모든 채팅방 가져오기
+        dump(chatRepository.fetchAllChatRoom() ?? [])
+        
+        // 2) 서버에서 모든 채팅방 정보 가져와 lastChat 정보 업데이트
         do {
             let DTO = try await network.requestDTO(target: .chat(.getChatRoomList), of: ChattingRoomListResponseDTO.self)
             return DTO.toDomain()
@@ -30,5 +40,7 @@ final class DefaultChattingListUseCase: ChattingListUseCase {
             print(#function, "채팅방 목록 가져오기 실패")
             throw error
         }
+        return []
+        // network -> 마지막 채팅 데이터를 -> DB업데이트 -> 다시 화면에
     }
 }
