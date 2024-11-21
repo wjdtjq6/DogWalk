@@ -42,9 +42,16 @@ final class DefaultCommunityUseCase: CommunityUseCase {
         return try await self.getPosts(isPaging: false)
     }
     //카테고리 변경 시
+    
     func changeCategory(category: CommunityCategoryType) async throws -> [PostModel] {
-        self.category = category
-        return try await self.getPosts(isPaging: false)
+        // TODO: 빈값 줄 시 -[UIImageView _invalidateImageLayouts] must be called on the main queue라고 노란 경고창 뜸 ㅠ
+        if category == self.category {
+            return []
+        } else {
+            self.category = category
+            return try await self.getPosts(isPaging: false)
+        }
+        
     }
     //실제 네트워크 처리
     func getPosts(isPaging: Bool) async throws -> [PostModel] {

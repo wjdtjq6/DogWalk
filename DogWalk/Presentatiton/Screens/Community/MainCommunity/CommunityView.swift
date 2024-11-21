@@ -36,15 +36,25 @@ extension CommunityView {
 extension CommunityView {
     var body: some View {
         NavigationView {
-            switch state.contentState {
-            case .loading:
-                CommonLoadingView()
-                //loadingView()
-            case .content:
+            ZStack {
+                if state.contentState == .loading {
+                    CommonLoadingView()
+                }
+                if state.contentState == .error {
+                    CommonErrorView()
+                }
                 contentView()
-            case .error:
-                CommonErrorView()
             }
+//            switch state.contentState {
+//            case .loading:
+//                CommonLoadingView()
+//                //loadingView()
+//            case .content:
+//                contentView()
+//                //UIActivityIndicatorView()
+//            case .error:
+//                CommonErrorView()
+//            }
         } //:NAVIGATION
         .onAppear {
             if state.contentState != .content {
@@ -86,6 +96,7 @@ private extension CommunityView {
         
     } //:NAVIGATION
 }
+
 // 좌상단 버튼 뷰
 private extension CommunityView {
     private func filterView() -> some View {
