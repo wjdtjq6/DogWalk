@@ -7,7 +7,39 @@
 
 import SwiftUI
 import MapKit
+//MARK: 2.좌표 기반 마커 표시
 
+class mockUseCase: MapUseCase {
+    func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) {
+        let mock = [// CommunityCategoryType의 테스트용 값
+            PostModel(
+                postID: "test123",
+                created: "2024-11-21T12:00:00Z",
+                category: .walkCertification,
+                title: "Test Post",
+                price: 10000,
+                content: "This is a test content for the PostModel.",
+                creator: UserModel(
+                    userID: "user123",
+                    nick: "TestUser",
+                    profileImage: "https://example.com/profile.jpg"
+                ),
+                files: ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+                likes: ["user456", "user789"],
+                views: 123,
+                hashTags: ["#test", "#swift", "#example"],
+                comments: [
+                    CommentModel(commentID: "comment1", content: "content1", createdAt: "createdAt", creator: UserModel.init(userID: "user1", nick: "nick1", profileImage: "profileImage1"))
+                ],
+                geolocation: GeolocationModel(
+                    lat: 37.518820573402,
+                    lon: 126.89986969097
+                ),
+                distance: 1.23)
+        ]
+        return [mock.first!]
+    }//위치에 따른 포스트 조회
+}
 protocol MapIntentProtocol {
     func startWalk()
     func stopWalk()
@@ -21,17 +53,37 @@ protocol MapIntentProtocol {
     func setRouteImage(route coordinates: [CLLocationCoordinate2D]) async
     func startBackgroundTimer()
     func stopBackgroundTimer()
+    func getCenter(_ region: MKCoordinateRegion) -> CLLocationCoordinate2D
+    //MARK: 2.좌표 기반 마커 표시
+    func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees) async throws -> ([PostModel])
+    func updatePosition(_ newPosition: MapCameraPosition)
 }
 
 final class MapIntent {
     private weak var state: MapActionProtocol?
-    
-    init(state: MapActionProtocol? = nil) {
+    private var usecase: MapUseCase
+    init(state: MapActionProtocol? = nil, useCase: MapUseCase = mockUseCase()) {
         self.state = state
+        self.usecase = useCase
     }
 }
 
 extension MapIntent: MapIntentProtocol {
+    //MARK: 2.좌표 기반 마커 표시
+    func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees) async throws -> ([PostModel]) {
+        do {
+            let result = try await usecase.getPost(lat: lat, lon: lon)
+            return result
+        } catch {
+            print(error,"error")
+            return []
+        }
+    }
+    
+    func updatePosition(_ newPosition: MapCameraPosition) {
+        state?.updatePosition(newPosition)
+    }
+    //
     func startWalk() {
         print(#function)
         state?.resetCount()
@@ -165,5 +217,11 @@ extension MapIntent: MapIntentProtocol {
     
     func stopBackgroundTimer() {
         state?.stopTimer()
+    }
+    //MARK: 1-2새로고침 시 중심 좌표 전달 완료
+    func getCenter(_ region: MKCoordinateRegion) -> CLLocationCoordinate2D {
+        let center = region.center
+        print(center,"인텐트에서 센터 좌표")
+        return center
     }
 }

@@ -54,13 +54,25 @@ final class ChatRepository {
                 existingChatRoom.ohterUserID = chatRoomData.otherUser.userID
                 existingChatRoom.otherNick = chatRoomData.otherUser.nick
                 existingChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-                existingChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
-                existingChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
-                existingChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
-                existingChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
-                existingChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
-                existingChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+                // existingChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
+                // existingChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
+                // existingChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
+                // existingChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
+                // existingChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
+                // existingChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+                existingChatRoom.lastChat = CoreLastChat(
+                                   chatID: chatRoomData.lastChat?.chatID ?? "",
+                                   type: chatRoomData.lastChat?.type.rawValue ?? "",
+                                   lastChat: chatRoomData.lastChat?.lastChat ?? "",
+                                   sender: CoreUserModel(
+                                       userID: chatRoomData.lastChat?.sender.userID ?? "",
+                                       nick: chatRoomData.lastChat?.sender.nick ?? "",
+                                       profileImage: chatRoomData.lastChat?.sender.profileImage ?? ""
+                                   )
+                               )
+                
                 existingChatRoom.updateAt = chatRoomData.updatedAt
+                print("🍀🍀🍀🍀🍀🍀🍀", chatRoomData.updatedAt, existingChatRoom.updateAt)
                 existingChatRoom.messages = []
 
                 print("Chat room updated.")
@@ -75,12 +87,22 @@ final class ChatRepository {
                 newChatRoom.ohterUserID = chatRoomData.otherUser.userID
                 newChatRoom.otherNick = chatRoomData.otherUser.nick
                 newChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-                newChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
-                newChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
-                newChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
-                newChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
-                newChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
-                newChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+                // newChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
+                // newChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
+                // newChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
+                // newChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
+                // newChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
+                // newChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+                newChatRoom.lastChat = CoreLastChat(
+                                          chatID: chatRoomData.lastChat?.chatID ?? "",
+                                          type: chatRoomData.lastChat?.type.rawValue ?? "text",
+                                          lastChat: chatRoomData.lastChat?.lastChat ?? "",
+                                          sender: CoreUserModel(
+                                              userID: chatRoomData.lastChat?.sender.userID ?? "",
+                                              nick: chatRoomData.lastChat?.sender.nick ?? "",
+                                              profileImage: chatRoomData.lastChat?.sender.profileImage ?? ""
+                                          )
+                                      )
                 newChatRoom.updateAt = chatRoomData.updatedAt
                 newChatRoom.messages = []
 
@@ -137,12 +159,17 @@ final class ChatRepository {
             return coreChatRooms.map { chatRoom in
                 return ChattingRoomModel(roomID: chatRoom.roomID ?? "룸아이디 없음",
                                          createAt: chatRoom.createdAt ?? "",
-                                         updatedAt: "" ,
+                                         updatedAt: chatRoom.updateAt ?? "" ,
                                          me: UserModel(userID: chatRoom.meUserID ?? "내 아디 없음" ,
                                                        nick: chatRoom.meNick ?? "내 닉 없음",
                                                        profileImage: chatRoom.meProfileImage ?? "내이미지없음"),
                                          otherUser: UserModel(userID: chatRoom.ohterUserID ?? "내 아디 없음", nick: chatRoom.otherNick ?? "내 닉 없음", profileImage: chatRoom.otherProfileImage ?? "내이미지없음"),
-                                         lastChat: nil )
+                                         lastChat: LastChatModel(type: MessageType(rawValue: chatRoom.lastChat?.type ?? "텍스트") ?? .text,
+                                                                 chatID: chatRoom.lastChat?.chatID ?? "",
+                                                                 lastChat: chatRoom.lastChat?.lastChat ?? "",
+                                                                 sender: UserModel(userID: chatRoom.lastChat?.sender?.userID ?? "",
+                                                                                   nick: chatRoom.lastChat?.sender?.nick ?? "",
+                                                                                   profileImage: chatRoom.lastChat?.sender?.profileImage ?? "")))
             }
         } catch {
             return nil
