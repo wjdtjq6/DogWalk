@@ -47,6 +47,8 @@
 		99DF939D2CEEC9920022E471 /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DF939C2CEEC9920022E471 /* ChatRepository.swift */; };
 		99DF93A02CEECA190022E471 /* CoreChatRoom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DF939E2CEECA190022E471 /* CoreChatRoom+CoreDataClass.swift */; };
 		99DF93A12CEECA190022E471 /* CoreChatRoom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DF939F2CEECA190022E471 /* CoreChatRoom+CoreDataProperties.swift */; };
+		99DF93A42CEF4FA30022E471 /* CoreDataUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DF93A32CEF4FA30022E471 /* CoreDataUserModel.swift */; };
+		99DF93A62CEF511E0022E471 /* CoretLastChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DF93A52CEF511E0022E471 /* CoretLastChat.swift */; };
 		BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF02CDE4633001933C0 /* WalkResultView.swift */; };
 		BF159EF62CE33B5D001933C0 /* MapIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF52CE33B5D001933C0 /* MapIntent.swift */; };
 		BF159EF82CE33B6C001933C0 /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF72CE33B6C001933C0 /* MapState.swift */; };
@@ -191,6 +193,8 @@
 		99DF939C2CEEC9920022E471 /* ChatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
 		99DF939E2CEECA190022E471 /* CoreChatRoom+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreChatRoom+CoreDataClass.swift"; sourceTree = "<group>"; };
 		99DF939F2CEECA190022E471 /* CoreChatRoom+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreChatRoom+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		99DF93A32CEF4FA30022E471 /* CoreDataUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataUserModel.swift; sourceTree = "<group>"; };
+		99DF93A52CEF511E0022E471 /* CoretLastChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoretLastChat.swift; sourceTree = "<group>"; };
 		BF159EF02CDE4633001933C0 /* WalkResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultView.swift; sourceTree = "<group>"; };
 		BF159EF52CE33B5D001933C0 /* MapIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapIntent.swift; sourceTree = "<group>"; };
 		BF159EF72CE33B6C001933C0 /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
@@ -363,12 +367,12 @@
 		9966F6DD2CE1C92800E7569E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				99DF93A22CEF4F8D0022E471 /* CustomType */,
 				9966F6EF2CE2206900E7569E /* Repository */,
 				99DF939E2CEECA190022E471 /* CoreChatRoom+CoreDataClass.swift */,
 				99DF939F2CEECA190022E471 /* CoreChatRoom+CoreDataProperties.swift */,
 				99DF93962CEEC93F0022E471 /* CoreChatMessageTransformer.swift */,
 				99DF93912CEEC8810022E471 /* CoreChatRoom.xcdatamodeld */,
-				99DF93942CEEC92B0022E471 /* CoreChatMessage.swift */,
 				99DF93982CEEC96A0022E471 /* PersistentContainer.swift */,
 				99DF939A2CEEC9830022E471 /* CoreDataManager.swift */,
 			);
@@ -389,6 +393,16 @@
 				99CE341B2CD247B50020F99E /* APIKey.swift */,
 			);
 			path = Security;
+			sourceTree = "<group>";
+		};
+		99DF93A22CEF4F8D0022E471 /* CustomType */ = {
+			isa = PBXGroup;
+			children = (
+				99DF93942CEEC92B0022E471 /* CoreChatMessage.swift */,
+				99DF93A32CEF4FA30022E471 /* CoreDataUserModel.swift */,
+				99DF93A52CEF511E0022E471 /* CoretLastChat.swift */,
+			);
+			path = CustomType;
 			sourceTree = "<group>";
 		};
 		BF159EF42CE33B41001933C0 /* MapOverview */ = {
@@ -1126,11 +1140,13 @@
 				C4D48E7F2CE352E5006E39A0 /* ChattingResponseDTO.swift in Sources */,
 				C477A2FB2CD0E984006B8DB6 /* CommunityCreateView.swift in Sources */,
 				C4097B112CD7AF28002155EA /* PostChatFileBody.swift in Sources */,
+				99DF93A42CEF4FA30022E471 /* CoreDataUserModel.swift in Sources */,
 				C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */,
 				C4097B032CD7AF28002155EA /* GetHashTagQuery.swift in Sources */,
 				C4097B0D2CD7AF28002155EA /* PostDTO.swift in Sources */,
 				993A70DC2CE8B6450003FA0C /* ImageCacheManager.swift in Sources */,
 				99DF939B2CEEC9830022E471 /* CoreDataManager.swift in Sources */,
+				99DF93A62CEF511E0022E471 /* CoretLastChat.swift in Sources */,
 				062284A22CE265BB00860F7A /* CommunityIntent.swift in Sources */,
 				993A704B2CE59E6E0003FA0C /* HomeState.swift in Sources */,
 				C4097B142CD7AF28002155EA /* ChattingRoomListResponseDTO.swift in Sources */,
