@@ -18,26 +18,80 @@ final class ChatRepository {
     }
 
     // 채팅방 생성
+    // func createChatRoom(chatRoomData: ChattingRoomModel) {
+    //     let chatRoom = CoreChatRoom(context: managedObjectContext)
+    //     chatRoom.roomID = chatRoomData.roomID
+    //     chatRoom.createdAt = chatRoomData.createAt
+    //     chatRoom.meUserID = chatRoomData.me.userID
+    //     chatRoom.meNick = chatRoomData.me.nick
+    //     chatRoom.meProfileImage = chatRoomData.me.profileImage
+    //     chatRoom.ohterUserID = chatRoomData.otherUser.userID
+    //     chatRoom.otherNick = chatRoomData.otherUser.nick
+    //     chatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
+    //     chatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
+    //     chatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
+    //     chatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
+    //     chatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
+    //     chatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
+    //     chatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+    //     chatRoom.updateAt = chatRoomData.updatedAt
+    //     chatRoom.messages = []
+    // 
+    //     saveContext()
+    // }
     func createChatRoom(chatRoomData: ChattingRoomModel) {
-        let chatRoom = CoreChatRoom(context: managedObjectContext)
-        chatRoom.roomID = chatRoomData.roomID
-        chatRoom.createdAt = chatRoomData.createAt
-        chatRoom.meUserID = chatRoomData.me.userID
-        chatRoom.meNick = chatRoomData.me.nick
-        chatRoom.meProfileImage = chatRoomData.me.profileImage
-        chatRoom.ohterUserID = chatRoomData.otherUser.userID
-        chatRoom.otherNick = chatRoomData.otherUser.nick
-        chatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-        chatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
-        chatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
-        chatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
-        chatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
-        chatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
-        chatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
-        chatRoom.updateAt = chatRoomData.updatedAt
-        chatRoom.messages = []
+        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
+        request.predicate = NSPredicate(format: "roomID == %@", chatRoomData.roomID) // roomID로 기존 채팅방을 찾음
 
-        saveContext()
+        do {
+            // 기존 채팅방이 있는지 확인
+            if let existingChatRoom = try managedObjectContext.fetch(request).first {
+                // 기존 채팅방이 있다면 업데이트
+                existingChatRoom.createdAt = chatRoomData.createAt
+                existingChatRoom.meUserID = chatRoomData.me.userID
+                existingChatRoom.meNick = chatRoomData.me.nick
+                existingChatRoom.meProfileImage = chatRoomData.me.profileImage
+                existingChatRoom.ohterUserID = chatRoomData.otherUser.userID
+                existingChatRoom.otherNick = chatRoomData.otherUser.nick
+                existingChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
+                existingChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
+                existingChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
+                existingChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
+                existingChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
+                existingChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
+                existingChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+                existingChatRoom.updateAt = chatRoomData.updatedAt
+                existingChatRoom.messages = []
+
+                print("Chat room updated.")
+            } else {
+                // 기존 채팅방이 없으면 새로 생성
+                let newChatRoom = CoreChatRoom(context: managedObjectContext)
+                newChatRoom.roomID = chatRoomData.roomID
+                newChatRoom.createdAt = chatRoomData.createAt
+                newChatRoom.meUserID = chatRoomData.me.userID
+                newChatRoom.meNick = chatRoomData.me.nick
+                newChatRoom.meProfileImage = chatRoomData.me.profileImage
+                newChatRoom.ohterUserID = chatRoomData.otherUser.userID
+                newChatRoom.otherNick = chatRoomData.otherUser.nick
+                newChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
+                newChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
+                newChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
+                newChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
+                newChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
+                newChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
+                newChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+                newChatRoom.updateAt = chatRoomData.updatedAt
+                newChatRoom.messages = []
+
+                print("New chat room created.")
+            }
+
+            // 변경 사항 저장
+            saveContext()
+        } catch {
+            print("Error fetching chat room: \(error.localizedDescription)")
+        }
     }
 
     // 메시지 생성
@@ -158,6 +212,27 @@ final class ChatRepository {
             ),
             files: coreMessage.files ?? []
         )
+    }
+    
+    // 채팅방 전체 삭제
+    func deleteAllChatRooms() {
+        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
+
+        do {
+            // 모든 채팅방 가져오기
+            let chatRooms = try managedObjectContext.fetch(request)
+
+            // 각 채팅방 삭제
+            for chatRoom in chatRooms {
+                managedObjectContext.delete(chatRoom)
+            }
+
+            // 변경 사항 저장
+            saveContext()
+            print("All chat rooms deleted successfully.")
+        } catch {
+            print("Error deleting all chat rooms: \(error.localizedDescription)")
+        }
     }
 
     // 컨텍스트 저장

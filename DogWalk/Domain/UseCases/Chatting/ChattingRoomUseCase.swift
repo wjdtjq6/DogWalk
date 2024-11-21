@@ -113,7 +113,8 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     
     // 소켓 열기
     func openSocket(roomID: String) {
-        let socket = SocketIOManager(roomID: roomID, messageType: .image)
+        // let socket = SocketIOManager(roomID: roomID, messageType: .image)
+        let socket = SocketIOManager()
         socket.connect()
     }
     

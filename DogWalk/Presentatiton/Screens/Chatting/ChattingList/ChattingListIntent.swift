@@ -28,7 +28,9 @@ extension ChattingListIntent: ChattingListIntentProtocol {
         state?.changeViewState(state: .loading)
         
         do {
-            try await useCase.getChattingRoomList()
+            
+            let chattingRooms = try await useCase.getChattingRoomList()
+            state?.updateChattingRoomList(data: chattingRooms)
         } catch {
             print(error)
         }

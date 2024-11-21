@@ -30,17 +30,26 @@ final class DefaultChattingListUseCase: ChattingListUseCase {
        
         
         // 1) DB에 저장된 모든 채팅방 가져오기
+        print("기존에 저장된 모든 채팅방 정보")
         dump(chatRepository.fetchAllChatRoom() ?? [])
         
         // 2) 서버에서 모든 채팅방 정보 가져와 lastChat 정보 업데이트
         do {
             let DTO = try await network.requestDTO(target: .chat(.getChatRoomList), of: ChattingRoomListResponseDTO.self)
-            return DTO.toDomain()
+            let chattingRooms = DTO.toDomain()
+            print("👇👇👇👇👇👇")
+            dump(chattingRooms)
+            chattingRooms.forEach { chattingRoom in
+                chatRepository.createChatRoom(chatRoomData: chattingRoom)
+            }
+            print("새로 저장된 채팅방 정보")
+            dump(chatRepository.fetchAllChatRoom() ?? [])
+            return chatRepository.fetchAllChatRoom() ?? []
         } catch {
-            print(#function, "채팅방 목록 가져오기 실패")
+            print(#function, "채팅방 목록 서버 요청 실패")
             throw error
         }
-        return []
+        
         // network -> 마지막 채팅 데이터를 -> DB업데이트 -> 다시 화면에
     }
 }

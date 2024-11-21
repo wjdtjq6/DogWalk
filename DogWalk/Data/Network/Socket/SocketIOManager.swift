@@ -42,12 +42,8 @@ final class SocketIOManager: NSObject, SocketProvider {
                 let jsonData = try JSONSerialization.data(withJSONObject: data)
                 let decodedData = try JSONDecoder().decode(SocketDMDTO.self, from: jsonData)
                 print("👇 Socket DecodedData")
-<<<<<<< HEAD
-=======
                 print(decodedData.toDomain())
                 // 데이터 전달
->>>>>>> b71bd35 (Feat: ChatRepository fetchAllChatRoom 함수 추가, SocketIOManager 초기화 함수 수정)
-                // self.messageClosure(decodeData: decodedData)
             } catch {
                 print("🚨 채팅 데이터 디코딩 실패", error)
             }

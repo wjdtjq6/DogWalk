@@ -69,7 +69,8 @@ extension ChattingListView {
                     Text(item.otherUser.nick) // 이름
                         .font(.pretendardBold18)
                         .foregroundColor(.primaryBlack)
-                    Text((item.lastChat?.type == .image ? "사진" : item.lastChat?.lastChat) ?? "") // 내용
+                    // Text((item.lastChat?.type == .image ? "사진" : item.lastChat?.lastChat) ?? "") // 내용
+                    Text(item.lastChat?.type == .image ? "사진" : item.lastChat?.lastChat ?? "")
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)
                         .font(.pretendardRegular12)
@@ -86,10 +87,4 @@ extension ChattingListView {
             .padding(.bottom, 10)
         }
     }
-    
-    
-    func test() {
-        
-    }
-
 }
