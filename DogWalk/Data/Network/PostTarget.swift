@@ -142,7 +142,17 @@ extension PostTarget: TargetType {
             do {
                 let data = try encoder.encode(query)
                 guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return nil }
-                return json.map { URLQueryItem(name: $0, value: "\($1)")}
+                var items = [URLQueryItem]()
+                for (key, value) in json {
+                    if let array = value as? [Any] {
+                        for element in array {
+                            items.append(URLQueryItem(name: key, value: "\(element)"))
+                        }
+                    } else {
+                        items.append(URLQueryItem(name: key, value: "\(value)"))
+                    }
+                }
+                return items
             } catch {
                 print("Query to JSON Encode Error!", error)
                 return nil

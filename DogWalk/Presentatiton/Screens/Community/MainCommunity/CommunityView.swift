@@ -51,6 +51,14 @@ extension CommunityView {
                 intent.onAppear()
             }
         }
+        .task {
+            let network = DefaultMapUseCase()
+            do {
+                try await network.getPost(lon: "126.886557", lat: "37.51775")
+            } catch {
+                
+            }
+        }
     }
 }
 private extension CommunityView {

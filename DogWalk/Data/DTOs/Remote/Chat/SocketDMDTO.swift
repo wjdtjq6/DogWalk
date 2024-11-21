@@ -24,8 +24,8 @@ extension SocketDMDTO {
                              content: self.content,
                              createdAt: self.createAt,
                              files: self.files,
-                             user: UserModel(userID: self.user.user_id,
-                                             nick: self.user.nick,
+                             user: UserModel(userID: self.user.user_id ?? "",
+                                             nick: self.user.nick ?? "익명",
                                              profileImage: self.user.profileImage ?? ""))
     }
 }
