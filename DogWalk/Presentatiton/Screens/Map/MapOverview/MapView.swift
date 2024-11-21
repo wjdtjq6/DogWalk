@@ -15,12 +15,23 @@ struct MapView: View {
     private var state: MapStateProtocol { container.state }
     private var intent: MapIntentProtocol { container.intent }
     @EnvironmentObject var coordinator: MainCoordinator
+    @State private var posts: [PostModel] = []
+    @State private var showRefreshButton = false
+    @State private var showAnnotation = false
 }
 
 extension MapView {
     var body: some View {
         ZStack {
             mapView()
+            //MARK: 새로고침 버튼
+            if showRefreshButton {
+                VStack {
+                    refreshButton()
+                        .padding()
+                    Spacer()
+                }
+            }
             if state.isTimerOn {
                 timerBottomView()
                     .vBottom()
@@ -31,15 +42,30 @@ extension MapView {
         } //:ZSTACK
     }
 }
-
 // MARK: - 지도 관련 부분
 private extension MapView {
     func mapView() -> some View {
         Map(position: Binding(get: {
             state.position
-        }, set: { _ in
+        }, set: { newPosition in
+            intent.updatePosition(newPosition)
         })) { //position: 표시할 지도 위치
             UserAnnotation()
+            //MARK: 2.좌표 기반 마커 표시
+            if showAnnotation {//산책 시작하면 안보이도록
+                ForEach(posts, id: \.self) { data in
+                    setAnnotation(lat: data.geolocation.lat, lng: data.geolocation.lon)
+                }
+            }
+            let coordinate = state.locationManager.locationManager.location?.coordinate
+            let _ = Task {
+                do {
+                    let post = try await intent.getPostsAtLocation(lat: coordinate!.latitude, lon: coordinate!.longitude)
+                    self.posts = post
+                } catch {
+                    print("Annotation 설정 중 에러: \(error)")
+                }
+            }
             
             if state.locationManager.locations.count > 1 {
                 let polylineCoordinates = state.locationManager.locations
@@ -47,15 +73,43 @@ private extension MapView {
                     .stroke(state.polylineColor, lineWidth: 5)
             }
         }
+        .onAppear {//MARK: 1-1현위치 좌표 전달 완료
+            let coordinate = state.locationManager.locationManager.location?.coordinate
+            print(coordinate?.latitude,"성민팍")
+            print(coordinate?.longitude,"성민팍")
+            showAnnotation = true//처음엔 annotation 보이도록
+        }
+        .onMapCameraChange { context in//MARK: 1-2새로고침 시 중심 좌표 전달 완료
+            //MARK: **Trouble Shooting** 처음 맵 띄울 때 현 위치와 카메라포지션이 같이 움직여서 해결
+            if !state.position.followsUserLocation {
+                showRefreshButton = true
+            }
+            let center = intent.getCenter(context.region)
+            print(center,"뷰에서 센터 좌표")
+        }
     }
-    
+    //새로고침 버튼
+    func refreshButton() -> some View {
+        HStack {
+            Button {
+                print("새로고침 버튼 클릭")
+                //MARK: 1-2 새로고침 시 중심 좌표 전달
+                let coordinate = state.locationManager.locationManager.location?.coordinate
+                print(coordinate?.latitude,"성민팍")
+                print(coordinate?.longitude,"성민팍")
+                showRefreshButton = false//MARK: 새로고침 버튼 숨기기
+            } label: {
+                CommonButton(width: 170, height: 44, cornerradius: 22, backColor: .primaryGreen, text: "이 지역 검색하기", textFont: .pretendardBold14, leftLogo: Image(systemName: "arrow.clockwise"), imageSize: 22)
+                    .foregroundStyle(Color.primaryBlack)
+            }
+        }
+    }
     //Annotation
     func setAnnotation(lat: Double, lng: Double) -> Annotation<Text, some View> {
         Annotation("", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)) {
             customAnnotation()
         }
     }
-    
     //커스텀 마커 이미지
     func customAnnotation() -> some View {
         VStack(spacing: 0) {
@@ -80,7 +134,6 @@ private extension MapView {
         }//:VSTACK
     }
 }
-
 // MARK: - 하단 버튼 뷰 부분
 private extension MapView {
     //디폴트 프로필 + 산책 시작 버튼
@@ -99,6 +152,9 @@ private extension MapView {
                     if state.locationManager.locationManager.authorizationStatus == .authorizedAlways || state.locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
                         intent.startWalk()
                         intent.startBackgroundTimer()
+                        //MARK: 4.마커와 새로고침버튼 안보이도록
+                        showRefreshButton = false
+                        showAnnotation = false
                     } else {
                         intent.showAlert()
                     }
@@ -116,7 +172,6 @@ private extension MapView {
         } //:HSTACK
         .padding(.bottom)
     }
-  
     //타이머 시작 시 바텀 뷰
     func timerBottomView() -> some View {
         HStack(spacing: 0) {
@@ -142,6 +197,8 @@ private extension MapView {
                                 intent.stopWalk()
                                 intent.stopBackgroundTimer()
                                 coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
+                                //MARK: 4.마커는 다시 보이도록
+                                showAnnotation = true
                             }
                         Text("산책 종료")
                             .font(.pretendardBold16)
@@ -150,7 +207,6 @@ private extension MapView {
         } //:HSTACK
         .frame(height: Self.height * 0.07)
     }
-  
     //지도 마커 클릭 시 바텀 시트
     func userInfoBottomSheet() -> some View {
         VStack {
@@ -171,7 +227,9 @@ private extension MapView {
             HStack(alignment: .center, spacing: 15) {
                 CommonButton(width: Self.width * 0.55, height: 44, cornerradius: 20, backColor: .primaryLime, text: "작성한 게시물 보기", textFont: .pretendardBold14)
                     .wrapToButton {
+                        // TODO: 해당 게시글의  PostModel 프린트 해주기
                         print("게시글 보기 버튼 클릭")
+                        print("PostModel")
                     }
 
                 CommonButton(width: Self.width * 0.25, height: 44, cornerradius: 20, backColor: .primaryWhite, text: "멍톡 보내기", textFont: .pretendardBold14)
@@ -180,6 +238,8 @@ private extension MapView {
                             .stroke(Color.primaryGreen, lineWidth: 1) // 보더 색상과 두께 설정
                     )
                     .wrapToButton {
+                        // TODO: 해당 게시글의 id (마커 클릭했을때)
+                        print("게시글 id 프린트해주기")
                         print("멍톡 보내기 클릭")
                     }
             } //:HSTACK
@@ -188,7 +248,6 @@ private extension MapView {
         .vTop()
         .hLeading()
     }
-  
     //바텀 시트 메인, 서브 텍스트 필드
     func userInfoTextField(_ mainText: String, _ subText: String, _ subTextLimit: Int = 1, mainFont: Font, subFont: Font) -> some View {
         VStack(alignment: .leading) {
