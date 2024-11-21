@@ -8,38 +8,6 @@
 import SwiftUI
 import MapKit
 //MARK: 2.좌표 기반 마커 표시
-
-class mockUseCase: MapUseCase {
-    func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) {
-        let mock = [// CommunityCategoryType의 테스트용 값
-            PostModel(
-                postID: "test123",
-                created: "2024-11-21T12:00:00Z",
-                category: .walkCertification,
-                title: "Test Post",
-                price: 10000,
-                content: "This is a test content for the PostModel.",
-                creator: UserModel(
-                    userID: "user123",
-                    nick: "TestUser",
-                    profileImage: "https://example.com/profile.jpg"
-                ),
-                files: ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
-                likes: ["user456", "user789"],
-                views: 123,
-                hashTags: ["#test", "#swift", "#example"],
-                comments: [
-                    CommentModel(commentID: "comment1", content: "content1", createdAt: "createdAt", creator: UserModel.init(userID: "user1", nick: "nick1", profileImage: "profileImage1"))
-                ],
-                geolocation: GeolocationModel(
-                    lat: 37.518820573402,
-                    lon: 126.89986969097
-                ),
-                distance: 1.23)
-        ]
-        return [mock.first!]
-    }//위치에 따른 포스트 조회
-}
 protocol MapIntentProtocol {
     func startWalk()
     func stopWalk()
@@ -55,28 +23,34 @@ protocol MapIntentProtocol {
     func stopBackgroundTimer()
     func getCenter(_ region: MKCoordinateRegion) -> CLLocationCoordinate2D
     //MARK: 2.좌표 기반 마커 표시
-    func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees) async throws -> ([PostModel])
+    func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees)
     func updatePosition(_ newPosition: MapCameraPosition)
+    func selectPicker(_ post: PostModel)
 }
 
 final class MapIntent {
     private weak var state: MapActionProtocol?
     private var usecase: MapUseCase
-    init(state: MapActionProtocol? = nil, useCase: MapUseCase = mockUseCase()) {
+    init(state: MapActionProtocol? = nil, useCase: MapUseCase = DefaultMapUseCase()) {
         self.state = state
         self.usecase = useCase
     }
 }
 
 extension MapIntent: MapIntentProtocol {
+    // 피커 클릭 시
+    func selectPicker(_ post: PostModel) {
+        state?.getSelecedPicker(post)
+    }
     //MARK: 2.좌표 기반 마커 표시
-    func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees) async throws -> ([PostModel]) {
-        do {
-            let result = try await usecase.getPost(lat: lat, lon: lon)
-            return result
-        } catch {
-            print(error,"error")
-            return []
+    func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees) {
+        Task {
+            do {
+                let result = try await usecase.getPost(lat: lat, lon: lon)
+                state?.getPosts(result)
+            } catch {
+                print(error,"error")
+            }
         }
     }
     
@@ -224,4 +198,36 @@ extension MapIntent: MapIntentProtocol {
         print(center,"인텐트에서 센터 좌표")
         return center
     }
+}
+
+class mockUseCase: MapUseCase {
+    func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) {
+        let mock = [// CommunityCategoryType의 테스트용 값
+            PostModel(
+                postID: "test123",
+                created: "2024-11-21T12:00:00Z",
+                category: .walkCertification,
+                title: "Test Post",
+                price: 10000,
+                content: "This is a test content for the PostModel.",
+                creator: UserModel(
+                    userID: "user123",
+                    nick: "TestUser",
+                    profileImage: "https://example.com/profile.jpg"
+                ),
+                files: ["https://example.com/image1.jpg", "https://example.com/image2.jpg"],
+                likes: ["user456", "user789"],
+                views: 123,
+                hashTags: ["#test", "#swift", "#example"],
+                comments: [
+                    CommentModel(commentID: "comment1", content: "content1", createdAt: "createdAt", creator: UserModel.init(userID: "user1", nick: "nick1", profileImage: "profileImage1"))
+                ],
+                geolocation: GeolocationModel(
+                    lat: 37.518820573402,
+                    lon: 126.89986969097
+                ),
+                distance: 1.23)
+        ]
+        return [mock.first!]
+    }//위치에 따른 포스트 조회
 }

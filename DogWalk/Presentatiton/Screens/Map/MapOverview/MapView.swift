@@ -15,9 +15,10 @@ struct MapView: View {
     private var state: MapStateProtocol { container.state }
     private var intent: MapIntentProtocol { container.intent }
     @EnvironmentObject var coordinator: MainCoordinator
-    @State private var posts: [PostModel] = []
+    //@State private var posts: [PostModel] = []
     @State private var showRefreshButton = false
     @State private var showAnnotation = false
+    @State private var isShowingSheet = false
 }
 
 extension MapView {
@@ -40,6 +41,10 @@ extension MapView {
                     .vBottom()
             }
         } //:ZSTACK
+        .sheet(isPresented: $isShowingSheet) {
+            userInfoBottomSheet(state.selecedPicker)
+                        .presentationDetents([.fraction(0.3)])
+        } //바텀시트
     }
 }
 // MARK: - 지도 관련 부분
@@ -53,19 +58,21 @@ private extension MapView {
             UserAnnotation()
             //MARK: 2.좌표 기반 마커 표시
             if showAnnotation {//산책 시작하면 안보이도록
-                ForEach(posts, id: \.self) { data in
+                ForEach(state.posts, id: \.self) { data in
+                    
                     setAnnotation(lat: data.geolocation.lat, lng: data.geolocation.lon)
+                    
                 }
             }
             let coordinate = state.locationManager.locationManager.location?.coordinate
-            let _ = Task {
-                do {
-                    let post = try await intent.getPostsAtLocation(lat: coordinate!.latitude, lon: coordinate!.longitude)
-                    self.posts = post
-                } catch {
-                    print("Annotation 설정 중 에러: \(error)")
-                }
-            }
+            //            let _ = Task {
+            //                do {
+            //                    let post = try await intent.getPostsAtLocation(lat: coordinate!.latitude, lon: coordinate!.longitude)
+            //                    self.posts = post
+            //                } catch {
+            //                    print("Annotation 설정 중 에러: \(error)")
+            //                }
+            //            }
             
             if state.locationManager.locations.count > 1 {
                 let polylineCoordinates = state.locationManager.locations
@@ -75,8 +82,7 @@ private extension MapView {
         }
         .onAppear {//MARK: 1-1현위치 좌표 전달 완료
             let coordinate = state.locationManager.locationManager.location?.coordinate
-            print(coordinate?.latitude,"성민팍")
-            print(coordinate?.longitude,"성민팍")
+            
             showAnnotation = true//처음엔 annotation 보이도록
         }
         .onMapCameraChange { context in//MARK: 1-2새로고침 시 중심 좌표 전달 완료
@@ -94,9 +100,9 @@ private extension MapView {
             Button {
                 print("새로고침 버튼 클릭")
                 //MARK: 1-2 새로고침 시 중심 좌표 전달
-                let coordinate = state.locationManager.locationManager.location?.coordinate
-                print(coordinate?.latitude,"성민팍")
-                print(coordinate?.longitude,"성민팍")
+                
+                guard let coordinate = state.locationManager.locationManager.location?.coordinate else {return}
+                intent.getPostsAtLocation(lat: coordinate.latitude, lon: coordinate.longitude)
                 showRefreshButton = false//MARK: 새로고침 버튼 숨기기
             } label: {
                 CommonButton(width: 170, height: 44, cornerradius: 22, backColor: .primaryGreen, text: "이 지역 검색하기", textFont: .pretendardBold14, leftLogo: Image(systemName: "arrow.clockwise"), imageSize: 22)
@@ -108,6 +114,9 @@ private extension MapView {
     func setAnnotation(lat: Double, lng: Double) -> Annotation<Text, some View> {
         Annotation("", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)) {
             customAnnotation()
+                .wrapToButton {
+                    
+                }
         }
     }
     //커스텀 마커 이미지
@@ -208,20 +217,20 @@ private extension MapView {
         .frame(height: Self.height * 0.07)
     }
     //지도 마커 클릭 시 바텀 시트
-    func userInfoBottomSheet() -> some View {
+    func userInfoBottomSheet(_ post: PostModel) -> some View {
         VStack {
             HStack {
-                CommonProfile(imageURL: "", size: 65)
+                CommonProfile(imageURL: post.creator.profileImage, size: 65)
                     .padding(.leading)
                 //게시글 유저 데이터
-                userInfoTextField("도슈니", "믹스, 7세", mainFont: .pretendardBold16, subFont: .pretendardRegular13)
+                userInfoTextField("\(post.creator.nick)", "", mainFont: .pretendardBold16, subFont: .pretendardRegular13)
             } //:HSTACK
             .hLeading()
             
             Spacer()
                 .frame(height: 15)
             //게시글 내용
-            userInfoTextField("우리 아이는요 ", "겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???겁은 많지만 말량광량이???", 3, mainFont: .pretendardBold14, subFont: .pretendardRegular12)
+            userInfoTextField(post.title, post.content, 3, mainFont: .pretendardBold14, subFont: .pretendardRegular12)
                 .padding(.horizontal)
             
             HStack(alignment: .center, spacing: 15) {
@@ -230,8 +239,9 @@ private extension MapView {
                         // TODO: 해당 게시글의  PostModel 프린트 해주기
                         print("게시글 보기 버튼 클릭")
                         print("PostModel")
+                        coordinator.push(.communityDetail(postID: post.postID))
                     }
-
+                
                 CommonButton(width: Self.width * 0.25, height: 44, cornerradius: 20, backColor: .primaryWhite, text: "멍톡 보내기", textFont: .pretendardBold14)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
@@ -241,6 +251,7 @@ private extension MapView {
                         // TODO: 해당 게시글의 id (마커 클릭했을때)
                         print("게시글 id 프린트해주기")
                         print("멍톡 보내기 클릭")
+                        coordinator.push(.chattingRoom(roomID: post.creator.userID))
                     }
             } //:HSTACK
         } //:VSTACK
