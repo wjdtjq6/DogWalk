@@ -28,7 +28,7 @@ struct PostDTO: Decodable {
 extension PostDTO {
     func toDomain() -> PostModel {
         return PostModel(postID: self.post_id,
-                         created: self.createdAt,
+                         created: self.createdAt.getFormattedDateString(),
                          category: CommunityCategoryType(rawValue: self.category) ?? .free,   // 매칭되는 카테고리 없을 시 자유게시판
                          title: self.title,
                          price: self.price,

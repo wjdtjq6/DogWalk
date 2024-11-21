@@ -10,7 +10,9 @@ import SwiftUI
 struct CommonLoadingView: View {
     var body: some View {
         VStack {
-            Text("에러 뷰~~~")
+            Text("로딩 중...")
+            ProgressView()
         }
     }
 }
+

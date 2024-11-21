@@ -68,7 +68,9 @@ extension CommunityIntent: CommunityIntentProtocol {
         Task {
             do {
                 let result = try await useCase.changeCategory(category: category)
-                state?.getPosts(result)
+                if !result.isEmpty {
+                    state?.getPosts(result)
+                }
                 state?.changeContentState(state: .content)
                 state?.changeSelectCategory(category)
             } catch {
