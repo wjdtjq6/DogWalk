@@ -24,7 +24,11 @@ final class SocketIOManager: NSObject, SocketProvider {
     override init() {
         super.init()
         guard let URL = URL(string: APIKey.baseURL) else { return }
-        manager = SocketManager(socketURL: URL, config: [ .forceWebsockets(true)])
+        manager = SocketManager(socketURL: URL, config: [
+            .log(true), // 소켓 통신 중에 로그를 표시 유무
+            .compress,  // 데이터를 압축해서 전송할 것인지
+            .extraHeaders([BaseHeader.sesacKey.rawValue: APIKey.key, BaseHeader.authorization.rawValue: UserManager.shared.acess])  // 헤더를 포함해서 보낼 것인지
+        ])
         socket = manager.defaultSocket
         
         socket.on(clientEvent: .connect) { data, ack in

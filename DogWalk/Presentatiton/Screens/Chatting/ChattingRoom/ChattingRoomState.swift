@@ -17,7 +17,7 @@ protocol ChattingRoomStateProtocol {
 
 protocol ChattingRoomActionProtocol: AnyObject {
     func changeViewState(state: CommonViewState)
-    func updateChattingData(data: [ChattingModel])
+    func updateChattingView(data: [ChattingModel])
 }
 
 @Observable
@@ -40,7 +40,7 @@ extension ChattingRoomState: ChattingRoomActionProtocol {
     }
     
     // 채팅 내역 최신화
-    func updateChattingData(data: [ChattingModel]) {
+    func updateChattingView(data: [ChattingModel]) {
         self.chattingData = data
     }
 }

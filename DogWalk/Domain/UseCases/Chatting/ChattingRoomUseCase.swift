@@ -30,8 +30,9 @@ import CoreData
  
  */
 protocol ChattingRoomUseCase {
+    func getChattingData(roomID: String) -> [ChattingModel]
     func getCursorDate(roomID: String) -> String
-    func getChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel]
+    func fetchChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel]
     func updateChattingData(roomID: String, data: [ChattingModel])
     func getAllChattingData(roomID: String) -> [ChattingModel]
     func openSocket(roomID: String)
@@ -46,18 +47,21 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     private var socket: SocketIOManager?
     private let chatRepository = ChatRepository.shared
     
+    // DB에서 기존 대화 내역 가져오기
+    func getChattingData(roomID: String) -> [ChattingModel] {
+        return chatRepository.fetchAllMessages(for: roomID)
+    }
+    
     // DB에서 최신 대화 날짜 가져오기
     func getCursorDate(roomID: String) -> String {
         let room = chatRepository.fetchChatRoom(chatRoomID: roomID)
-        guard let updateAt = room?.createdAt else { return  "2000-12-04T09:37:29.029+0900" }
+        guard let updateAt = room?.updateAt else { return  "2024-05-06T05:13:54.357Z" }
         print("UpdateAt", updateAt)
         return updateAt
-        
-        
     }
     
-    // cursor_date 기반 최신 대화 내용 요청
-    func getChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel] {
+    // cursor_date 기반으로 서버에 최신 대화 내역 요청
+    func fetchChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel] {
         do {
             let query = GetChatListQuery(cursor_date: cursorDate)
             let DTO = try await network.requestDTO(target: .chat(.getChatList(roomId: roomID, query: query)), of: ChattingResponseDTO.self)
@@ -107,7 +111,6 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     
     // DB에서 전체 대화 내용을 가져와 View 반영
     func getAllChattingData(roomID: String) -> [ChattingModel] {
-        dump(chatRepository.fetchAllMessages(for: roomID))
         return chatRepository.fetchAllMessages(for: roomID)
     }
     

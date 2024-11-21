@@ -21,6 +21,8 @@ final class ChattingRoomIntent {
         self.state = state
         self.useCase = useCase
     }
+    
+    private let chatRepoTest = ChatRepository.shared
 }
 
 extension ChattingRoomIntent: ChattingRoomIntentProtocol {
@@ -29,16 +31,19 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         print(#function, "멍톡 채팅방 진입")
         state?.changeViewState(state: .loading)
         
-        /// 1) DB에
+        /// 1) DB에서 기존 대화 내역 가져와서 저장
+        let chattingData = useCase.getChattingData(roomID: roomID)
+        state?.updateChattingView(data: chattingData)
+        print("기존에 DB에 저장된 전체 데이터", chattingData)
         
-        
-        /// 1) 최근 대화 날짜 가져오기
+        /// 2) 최근 대화 날짜 가져오기
         let cursorDate = useCase.getCursorDate(roomID: roomID)
-        print(cursorDate)
+        print("Cursor Date", cursorDate)
+        
+        /// 3) 최근 대화 날짜 기반 새로운 대화 내역 요청
         Task {
             do {
-                /// 2) 최근 대화 날짜 이후 채팅 데이터 요청
-                let result = try await useCase.getChattingData(roomID: roomID, cursorDate: cursorDate)
+                let result = try await useCase.fetchChattingData(roomID: roomID, cursorDate: cursorDate)
                 print("👇 최근 대화 요청 데이터")
                 dump(result)
                 /// 3) 응답 받은 채팅 데이터를 DB 저장
@@ -47,7 +52,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 let chattingData = useCase.getAllChattingData(roomID: roomID)
                 print("👇 DB에 저장된 전체 채팅 데이터")
                 dump(chattingData)
-                state?.updateChattingData(data: chattingData)
+                state?.updateChattingView(data: chattingData)
                 /// 5) Socket 연결
                 useCase.openSocket(roomID: roomID)
             } catch  {
@@ -66,6 +71,9 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 let result = try await useCase.sendTextMessage(roomID: roomID, message: message)
                 print("채팅 전송 완료 + CoreData에 저장")
                 print(result)
+                useCase.updateChattingData(roomID: roomID, data: [result])
+                let newMessages = useCase.getAllChattingData(roomID: roomID)
+                state?.updateChattingView(data: newMessages)
             } catch  {
                 print(#function, error)
                 state?.changeViewState(state: .error)
