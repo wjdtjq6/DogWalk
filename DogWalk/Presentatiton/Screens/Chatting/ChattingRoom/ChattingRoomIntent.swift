@@ -81,6 +81,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         }
     }
     
+    // 이미지 메세지 전송
     func sendImageMessage(roomID: String, image: UIImage) {
         Task {
             do {
