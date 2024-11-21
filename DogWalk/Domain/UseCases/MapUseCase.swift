@@ -8,15 +8,15 @@
 import Foundation
 
 protocol MapUseCase {
-    func getPost(lon: String, lat: String) async throws -> ([PostModel]) //위치에 따른 포스트 조회
+    func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) //위치에 따른 포스트 조회
 }
 
 final class DefaultMapUseCase: MapUseCase {
     private let network = NetworkManager()
     
-    func getPost(lon: String, lat: String) async throws -> ([PostModel]) {
+    func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) {
         do {
-            let future = try await network.fetchAreaPosts(category: .walkCertification, lon: lon, lat: lat)
+            let future = try await network.fetchAreaPosts(category: .walkCertification, lon: String(lon), lat: String(lat))
             return future
         } catch {
             guard let  err = error as? NetworkError else { throw error}

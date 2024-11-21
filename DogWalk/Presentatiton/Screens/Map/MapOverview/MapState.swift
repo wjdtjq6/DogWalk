@@ -8,26 +8,22 @@
 import SwiftUI
 import MapKit
 import Combine
-
 //MARK: 데이터 관련 프로토콜
 protocol MapStateProtocol { // 속성들을 가지는 프로토콜
     var isShowingSheet: Bool { get }
-    
+    var visibleRegion: MKCoordinateRegion { get }
     //Timer
     var count: Int { get }
     var timer: DispatchSourceTimer? { get }
     var isTimerOn: Bool { get }
     var isAlert: Bool { get }
-    
     //현위치
     var locationManager: LocationManager { get }
     var position: MapCameraPosition { get }
     var polylineColor: Color { get }
-
     //지도를 이미지로 저장
     var routeImage: UIImage { get }
 }
-
 protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로토콜
     func setTimerOn(_ isOn: Bool)
     func resetCount()
@@ -39,12 +35,14 @@ protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로�
     func getPolylineColor() -> Color
     func startBackgroundTimer()
     func stopTimer()
+    func getCenter(_ region: MKCoordinateRegion)
+    func updatePosition(_ newPosition: MapCameraPosition)
 }
-
 //MARK: - view에 전달할 데이터
 @Observable
 final class MapState: MapStateProtocol, ObservableObject {
     var isShowingSheet: Bool = false
+    var visibleRegion: MKCoordinateRegion = MKCoordinateRegion()
     //Timer
     var count: Int = 0
     var timer: DispatchSourceTimer?
@@ -63,7 +61,6 @@ final class MapState: MapStateProtocol, ObservableObject {
     //지도를 이미지로 저장
     var routeImage: UIImage = UIImage(resource: .testProfile)
 }
-
 // MARK: - intent에 줄 함수
 extension MapState: MapActionProtocol {
     func setTimerOn(_ isOn: Bool) {
@@ -90,12 +87,10 @@ extension MapState: MapActionProtocol {
     func setAlert(_ isOn: Bool) {
         isAlert = isOn
     }
-  
     //지도를 이미지에 저장
     func saveCapturedRouteImage(_ image: UIImage) {
         self.routeImage = image
     }
-  
     //지도 이미지에 색 전달
     func getPolylineColor() -> Color {
         return self.polylineColor
@@ -132,5 +127,13 @@ extension MapState: MapActionProtocol {
         timer?.cancel()
         timer = nil
         print("타이머가 중지되었습니다.")
+    }
+    
+    func getCenter(_ region: MKCoordinateRegion) {
+        visibleRegion = region
+    }
+    
+    func updatePosition(_ newPosition: MapCameraPosition) {
+        position = newPosition
     }
 }

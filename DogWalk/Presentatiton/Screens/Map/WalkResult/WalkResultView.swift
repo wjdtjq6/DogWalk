@@ -162,6 +162,11 @@ private extension WalkResultView {
                 .foregroundStyle(Color.primaryWhite)
                 .wrapToButton {
                     print("게시글 작성 탭함")
+                    // MARK: 지도이미지, 산책시간, 거리, 칼로리 print
+                    print(state.walkTime,"산책시간")
+                    print(state.walkDistance,"거리")
+                    print(state.walkCalorie,"칼로리")
+                    print(state.routeImage,"이미지")
                 }
         } //:VSTACK
     }
