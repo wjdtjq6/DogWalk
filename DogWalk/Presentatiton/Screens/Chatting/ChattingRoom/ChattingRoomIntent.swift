@@ -95,6 +95,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
     
     // 채팅방 퇴장 - Socket Close
     func onDisappearTrigger() {
+        // 이 시점에서 ChattingList LastChat 업데이트 해주기
         useCase.closeSocket()
     }
 }
