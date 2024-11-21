@@ -28,6 +28,13 @@ final class ChatRepository {
         chatRoom.ohterUserID = chatRoomData.otherUser.userID
         chatRoom.otherNick = chatRoomData.otherUser.nick
         chatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
+        chatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
+        chatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
+        chatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
+        chatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
+        chatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
+        chatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
+        chatRoom.updateAt = chatRoomData.updatedAt
         chatRoom.messages = []
 
         saveContext()
@@ -68,7 +75,28 @@ final class ChatRepository {
         }
     }
 
-    // 채팅방 가져오기
+    //전체 채팅방 가져오기
+    func fetchAllChatRoom() -> [ChattingRoomModel]? {
+        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
+        do {
+            let coreChatRooms = try managedObjectContext.fetch(request)
+            return coreChatRooms.map { chatRoom in
+                return ChattingRoomModel(roomID: chatRoom.roomID ?? "룸아이디 없음",
+                                         createAt: chatRoom.createdAt ?? "",
+                                         updatedAt: "" ,
+                                         me: UserModel(userID: chatRoom.meUserID ?? "내 아디 없음" , 
+                                                       nick: chatRoom.meNick ?? "내 닉 없음",
+                                                       profileImage: chatRoom.meProfileImage ?? "내이미지없음"),
+                                         otherUser: UserModel(userID: chatRoom.ohterUserID ?? "내 아디 없음", nick: chatRoom.otherNick ?? "내 닉 없음", profileImage: chatRoom.otherProfileImage ?? "내이미지없음"),
+                                         lastChat: nil )
+            }
+        } catch {
+            return nil
+        }
+    }
+    
+    
+    // 채팅방 RoomID로 가져오기
     func fetchChatRoom(chatRoomID: String) -> CoreChatRoom? {
         let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
         request.predicate = NSPredicate(format: "roomID == %@", chatRoomID)
@@ -80,6 +108,8 @@ final class ChatRepository {
             return nil
         }
     }
+    
+    
 
     // 모든 메시지 가져오기
     func fetchAllMessages(for chatRoomID: String) -> [ChattingModel] {

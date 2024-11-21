@@ -38,7 +38,6 @@ final class SocketIOManager: NSObject, SocketProvider {
                 let jsonData = try JSONSerialization.data(withJSONObject: data)
                 let decodedData = try JSONDecoder().decode(SocketDMDTO.self, from: jsonData)
                 print("👇 Socket DecodedData")
-                print(decodedData)
                 // self.messageClosure(decodeData: decodedData)
             } catch {
                 print("🚨 채팅 데이터 디코딩 실패", error)
