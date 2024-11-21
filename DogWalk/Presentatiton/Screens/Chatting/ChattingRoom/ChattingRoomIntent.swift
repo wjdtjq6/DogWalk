@@ -40,9 +40,9 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 /// 3) 응답 받은 채팅 데이터를 DB 저장
                 useCase.updateChattingData(roomID: roomID, data: result)
                 /// 4) DB에 저장된 전체 채팅 데이터 가져온 후 State 전달
-                let chattingData = useCase.getAllChattingData()
+                let chattingData = useCase.getAllChattingData(roomID: roomID)
                 print("👇 DB에 저장된 전체 채팅 데이터")
-                print(chattingData)
+                dump(chattingData)
                 state?.updateChattingData(data: chattingData)
                 /// 5) Socket 연결
                 useCase.openSocket(roomID: roomID)

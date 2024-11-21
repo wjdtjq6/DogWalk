@@ -23,6 +23,8 @@ struct DogWalkApp: App {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
+        CoreChatMessageTransformer.register()
+     
     }
     
     var body: some Scene {

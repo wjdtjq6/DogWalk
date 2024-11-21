@@ -22,7 +22,7 @@ protocol ChattingRoomUseCase {
     func getCursorDate(roomID: String) -> String
     func getChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel]
     func updateChattingData(roomID: String, data: [ChattingModel])
-    func getAllChattingData() -> [ChattingModel]
+    func getAllChattingData(roomID: String) -> [ChattingModel]
     func openSocket(roomID: String)
     func sendTextMessage(roomID: String, message: String) async throws -> ChattingModel
     func sendImageMessage(roomID: String, image: Data) async throws -> ChattingFilesModel
@@ -30,14 +30,15 @@ protocol ChattingRoomUseCase {
 }
 
 final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
+
     private let network = NetworkManager()
     private var socket: SocketIOManager?
-    private let chatRepository = ChatRepository(context: CoreDataManager().viewContext)
+    private let chatRepository = ChatRepository.shared
     
     // DB에서 최신 대화 날짜 가져오기
     func getCursorDate(roomID: String) -> String {
         let room = chatRepository.fetchChatRoom(chatRoomID: roomID)
-        guard let updateAt = room?.updatedAt else { return "" }
+        guard let updateAt = room?.createdAt else { return "" }
         print("UpdateAt", updateAt)
         return updateAt
     }
@@ -54,23 +55,48 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         }
     }
     
-    // 응답 받은 최신 대화 내용을 DB에 업데이트
-    func updateChattingData(roomID: String, data: [ChattingModel]) {
-        // DB에 업데이트 하고
-        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else { return }
-        let messages = data.map { msg in
-            chatRepository.createChatMessage(chatID: msg.chatID,
-                                             content: msg.content,
-                                             sender: msg.sender,
-                                             in: chatRoom)
-        }
-        // chatRepository.updateChatMessages(messages: messages)
-        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: messages, context: chatRoom.managedObjectContext!)
-    }
+     // 응답 받은 최신 대화 내용을 DB에 업데이트
+//    func updateChattingData(roomID: String, data: [ChattingModel]) {
+//        // DB에 업데이트 하고
+//        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else { return }
+//        let messages = data.map { msg in
+//            chatRepository.createChatMessage(chatID: msg.chatID,
+//                                             content: msg.content,
+//                                             sender: msg.sender,
+//                                             in: chatRoom)
+//        }
+//        // chatRepository.updateChatMessages(messages: messages)
+//        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: messages, context: chatRoom.managedObjectContext!)
+//    }
     
+    func updateChattingData(roomID: String, data: [ChattingModel]) {
+        // 1. CoreData에서 채팅방 가지고 오고
+        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else {
+            print("Chat room not found for ID: \(roomID)")
+            return
+        }
+
+        // ChattingModel 데이터를 CoreChatMessage로 변환
+        let newMessages = data.map { msg in
+            chatRepository.createChatMessage(
+                chatID: msg.chatID,
+                content: msg.content,
+                sender: msg.sender,
+                files: msg.files,
+                in: chatRoom
+            )
+        }
+        print("updateChattingData--------------------")
+        dump(newMessages)
+        // 채팅방 메시지 업데이트
+        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: newMessages)
+    }
     // DB에서 전체 대화 내용을 가져와 View 반영
-    func getAllChattingData() -> [ChattingModel] {
-        return []
+    func getAllChattingData(roomID: String) -> [ChattingModel] {
+        print("대정섭------------------------------")
+        dump(chatRepository.fetchAllMessages(for: roomID))
+        print("대정섭------------------------------")
+        return chatRepository.fetchAllMessages(for: roomID)
     }
     
     // 소켓 열기
