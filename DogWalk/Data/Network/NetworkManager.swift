@@ -376,10 +376,21 @@ extension NetworkManager {
         }
     }
     
-    
+    func uploadImagePost(imageData: Data) async throws -> FileModel {
+        do {
+            let future = try await requestDTO(target: .post(.files(body: ImageUploadBody(files: [imageData]))), of: FileDTO.self)
+            return future.toDomain()
+        } catch {
+            throw NetworkError.UnknownError
+        }
+    }
     //게시글 작성
-    func writePost(body: PostBody) async throws -> Future<PostDTO, NetworkError> {
-        return try await request(target: .post(.post(body: body)), of: PostDTO.self)
+    func writePost(body: PostBody) async throws {
+        do {
+            let _ = try await requestDTO(target:.post(.post(body: body)), of: PostDTO.self)
+        } catch {
+            print("게시글 작성 오류!!\(error)")
+        }
     }
 }
 // MARK: - 채팅방 부분

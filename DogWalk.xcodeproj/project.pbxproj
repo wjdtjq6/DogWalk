@@ -18,6 +18,9 @@
 		062284BC2CEC859D00860F7A /* CommonLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284BB2CEC859D00860F7A /* CommonLoadingView.swift */; };
 		062284BE2CEC8CA800860F7A /* CommentBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284BD2CEC8CA800860F7A /* CommentBody.swift */; };
 		062284C42CEEDF2F00860F7A /* MapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284C32CEEDF2F00860F7A /* MapUseCase.swift */; };
+		062284C62CEF190600860F7A /* WalkResultCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284C52CEF190600860F7A /* WalkResultCreateView.swift */; };
+		062284C92CEF24B000860F7A /* FileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284C82CEF24B000860F7A /* FileDTO.swift */; };
+		062284CB2CEF2C0C00860F7A /* ImageUploadBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -160,6 +163,9 @@
 		062284BB2CEC859D00860F7A /* CommonLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonLoadingView.swift; sourceTree = "<group>"; };
 		062284BD2CEC8CA800860F7A /* CommentBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBody.swift; sourceTree = "<group>"; };
 		062284C32CEEDF2F00860F7A /* MapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapUseCase.swift; sourceTree = "<group>"; };
+		062284C52CEF190600860F7A /* WalkResultCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultCreateView.swift; sourceTree = "<group>"; };
+		062284C82CEF24B000860F7A /* FileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDTO.swift; sourceTree = "<group>"; };
+		062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadBody.swift; sourceTree = "<group>"; };
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
@@ -314,6 +320,14 @@
 			path = MainCommunity;
 			sourceTree = "<group>";
 		};
+		062284C72CEF190A00860F7A /* WalkResultCreate */ = {
+			isa = PBXGroup;
+			children = (
+				062284C52CEF190600860F7A /* WalkResultCreateView.swift */,
+			);
+			path = WalkResultCreate;
+			sourceTree = "<group>";
+		};
 		0689C35E2CDB3E6900C5FC8C /* WalkResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +470,7 @@
 				C4097AED2CD7AF28002155EA /* LikePostDTO.swift */,
 				C4097AEE2CD7AF28002155EA /* PostDTO.swift */,
 				C4097AEF2CD7AF28002155EA /* PostResponseDTO.swift */,
+				062284C82CEF24B000860F7A /* FileDTO.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -467,6 +482,7 @@
 				C4097AF22CD7AF28002155EA /* NewChatRoomBody.swift */,
 				C4097AF32CD7AF28002155EA /* PostChatFileBody.swift */,
 				C4097AF42CD7AF28002155EA /* SendChatBody.swift */,
+				062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -747,6 +763,7 @@
 		C477A2E32CD0E81B006B8DB6 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				062284C72CEF190A00860F7A /* WalkResultCreate */,
 				BF159EF42CE33B41001933C0 /* MapOverview */,
 				0689C35E2CDB3E6900C5FC8C /* WalkResult */,
 				BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */,
@@ -1033,6 +1050,7 @@
 				062284B62CEC60B200860F7A /* ContentState.swift in Sources */,
 				9966F7102CE2EFF600E7569E /* ChatRepository.swift in Sources */,
 				C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */,
+				062284CB2CEF2C0C00860F7A /* ImageUploadBody.swift in Sources */,
 				C477A2F92CD0E978006B8DB6 /* ChattingListView.swift in Sources */,
 				C4097B332CE1F749002155EA /* LoginIntent.swift in Sources */,
 				C4097AD12CD7AEF5002155EA /* NetworkError.swift in Sources */,
@@ -1077,6 +1095,7 @@
 				C477A2CF2CD0E743006B8DB6 /* DefaultRemoteDataSource.swift in Sources */,
 				C4A7768D2CD125EE00D60EEE /* UserManager.swift in Sources */,
 				C477A2D12CD0E74C006B8DB6 /* DefaultLocalDataSource.swift in Sources */,
+				062284C92CEF24B000860F7A /* FileDTO.swift in Sources */,
 				C4097AD52CD7AEF5002155EA /* APITarget.swift in Sources */,
 				062284BE2CEC8CA800860F7A /* CommentBody.swift in Sources */,
 				C477A2D72CD0E792006B8DB6 /* DefaultLocalRepository.swift in Sources */,
@@ -1099,6 +1118,7 @@
 				C477A2F72CD0E972006B8DB6 /* MapView.swift in Sources */,
 				062284A42CE265CE00860F7A /* CommunityState.swift in Sources */,
 				C4097B102CD7AF28002155EA /* NewChatRoomBody.swift in Sources */,
+				062284C62CEF190600860F7A /* WalkResultCreateView.swift in Sources */,
 				0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */,
 				C4097B072CD7AF28002155EA /* PostFileBody.swift in Sources */,
 				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,

@@ -36,11 +36,12 @@ enum Screen: Identifiable, Hashable {
     // 산책하기 탭
     case map                // 산책하기 탭 첫 화면
     case dogWalkResult(walkTime: Int, walkDistance: Double, routeImage: UIImage)      // 산책 결과 화면
-    case communityCreate    // 게시글 작성 화면
+    case mapCommunityCreate(walkTime: Int, walkDistance: Double, walkCalorie: Double, walkImage: UIImage)    // 산책 게시글 작성 화면
     
     // 커뮤니티 탭
     case community
     case communityDetail(postID: String)
+    case communityCreate    // 게시글 작성 화면
     
     // 채팅 탭
     case chatting
