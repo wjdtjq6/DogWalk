@@ -93,6 +93,7 @@ private extension ChattingRoomView {
                     //마지막 채팅 내역으로 스크롤 이동
                     // scroll.scrollTo(message.modles.last?.id, anchor: .top)
                     scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
+                    
                 }
                 .onChange(of: showKeyboard) { oldValue, newValue in //키보드 감지
                     guard newValue else { return }

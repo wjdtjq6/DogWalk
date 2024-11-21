@@ -30,7 +30,7 @@ final class NetworkManager: Requestable {
     private var page: String = "" // 페이지네이션
     private let session: SessionDatable
     private var cancellables = Set<AnyCancellable>()
-    private var coreData = ChatRepository(context: CoreDataManager().viewContext)
+    private var coreData = ChatRepository.shared
     init(session: SessionDatable = URLSession.shared) {
         self.session = session
     }
@@ -409,7 +409,7 @@ extension NetworkManager {
                     }
                 } receiveValue: { [weak self] room in
                     guard let self else { return }
-                    self.coreData.createChatRoom(chatRoomData: room.toDomain())
+                    ChatRepository.shared.createChatRoom(chatRoomData: room.toDomain())
                 }
                 .store(in: &cancellables)
             
