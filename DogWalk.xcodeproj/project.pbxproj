@@ -105,6 +105,7 @@
 		C41F67E72CEC9898003BCCCC /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = C41F67E62CEC9898003BCCCC /* SocketIO */; };
 		C41F67EA2CECAE92003BCCCC /* ChattingListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */; };
 		C41F67ED2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C41F67EB2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld */; };
+		C41F67F52CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C41F67F32CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -251,6 +252,7 @@
 		C41F67E32CEC8A28003BCCCC /* ChattingRoomUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomUseCase.swift; sourceTree = "<group>"; };
 		C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListUseCase.swift; sourceTree = "<group>"; };
 		C41F67EC2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreChatRoom.xcdatamodel; sourceTree = "<group>"; };
+		C41F67F42CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreChatRoom.xcdatamodel; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -374,7 +376,7 @@
 				99DF939E2CEECA190022E471 /* CoreChatRoom+CoreDataClass.swift */,
 				99DF939F2CEECA190022E471 /* CoreChatRoom+CoreDataProperties.swift */,
 				99DF93962CEEC93F0022E471 /* CoreChatMessageTransformer.swift */,
-				062284D52CEF918700860F7A /* CoreChatRoom.xcdatamodeld */,
+				C41F67F32CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld */,
 				99DF93982CEEC96A0022E471 /* PersistentContainer.swift */,
 				99DF939A2CEEC9830022E471 /* CoreDataManager.swift */,
 			);
@@ -1172,6 +1174,7 @@
 				9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */,
 				C4097B132CD7AF28002155EA /* ChattingRoomDTO.swift in Sources */,
 				C41F67ED2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */,
+				C41F67F52CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
 				99646D062CEB59BD00B94C0B /* HomeContentState.swift in Sources */,
 				99DF93992CEEC96A0022E471 /* PersistentContainer.swift in Sources */,
@@ -1428,17 +1431,6 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		062284D52CEF918700860F7A /* CoreChatRoom.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				062284D62CEF918700860F7A /* CoreChatRoom.xcdatamodel */,
-			);
-			currentVersion = 062284D62CEF918700860F7A /* CoreChatRoom.xcdatamodel */;
-			name = CoreChatRoom.xcdatamodeld;
-			path = "/Users/bagseongmin/Desktop/SwiftUI프로젝트/DogWalk/DogWalk/Data/CoreData/CoreChatRoom.xcdatamodeld";
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		C41F67EB2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
@@ -1447,6 +1439,17 @@
 			currentVersion = C41F67EC2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodel */;
 			name = CoreChatRoom.xcdatamodeld;
 			path = DogWalk/Data/CoreData/CoreChatRoom.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		C41F67F32CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C41F67F42CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodel */,
+			);
+			currentVersion = C41F67F42CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodel */;
+			name = CoreChatRoom.xcdatamodeld;
+			path = /Users/junehee/Desktop/sesac/SLP/DogWalk/Data/CoreData/CoreChatRoom.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -73,7 +73,7 @@ final class ChatRepository {
                 
                 existingChatRoom.updateAt = chatRoomData.updatedAt
                 print("🍀🍀🍀🍀🍀🍀🍀", chatRoomData.updatedAt, existingChatRoom.updateAt)
-                existingChatRoom.messages = []
+                // existingChatRoom.messages = []
 
                 print("Chat room updated.")
             } else {
@@ -140,7 +140,7 @@ final class ChatRepository {
                 var messages = chatRoom.messages ?? []
                 messages.append(contentsOf: newMessages)
                 chatRoom.messages = messages
-
+                print("업데이트된 메세지들 확인", chatRoom.messages)
                 saveContext()
                 print("Chat room updated successfully.")
             } else {
@@ -156,6 +156,7 @@ final class ChatRepository {
         let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
         do {
             let coreChatRooms = try managedObjectContext.fetch(request)
+            dump(coreChatRooms)
             return coreChatRooms.map { chatRoom in
                 return ChattingRoomModel(roomID: chatRoom.roomID ?? "룸아이디 없음",
                                          createAt: chatRoom.createdAt ?? "",
@@ -163,7 +164,9 @@ final class ChatRepository {
                                          me: UserModel(userID: chatRoom.meUserID ?? "내 아디 없음" ,
                                                        nick: chatRoom.meNick ?? "내 닉 없음",
                                                        profileImage: chatRoom.meProfileImage ?? "내이미지없음"),
-                                         otherUser: UserModel(userID: chatRoom.ohterUserID ?? "내 아디 없음", nick: chatRoom.otherNick ?? "내 닉 없음", profileImage: chatRoom.otherProfileImage ?? "내이미지없음"),
+                                         otherUser: UserModel(userID: chatRoom.ohterUserID ?? "내 아디 없음", 
+                                                              nick: chatRoom.otherNick ?? "내 닉 없음",
+                                                              profileImage: chatRoom.otherProfileImage ?? "내이미지없음"),
                                          lastChat: LastChatModel(type: MessageType(rawValue: chatRoom.lastChat?.type ?? "텍스트") ?? .text,
                                                                  chatID: chatRoom.lastChat?.chatID ?? "",
                                                                  lastChat: chatRoom.lastChat?.lastChat ?? "",

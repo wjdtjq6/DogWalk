@@ -49,7 +49,5 @@ final class DefaultChattingListUseCase: ChattingListUseCase {
             print(#function, "채팅방 목록 서버 요청 실패")
             throw error
         }
-        
-        // network -> 마지막 채팅 데이터를 -> DB업데이트 -> 다시 화면에
     }
 }

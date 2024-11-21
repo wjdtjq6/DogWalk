@@ -8,6 +8,7 @@
 import Foundation
 
 /** `HTTP Status Code`
+ `400` 유효하지 않은 값 타입
  `401` 인증할 수 없는 액세스 토큰 (공백/한글 포함 등)
  `404` 채팅방을 찾을 수 없거나, 알 수 없는 계정
  `403` Forbidden. 접근 권한 없음. user id 조회 불가. (Header에 Authorization 확인해보기)
@@ -21,6 +22,7 @@ import Foundation
 */
 
 enum NetworkError: Int, Error {
+    case InvalidValue = 400
     case InvalidToken = 401
     case Forbidden = 403
     case ExpiredAccessToken = 419
