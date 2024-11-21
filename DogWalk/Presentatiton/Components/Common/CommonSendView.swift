@@ -167,7 +167,7 @@ struct CommonSendView: View {
     var proxy: GeometryProxy
     @Binding var yOffset: CGFloat //키보드 높이 측정
     @Binding var showKeyboard: Bool //키보드 여부
-    
+    var showImageSelectButton: Bool = true // 사진 보내기 버튼 보이기 숨기기
     @StateObject var imagePicker = ImagePickerVM()
     @State private var text = "" //키보드 입력값
     @State private var bottomPadding: CGFloat = 0.0
@@ -176,6 +176,7 @@ struct CommonSendView: View {
     
     @FocusState private var isKeyboardFocused: Bool //키보드 포커스 상태
     @State private var rotationAngle: Double = 0 // +버튼 각도 변수
+    
     private let tfHeight: CGFloat = 36.0
     private var size: CGSize {
         return proxy.size
@@ -193,7 +194,9 @@ struct CommonSendView: View {
     var body: some View {
         VStack {
             HStack(alignment: .bottom, spacing: 10.0) {
-                cameraButton()
+                if showImageSelectButton {
+                    cameraButton()
+                }
                 textField()
                 sendButton()
             }

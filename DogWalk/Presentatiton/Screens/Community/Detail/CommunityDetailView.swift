@@ -14,6 +14,8 @@ struct CommunityDetailView: View {
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
     private let network = NetworkManager()
+    private static let width = UIScreen.main.bounds.width
+    private static let height = UIScreen.main.bounds.height
     var postID: String //하위뷰에서 포스트 id 받아오기
 }
 // MARK: - 빌드 부분
@@ -59,7 +61,7 @@ extension CommunityDetailView {
                         communityContentView()
                         commentListView()
                     }
-                    .background(Color.primaryGreen.opacity(0.2))
+                    .background(Color.primaryGray.opacity(0.6))
                 }
                 .scrollIndicators(.hidden)
                 .padding(.bottom, 100)
@@ -67,12 +69,15 @@ extension CommunityDetailView {
                     self.dismissKeyboard()
                     showKeyboard = false
                 }
+            
                 CommonSendView(
                     proxy: $0,
                     yOffset: $bottomPadding,
-                    showKeyboard: $showKeyboard) { text in
+                    showKeyboard: $showKeyboard,
+                    showImageSelectButton: false) { text in
                         intent.sendContent(text: text) // 댓글 입력시
                     } completionSendImage: { _ in }
+
             }
         }
         .ignoresSafeArea(.all, edges: .bottom)
@@ -113,26 +118,34 @@ private extension CommunityDetailView {
     // 게시물 콘텐츠 뷰
     func communityContentView() -> some View {
         VStack {
-            // 게시물 제목
-            Text(state.post.title)
-                .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                .multilineTextAlignment(.leading)
-                .font(Font.pretendardBold16)
-            
+            HStack {
+                CommonButton(width: 70, height: 30, cornerradius: 5, backColor: .red.opacity(0.5), text: state.post.category.rawValue, textFont: .pretendardBold14, textColor: .primaryWhite)
+                
+                //if state.post.views > 3 {
+                CommonButton(width: 100, height: 30, cornerradius: 5, backColor: .primaryOrange, text: "인기글", textFont: .pretendardBold14,textColor: .primaryWhite, leftLogo: Image(systemName: "flame.fill"), imageSize: 17)
+                    .foregroundStyle(Color.red)
+                //}
+            }
+            .hLeading()
             // 프로필 + 닉네임 + 게시물 작성일
             HStack {
-                CommonProfile(imageURL: state.post.creator.profileImage, size: 33)
+                CommonProfile(imageURL: state.post.creator.profileImage, size: 40)
                 Text(state.post.creator.nick)
-                    .font(.pretendardBold14)
+                    .font(.pretendardBold16)
                 Spacer()
                 Text(state.post.created)
                     .font(.pretendardRegular12)
                     .foregroundStyle(Color.primaryBlack.opacity(0.5))
             }
             .frame(minHeight: 30)
-            .padding(.bottom, 10)
+            //.padding(.bottom, 10)
             
-            // 게시물 내용 예시
+            // 게시물 제목
+            Text(state.post.title)
+                .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                .multilineTextAlignment(.leading)
+                .font(Font.pretendardBold18)
+            // 게시물 내용
             Text(state.post.content)
                 .font(.pretendardRegular14)
                 .lineSpacing(4)
@@ -148,6 +161,8 @@ private extension CommunityDetailView {
                 Image.asMessage
                 Text(state.post.comments.count.formatted())
                     .font(.pretendardSemiBold16)
+                Text("조회 \(state.post.views.formatted())")
+                    .font(.pretendardSemiBold14)
             }
             .foregroundStyle(.gray)
             .frame(maxWidth: .infinity, minHeight: 60, alignment: .leading)
