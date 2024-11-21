@@ -8,9 +8,7 @@
 import SwiftUI
 import MapKit
 //MARK: 2.좌표 기반 마커 표시
-protocol MapUseCase {
-    func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) //위치에 따른 포스트 조회
-}
+
 class mockUseCase: MapUseCase {
     func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) {
         let mock = [// CommunityCategoryType의 테스트용 값
