@@ -51,18 +51,14 @@ final class DefaultCommunityUseCase: CommunityUseCase {
         do {
             let all = CommunityCategoryType.allCases.filter { $0 != .all }.map { $0.rawValue }
             let categorys = self.category == .all ? all : [self.category.rawValue]
-            
             switch checkPostType {
             case .all:
-                let future = try await network.fetchPosts(category: categorys, isPaging: isPaging)
-                let posts = try await future.value
-                return posts
+                let result = try await network.fetchPosts(category: categorys, isPaging: isPaging)
+                return result
                 
             case .userLocation:
-//                let future = try await network.fetchAreaPosts(category: categorys, lon: String(userManager.lon), lat: String(userManager.lat))
-                let future = try await network.fetchAreaPosts(category: categorys, lon: "126.990752", lat: "37.553217")
-                let posts = try await future.value
-                return posts
+                let future = try await network.fetchAreaPosts(category: category, lon: String(userManager.lon), lat: String(userManager.lat))
+                return future
             }
         } catch {
             guard let  err = error as? NetworkError else { throw error}

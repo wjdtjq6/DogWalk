@@ -24,8 +24,8 @@ extension ChattingDTO {
                              roomID: self.room_id,
                              type: messageType,
                              content: self.content ?? "",
-                             sender: UserModel(userID: self.sender.user_id,
-                                               nick: self.sender.nick,
+                             sender: UserModel(userID: self.sender.user_id ?? "",
+                                               nick: self.sender.nick ?? "익명",
                                                profileImage: self.sender.profileImage ?? ""),
                              files: self.files)
     }

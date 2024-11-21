@@ -136,6 +136,7 @@ private extension CommunityDetailView {
             Text(state.post.content)
                 .font(.pretendardRegular14)
                 .lineSpacing(4)
+                .hLeading()
             
             asImageView(url: state.post.files.first ?? "", image: .asTestImage)
                 .aspectRatio(contentMode: .fit)

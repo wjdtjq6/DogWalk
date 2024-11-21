@@ -8,7 +8,7 @@
 import Foundation
 
 enum PostTarget {
-    case files(body: PostFileBody)                          // 파일 업로드
+    case files(body: ImageUploadBody)                          // 파일 업로드
     case post(body: PostBody)                               // 게시글 작성
     case getPosts(query: GetPostQuery)                      // 게시글 조회
     case getPostsDetail(postID: String)                     // 게시글 상세 조회
@@ -72,12 +72,12 @@ extension PostTarget: TargetType {
     var header: [String : String] {
         switch self {
             /// productID, multipart-form, authorizaiton, sesacKey
-        case .files:
+        case .files(let body):
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
-                BaseHeader.contentType.rawValue: BaseHeader.multipart.rawValue,  // multipart-form
+                BaseHeader.contentType.rawValue: BaseHeader.multipart.rawValue + "; boundary=\(body.boundary)",  // multipart-form
                 BaseHeader.authorization.rawValue: UserManager.shared.acess,
-                BaseHeader.sesacKey.rawValue: APIKey.key
+                BaseHeader.sesacKey.rawValue: APIKey.key,
             ]
             /// productID, application/json, authorizaiton, sesacKey
         case .post, .putPost, .deletePost, .postLike, .postView, .addContent:
@@ -142,7 +142,17 @@ extension PostTarget: TargetType {
             do {
                 let data = try encoder.encode(query)
                 guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return nil }
-                return json.map { URLQueryItem(name: $0, value: "\($1)")}
+                var items = [URLQueryItem]()
+                for (key, value) in json {
+                    if let array = value as? [Any] {
+                        for element in array {
+                            items.append(URLQueryItem(name: key, value: "\(element)"))
+                        }
+                    } else {
+                        items.append(URLQueryItem(name: key, value: "\(value)"))
+                    }
+                }
+                return items
             } catch {
                 print("Query to JSON Encode Error!", error)
                 return nil
@@ -157,13 +167,7 @@ extension PostTarget: TargetType {
         
         switch self {
         case .files(let body):
-            do {
-                let data = try encoder.encode(body)
-                return data
-            } catch {
-                print("Body to JSON Encode Error", error)
-                return nil
-            }
+            return asMultipartFileDatas(for: body.boundary, key: "files", values: body.files, filename: "\(APIKey.appID)PostImage")
         case .post(let body):
             do {
                 let data = try encoder.encode(body)

@@ -69,7 +69,7 @@ final class NetworkManager: Requestable {
                             print("🚨 유효하지 않은 응답 (StatusCode: \(httpResponse.statusCode))")
                             let error = NetworkError(rawValue: httpResponse.statusCode) ?? .InvalidResponse
                             // 상태코드 419일 때 토큰 갱신 처리
-                            if error == .ExpiredAccessToken {
+                            if error == .ExpiredAccessToken || error == .InvalidToken {
                                 if await self.refreshToken() {
                                     // 토큰 갱신 성공했을 때 기존 호출 재시도
                                     await apiCall(isRefresh: true)
@@ -133,7 +133,7 @@ final class NetworkManager: Requestable {
                     print("🚨 유효하지 않은 응답 (StatusCode: \(httpResponse.statusCode))")
                     let error = NetworkError(rawValue: httpResponse.statusCode) ?? .InvalidResponse
                     // 상태코드 419일 때 토큰 갱신 처리
-                    if error == .ExpiredAccessToken {
+                    if error == .ExpiredAccessToken || error == .InvalidToken {
                         if await self.refreshToken() {
                             // 토큰 갱신 성공했을 때 기존 호출 재시도
                             return try await apiCall(isRefresh: true)
@@ -168,7 +168,7 @@ final class NetworkManager: Requestable {
         
         return try await apiCall()
     }
-
+    
     // MARK: - Post
     // 게시물 포스팅 함수 예시 (리턴값 ver)
     func postCommunity() async throws -> Future<PostDTO, NetworkError> {
@@ -246,59 +246,52 @@ final class NetworkManager: Requestable {
 
 extension NetworkManager {
     //전체 포스터 조회
-    func fetchPosts(category: [String]?, isPaging: Bool) async throws -> Future<[PostModel], NetworkError> {
+    func fetchPosts(category: [String]?, isPaging: Bool) async throws -> [PostModel] {
         if (isPaging == false) {
             self.page = ""
         }
         let query = GetPostQuery(next: self.page, limit: "20", category: category)
-        let future = try await request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
-        return Future { promise in
-            future
-                .sink { completion in
-                    switch completion {
-                    case .finished:
-                        print("✨ 게시글 요청 성공")
-                    case .failure(let error):
-                        print("🚨 게시글 요청 실패: \(error)")
-                        promise(.failure(error))
-                    }
-                } receiveValue: { [weak self] postResponse in
-                    guard let self else { return }
-                    // 페이징 커서 업데이트
-                    self.page = postResponse.next_cursor
-                    // DTO를 도메인 모델로 변환하여 반환
-                    let posts = postResponse.data.map { $0.toDomain() }
-                    promise(.success(posts))
-                }
-                .store(in: &self.cancellables)
-            
-        }
+        //let future = try await request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
+        let decodedResponse = try await requestDTO(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
+        self.page = decodedResponse.next_cursor
+        return decodedResponse.data.map{$0.toDomain()}
     }
     
     //위치 포스터 조회
-    func fetchAreaPosts(category: [String]?, lon: String, lat: String) async throws -> Future<[PostModel], NetworkError> {
-        let query = GetGeoLocationQuery(category: category, longitude: lon, latitude: lat, maxDistance: "10000", order_by: OrderType.distance.rawValue, sort_by: SortType.asc.rawValue)
-        let future = try await request(target: .post(.geolocation(query: query)), of: GeolocationPostResponseDTO.self)
-        print(query)
-        print("------asd-------")
-        return Future { promise in
-            future
-                .sink { completion in
-                    switch completion {
-                    case .finished:
-                        print("✨ 게시글 요청 성공")
-                    case .failure(let error):
-                        print("🚨 게시글 요청 실패: \(error)")
-                        promise(.failure(error))
-                    }
-                } receiveValue: { postResponse in
-                    let posts = postResponse.data.map { $0.toDomain() }
-                    promise(.success(posts))
-                }
-                .store(in: &self.cancellables)
-            
+    func fetchAreaPosts(category: CommunityCategoryType, lon: String, lat: String) async throws -> [PostModel]{
+        //        let query = GetGeoLocationQuery(category: ["산책인증"], longitude: lon, latitude: lat, maxDistance: "5000", order_by: OrderType.createdAt.rawValue, sort_by: SortType.asc.rawValue)
+        //        let future = try await requestDTO(target: .post(.geolocation(query: query)), of: GeolocationPostResponseDTO.self)
+        //        print(future)
+        //        print("-----------")
+        //        return future.data.map {$0.toDomain()}
+        let categoryQuery = category == .all ? "" : "?category=\(category.rawValue)"
+        guard var urlComponents = URLComponents(string: APIKey.baseURL + "/posts/geolocation" + categoryQuery) else {
+            throw NetworkError.InvalidURL
+        }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "latitude", value: lat),
+            URLQueryItem(name: "longitude", value: lon),
+        ]
+        guard let url = urlComponents.url else { throw NetworkError.InvalidURL }
+        var request = URLRequest(url: url)
+        request.addValue(APIKey.appID, forHTTPHeaderField: BaseHeader.productId.rawValue)
+        request.addValue(UserManager.shared.acess, forHTTPHeaderField: BaseHeader.authorization.rawValue)
+        request.addValue(APIKey.key, forHTTPHeaderField: BaseHeader.sesacKey.rawValue)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200 else {
+            throw NetworkError.InvalidResponse
+        }
+        do {
+            let decodedResponse = try JSONDecoder().decode(GeolocationPostResponseDTO.self, from: data)
+            return decodedResponse.data.map {$0.toDomain()}
+        } catch {
+            print("Decoding Error: \(error)")
+            throw NetworkError.DecodingError
         }
     }
+    
+    
     
     // 한개 포스트 조회
     func fetchDetailPost(id: String) async throws -> Future<PostModel, NetworkError> {
@@ -383,10 +376,21 @@ extension NetworkManager {
         }
     }
     
-    
+    func uploadImagePost(imageData: Data) async throws -> FileModel {
+        do {
+            let future = try await requestDTO(target: .post(.files(body: ImageUploadBody(files: [imageData]))), of: FileDTO.self)
+            return future.toDomain()
+        } catch {
+            throw NetworkError.UnknownError
+        }
+    }
     //게시글 작성
-    func writePost(body: PostBody) async throws -> Future<PostDTO, NetworkError> {
-        return try await request(target: .post(.post(body: body)), of: PostDTO.self)
+    func writePost(body: PostBody) async throws {
+        do {
+            let _ = try await requestDTO(target:.post(.post(body: body)), of: PostDTO.self)
+        } catch {
+            print("게시글 작성 오류!!\(error)")
+        }
     }
 }
 // MARK: - 채팅방 부분
@@ -408,7 +412,7 @@ extension NetworkManager {
                     ChatRepository.shared.createChatRoom(chatRoomData: room.toDomain())
                 }
                 .store(in: &cancellables)
-
+            
         } catch {
             print("채팅방 생성 실패!\(error)")
         }
