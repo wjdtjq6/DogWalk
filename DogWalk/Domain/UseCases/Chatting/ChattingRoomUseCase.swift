@@ -10,13 +10,24 @@ import CoreData
 
 /**
  채팅방
- `getCursorDate` DB에서 최신 대화 날짜 가져오기
- `getChattingData` cursor-date 기반 최신 대화 내용 요청
- `updateChattingData`  응답 받은 최신 대화 내용을 DB에 업데이트
- `getAllChattingData` DB에 저장된 대화 내용 전체 가져오기
- `openSocket` 소켓 연결
- `sendMessage` 메세지 전송
- `closeSocket` 소켓 해제
+ 
+ # 채팅방 첫 입장 시
+ 1) 채팅방 입장 시 roomID를 받아 DB에 저장된 채팅방을 찾고, 해당 채팅방의 모든 메세지 불러와서 변수에 저장
+ 2) 저장된 메세지 중 가장 마지막 메세지를 기반으로, 서버에 이후 메세지 정보 호출 (배열 형태로 가져옴)
+ 3) 응답받은 메세지 배열을 다시 해당 채팅방 DB에 저장
+ 4) DBDP 업데이트된 최신 메세지들을 다시 불러와 변수에 저장 후, 화면에 렌더링
+ 5) 소켓 연결
+ 
+ # 채팅 보낼 때
+ 1) 서버에 채팅 보내기 요청
+ 2) 요청 성공하면, 응답 받은 데이터를 DB에 저장
+ 
+ # 채팅 받을 때
+ 1) DB에서 불러와 변수에 저장해둔 모든 메세지 중 마지막 메세지의 날짜 체크
+ */
+
+/**
+ 
  */
 protocol ChattingRoomUseCase {
     func getCursorDate(roomID: String) -> String
@@ -38,9 +49,11 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     // DB에서 최신 대화 날짜 가져오기
     func getCursorDate(roomID: String) -> String {
         let room = chatRepository.fetchChatRoom(chatRoomID: roomID)
-        guard let updateAt = room?.createdAt else { return "" }
+        guard let updateAt = room?.createdAt else { return  "2000-12-04T09:37:29.029+0900" }
         print("UpdateAt", updateAt)
         return updateAt
+        
+        
     }
     
     // cursor_date 기반 최신 대화 내용 요청
@@ -91,17 +104,17 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         // 채팅방 메시지 업데이트
         chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: newMessages)
     }
+    
     // DB에서 전체 대화 내용을 가져와 View 반영
     func getAllChattingData(roomID: String) -> [ChattingModel] {
-        print("대정섭------------------------------")
         dump(chatRepository.fetchAllMessages(for: roomID))
-        print("대정섭------------------------------")
         return chatRepository.fetchAllMessages(for: roomID)
     }
     
     // 소켓 열기
     func openSocket(roomID: String) {
-        let socket = SocketIOManager(roomID: roomID)
+        // let socket = SocketIOManager(roomID: roomID, messageType: .image)
+        let socket = SocketIOManager()
         socket.connect()
     }
     

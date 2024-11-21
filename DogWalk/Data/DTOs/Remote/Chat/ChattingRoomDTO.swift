@@ -20,8 +20,6 @@ struct ChattingRoomDTO: Decodable {
 extension ChattingRoomDTO {
     func toDomain() -> ChattingRoomModel {
         let userID = UserManager.shared.userID
-        print(userID)
-        print(self.participants)
         let me = self.participants.filter { $0.user_id == userID }.first ?? UserDTO(user_id: "", nick: "나", profileImage: "")
         let otherUser = self.participants.filter() { $0.user_id != userID }.first ?? UserDTO(user_id: "", nick: "알 수 없음", profileImage: "")    // 사용자가 2명 이상일 경우 변경 필요
         
