@@ -17,28 +17,6 @@ final class ChatRepository {
         self.managedObjectContext = context
     }
 
-    // 채팅방 생성
-    // func createChatRoom(chatRoomData: ChattingRoomModel) {
-    //     let chatRoom = CoreChatRoom(context: managedObjectContext)
-    //     chatRoom.roomID = chatRoomData.roomID
-    //     chatRoom.createdAt = chatRoomData.createAt
-    //     chatRoom.meUserID = chatRoomData.me.userID
-    //     chatRoom.meNick = chatRoomData.me.nick
-    //     chatRoom.meProfileImage = chatRoomData.me.profileImage
-    //     chatRoom.ohterUserID = chatRoomData.otherUser.userID
-    //     chatRoom.otherNick = chatRoomData.otherUser.nick
-    //     chatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-    //     chatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
-    //     chatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
-    //     chatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
-    //     chatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
-    //     chatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
-    //     chatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
-    //     chatRoom.updateAt = chatRoomData.updatedAt
-    //     chatRoom.messages = []
-    // 
-    //     saveContext()
-    // }
     func createChatRoom(chatRoomData: ChattingRoomModel) {
         let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
         request.predicate = NSPredicate(format: "roomID == %@", chatRoomData.roomID) // roomID로 기존 채팅방을 찾음
@@ -54,12 +32,6 @@ final class ChatRepository {
                 existingChatRoom.ohterUserID = chatRoomData.otherUser.userID
                 existingChatRoom.otherNick = chatRoomData.otherUser.nick
                 existingChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-                // existingChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
-                // existingChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
-                // existingChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
-                // existingChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
-                // existingChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
-                // existingChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
                 existingChatRoom.lastChat = CoreLastChat(
                                    chatID: chatRoomData.lastChat?.chatID ?? "",
                                    type: chatRoomData.lastChat?.type.rawValue ?? "",
@@ -72,9 +44,6 @@ final class ChatRepository {
                                )
                 
                 existingChatRoom.updateAt = chatRoomData.updatedAt
-                print("🍀🍀🍀🍀🍀🍀🍀", chatRoomData.updatedAt, existingChatRoom.updateAt)
-                // existingChatRoom.messages = []
-
                 print("Chat room updated.")
             } else {
                 // 기존 채팅방이 없으면 새로 생성
@@ -87,12 +56,6 @@ final class ChatRepository {
                 newChatRoom.ohterUserID = chatRoomData.otherUser.userID
                 newChatRoom.otherNick = chatRoomData.otherUser.nick
                 newChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-                // newChatRoom.lastChat?.chatID = chatRoomData.lastChat?.chatID
-                // newChatRoom.lastChat?.lastChat = chatRoomData.lastChat?.lastChat
-                // newChatRoom.lastChat?.type = chatRoomData.lastChat?.type.rawValue
-                // newChatRoom.lastChat?.sender?.nick = chatRoomData.lastChat?.sender.nick
-                // newChatRoom.lastChat?.sender?.userID = chatRoomData.lastChat?.sender.userID
-                // newChatRoom.lastChat?.sender?.profileImage = chatRoomData.lastChat?.sender.profileImage
                 newChatRoom.lastChat = CoreLastChat(
                                           chatID: chatRoomData.lastChat?.chatID ?? "",
                                           type: chatRoomData.lastChat?.type.rawValue ?? "text",
@@ -140,7 +103,6 @@ final class ChatRepository {
                 var messages = chatRoom.messages ?? []
                 messages.append(contentsOf: newMessages)
                 chatRoom.messages = messages
-                print("업데이트된 메세지들 확인", chatRoom.messages)
                 saveContext()
                 print("Chat room updated successfully.")
             } else {
@@ -156,7 +118,6 @@ final class ChatRepository {
         let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
         do {
             let coreChatRooms = try managedObjectContext.fetch(request)
-            dump(coreChatRooms)
             return coreChatRooms.map { chatRoom in
                 return ChattingRoomModel(roomID: chatRoom.roomID ?? "룸아이디 없음",
                                          createAt: chatRoom.createdAt ?? "",

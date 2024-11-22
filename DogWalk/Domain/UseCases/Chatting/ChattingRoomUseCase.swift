@@ -110,8 +110,6 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
                 in: chatRoom
             )
         }
-        print("updateChattingData--------------------")
-        dump(newMessages)
         // 채팅방 메시지 업데이트
         chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: newMessages)
     }

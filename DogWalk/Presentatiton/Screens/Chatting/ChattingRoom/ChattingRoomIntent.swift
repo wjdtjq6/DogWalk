@@ -34,24 +34,19 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         /// 1) DB에서 기존 대화 내역 가져와서 저장
         let chattingData = useCase.getChattingData(roomID: roomID)
         state?.updateChattingView(data: chattingData)
-        print("기존에 DB에 저장된 전체 데이터", chattingData)
         
         /// 2) 최근 대화 날짜 가져오기
         let cursorDate = useCase.getCursorDate(roomID: roomID)
-        print("Cursor Date", cursorDate)
+
         
         /// 3) 최근 대화 날짜 기반 새로운 대화 내역 요청
         Task {
             do {
                 let result = try await useCase.fetchChattingData(roomID: roomID, cursorDate: cursorDate)
-                print("👇 최근 대화 요청 데이터")
-                dump(result)
                 /// 3) 응답 받은 채팅 데이터를 DB 저장
                 useCase.updateChattingData(roomID: roomID, data: result)
                 /// 4) DB에 저장된 전체 채팅 데이터 가져온 후 State 전달
                 let chattingData = useCase.getAllChattingData(roomID: roomID)
-                print("👇 DB에 저장된 전체 채팅 데이터")
-                dump(chattingData)
                 state?.updateChattingView(data: chattingData)
                 /// 5) Socket 연결
                 useCase.openSocket(roomID: roomID)
@@ -108,6 +103,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
     func recieve() {
         useCase.chattingSubject
             .sink { chattingData in
+                print("chattingData", chattingData)
                 self.state?.updateChattingView(data: chattingData)
             }
             .store(in: &cancellable)
