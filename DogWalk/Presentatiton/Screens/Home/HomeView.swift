@@ -59,7 +59,7 @@ extension HomeView {
     func topCharactorView() -> some View {
         ZStack {
             Color.init(hex: "BFD4EF")
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: height/2.4)
+                .frame(maxWidth: .infinity, maxHeight: height/2.4)
             VStack {
                 VStack(alignment: .leading) {
                     Text("산책 가방 어디써? 빨리 나가자")//prompt
@@ -78,9 +78,9 @@ extension HomeView {
             }
             .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .topLeading)
             
-            Image("대체로 맑음")
+            Image("almostClear")
                 .resizable()
-                .frame(width: 240, height: 360)
+                .frame(width: 240, height: 240)
                 .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .bottomTrailing)
                 .padding(.trailing)
         }
