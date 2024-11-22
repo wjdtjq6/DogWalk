@@ -58,7 +58,7 @@ extension HomeView {
     //MARK: 상단 날씨, 멘트, 캐릭터 뷰
     func topCharactorView() -> some View {
         ZStack {
-            Color.primaryGray
+            Color.primaryWhite
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: height/2)
             VStack {
                 VStack(alignment: .leading) {
@@ -73,15 +73,16 @@ extension HomeView {
                     .font(.pretendardRegular17)
                     .foregroundColor(.gray)
                 }
-                .padding(10)
+                .padding(20)
                 .frame(maxWidth: width*2/3, alignment: .topLeading)
             }
             .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .topLeading)
             
-            Image(.test)
+            Image(.testLogo)
                 .resizable()
-                .frame(width: 240, height: 240)
+                .frame(width: 240, height: 360)
                 .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .bottomTrailing)
+                .padding(.trailing)
         }
         .frame(height: height/2)
     }
@@ -151,8 +152,3 @@ extension HomeView {
         return view
     }
 }
-
-//#Preview {
-//    HomeView()
-//}
-

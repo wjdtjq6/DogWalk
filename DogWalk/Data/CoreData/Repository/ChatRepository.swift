@@ -235,6 +235,7 @@ final class ChatRepository {
             roomID: coreMessage.roomID ?? "",
             type: MessageType(rawValue: coreMessage.type ?? "text") ?? .text,
             content: coreMessage.message ?? "",
+            createdAt: "",
             sender: UserModel(
                 userID: coreMessage.senderUserID ?? "",
                 nick: coreMessage.senderUserNick ?? "",

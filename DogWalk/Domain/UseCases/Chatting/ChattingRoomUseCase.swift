@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import CoreData
 
 /**
@@ -30,6 +31,8 @@ import CoreData
  
  */
 protocol ChattingRoomUseCase {
+    var chattingSubject: PassthroughSubject<[ChattingModel], Never> { get }
+    
     func getChattingData(roomID: String) -> [ChattingModel]
     func getCursorDate(roomID: String) -> String
     func fetchChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel]
@@ -39,13 +42,30 @@ protocol ChattingRoomUseCase {
     func sendTextMessage(roomID: String, message: String) async throws -> ChattingModel
     func sendImageMessage(roomID: String, image: Data) async throws -> ChattingFilesModel
     func closeSocket()
+    func testSubject(roomID: String) -> [ChattingModel]
 }
 
 final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
 
     private let network = NetworkManager()
-    private var socket: SocketIOManager?
+    private var socket: SocketProvider
     private let chatRepository = ChatRepository.shared
+    
+    let chattingSubject = PassthroughSubject<[ChattingModel], Never>()
+    private var cancellable = Set<AnyCancellable>()
+    
+    init(roomID: String) {
+        self.socket = SocketIOManager(roomID: roomID)
+        self.socket.socketSubject
+            .receive(on: RunLoop.main)
+            .sink { error in
+                print("ChattingSubject ERROR", error)
+            } receiveValue: { socketDMModel in
+                self.updateChattingData(roomID: roomID, data: socketDMModel)
+            }
+            .store(in: &cancellable)
+
+    }
     
     // DB에서 기존 대화 내역 가져오기
     func getChattingData(roomID: String) -> [ChattingModel] {
@@ -72,20 +92,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         }
     }
     
-     // 응답 받은 최신 대화 내용을 DB에 업데이트
-//    func updateChattingData(roomID: String, data: [ChattingModel]) {
-//        // DB에 업데이트 하고
-//        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else { return }
-//        let messages = data.map { msg in
-//            chatRepository.createChatMessage(chatID: msg.chatID,
-//                                             content: msg.content,
-//                                             sender: msg.sender,
-//                                             in: chatRoom)
-//        }
-//        // chatRepository.updateChatMessages(messages: messages)
-//        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: messages, context: chatRoom.managedObjectContext!)
-//    }
-    
+     // 서버에서 응답 받은 최신 대화 내용을 DB에 업데이트
     func updateChattingData(roomID: String, data: [ChattingModel]) {
         // 1. CoreData에서 채팅방 가지고 오고
         guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else {
@@ -109,6 +116,28 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: newMessages)
     }
     
+    // 소켓에서 받은 대화 내용을 DB에 업데이트
+    func updateChattingData(roomID: String, data: SocketDMModel) {
+        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else {
+            print("Chat room not found for ID: \(roomID)")
+            return
+        }
+        
+        let socketMessage = chatRepository.createChatMessage(
+            chatID: data.chatID,
+            content: data.content,
+            sender: UserModel(userID: data.sender.userID,
+                              nick: data.sender.nick,
+                              profileImage: data.sender.profileImage),
+            files: data.files,
+            in: chatRoom
+        )
+        
+        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: [socketMessage])
+        chattingSubject.send(chatRepository.fetchAllMessages(for: roomID))
+    }
+    
+    
     // DB에서 전체 대화 내용을 가져와 View 반영
     func getAllChattingData(roomID: String) -> [ChattingModel] {
         return chatRepository.fetchAllMessages(for: roomID)
@@ -116,8 +145,6 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     
     // 소켓 열기
     func openSocket(roomID: String) {
-        let socket = SocketIOManager(roomID: roomID)
-        // let socket = SocketIOManager()
         socket.connect()
     }
     
@@ -147,6 +174,22 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     
     // 소켓 닫기
     func closeSocket() {
-        socket?.disconnect()
+        socket.disconnect()
+    }
+    
+    func testSubject(roomID: String) -> [ChattingModel] {
+        var temp: [ChattingModel] = []
+        
+        self.socket.socketSubject
+            .receive(on: RunLoop.main)
+            .sink { error in
+                print("ChattingSubject ERROR", error)
+            } receiveValue: { [weak self] socketDMModel in
+                self?.updateChattingData(roomID: roomID, data: socketDMModel)
+                temp = self?.chatRepository.fetchAllMessages(for: roomID) ?? []
+            }
+            .store(in: &cancellable)
+        
+        return temp
     }
 }

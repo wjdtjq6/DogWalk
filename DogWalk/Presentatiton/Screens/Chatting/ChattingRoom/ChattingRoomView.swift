@@ -25,7 +25,7 @@ struct ChattingRoomView: View {
 extension ChattingRoomView {
     static func build(roomID: String) -> some View {
         let state = ChattingRoomState(roomID: roomID)
-        let useCase = DefaultChattingRoomUseCase()
+        let useCase = DefaultChattingRoomUseCase(roomID: roomID)
         let intent = ChattingRoomIntent(state: state, useCase: useCase)
         let container = Container(intent: intent as ChattingRoomIntentProtocol,
                                   state: state as ChattingRoomStateProtocol,
@@ -98,18 +98,16 @@ private extension ChattingRoomView {
                 .onChange(of: showKeyboard) { oldValue, newValue in //키보드 감지
                     guard newValue else { return }
                     //자연스러운 스크롤 구현
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         withAnimation {
-                            // scroll.scrollTo(message.modles.last?.id, anchor: .top)
                             scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
                         }
                     }
                     
                 }
                 .onChange(of: state.chattingData) { oldValue, newValue in //새로운 메시지 감지
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         withAnimation {
-                            // scroll.scrollTo(message.modles.last?.id, anchor: .top)
                             scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
                         }
                     }

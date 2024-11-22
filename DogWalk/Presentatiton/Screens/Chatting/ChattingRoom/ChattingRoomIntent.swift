@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol ChattingRoomIntentProtocol {
     func onAppearTrigger(roomID: String)
@@ -16,13 +17,12 @@ protocol ChattingRoomIntentProtocol {
 final class ChattingRoomIntent {
     private weak var state: ChattingRoomActionProtocol?
     private var useCase: ChattingRoomUseCase
-    
+    private let chatRepoTest = ChatRepository.shared
+    private var cancellable = Set<AnyCancellable>()
     init(state: ChattingRoomActionProtocol, useCase: ChattingRoomUseCase) {
         self.state = state
         self.useCase = useCase
     }
-    
-    private let chatRepoTest = ChatRepository.shared
 }
 
 extension ChattingRoomIntent: ChattingRoomIntentProtocol {
@@ -55,11 +55,13 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 state?.updateChattingView(data: chattingData)
                 /// 5) Socket 연결
                 useCase.openSocket(roomID: roomID)
+                recieve()
             } catch  {
                 print(#function, error)
                 state?.changeViewState(state: .error)
             }
         }
+        
         
     }
     
@@ -69,9 +71,11 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         Task {
             do {
                 let result = try await useCase.sendTextMessage(roomID: roomID, message: message)
-                print("채팅 전송 완료 + CoreData에 저장")
+                print("채팅 전송 완료")
                 print(result)
+                print("CoreData에 저장")
                 useCase.updateChattingData(roomID: roomID, data: [result])
+                print("전체 메세지 다시 가져와서 뷰에 띄움")
                 let newMessages = useCase.getAllChattingData(roomID: roomID)
                 state?.updateChattingView(data: newMessages)
             } catch  {
@@ -98,5 +102,14 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
     func onDisappearTrigger() {
         // 이 시점에서 ChattingList LastChat 업데이트 해주기
         useCase.closeSocket()
+    }
+    
+    
+    func recieve() {
+        useCase.chattingSubject
+            .sink { chattingData in
+                self.state?.updateChattingView(data: chattingData)
+            }
+            .store(in: &cancellable)
     }
 }

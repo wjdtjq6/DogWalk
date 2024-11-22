@@ -8,53 +8,48 @@
 import Foundation
 
 // 채팅 소켓 응답 (Response)
-struct SocketDMDTO: Decodable {
-    let dm_id: Int
-    let room_id: Int
+struct SocketDMDTO: Encodable, Decodable {
+    let chat_id: String
+    let room_id: String
     let content: String
-    let createAt: String
+    let createdAt: String
     let files: [String]
-    let user: UserDTO
+    let sender: UserDTO
 }
 
 extension SocketDMDTO {
     func toDomain() -> SocketDMModel {
-        return SocketDMModel(dmID: self.dm_id,
+        return SocketDMModel(chatID: self.chat_id,
                              roomID: self.room_id,
                              content: self.content,
-                             createdAt: self.createAt,
+                             createdAt: self.createdAt,
                              files: self.files,
-                             user: UserModel(userID: self.user.user_id ?? "",
-                                             nick: self.user.nick ?? "익명",
-                                             profileImage: self.user.profileImage ?? ""))
+                             sender: UserModel(userID: self.sender.user_id ?? "",
+                                             nick: self.sender.nick ?? "익명",
+                                             profileImage: self.sender.profileImage ?? ""))
     }
 }
 
-struct SocketDMModel {
-    let dmID: Int
-    let roomID: Int
+struct SocketDMModel: Encodable {
+    let chatID: String
+    let roomID: String
     let content: String
     let createdAt: String
     let files: [String]
-    let user: UserModel
+    let sender: UserModel
 }
 
 /* 응답 예시
-    {
-      "dm_id": 1,
-      "room_id": 1,
-      "content": "반갑습니다.",
-      "createdAt": "2024-10-21T22:47:30.236Z",
-      "files": [
-        "/static/dms/1701706651157.gif",
-        "/static/dms/1701706651161.jpeg",
-        "/static/dms/1701706651166.jpeg"
-      ],
-      "user": {
-        "user_id": 1,
-        "email": "sesac@gmail.com",
-        "nickname": "새싹",
-        "profileImage": "/static/profiles/1701706651161.jpeg"
-      }
-    }
+ {
+     "chat_id" = 6740369b3a36e82f532ec721;
+     content = "\Ub2e4\Uc74c \Ud2b9\Uac15\Uc740 \Uc5b4\Ub5a4 \Uc8fc\Uc81c\Ub85c \Ub4e3\Uace0\Uc2f6\Uc73c\Uc2e0\Uac00\Uc694??";
+     createdAt = "2024-11-22T07:45:31.693Z";
+     files =     (
+     );
+     "room_id" = 6731a3122cced3080560f671;
+     sender =     {
+         nick = "\Uc7ad\Uc7ad\Uc774";
+         "user_id" = 67316ba02cced3080560f620;
+     };
+ }
 */

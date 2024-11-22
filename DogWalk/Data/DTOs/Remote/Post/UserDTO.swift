@@ -8,7 +8,7 @@
 import Foundation
 
 // 게시글 & 댓글 & 채팅방 참여자 응답 (Response)
-struct UserDTO: Decodable {
+struct UserDTO: Encodable, Decodable {
     let user_id: String?
     let nick: String?
     let profileImage: String?
@@ -23,7 +23,7 @@ extension UserDTO {
 }
 
 // 게시글, 팔로우, 댓글, 채팅방 참여자 사용 모델
-struct UserModel {
+struct UserModel: Encodable {
     let userID: String
     let nick: String
     let profileImage: String
