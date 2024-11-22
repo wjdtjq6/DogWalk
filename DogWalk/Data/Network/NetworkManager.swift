@@ -271,6 +271,7 @@ extension NetworkManager {
         urlComponents.queryItems = [
             URLQueryItem(name: "latitude", value: lat),
             URLQueryItem(name: "longitude", value: lon),
+            URLQueryItem(name: "maxDistance", value: "5000"),
         ]
         guard let url = urlComponents.url else { throw NetworkError.InvalidURL }
         var request = URLRequest(url: url)
@@ -284,6 +285,7 @@ extension NetworkManager {
         }
         do {
             let decodedResponse = try JSONDecoder().decode(GeolocationPostResponseDTO.self, from: data)
+            print(decodedResponse.data.map {$0.toDomain()})
             return decodedResponse.data.map {$0.toDomain()}
         } catch {
             print("Decoding Error: \(error)")

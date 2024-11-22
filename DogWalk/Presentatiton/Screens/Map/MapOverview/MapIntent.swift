@@ -25,7 +25,7 @@ protocol MapIntentProtocol {
     //MARK: 2.좌표 기반 마커 표시
     func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees)
     func updatePosition(_ newPosition: MapCameraPosition)
-    func selectPicker(_ post: PostModel)
+    func selectAnnotation(_ post: PostModel)
 }
 
 final class MapIntent {
@@ -39,8 +39,8 @@ final class MapIntent {
 
 extension MapIntent: MapIntentProtocol {
     // 피커 클릭 시
-    func selectPicker(_ post: PostModel) {
-        state?.getSelecedPicker(post)
+    func selectAnnotation(_ post: PostModel) {
+        state?.getSelectedAnnotation(post)
     }
     //MARK: 2.좌표 기반 마커 표시
     func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees) {

@@ -19,6 +19,7 @@ struct MapView: View {
     @State private var showRefreshButton = false
     @State private var showAnnotation = false
     @State private var isShowingSheet = false
+    @State private var showResultPostView = false
 }
 
 extension MapView {
@@ -42,9 +43,15 @@ extension MapView {
             }
         } //:ZSTACK
         .sheet(isPresented: $isShowingSheet) {
-            userInfoBottomSheet(state.selecedPicker)
-                        .presentationDetents([.fraction(0.3)])
+            userInfoBottomSheet(state.selectedAnnotation)
+            .presentationDetents([.fraction(0.3)])
         } //바텀시트
+        .sheet(isPresented: $showResultPostView) {
+            WalkResultView.build(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage)
+            //dogWalkResult(walkTime: <#T##Int#>, walkDistance: <#T##Double#>, routeImage: <#T##UIImage#>)
+            //coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
+        }
+        
     }
 }
 // MARK: - 지도 관련 부분
@@ -59,9 +66,7 @@ private extension MapView {
             //MARK: 2.좌표 기반 마커 표시
             if showAnnotation {//산책 시작하면 안보이도록
                 ForEach(state.posts, id: \.self) { data in
-                    
-                    setAnnotation(lat: data.geolocation.lat, lng: data.geolocation.lon)
-                    
+                    setAnnotation(lat: data.geolocation.lat, lng: data.geolocation.lon, post: data)
                 }
             }
             let coordinate = state.locationManager.locationManager.location?.coordinate
@@ -80,15 +85,19 @@ private extension MapView {
                     .stroke(state.polylineColor, lineWidth: 5)
             }
         }
-        .onAppear {//MARK: 1-1현위치 좌표 전달 완료
-            let coordinate = state.locationManager.locationManager.location?.coordinate
-            
-            showAnnotation = true//처음엔 annotation 보이도록
-        }
+        .onAppear {//MARK: 1-1현위치 좌표 전달 완료 
+            guard let coordinate = state.locationManager.locationManager.location?.coordinate else {return} 
+            intent.getPostsAtLocation(lat: coordinate.latitude, lon: coordinate.longitude) 
+            showAnnotation = true
+        }//처음엔 annotation 보이도록
         .onMapCameraChange { context in//MARK: 1-2새로고침 시 중심 좌표 전달 완료
             //MARK: **Trouble Shooting** 처음 맵 띄울 때 현 위치와 카메라포지션이 같이 움직여서 해결
             if !state.position.followsUserLocation {
                 showRefreshButton = true
+            }
+            //MARK: 산책중 지도 움직였을 때 새로고침버튼 숨김
+            if state.isTimerOn {
+                showRefreshButton = false
             }
             let center = intent.getCenter(context.region)
             print(center,"뷰에서 센터 좌표")
@@ -111,11 +120,12 @@ private extension MapView {
         }
     }
     //Annotation
-    func setAnnotation(lat: Double, lng: Double) -> Annotation<Text, some View> {
+    func setAnnotation(lat: Double, lng: Double, post: PostModel) -> Annotation<Text, some View> {
         Annotation("", coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)) {
             customAnnotation()
                 .wrapToButton {
-                    
+                    isShowingSheet.toggle()
+                    intent.selectAnnotation(post)
                 }
         }
     }
@@ -205,8 +215,13 @@ private extension MapView {
                                 await intent.setRouteImage(route: state.locationManager.locations)
                                 intent.stopWalk()
                                 intent.stopBackgroundTimer()
-                                coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
+                                // TODO: coordinator 설정 해주기
+                                //coordinator.push(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
+                                //coordinator.sheet(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
+                                //coordinator.presentSheet(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
+                                //coordinator.presentFullScreenCover(.dogWalkResult(walkTime: state.count, walkDistance: state.locationManager.walkDistance, routeImage: state.routeImage))
                                 //MARK: 4.마커는 다시 보이도록
+                                showResultPostView.toggle()
                                 showAnnotation = true
                             }
                         Text("산책 종료")
@@ -232,6 +247,7 @@ private extension MapView {
             //게시글 내용
             userInfoTextField(post.title, post.content, 3, mainFont: .pretendardBold14, subFont: .pretendardRegular12)
                 .padding(.horizontal)
+                .hLeading()
             
             HStack(alignment: .center, spacing: 15) {
                 CommonButton(width: Self.width * 0.55, height: 44, cornerradius: 20, backColor: .primaryLime, text: "작성한 게시물 보기", textFont: .pretendardBold14)
@@ -239,6 +255,7 @@ private extension MapView {
                         // TODO: 해당 게시글의  PostModel 프린트 해주기
                         print("게시글 보기 버튼 클릭")
                         print("PostModel")
+                        isShowingSheet = false
                         coordinator.push(.communityDetail(postID: post.postID))
                     }
                 
@@ -251,6 +268,7 @@ private extension MapView {
                         // TODO: 해당 게시글의 id (마커 클릭했을때)
                         print("게시글 id 프린트해주기")
                         print("멍톡 보내기 클릭")
+                        isShowingSheet = false
                         coordinator.push(.chattingRoom(roomID: post.creator.userID))
                     }
             } //:HSTACK
@@ -258,8 +276,7 @@ private extension MapView {
         .padding([.top])
         .vTop()
         .hLeading()
-    }
-    //바텀 시트 메인, 서브 텍스트 필드
+    }    //바텀 시트 메인, 서브 텍스트 필드
     func userInfoTextField(_ mainText: String, _ subText: String, _ subTextLimit: Int = 1, mainFont: Font, subFont: Font) -> some View {
         VStack(alignment: .leading) {
             Text(mainText)

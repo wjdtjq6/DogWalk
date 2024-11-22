@@ -24,7 +24,7 @@ protocol MapStateProtocol { // 속성들을 가지는 프로토콜
     var polylineColor: Color { get }
     //지도를 이미지로 저장
     var routeImage: UIImage { get }
-    var selecedPicker: PostModel { get }
+    var selectedAnnotation: PostModel { get }
 }
 protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로토콜
     func setTimerOn(_ isOn: Bool)
@@ -40,7 +40,7 @@ protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로�
     func getCenter(_ region: MKCoordinateRegion)
     func updatePosition(_ newPosition: MapCameraPosition)
     func getPosts(_ data: [PostModel])
-    func getSelecedPicker(_ post: PostModel)
+    func getSelectedAnnotation(_ post: PostModel)
 }
 //MARK: - view에 전달할 데이터
 @Observable
@@ -53,7 +53,7 @@ final class MapState: MapStateProtocol, ObservableObject {
     var timer: DispatchSourceTimer?
     var isTimerOn : Bool = false
     var isAlert: Bool = false
-    var selecedPicker: PostModel = PostModel()
+    var selectedAnnotation: PostModel = PostModel()
     
     //현위치
     var locationManager = LocationManager()
@@ -69,8 +69,8 @@ final class MapState: MapStateProtocol, ObservableObject {
 }
 // MARK: - intent에 줄 함수
 extension MapState: MapActionProtocol {
-    func getSelecedPicker(_ post: PostModel) {
-        self.selecedPicker = post
+    func getSelectedAnnotation(_ post: PostModel) {
+        self.selectedAnnotation = post
     }
     func getPosts(_ data: [PostModel]) {
         self.posts = data
