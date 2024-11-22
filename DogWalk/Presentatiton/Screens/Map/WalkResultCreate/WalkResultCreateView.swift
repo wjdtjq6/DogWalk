@@ -9,9 +9,10 @@ import SwiftUI
 final class DefaultWalkResultCreateUseCase {
     let network = NetworkManager()
     func createPost(title: String, content: String, image: Data, time: Int, distance: Double, calorie: Double) async throws {
+        let realDistance = distance.rounded()/1000
         do {
             let imageURL = try await network.uploadImagePost(imageData: image)
-            let sumContent = content + "\n\n\n" + "산책 시간: \(time.formatted())\n산책 거리: \(distance.formatted())\n칼로리: \(calorie.formatted())"
+            let sumContent = content + "\n\n\n" + "산책 시간: \(Int(time).formatted())s\n산책 거리: \(realDistance)km\n칼로리: \(Int(calorie).formatted())Kcal"
             let Postbody = PostBody(category: CommunityCategoryType.walkCertification.rawValue, title: title, price: 0, content: sumContent, files: imageURL.url, longitude: UserManager.shared.lon, latitude: UserManager.shared.lat)
             try await network.writePost(body: Postbody)
             print("포스터 작성 완료!!")
@@ -152,7 +153,7 @@ private extension WalkResultCreateView {
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "칼로리", mid: "\(walkCalorie)", bottom: "kcal")
+            info(top: "칼로리", mid: "\(Int(walkCalorie).formatted())", bottom: "kcal")
             
             
         } //:HSTACK

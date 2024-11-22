@@ -54,6 +54,7 @@
 		BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */; };
 		BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41B0A02CD3BC4500B67485 /* AuthView.swift */; };
 		BF84178D2CEF9CB800348F30 /* CoreChatRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF84178B2CEF9CB800348F30 /* CoreChatRoom.xcdatamodeld */; };
+		BF8417932CF0313B00348F30 /* CoreChatRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF8417912CF0313B00348F30 /* CoreChatRoom.xcdatamodeld */; };
 		C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC72CD7AEF4002155EA /* NetworkManager.swift */; };
 		C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC82CD7AEF5002155EA /* ChatTarget.swift */; };
 		C4097AD12CD7AEF5002155EA /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC92CD7AEF5002155EA /* NetworkError.swift */; };
@@ -105,7 +106,6 @@
 		C41F67E72CEC9898003BCCCC /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = C41F67E62CEC9898003BCCCC /* SocketIO */; };
 		C41F67EA2CECAE92003BCCCC /* ChattingListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */; };
 		C41F67ED2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C41F67EB2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld */; };
-		C41F67F52CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C41F67F32CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -202,6 +202,7 @@
 		BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BF41B0A02CD3BC4500B67485 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		BF84178C2CEF9CB800348F30 /* CoreChatRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreChatRoom.xcdatamodel; sourceTree = "<group>"; };
+		BF8417922CF0313B00348F30 /* CoreChatRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreChatRoom.xcdatamodel; sourceTree = "<group>"; };
 		C4097AC72CD7AEF4002155EA /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C4097AC82CD7AEF5002155EA /* ChatTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTarget.swift; sourceTree = "<group>"; };
 		C4097AC92CD7AEF5002155EA /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -252,7 +253,6 @@
 		C41F67E32CEC8A28003BCCCC /* ChattingRoomUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomUseCase.swift; sourceTree = "<group>"; };
 		C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListUseCase.swift; sourceTree = "<group>"; };
 		C41F67EC2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreChatRoom.xcdatamodel; sourceTree = "<group>"; };
-		C41F67F42CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreChatRoom.xcdatamodel; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 				99DF939E2CEECA190022E471 /* CoreChatRoom+CoreDataClass.swift */,
 				99DF939F2CEECA190022E471 /* CoreChatRoom+CoreDataProperties.swift */,
 				99DF93962CEEC93F0022E471 /* CoreChatMessageTransformer.swift */,
-				C41F67F32CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld */,
+				BF8417912CF0313B00348F30 /* CoreChatRoom.xcdatamodeld */,
 				99DF93982CEEC96A0022E471 /* PersistentContainer.swift */,
 				99DF939A2CEEC9830022E471 /* CoreDataManager.swift */,
 			);
@@ -558,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				C41F67EB2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld */,
+				BF84178B2CEF9CB800348F30 /* CoreChatRoom.xcdatamodeld */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1139,6 +1140,7 @@
 				062284C62CEF190600860F7A /* WalkResultCreateView.swift in Sources */,
 				0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */,
 				C4097B072CD7AF28002155EA /* PostFileBody.swift in Sources */,
+				BF8417932CF0313B00348F30 /* CoreChatRoom.xcdatamodeld in Sources */,
 				C4A776952CD223E600D60EEE /* CommunityView.swift in Sources */,
 				C4097B062CD7AF28002155EA /* PostBody.swift in Sources */,
 				C4D48E832CE70A7C006E39A0 /* SocketError.swift in Sources */,
@@ -1174,7 +1176,6 @@
 				9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */,
 				C4097B132CD7AF28002155EA /* ChattingRoomDTO.swift in Sources */,
 				C41F67ED2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */,
-				C41F67F52CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld in Sources */,
 				C477A2CD2CD0E729006B8DB6 /* DefaultLocalDTO.swift in Sources */,
 				99646D062CEB59BD00B94C0B /* HomeContentState.swift in Sources */,
 				99DF93992CEEC96A0022E471 /* PersistentContainer.swift in Sources */,
@@ -1314,7 +1315,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N727744RT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1333,7 +1334,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1356,7 +1357,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N727744RT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1375,7 +1376,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1438,6 +1439,17 @@
 			);
 			currentVersion = BF84178C2CEF9CB800348F30 /* CoreChatRoom.xcdatamodel */;
 			name = CoreChatRoom.xcdatamodeld;
+			path = DogWalk/Data/CoreData/CoreChatRoom.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		BF8417912CF0313B00348F30 /* CoreChatRoom.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BF8417922CF0313B00348F30 /* CoreChatRoom.xcdatamodel */,
+			);
+			currentVersion = BF8417922CF0313B00348F30 /* CoreChatRoom.xcdatamodel */;
+			name = CoreChatRoom.xcdatamodeld;
 			path = /Users/jimmy/Desktop/Development/DogWalk/DogWalk/Data/CoreData/CoreChatRoom.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
@@ -1450,17 +1462,6 @@
 			currentVersion = C41F67EC2CEF3D97003BCCCC /* CoreChatRoom.xcdatamodel */;
 			name = CoreChatRoom.xcdatamodeld;
 			path = DogWalk/Data/CoreData/CoreChatRoom.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		C41F67F32CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C41F67F42CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodel */,
-			);
-			currentVersion = C41F67F42CEF7E4E003BCCCC /* CoreChatRoom.xcdatamodel */;
-			name = CoreChatRoom.xcdatamodeld;
-			path = /Users/junehee/Desktop/sesac/SLP/DogWalk/Data/CoreData/CoreChatRoom.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

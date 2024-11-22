@@ -13,15 +13,14 @@ protocol MapUseCase {
 
 final class DefaultMapUseCase: MapUseCase {
     private let network = NetworkManager()
-    
+
     func getPost(lat: Double, lon: Double) async throws -> ([PostModel]) {
         do {
-            let future = try await network.fetchAreaPosts(category: .walkCertification, lon: String(lon), lat: String(lat))
+            let future = try await network.fetchAreaPosts(category: .walkCertification, lon: String(Float(lon)), lat: String(Float(lat)))
             return future
         } catch {
             guard let  err = error as? NetworkError else { throw error}
             throw err
         }
     }
-    
 }

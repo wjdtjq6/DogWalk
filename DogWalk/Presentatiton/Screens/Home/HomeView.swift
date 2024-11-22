@@ -58,8 +58,8 @@ extension HomeView {
     //MARK: 상단 날씨, 멘트, 캐릭터 뷰
     func topCharactorView() -> some View {
         ZStack {
-            Color.primaryGray
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: height/2)
+            Color.init(hex: "BFD4EF")
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: height/2.4)
             VStack {
                 VStack(alignment: .leading) {
                     Text("산책 가방 어디써? 빨리 나가자")//prompt
@@ -78,12 +78,12 @@ extension HomeView {
             }
             .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .topLeading)
             
-            Image(.test)
+            Image("대체로 맑음")
                 .resizable()
                 .frame(width: 240, height: 240)
                 .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .bottomTrailing)
         }
-        .frame(height: height/2)
+        .frame(height: height/2.4)
     }
     
     //MARK: 함께 산책하기, 산책 인증하기 뷰

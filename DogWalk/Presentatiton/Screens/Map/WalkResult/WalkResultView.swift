@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct WalkResultView: View {
+    @EnvironmentObject var coordinator: MainCoordinator
+    @Environment(\.dismiss) var dismiss
     private static let width = UIScreen.main.bounds.width
     private static let height = UIScreen.main.bounds.height
     @StateObject var container: Container<WalkResultIntentProtocol, WalkResultStateProtocol>
@@ -60,10 +62,11 @@ private extension WalkResultView {
             
             Image.asXmark
                 .foregroundStyle(Color.primaryBlack)
-                .frame(width: 40, height: 40)
+                .frame(width: 50, height: 50)
                 .hTrailing()
                 .padding(.trailing)
                 .wrapToButton {
+                    dismiss()
                     intent.dismissButtonTap()
                 }
         } //:HSTACK
@@ -103,7 +106,7 @@ private extension WalkResultView {
                 .fill(Color.primaryGray)
                 .frame(width: 1, height: 60)
             
-            info(top: "칼로리", mid: "\(Int(state.walkCalorie))", bottom: "kcal")
+            info(top: "칼로리", mid: "\(Int(state.walkCalorie).formatted())", bottom: "Kcal")
                 .onAppear {
                     intent.calculateCalories()
                 }
@@ -162,11 +165,13 @@ private extension WalkResultView {
                 .foregroundStyle(Color.primaryWhite)
                 .wrapToButton {
                     print("게시글 작성 탭함")
+                    dismiss()
                     // MARK: 지도이미지, 산책시간, 거리, 칼로리 print
                     print(state.walkTime,"산책시간")
                     print(state.walkDistance,"거리")
                     print(state.walkCalorie,"칼로리")
                     print(state.routeImage,"이미지")
+                    coordinator.push(.mapCommunityCreate(walkTime: state.walkTime, walkDistance: state.walkDistance, walkCalorie: state.walkCalorie, walkImage: state.routeImage))
                 }
         } //:VSTACK
     }
