@@ -73,15 +73,16 @@ extension HomeView {
                     .font(.pretendardRegular17)
                     .foregroundColor(.gray)
                 }
-                .padding(10)
+                .padding(20)
                 .frame(maxWidth: width*2/3, alignment: .topLeading)
             }
             .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .topLeading)
             
             Image("대체로 맑음")
                 .resizable()
-                .frame(width: 240, height: 240)
+                .frame(width: 240, height: 360)
                 .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .bottomTrailing)
+                .padding(.trailing)
         }
         .frame(height: height/2.4)
     }
@@ -151,8 +152,3 @@ extension HomeView {
         return view
     }
 }
-
-//#Preview {
-//    HomeView()
-//}
-
