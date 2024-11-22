@@ -45,8 +45,8 @@ extension ChattingListView {
             }
             .toolbar(.visible, for: .tabBar)
         }
-        .task {
-            await intent.onAppearTrigger()
+        .onAppear {
+            Task { await intent.onAppearTrigger() }
         }
     }
     
