@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol ChattingRoomIntentProtocol {
     func onAppearTrigger(roomID: String)
@@ -16,13 +17,12 @@ protocol ChattingRoomIntentProtocol {
 final class ChattingRoomIntent {
     private weak var state: ChattingRoomActionProtocol?
     private var useCase: ChattingRoomUseCase
-    
+    private let chatRepoTest = ChatRepository.shared
+    private var cancellable = Set<AnyCancellable>()
     init(state: ChattingRoomActionProtocol, useCase: ChattingRoomUseCase) {
         self.state = state
         self.useCase = useCase
     }
-    
-    private let chatRepoTest = ChatRepository.shared
 }
 
 extension ChattingRoomIntent: ChattingRoomIntentProtocol {
@@ -34,32 +34,29 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         /// 1) DB에서 기존 대화 내역 가져와서 저장
         let chattingData = useCase.getChattingData(roomID: roomID)
         state?.updateChattingView(data: chattingData)
-        print("기존에 DB에 저장된 전체 데이터", chattingData)
         
         /// 2) 최근 대화 날짜 가져오기
         let cursorDate = useCase.getCursorDate(roomID: roomID)
-        print("Cursor Date", cursorDate)
+
         
         /// 3) 최근 대화 날짜 기반 새로운 대화 내역 요청
         Task {
             do {
                 let result = try await useCase.fetchChattingData(roomID: roomID, cursorDate: cursorDate)
-                print("👇 최근 대화 요청 데이터")
-                dump(result)
                 /// 3) 응답 받은 채팅 데이터를 DB 저장
                 useCase.updateChattingData(roomID: roomID, data: result)
                 /// 4) DB에 저장된 전체 채팅 데이터 가져온 후 State 전달
                 let chattingData = useCase.getAllChattingData(roomID: roomID)
-                print("👇 DB에 저장된 전체 채팅 데이터")
-                dump(chattingData)
                 state?.updateChattingView(data: chattingData)
                 /// 5) Socket 연결
                 useCase.openSocket(roomID: roomID)
+                recieve()
             } catch  {
                 print(#function, error)
                 state?.changeViewState(state: .error)
             }
         }
+        
         
     }
     
@@ -69,9 +66,11 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         Task {
             do {
                 let result = try await useCase.sendTextMessage(roomID: roomID, message: message)
-                print("채팅 전송 완료 + CoreData에 저장")
+                print("채팅 전송 완료")
                 print(result)
+                print("CoreData에 저장")
                 useCase.updateChattingData(roomID: roomID, data: [result])
+                print("전체 메세지 다시 가져와서 뷰에 띄움")
                 let newMessages = useCase.getAllChattingData(roomID: roomID)
                 state?.updateChattingView(data: newMessages)
             } catch  {
@@ -98,5 +97,15 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
     func onDisappearTrigger() {
         // 이 시점에서 ChattingList LastChat 업데이트 해주기
         useCase.closeSocket()
+    }
+    
+    
+    func recieve() {
+        useCase.chattingSubject
+            .sink { chattingData in
+                print("chattingData", chattingData)
+                self.state?.updateChattingView(data: chattingData)
+            }
+            .store(in: &cancellable)
     }
 }
