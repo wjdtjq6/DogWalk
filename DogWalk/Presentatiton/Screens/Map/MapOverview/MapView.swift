@@ -15,8 +15,6 @@ struct MapView: View {
     private var state: MapStateProtocol { container.state }
     private var intent: MapIntentProtocol { container.intent }
     @EnvironmentObject var coordinator: MainCoordinator
-    //@State private var posts: [PostModel] = []
-    @State private var showRefreshButton = false
     @State private var showAnnotation = false
     @State private var isShowingSheet = false
     @State private var showResultPostView = false
@@ -26,8 +24,7 @@ extension MapView {
     var body: some View {
         ZStack {
             mapView()
-            //MARK: 새로고침 버튼
-            if showRefreshButton {
+            if state.showRefreshButton {
                 VStack {
                     refreshButton()
                         .padding()
@@ -69,7 +66,7 @@ private extension MapView {
                     setAnnotation(lat: data.geolocation.lat, lng: data.geolocation.lon, post: data)
                 }
             }
-            let coordinate = state.locationManager.locationManager.location?.coordinate
+//            let coordinate = state.locationManager.locationManager.location?.coordinate
             //            let _ = Task {
             //                do {
             //                    let post = try await intent.getPostsAtLocation(lat: coordinate!.latitude, lon: coordinate!.longitude)
@@ -93,14 +90,14 @@ private extension MapView {
         .onMapCameraChange { context in//MARK: 1-2새로고침 시 중심 좌표 전달 완료
             //MARK: **Trouble Shooting** 처음 맵 띄울 때 현 위치와 카메라포지션이 같이 움직여서 해결
             if !state.position.followsUserLocation {
-                showRefreshButton = true
+                intent.showRefreshButton()
             }
             //MARK: 산책중 지도 움직였을 때 새로고침버튼 숨김
             if state.isTimerOn {
-                showRefreshButton = false
+                intent.hideRefreshButton()
             }
-            let center = intent.getCenter(context.region)
-            print(center,"뷰에서 센터 좌표")
+            //MARK: 새로고침 시 통신
+            intent.getCenter(context.region)
         }
     }
     //새로고침 버튼
@@ -108,11 +105,9 @@ private extension MapView {
         HStack {
             Button {
                 print("새로고침 버튼 클릭")
-                //MARK: 1-2 새로고침 시 중심 좌표 전달
-                
-                guard let coordinate = state.locationManager.locationManager.location?.coordinate else {return}
-                intent.getPostsAtLocation(lat: coordinate.latitude, lon: coordinate.longitude)
-                showRefreshButton = false//MARK: 새로고침 버튼 숨기기
+                //MARK: 새로고침 시 통신
+                intent.getPostsAtLocation(lat: state.visibleRegion.center.latitude, lon: state.visibleRegion.center.longitude)
+                intent.hideRefreshButton()//MARK: 새로고침 버튼 숨기기
             } label: {
                 CommonButton(width: 170, height: 44, cornerradius: 22, backColor: .primaryGreen, text: "이 지역 검색하기", textFont: .pretendardBold14, leftLogo: Image(systemName: "arrow.clockwise"), imageSize: 22)
                     .foregroundStyle(Color.primaryBlack)
@@ -172,7 +167,7 @@ private extension MapView {
                         intent.startWalk()
                         intent.startBackgroundTimer()
                         //MARK: 4.마커와 새로고침버튼 안보이도록
-                        showRefreshButton = false
+                        intent.hideRefreshButton()
                         showAnnotation = false
                     } else {
                         intent.showAlert()

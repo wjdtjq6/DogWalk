@@ -21,11 +21,13 @@ protocol MapIntentProtocol {
     func setRouteImage(route coordinates: [CLLocationCoordinate2D]) async
     func startBackgroundTimer()
     func stopBackgroundTimer()
-    func getCenter(_ region: MKCoordinateRegion) -> CLLocationCoordinate2D
+    func getCenter(_ region: MKCoordinateRegion)
     //MARK: 2.좌표 기반 마커 표시
     func getPostsAtLocation(lat: CLLocationDegrees, lon: CLLocationDegrees)
     func updatePosition(_ newPosition: MapCameraPosition)
     func selectAnnotation(_ post: PostModel)
+    func showRefreshButton()
+    func hideRefreshButton()
 }
 
 final class MapIntent {
@@ -38,6 +40,14 @@ final class MapIntent {
 }
 
 extension MapIntent: MapIntentProtocol {
+    func showRefreshButton() {
+        state?.showRefreshButton(true)
+    }
+    
+    func hideRefreshButton() {
+        state?.showRefreshButton(false)
+    }
+    
     // 피커 클릭 시
     func selectAnnotation(_ post: PostModel) {
         state?.getSelectedAnnotation(post)
@@ -193,10 +203,8 @@ extension MapIntent: MapIntentProtocol {
         state?.stopTimer()
     }
     //MARK: 1-2새로고침 시 중심 좌표 전달 완료
-    func getCenter(_ region: MKCoordinateRegion) -> CLLocationCoordinate2D {
-        let center = region.center
-        print(center,"인텐트에서 센터 좌표")
-        return center
+    func getCenter(_ region: MKCoordinateRegion) {
+        state?.getCenter(region)
     }
 }
 
