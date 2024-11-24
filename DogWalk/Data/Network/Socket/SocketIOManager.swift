@@ -34,7 +34,7 @@ final class SocketIOManager: SocketProvider {
         guard let baseURL = URL(string: APIKey.socketBaseURL) else { return }
         self.manager = SocketManager(
             socketURL: baseURL, config: [
-                .log(true), // 소켓 통신 중에 로그를 표시 유무
+                .log(false), // 소켓 통신 중에 로그를 표시 유무
                 .compress,  // 데이터를 압축해서 전송할 것인지
             ]
         )
@@ -63,6 +63,7 @@ final class SocketIOManager: SocketProvider {
                 print("👇 Socket DecodedData")
                 // 데이터 전달
                 self?.socketSubject.send(decodedData.toDomain())
+                
             } catch {
                 print("🚨 채팅 데이터 디코딩 실패", error)
             }

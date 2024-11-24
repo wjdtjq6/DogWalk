@@ -46,4 +46,5 @@ final class DefaultChattingListUseCase: ChattingListUseCase {
             throw error
         }
     }
+   
 }

@@ -6,8 +6,8 @@
 //
 
 import Foundation
-
-public class CoreChatMessage: NSObject,Codable {
+@objc(CoreChatMessage)
+public class CoreChatMessage: NSObject, NSSecureCoding {
     public static var supportsSecureCoding: Bool = true
 
     public var chatID: String?
@@ -18,6 +18,7 @@ public class CoreChatMessage: NSObject,Codable {
     public var senderUserID: String?
     public var senderUserNick: String?
     public var senderProfileImage: String?
+    
 
     public init(chatID: String? = nil, roomID: String? = nil, type: String? = nil, files: [String]? = nil, message: String? = nil, senderUserID: String? = nil, senderUserNick: String? = nil, profileImage: String? = nil) {
         self.chatID = chatID
