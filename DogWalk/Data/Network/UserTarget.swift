@@ -14,6 +14,7 @@ enum UserTarget {
     case myProfile                              // 내 프로필 조회
     case userProfile(userId: String)            // 다른 유저 프로필 조회
     case withdraw                               // 회원탈퇴
+    case updateMyProfile(body: UpdateUserBody, boundary: String)
 }
 
 extension UserTarget: TargetType {
@@ -35,6 +36,8 @@ extension UserTarget: TargetType {
             return "/users/\(userId)/profile"
         case .withdraw:
             return "/users/withdraw"
+        case .updateMyProfile:
+            return "/users/me/profile"
         }
     }
     
@@ -44,25 +47,34 @@ extension UserTarget: TargetType {
             return .post
         case .myProfile, .userProfile, .withdraw:
             return .get
+        case .updateMyProfile:
+            return .put
         }
     }
     
     var header: [String : String] {
         switch self {
-        /// productId, application/json
+            /// productId, application/json
         case .emailLogin, .kakaoLogin, .appleLogin:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.sesacKey.rawValue: APIKey.key,
                 BaseHeader.contentType.rawValue: BaseHeader.json.rawValue,
             ]
-        /// productId, application/json, AccessToken, SesacKey
+            /// productId, application/json, AccessToken, SesacKey
         case .myProfile, .userProfile, .withdraw:
             return [
                 BaseHeader.productId.rawValue: APIKey.appID,
                 BaseHeader.contentType.rawValue: BaseHeader.json.rawValue,
                 BaseHeader.authorization.rawValue: UserManager.shared.acess,
                 BaseHeader.sesacKey.rawValue: APIKey.key
+            ]
+        case .updateMyProfile(_, let boundary):
+            return [
+                BaseHeader.productId.rawValue: APIKey.appID,
+                BaseHeader.authorization.rawValue: UserManager.shared.acess,
+                BaseHeader.sesacKey.rawValue: APIKey.key,
+                BaseHeader.contentType.rawValue: BaseHeader.multipart.rawValue+"; boundary=\(boundary)",
             ]
         }
     }
@@ -99,6 +111,8 @@ extension UserTarget: TargetType {
                 print("Body to JSON Encode Error", error)
                 return nil
             }
+        case .updateMyProfile(let body, let boundary):
+            return createMultipartUserBody(parameters: body, boundary: boundary)
         default:
             return nil
         }
