@@ -8,10 +8,11 @@
 import SwiftUI
 
 final class MainCoordinator: DogWalkCoordinatorProtocol {
+    
     @Published var path: NavigationPath = NavigationPath()
     @Published var sheet: Sheet?
     @Published var fullScreenCover: FullScreenCover?
-    @Published var selectedTab: Tab?
+    @Published var selectedTab: Tab = .home
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -46,11 +47,15 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
         //path.append(Screen.tab)
     }
     
+    func changeTab(tab: Tab) {
+            selectedTab = tab 
+        }
+    
     // 화면
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
         switch screen {
-        case .tab: CustomTabView()                      // 탭
+        case .tab: MainTabView(coordinator: self)                      // 탭
         case .auth: AuthView()                          // 회원가입
         case .login: LoginView.build()                  // 로그인
         case .home: HomeView.build()                          // 홈
