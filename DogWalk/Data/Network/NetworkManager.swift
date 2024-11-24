@@ -219,6 +219,17 @@ extension NetworkManager {
         _ = try await requestDTO(target: .chat(.newChatRoom(body: body)), of: ChattingRoomDTO.self)
     }
 }
+extension NetworkManager {
+    func appleLogin(id: String) async throws {
+        let body = AppleLoginBody(idToken: id, nick: "애플독")
+        let result = try await requestDTO(target: .user(.appleLogin(body: body)), of: OAuthLoginDTO.self)
+        UserManager.shared.acess = result.accessToken
+        UserManager.shared.refresh = result.refreshToken
+        UserManager.shared.userID = result.user_id
+        UserManager.shared.userNick = "애플독"
+        UserManager.shared.isUser = true
+    }
+}
 
 protocol RequestRetrier {
     func retry(for error: Error) -> Bool
