@@ -26,12 +26,11 @@ final class DefaultCommunityDetailUseCase {
 extension DefaultCommunityDetailUseCase: CommunityDetailUseCase {
     func getDetailPost() async throws -> (Bool, PostModel) {
         do {
-            await network.addViews(id: id) //조회수 증가 시키기!
+            try await network.addViews(id: id) //조회수 증가 시키기!
             let future = try await network.fetchDetailPost(id: self.id)
-            let post = try await future.value
-            let isLike = post.likes.contains(userManager.userID)
+            let isLike = future.likes.contains(userManager.userID)
             self.isLike = isLike
-            return (isLike, post)
+            return (isLike, future)
         } catch {
             guard let  err = error as? NetworkError else { throw error}
             throw err
@@ -41,8 +40,7 @@ extension DefaultCommunityDetailUseCase: CommunityDetailUseCase {
         let toggleLike = self.isLike ? false : true
         do {
             let future = try await network.postLike(id: self.id, status: toggleLike)
-            let resultLike = try await future.value
-            self.isLike = resultLike.likeStatus
+            self.isLike = future.likeStatus
             return self.isLike
         } catch {
             guard let  err = error as? NetworkError else { throw error}
@@ -51,7 +49,6 @@ extension DefaultCommunityDetailUseCase: CommunityDetailUseCase {
     }
     func addContent(content: String) async throws -> CommentModel {
         let future = try await network.addContent(id: self.id, content: content)
-        let result = try await future.value
-        return result
+        return future
     }
 }

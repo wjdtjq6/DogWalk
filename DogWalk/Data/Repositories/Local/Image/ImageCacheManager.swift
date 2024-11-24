@@ -59,10 +59,10 @@ private extension ImageCacheManager {
             return httpURLResponse.allHeaderFields["Etag"] as? String ?? ""
         }
         else if httpURLResponse.statusCode == 419 {
-            if await network.refreshToken() {
-                print("토큰 갱신")
-                return try await fetchEtag(request: request)
-            }
+            let result = try await network.refreshToken()
+            var reRequest = request
+            reRequest.setValue(result.accessToken, forHTTPHeaderField: BaseHeader.authorization.rawValue)
+            return try await fetchEtag(request: reRequest)
         } else {
             if httpURLResponse.statusCode == 444 {
             } else {
@@ -112,10 +112,10 @@ private extension ImageCacheManager {
             }
             return image ?? .test
         } else if httpURLResponse.statusCode == 419 { //토큰 갱신
-            if await network.refreshToken() {
-                return try await fetchImage(request: request, saveType: saveType)
-                //fetchImage(url: url)
-            }
+            let result = try await network.refreshToken()
+            var reRequest = request
+            reRequest.setValue(result.accessToken, forHTTPHeaderField: BaseHeader.authorization.rawValue)
+            return try await fetchImage(request: reRequest, saveType: saveType)
         } else {
             if httpURLResponse.statusCode == 444 {
             } else {

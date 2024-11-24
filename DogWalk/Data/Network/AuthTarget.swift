@@ -25,11 +25,11 @@ extension AuthTarget: TargetType {
     }
     
     var header: [String : String] {
-        
         return [
+            "accept":"application/json",
             BaseHeader.productId.rawValue: APIKey.appID,
-            BaseHeader.authorization.rawValue: UserManager.shared.acess,
             BaseHeader.refresh.rawValue: UserManager.shared.refresh,
+            BaseHeader.authorization.rawValue: UserManager.shared.acess,
             BaseHeader.sesacKey.rawValue: APIKey.key
         ]
     }
