@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CommunityCreateView: View {
     @State private var category: CommunityCategoryType = .all
@@ -13,7 +14,7 @@ struct CommunityCreateView: View {
     @State private var titleText = ""       // 게시물 제목
     @State private var priceText = ""       // 게시물 가격
     @State private var contentText = ""     // 게시물 내용
-    
+    @State var selectedItems: [PhotosPickerItem] = []
     private let width = UIScreen.main.bounds.width
     
     var body: some View {
@@ -22,6 +23,7 @@ struct CommunityCreateView: View {
             titleFieldView()
             priceFieldView()
             contentFieldView()
+                .padding(.bottom)
             photoFieldView()
         }
         .frame(maxWidth: .infinity)
@@ -42,7 +44,7 @@ struct CommunityCreateView: View {
             }
             .padding(.horizontal)
             .sheet(isPresented: $isPresent) {
-                CommunityCategorySelectedView()
+                categoryButtomSheet()
                     .presentationDragIndicator(.visible)
                     .presentationDetents([.fraction(0.5)])
             }
@@ -50,7 +52,19 @@ struct CommunityCreateView: View {
         .foregroundStyle(Color.primaryGreen)
         .padding(.top)
     }
-    
+    private func categoryButtomSheet() -> some View {
+        ForEach(CommunityCategoryType.allCases, id: \.self) { topic in
+            Button(action: {
+                category = topic
+                isPresent.toggle()
+            }, label: {
+                CommonButton(width: width * 0.8, height: 50,
+                             cornerradius: 20, backColor: Color.primaryLime,
+                             text: topic.rawValue, textFont: .pretendardSemiBold16)
+
+            })
+        }
+    }
     // 제목
     private func titleFieldView() -> some View {
         VStack(alignment: .leading) {
@@ -138,31 +152,29 @@ struct CommunityCreateView: View {
     private func photoFieldView() -> some View {
         HStack {
             // 사진 추가 버튼
-            Button(action: {
-                print("사진 추가 버튼 클릭")
-            }, label: {
-                ZStack {
-                    Rectangle()
-                        .frame(width: 70, height: 70)
-                        .tint(Color.gray.opacity(0.2))
-                    Image.asPlus
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(Color.primaryWhite)
+            PhotosPicker(
+                  selection: $selectedItems,
+                  maxSelectionCount: 1,
+                  matching: .images
+                ) {
+                    ZStack {
+                        Rectangle()
+                            .frame(width: 100, height: 100)
+                            .tint(Color.gray.opacity(0.2))
+                        Image.asPlus
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(Color.primaryWhite)
+                    }
                 }
-                
-            })
             // 사진 스크롤뷰
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(0..<5) { item in
+                    ForEach(selectedItems, id:\.hashValue) { item in
                         ZStack(alignment: .topTrailing) {
-                            Image.asTestImage
-                                .resizable()
-                                .frame(width: 70, height: 70)
-                                .aspectRatio(contentMode: .fit)
+                            PhotosPickerItemTransferable(item: item)
                             Button(action: {
-                                print("선택 사진 삭제")
+                                selectedItems.removeAll()
                             }, label: {
                                 Circle()
                                     .foregroundStyle(Color.primaryBlack)
@@ -176,13 +188,13 @@ struct CommunityCreateView: View {
                             })
                             .offset(x: 3, y: -6)
                         }
-                        .frame(width: 70, height: 90)
+                        .frame(width: 100, height: 120)
                     }
                 }
             }
             .scrollIndicators(.hidden)
         }
-        .frame(height: 90)
+        .frame(height: 120)
         .padding(.horizontal)
     }
     
@@ -193,7 +205,25 @@ struct CommunityCreateView: View {
                          cornerradius: 20, backColor: Color.primaryLime,
                          text: "등록하기", textFont: .pretendardSemiBold14)
             .wrapToButton {
-                print("버튼 클릭 시 게시물 등록")
+                let network = NetworkManager()
+                guard let image = selectedItems.first else  { return }
+                image.loadTransferable(type: Data.self) { result in
+                    switch result {
+                    case .success(let data):
+                        Task {
+                            let result = try await network.uploadImagePost(imageData: data ?? Data())
+                            
+                            let postBody = PostBody(category: self.category.rawValue, title: self.titleText, price: Int(self.priceText) ?? 0, content: self.contentText, files: result.url, longitude: UserManager.shared.lon, latitude: UserManager.shared.lat)
+                            
+                            let _ = try await network.writePost(body: postBody)
+                            print("게시글 작성완료!!!!!!!!")
+                        }
+                        
+                    case .failure(let failure):
+                        print("이미지 변환 실패!")
+                    }
+                }
+                
             }
         }
         .frame(height: 70)
@@ -203,4 +233,37 @@ struct CommunityCreateView: View {
 
 #Preview {
     CommunityCreateView()
+}
+
+struct PhotosPickerItemTransferable: View {
+    let item: PhotosPickerItem
+
+    @State private var imageData: Data? = nil
+    
+    var body: some View {
+        Group {
+            if let imageData, let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+            } else {
+                Rectangle().fill(Color.gray.opacity(0.2)) // Placeholder if the image is not loaded
+            }
+        }
+        .onAppear {
+            // Load image data when the view appears
+            loadImage()
+        }
+    }
+    
+    private func loadImage() {
+        item.loadTransferable(type: Data.self) { result in
+            switch result {
+            case .success(let data):
+                imageData = data
+            case .failure:
+                print("Failed to load image")
+            }
+        }
+    }
 }
