@@ -102,7 +102,7 @@ extension CommunityDetailView {
                 Button {
                     // Action
                     Task {
-                        await network.makeNewChattingRoom(id: state.post.creator.userID)
+                        try await network.makeNewChattingRoom(id: state.post.creator.userID)
                     }
                     //intent.toggleisLike(isLike: state.isLike) //좋아요 버튼 누를 시
                 } label: {

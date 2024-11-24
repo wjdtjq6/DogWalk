@@ -211,6 +211,7 @@ private extension CommunityView {
                         }
                         Button {
                             // 좋아요 동작 구현
+                            UserManager.shared.acess = ""
                         } label: {
                             HStack(spacing: 4) {
                                 Image.asHeart
