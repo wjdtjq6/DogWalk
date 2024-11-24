@@ -141,33 +141,37 @@ extension NetworkManager {
     
     //위치 포스터 조회
     func fetchAreaPosts(category: CommunityCategoryType, lon: String, lat: String) async throws -> [PostModel]{
-        //        let query = GetGeoLocationQuery(category: ["산책인증"], longitude: lon, latitude: lat, maxDistance: "5000", order_by: OrderType.createdAt.rawValue, sort_by: SortType.asc.rawValue)
-        //        let future = try await requestDTO(target: .post(.geolocation(query: query)), of: GeolocationPostResponseDTO.self)
-        //        print(future)
-        //        print("-----------")
-        //        return future.data.map {$0.toDomain()}
-        let categoryQuery = category == .all ? "" : "?category=\(category.rawValue)"
-        guard var urlComponents = URLComponents(string: APIKey.baseURL + "/posts/geolocation" + categoryQuery) else {
+        // 1. 기본 URL 설정
+        guard var urlComponents = URLComponents(string: APIKey.baseURL + "/posts/geolocation") else {
             throw NetworkError.InvalidURL
         }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "latitude", value: lat),
-            URLQueryItem(name: "longitude", value: lon),
-            URLQueryItem(name: "maxDistance", value: "5000"),
+        // 2. 쿼리 항목 설정
+        var queryItems = [
+            URLQueryItem(name: "latitude", value: lat), // 위도
+            URLQueryItem(name: "longitude", value: lon), // 경도
+            URLQueryItem(name: "maxDistance", value: "1500") // 거리
         ]
+        // 3. 카테고리 추가 (all은 제외)
+        if category != .all {
+            queryItems.append(URLQueryItem(name: "category", value: category.rawValue))
+        }
+        // 4. 쿼리 항목을 URLComponents에 추가
+            urlComponents.queryItems = queryItems
+        // 5. URL 생성 및 출력
         guard let url = urlComponents.url else { throw NetworkError.InvalidURL }
+        // 6. 요청 준비
         var request = URLRequest(url: url)
         request.addValue(APIKey.appID, forHTTPHeaderField: BaseHeader.productId.rawValue)
         request.addValue(UserManager.shared.acess, forHTTPHeaderField: BaseHeader.authorization.rawValue)
         request.addValue(APIKey.key, forHTTPHeaderField: BaseHeader.sesacKey.rawValue)
-        
+        // 7. 데이터 요청 및 디코딩
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200 else {
             throw NetworkError.InvalidResponse
         }
         do {
             let decodedResponse = try JSONDecoder().decode(GeolocationPostResponseDTO.self, from: data)
-            print(decodedResponse.data.map {$0.toDomain()})
+            //dump(decodedResponse.data.map {$0.toDomain()})
             return decodedResponse.data.map {$0.toDomain()}
         } catch {
             print("Decoding Error: \(error)")

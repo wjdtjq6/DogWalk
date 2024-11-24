@@ -247,9 +247,6 @@ private extension MapView {
             HStack(alignment: .center, spacing: 15) {
                 CommonButton(width: Self.width * 0.55, height: 44, cornerradius: 20, backColor: .primaryLime, text: "작성한 게시물 보기", textFont: .pretendardBold14)
                     .wrapToButton {
-                        // TODO: 해당 게시글의  PostModel 프린트 해주기
-                        print("게시글 보기 버튼 클릭")
-                        print("PostModel")
                         isShowingSheet = false
                         coordinator.push(.communityDetail(postID: post.postID))
                     }
