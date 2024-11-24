@@ -48,14 +48,20 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
     }
     
     func changeTab(tab: Tab) {
-            selectedTab = tab 
-        }
+        selectedTab = tab
+    }
     
     // 화면
     @ViewBuilder
     func build(_ screen: Screen) -> some View {
         switch screen {
-        case .tab: MainTabView(coordinator: self)                      // 탭
+        case .start:
+            if UserManager.shared.isUser{
+                MainTabView(coordinator: self)
+            } else {
+                AuthView()
+            }
+        case .tab: MainTabView(coordinator: self)       // 탭
         case .auth: AuthView()                          // 회원가입
         case .login: LoginView.build()                  // 로그인
         case .home: HomeView.build()                          // 홈
@@ -66,7 +72,7 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
         case .communityCreate: CommunityCreateView()    // 게시글 작성
         case .community: CommunityView.build()          // 커뮤니티 리스트 화면
         case .communityDetail(let id): CommunityDetailView.build(postID: id)    // 커뮤니티 게시글 디테일
-
+            
         case .chatting: ChattingListView.build()        // 채팅방 리스트 화면
         case .chattingRoom(let roomID): ChattingRoomView.build(roomID: roomID)    // 채팅방
         case .setting: SettingView()                    // 세팅
@@ -77,9 +83,9 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
     @ViewBuilder
     func build(_ sheet: Sheet) -> some View {
         //MARK: 추가 구현시 예시 실제 사용시 삭제하고 사용하시면 됩니다.
-//        switch sheet {
-//        case .dogProfile(let dogID): DogProfileView(dogID: dogID)
-//        }
+        //        switch sheet {
+        //        case .dogProfile(let dogID): DogProfileView(dogID: dogID)
+        //        }
     }
     
     // 풀스크린 커버

@@ -11,9 +11,11 @@ class AuthVM {
     
 }
 struct AuthView: View {
+    @State private var isLoginDone = false
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
-    
+    private let network = NetworkManager()
+    @EnvironmentObject var appCoordinator: MainCoordinator
     var body: some View {
         VStack {
             VStack(spacing: 25) {
@@ -48,10 +50,12 @@ struct AuthView: View {
                 } onCompletion: { result in
                     switch result {
                     case .success(let data):
-                        guard let credential = data.credential as? ASAuthorizationAppleIDCredential else { return }
-                        print(credential.fullName) //이름
-                        print(credential.email)
-                        print(credential.identityToken) //토큰
+                        guard let credential = data.credential as? ASAuthorizationAppleIDCredential, let token = String(data: credential.identityToken!, encoding: .utf8) else { return }
+                        Task {
+                            //애플 로그인 통신
+                            try await network.appleLogin(id: token)
+                            isLoginDone = true
+                        }
                         
                     case .failure(let err):
                         print(err) //실패한 경우 에러처리 진행
@@ -67,6 +71,11 @@ struct AuthView: View {
         }
         .frame(width: self.width, height: self.height)
         .background(Color.primaryLime)
+        .onChange(of: isLoginDone) { oldValue, newValue in
+            if newValue {
+                appCoordinator.push(.tab)
+            }
+        }
     }
     
 }
