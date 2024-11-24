@@ -40,10 +40,6 @@ final class HomeViewUseCase: HomeUseCase {
         async let weather = getUserLocationWeather()
         let translateweather = try await translateCondition(weather.currentWeather.condition)
         
-        await print(try address)
-        await print(try weather)
-        print("Weather condition: \(try await weather.currentWeather.condition)")
-        
         let (fetchedAddress, _) = try await (address, translateweather)
         return WeatherData(weather: translateweather, userAddress: fetchedAddress)
     }

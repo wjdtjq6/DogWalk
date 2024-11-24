@@ -2,237 +2,381 @@
 //  ChatRepository.swift
 //  DogWalk
 //
-//  Created by 김윤우 on 11/21/24.
+//  Created by 김윤우 on 11/23/24.
 //
 
-import Foundation
 import CoreData
 
 final class ChatRepository {
-    static let shared = ChatRepository(context: CoreDataManager.shared.viewContext)  // 싱글턴 인스턴스
+    static let shared = ChatRepository(context: CoreDataManager.shared.viewContext)
     
     private let managedObjectContext: NSManagedObjectContext
     
     private init(context: NSManagedObjectContext) {
         self.managedObjectContext = context
     }
-
-    func createChatRoom(chatRoomData: ChattingRoomModel) {
-        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
-        request.predicate = NSPredicate(format: "roomID == %@", chatRoomData.roomID) // roomID로 기존 채팅방을 찾음
-
-        do {
-            // 기존 채팅방이 있는지 확인
-            if let existingChatRoom = try managedObjectContext.fetch(request).first {
-                // 기존 채팅방이 있다면 업데이트
-                existingChatRoom.createdAt = chatRoomData.createAt
-                existingChatRoom.meUserID = chatRoomData.me.userID
-                existingChatRoom.meNick = chatRoomData.me.nick
-                existingChatRoom.meProfileImage = chatRoomData.me.profileImage
-                existingChatRoom.ohterUserID = chatRoomData.otherUser.userID
-                existingChatRoom.otherNick = chatRoomData.otherUser.nick
-                existingChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-                existingChatRoom.lastChat = CoreLastChat(
-                                   chatID: chatRoomData.lastChat?.chatID ?? "",
-                                   type: chatRoomData.lastChat?.type.rawValue ?? "",
-                                   lastChat: chatRoomData.lastChat?.lastChat ?? "",
-                                   sender: CoreUserModel(
-                                       userID: chatRoomData.lastChat?.sender.userID ?? "",
-                                       nick: chatRoomData.lastChat?.sender.nick ?? "",
-                                       profileImage: chatRoomData.lastChat?.sender.profileImage ?? ""
-                                   )
-                               )
-                
-                existingChatRoom.updateAt = chatRoomData.updatedAt
-                print("Chat room updated.")
-            } else {
-                // 기존 채팅방이 없으면 새로 생성
-                let newChatRoom = CoreChatRoom(context: managedObjectContext)
-                newChatRoom.roomID = chatRoomData.roomID
-                newChatRoom.createdAt = chatRoomData.createAt
-                newChatRoom.meUserID = chatRoomData.me.userID
-                newChatRoom.meNick = chatRoomData.me.nick
-                newChatRoom.meProfileImage = chatRoomData.me.profileImage
-                newChatRoom.ohterUserID = chatRoomData.otherUser.userID
-                newChatRoom.otherNick = chatRoomData.otherUser.nick
-                newChatRoom.otherProfileImage = chatRoomData.otherUser.profileImage
-                newChatRoom.lastChat = CoreLastChat(
-                                          chatID: chatRoomData.lastChat?.chatID ?? "",
-                                          type: chatRoomData.lastChat?.type.rawValue ?? "text",
-                                          lastChat: chatRoomData.lastChat?.lastChat ?? "",
-                                          sender: CoreUserModel(
-                                              userID: chatRoomData.lastChat?.sender.userID ?? "",
-                                              nick: chatRoomData.lastChat?.sender.nick ?? "",
-                                              profileImage: chatRoomData.lastChat?.sender.profileImage ?? ""
-                                          )
-                                      )
-                newChatRoom.updateAt = chatRoomData.updatedAt
-                newChatRoom.messages = []
-
-                print("New chat room created.")
-            }
-
-            // 변경 사항 저장
-            saveContext()
-        } catch {
-            print("Error fetching chat room: \(error.localizedDescription)")
-        }
-    }
-
-    // 메시지 생성
-    func createChatMessage(chatID: String, content: String, sender: UserModel, files: [String], in chatRoom: CoreChatRoom) -> CoreChatMessage {
-        let newMessage = CoreChatMessage()
-        newMessage.chatID = chatID
-        newMessage.roomID = chatRoom.roomID
-        newMessage.type = MessageType.text.rawValue // 필요 시 수정 가능
-        newMessage.message = content
-        newMessage.senderUserID = sender.userID
-        newMessage.senderUserNick = sender.nick
-        newMessage.senderProfileImage = sender.profileImage
-        newMessage.files = files
-        return newMessage
-    }
-
-    // 채팅방 업데이트
-    func updateChatRoom(chatRoomID: String, newMessages: [CoreChatMessage]) {
-        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
-        request.predicate = NSPredicate(format: "roomID == %@", chatRoomID)
-
-        do {
-            if let chatRoom = try managedObjectContext.fetch(request).first {
-                var messages = chatRoom.messages ?? []
-                messages.append(contentsOf: newMessages)
-                chatRoom.messages = messages
-                saveContext()
-                print("Chat room updated successfully.")
-            } else {
-                print("Chat room not found for ID: \(chatRoomID)")
-            }
-        } catch {
-            print("Error updating chat room: \(error.localizedDescription)")
-        }
-    }
     
-    // 전체 채팅방 가져오기
+    // MARK: - 모든 채팅방 가져오기
     func fetchAllChatRoom() -> [ChattingRoomModel]? {
-        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
+        let request: NSFetchRequest<CoreDataChatRoom> = CoreDataChatRoom.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)] // 최신순 정렬
         do {
-            let coreChatRooms = try managedObjectContext.fetch(request)
-            return coreChatRooms.map { chatRoom in
-                return ChattingRoomModel(roomID: chatRoom.roomID ?? "룸아이디 없음",
-                                         createAt: chatRoom.createdAt ?? "",
-                                         updatedAt: chatRoom.updateAt ?? "" ,
-                                         me: UserModel(userID: chatRoom.meUserID ?? "내 아디 없음" ,
-                                                       nick: chatRoom.meNick ?? "내 닉 없음",
-                                                       profileImage: chatRoom.meProfileImage ?? "내이미지없음"),
-                                         otherUser: UserModel(userID: chatRoom.ohterUserID ?? "내 아디 없음", 
-                                                              nick: chatRoom.otherNick ?? "내 닉 없음",
-                                                              profileImage: chatRoom.otherProfileImage ?? "내이미지없음"),
-                                         lastChat: LastChatModel(type: MessageType(rawValue: chatRoom.lastChat?.type ?? "텍스트") ?? .text,
-                                                                 chatID: chatRoom.lastChat?.chatID ?? "",
-                                                                 lastChat: chatRoom.lastChat?.lastChat ?? "",
-                                                                 sender: UserModel(userID: chatRoom.lastChat?.sender?.userID ?? "",
-                                                                                   nick: chatRoom.lastChat?.sender?.nick ?? "",
-                                                                                   profileImage: chatRoom.lastChat?.sender?.profileImage ?? "")))
-            }
+            let coreDataChatRooms = try managedObjectContext.fetch(request)
+            print("정렬된 채팅방:")
+            coreDataChatRooms.forEach { print("RoomID: \($0.roomID ?? ""), UpdatedAt: \($0.updatedAt ?? "")") }
+            return coreDataChatRooms.compactMap { toChattingRoomModel(chatRoom: $0) }
         } catch {
+            print("채팅방 가져오기 실패: \(error.localizedDescription)")
             return nil
         }
     }
     
-    // RoomID로 특정 채팅방 가져오기
-    func fetchChatRoom(chatRoomID: String) -> CoreChatRoom? {
-        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
-        request.predicate = NSPredicate(format: "roomID == %@", chatRoomID)
-
-        do {
-            return try managedObjectContext.fetch(request).first
-        } catch {
-            print("Error fetching chat room: \(error.localizedDescription)")
-            return nil
+    // MARK: - 채팅방 생성
+    func createChatRoom(chatRoomData: ChattingRoomModel) {
+        if let existingChatRoom = fetchChatRoom(by: chatRoomData.roomID) {
+            print("💬 기존 채팅방 데이터: \(existingChatRoom)")
+            
+            existingChatRoom.updatedAt = chatRoomData.updatedAt
+            existingChatRoom.lastChat = chatRoomData.lastChat.map { createLastChat(lastChatModel: $0) }
+            
+            existingChatRoom.me = createCoreUser(userModel: chatRoomData.me)
+            existingChatRoom.other = createCoreUser(userModel: chatRoomData.otherUser)
+            print("💾 업데이트된 채팅방 데이터: \(existingChatRoom)")
+            saveContext()
+            print("이미 존재하는 채팅방 정보가 업데이트되었습니다. RoomID: \(chatRoomData.roomID)")
+        } else {
+            let newChatRoom = toCoreDataChatRoom(from: chatRoomData)
+            print("💬 새 채팅방 데이터: \(newChatRoom)")
+            
+            managedObjectContext.insert(newChatRoom)
+            saveContext()
+            print("채팅방이 성공적으로 생성되었습니다. RoomID: \(chatRoomData.roomID)")
         }
     }
     
+    // MARK: - 채팅방 업데이트
+    func updateChatRoom(chatRoomID: String, with newMessages: [CoreDataChatMessage]) {
+        guard let chatRoom = fetchChatRoom(by: chatRoomID) else {
+            print("ID가 \(chatRoomID)인 채팅방을 찾을 수 없습니다.")
+            return
+        }
+        
+        // 새 메시지를 채팅방에 추가
+        for message in newMessages {
+            chatRoom.addToMessage(message)
+        }
+        
+        // 마지막 메시지 업데이트
+        if let lastMessage = newMessages.last {
+            chatRoom.lastChat = createLastChat(lastChatModel: LastChatModel(
+                type: MessageType(rawValue: lastMessage.type ?? "text") ?? .text,
+                chatID: lastMessage.chatID ?? "",
+                lastChat: lastMessage.content ?? "",
+                sender: UserModel(
+                    userID: lastMessage.sender?.userID ?? "",
+                    nick: lastMessage.sender?.nick ?? "",
+                    profileImage: lastMessage.sender?.profileImage ?? ""
+                )
+            ))
+        }
+        
+        saveContext()
+        print("채팅방이 성공적으로 업데이트되었습니다.")
+    }
     
-
-    // 모든 메시지 가져오기
-    func fetchAllMessages(for chatRoomID: String) -> [ChattingModel] {
-        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
-        request.predicate = NSPredicate(format: "roomID == %@", chatRoomID)
-
+    // 특정 roomID로 채팅방 생성
+    func createSpecificChatRoom(with roomID: String) {
+        // roomID가 이미 존재하는지 확인
+        if isChatRoomExist(roomID: roomID) {
+            print("roomID가 \(roomID)인 채팅방이 이미 존재합니다.")
+            return
+        }
+        
+        // 새로운 채팅방 데이터 기본값 생성
+        let newChatRoomData = ChattingRoomModel(
+            roomID: roomID,
+            createAt: "\(Date())",
+            updatedAt: "\(Date())",
+            me: UserModel(
+                userID: "defaultMeID",
+                nick: "defaultMeNick",
+                profileImage: "defaultMeImage"
+            ),
+            otherUser: UserModel(
+                userID: "defaultOtherID",
+                nick: "defaultOtherNick",
+                profileImage: "defaultOtherImage"
+            ),
+            lastChat: nil // 초기 생성 시에는 마지막 채팅이 없음
+        )
+        
+        // 새로운 채팅방 생성
+        createChatRoom(chatRoomData: newChatRoomData)
+        print("roomID가 \(roomID)인 채팅방이 성공적으로 생성되었습니다.")
+    }
+    
+    func fetchAllMessages(for roomID: String) -> [ChattingModel] {
+        // CoreDataChatMessage 요청 생성
+        let request: NSFetchRequest<CoreDataChatMessage> = CoreDataChatMessage.fetchRequest()
+        request.predicate = NSPredicate(format: "roomID == %@", roomID) // roomID를 조건으로 설정
+        
         do {
-            if let chatRoom = try managedObjectContext.fetch(request).first {
-                let coreMessages = chatRoom.messages ?? []
-                return coreMessages.map(convertToChattingModel)
-            } else {
-                print("Chat room not found for ID: \(chatRoomID)")
-                return []
+            // roomID에 해당하는 메시지 검색
+            let coreMessages = try managedObjectContext.fetch(request)
+            //            print("Repository fetchAllMessages")
+            dump(coreMessages.map { $0.sender?.userID })
+            // CoreDataChatMessage를 ChattingModel로 변환
+            return coreMessages.map { coreMessage in
+                ChattingModel(
+                    chatID: coreMessage.chatID ?? "fetchAllMessages ChatID nil",
+                    roomID: coreMessage.roomID ?? "fetchAllMessages roomID nil",
+                    type: MessageType(rawValue: coreMessage.type ?? "text") ?? .text,
+                    content: coreMessage.content ?? "fetchAllMessages content nil",
+                    createdAt: coreMessage.createdAt ?? "",
+                    sender: UserModel(
+                        userID: coreMessage.sender?.userID ?? "fetchAllMessages sender UserID nil",
+                        nick: coreMessage.sender?.nick ?? "fetchAllMessages sender UserID nil",
+                        profileImage: coreMessage.sender?.profileImage ?? ""
+                    ),
+                    files: coreMessage.files ?? []
+                )
             }
         } catch {
-            print("Error fetching messages: \(error.localizedDescription)")
+            print("roomID가 \(roomID)인 메시지 가져오기 실패: \(error.localizedDescription)")
             return []
         }
     }
+    // MARK: - 채팅 메시지 생성
+    func createChatMessage(chatRoomID: String, messageData: ChattingModel) -> CoreDataChatMessage? {
+        guard let chatRoom = fetchChatRoom(by: chatRoomID) else {
+            print("❌ ID가 \(chatRoomID)인 채팅방을 찾을 수 없습니다. 메시지를 생성하지 않습니다.")
+            return nil
+        }
 
-    // 특정 roomID로 채팅방 생성
-    func createSpecificChatRoom(roomID: String) {
-        let chatRoomData = ChattingRoomModel(
-            roomID: roomID, // 특정 roomID 사용
-            createAt: "",  // 생성 일자
-            updatedAt: "", // 업데이트 일자
-            me: UserModel(userID: "", nick: "", profileImage: ""), // 사용자 정보
-            otherUser: UserModel(userID: "", nick: "", profileImage: ""), // 다른 사용자 정보
-            lastChat: nil // 마지막 채팅 (없다면 nil)
+        // 기존 메시지 확인
+        let fetchRequest: NSFetchRequest<CoreDataChatMessage> = CoreDataChatMessage.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "chatID == %@", messageData.chatID)
+        if let existingMessage = try? managedObjectContext.fetch(fetchRequest), !existingMessage.isEmpty {
+            print("❌ 이미 존재하는 메시지: \(messageData.chatID)")
+            return existingMessage.first
+        }
+
+        // 새 메시지 생성
+        let newMessage = CoreDataChatMessage(context: managedObjectContext)
+        newMessage.chatID = messageData.chatID
+        newMessage.roomID = chatRoomID
+        newMessage.content = messageData.content
+        newMessage.createdAt = messageData.createdAt
+        newMessage.files = messageData.files
+
+        let sender = createCoreUser(userModel: messageData.sender)
+        newMessage.sender = sender
+
+        chatRoom.addToMessage(newMessage)
+
+        do {
+            try managedObjectContext.save()
+            print("✅ Chat message saved successfully.")
+        } catch {
+            print("❌ Failed to save context:", error)
+            return nil
+        }
+
+        return newMessage
+    }
+    
+    // MARK: - 특정 채팅방의 모든 메시지 가져오기
+    func fetchMessages(for roomID: String) -> [ChattingModel] {
+        let request: NSFetchRequest<CoreDataChatMessage> = CoreDataChatMessage.fetchRequest()
+        request.predicate = NSPredicate(format: "roomID == %@", roomID)
+        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)] // 시간 순 정렬
+        
+        do {
+            let coreMessages = try managedObjectContext.fetch(request)
+            print(coreMessages, "fetchMessages123")
+            dump(coreMessages.map { toChattingModel(from: $0) })
+            return coreMessages.map { toChattingModel(from: $0) }
+        } catch {
+            print("채팅 메시지 가져오기 실패: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    
+    func fetchChatRoom(roomID: String) -> ChattingRoomModel? {
+        if let coreDataChatRoom = fetchChatRoom(by: roomID) {
+            return toChattingRoomModel(chatRoom: coreDataChatRoom)
+        }
+        return nil
+    }
+    // MARK: - 특정 채팅방 가져오기
+    private func fetchChatRoom(by roomID: String) -> CoreDataChatRoom? {
+        let request: NSFetchRequest<CoreDataChatRoom> = CoreDataChatRoom.fetchRequest()
+        request.predicate = NSPredicate(format: "roomID == %@", roomID)
+        do {
+            if let chatRoom = try managedObjectContext.fetch(request).first {
+                
+                
+                return chatRoom
+            } else {
+                print("roomID가 \(roomID)인 채팅방을 찾을 수 없습니다.")
+                return nil
+            }
+        } catch {
+            print("채팅방 가져오기 실패: \(error.localizedDescription)")
+            return nil
+        }
+    }
+}
+
+extension ChatRepository {
+    
+    // MARK: - 채팅방 존재 여부 확인
+    private func isChatRoomExist(roomID: String) -> Bool {
+        return fetchChatRoom(by: roomID) != nil
+    }
+    
+    
+    // MARK: - CoreData 저장
+    private func saveContext() {
+        do {
+            print("💾 저장 전 상태:")
+            print("Inserted Objects:", managedObjectContext.insertedObjects)
+            print("Updated Objects:", managedObjectContext.updatedObjects)
+            print("Deleted Objects:", managedObjectContext.deletedObjects)
+            
+            try managedObjectContext.save()
+            print("✅ 저장 성공")
+        } catch {
+            managedObjectContext.rollback()
+            print("❌ 저장 실패: \(error.localizedDescription)")
+        }
+    }
+    
+    // MARK: - Transformable 객체 생성
+    private func createCoreUser(userModel: UserModel) -> CoreUser {
+        return CoreUser(userID: userModel.userID,
+                        nick: userModel.nick,
+                        profileImage: userModel.profileImage)
+    }
+    
+    private func createLastChat(lastChatModel: LastChatModel) -> CoreLastChat {
+        return CoreLastChat(chatID: lastChatModel.chatID,
+                            type: lastChatModel.type.rawValue,
+                            lastChat: lastChatModel.lastChat,
+                            sender: createCoreUser(userModel: lastChatModel.sender))
+    }
+    
+    // MARK: - CoreDataChatRoom -> ChattingRoomModel 변환
+    private func toChattingRoomModel(chatRoom: CoreDataChatRoom) -> ChattingRoomModel? {
+        guard let roomID = chatRoom.roomID,
+              let createdAt = chatRoom.createdAt,
+              let updatedAt = chatRoom.updatedAt else {
+            print("필수 데이터 누락: roomID, createdAt, updatedAt 확인 필요")
+            return nil
+        }
+        
+        let meModel = UserModel(
+            userID: chatRoom.me?.userID ?? "",
+            nick: chatRoom.me?.nick ?? "",
+            profileImage: chatRoom.me?.profileImage ?? ""
         )
         
-        createChatRoom(chatRoomData: chatRoomData) // 채팅방 생성
-        print("Specific chat room created with ID: \(chatRoomData.roomID)")
+        let otherModel = UserModel(
+            userID: chatRoom.other?.userID ?? "",
+            nick: chatRoom.other?.nick ?? "",
+            profileImage: chatRoom.other?.profileImage ?? ""
+        )
+        
+        let lastChatModel = chatRoom.lastChat.flatMap { lastChat in
+            return LastChatModel(
+                type: MessageType(rawValue: lastChat.type ?? "text") ?? .text,
+                chatID: lastChat.chatID ?? "",
+                lastChat: lastChat.lastChat ?? "",
+                sender: UserModel(
+                    userID: lastChat.sender?.userID ?? "",
+                    nick: lastChat.sender?.nick ?? "",
+                    profileImage: lastChat.sender?.profileImage ?? ""
+                )
+            )
+        }
+        
+        return ChattingRoomModel(
+            roomID: roomID,
+            createAt: createdAt,
+            updatedAt: updatedAt,
+            me: meModel,
+            otherUser: otherModel,
+            lastChat: lastChatModel
+        )
     }
-
-    // 메시지 변환
-    private func convertToChattingModel(_ coreMessage: CoreChatMessage) -> ChattingModel {
+    
+    // MARK: - ChattingRoomModel -> CoreDataChatRoom 변환
+    private func toCoreDataChatRoom(from chatRoomData: ChattingRoomModel) -> CoreDataChatRoom {
+        let newChatRoom = CoreDataChatRoom(context: managedObjectContext)
+        print("🗒️", chatRoomData)
+        newChatRoom.roomID = chatRoomData.roomID
+        print(newChatRoom.roomID ?? "")
+        newChatRoom.createdAt = chatRoomData.createAt
+        newChatRoom.updatedAt = chatRoomData.updatedAt
+        newChatRoom.me = createCoreUser(userModel: chatRoomData.me)
+        newChatRoom.other = createCoreUser(userModel: chatRoomData.otherUser)
+        newChatRoom.lastChat = chatRoomData.lastChat.map { createLastChat(lastChatModel: $0) }
+        print(newChatRoom,"🗒️")
+        dump(newChatRoom)
+        return newChatRoom
+    }
+    
+    func toChattingModel(from coreMessage: CoreDataChatMessage) -> ChattingModel {
         return ChattingModel(
             chatID: coreMessage.chatID ?? "",
             roomID: coreMessage.roomID ?? "",
             type: MessageType(rawValue: coreMessage.type ?? "text") ?? .text,
-            content: coreMessage.message ?? "",
-            createdAt: "",
+            content: coreMessage.content ?? "",
+            createdAt: coreMessage.createdAt ?? "",
             sender: UserModel(
-                userID: coreMessage.senderUserID ?? "",
-                nick: coreMessage.senderUserNick ?? "",
-                profileImage: coreMessage.senderProfileImage ?? ""
+                userID: coreMessage.sender?.userID ?? "",
+                nick: coreMessage.sender?.nick ?? "",
+                profileImage: coreMessage.sender?.profileImage ?? ""
             ),
             files: coreMessage.files ?? []
         )
     }
     
-    // 채팅방 전체 삭제
-    func deleteAllChatRooms() {
-        let request: NSFetchRequest<CoreChatRoom> = CoreChatRoom.fetchRequest()
-
+    //삭제
+    func deleteChatRoom(by roomID: String) {
+        let request: NSFetchRequest<CoreDataChatRoom> = CoreDataChatRoom.fetchRequest()
+        request.predicate = NSPredicate(format: "roomID == %@", roomID)
+        
         do {
-            // 모든 채팅방 가져오기
-            let chatRooms = try managedObjectContext.fetch(request)
-
-            // 각 채팅방 삭제
-            for chatRoom in chatRooms {
-                managedObjectContext.delete(chatRoom)
+            if let chatRoom = try managedObjectContext.fetch(request).first {
+                managedObjectContext.delete(chatRoom) // 채팅방 삭제
+                saveContext()
+                print("roomID가 \(roomID)인 채팅방이 성공적으로 삭제되었습니다.")
+            } else {
+                print("roomID가 \(roomID)인 채팅방을 찾을 수 없습니다.")
             }
-
-            // 변경 사항 저장
-            saveContext()
-            print("All chat rooms deleted successfully.")
         } catch {
-            print("Error deleting all chat rooms: \(error.localizedDescription)")
+            print("채팅방 삭제 실패: \(error.localizedDescription)")
         }
     }
-
-    // 컨텍스트 저장
-    private func saveContext() {
+    func deleteAllChatRooms() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CoreDataChatRoom.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
         do {
-            try managedObjectContext.save()
+            try managedObjectContext.execute(batchDeleteRequest)
+            saveContext() // 필요에 따라 Context 저장
+            print("모든 채팅방이 삭제되었습니다.")
         } catch {
-            print("Failed to save context: \(error.localizedDescription)")
+            print("모든 채팅방 삭제 중 오류 발생: \(error.localizedDescription)")
         }
+    }
+    
+    
+    private func convertStringToDate(_ dateString: String?) -> Date? {
+        guard let dateString = dateString else { return nil }
+        let formatter = ISO8601DateFormatter()
+        return formatter.date(from: dateString)
     }
 }

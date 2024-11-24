@@ -171,7 +171,7 @@ private extension ChattingRoomView {
         let xOffSet = (size.width - bubbleWidth) / 2 - 20.0 // 말풍선 offSet 설정
         HStack {
             if model.sender.userID == UserManager.shared.userID { //상대 프로필
-                chatDateView("2024-05-06T06:04:52.542Z")    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
+                chatDateView(model.createdAt)    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
                     .offset(x: xOffSet - 15, y: 4)
             }
             //말풍선 부분
@@ -201,7 +201,7 @@ private extension ChattingRoomView {
                 }
             
             if model.sender.userID != UserManager.shared.userID { //상대방 날짜 부분
-                chatDateView("2024-05-06T06:04:52.542Z")  // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
+                chatDateView(model.createdAt)  // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
                     .offset(x: -xOffSet + 55, y: 4)
             }
         } //:HSTACK

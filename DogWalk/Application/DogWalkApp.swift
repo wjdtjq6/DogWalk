@@ -24,7 +24,9 @@ struct DogWalkApp: App {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         CoreChatMessageTransformer.register()
-     
+        CoreLastChatTransformer.register()
+        CoreUserTransformer.register()
+        
     }
     
     var body: some Scene {
