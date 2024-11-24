@@ -21,6 +21,7 @@ enum UserDefaultsKeys: String {
     case acess               // acess token
     case refresh             // refresh token
     case imageCache
+    case recentRoomID        // 최근 입장했던 roomID
 }
 
 @propertyWrapper

@@ -14,7 +14,10 @@ struct ChattingRoomView: View {
     @StateObject var container: Container<ChattingRoomIntentProtocol, ChattingRoomStateProtocol>
     private var state: ChattingRoomStateProtocol { container.state }
     private var intent: ChattingRoomIntentProtocol { container.intent }
+    
     @EnvironmentObject var coordinator: MainCoordinator
+    @EnvironmentObject var appDelegate: AppDelegate
+    
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
 
@@ -75,20 +78,29 @@ extension ChattingRoomView {
             switch newValue {
             case .active: // Socket 다시 열어주기
                 intent.onActiveTrigger(roomID: state.roomID)
-                coordinator.pop()
+                // coordinator.pop()
             case .background: // Socket 닫아주기
                 // intent.onDisappearTrigger()
-                intent.onBackgroundTrigger()
+                // intent.onBackgroundTrigger()
+                scheduleDisconnectTask(after: 60)
             default:
                 return
             }
         }
     }
     
-    func scrollToLastMessage(scroll: ScrollViewProxy) {
+    private func scrollToLastMessage(scroll: ScrollViewProxy) {
         if let lastMessage = state.chattingData.last {
             scroll.scrollTo(lastMessage.id, anchor: .bottom)
         }
+    }
+    
+    private func scheduleDisconnectTask(after interval: TimeInterval) {
+        // guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        //     print("Failed to get AppDelegate")
+        //     return
+        // }
+        appDelegate.scheduleSocketDisconnectTask(after: interval)
     }
 }
 

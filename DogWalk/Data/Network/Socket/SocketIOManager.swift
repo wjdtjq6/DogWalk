@@ -11,6 +11,7 @@ import SocketIO
 
 protocol SocketProvider {
     var socketSubject: PassthroughSubject<SocketDMModel, Never> { get }
+    
     func connect()          // 소켓 연결
     func disconnect()       // 소켓 연결 해제
 }
@@ -79,6 +80,15 @@ final class SocketIOManager: SocketProvider {
         }
     }
     
+    // 등록된 이벤트 핸들러 해제
+    func removeSocketEvent() {
+        print(#function)
+        socket?.off(clientEvent: .connect)
+        socket?.off(clientEvent: .disconnect)
+        socket?.off("chat")
+        socket?.off(clientEvent: .reconnect)
+    }
+    
     func connect() {
         socket?.connect()
         print("🌀🌀🌀 소켓 연결 시도 중.")
@@ -87,12 +97,9 @@ final class SocketIOManager: SocketProvider {
     func disconnect() {
         print(#function)
         socket?.disconnect()
+        removeSocketEvent()
         socket = nil
         manager = nil
-    }
-    
-    func recieveData(data: SocketDMModel) async {
-        
     }
 }
 
