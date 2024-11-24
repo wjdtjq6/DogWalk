@@ -58,7 +58,7 @@ enum CommunityCategoryType: String, CaseIterable {
     case walkCertification = "산책인증"
     case question = "궁금해요"
     case shop = "중고용품"
-    case sitter = "펫시터 구하기"
+    case sitter = "펫시터구하기"
     case free = "자유게시판"
 }
 

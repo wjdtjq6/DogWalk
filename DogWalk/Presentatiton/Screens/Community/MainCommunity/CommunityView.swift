@@ -69,17 +69,26 @@ private extension CommunityView {
         ZStack {
             ScrollView {
                 filterView()
-                ForEach(state.postList, id: \.postID) { item in
-                    postViewCell(item) //ListCellView
-                        .onTapGesture {
-                            print(item.postID)
-                            print("-----")
-                            //673807612cced30805615894
-                            appCoordinator.push(.communityDetail(postID: item.postID))
-                        }
+                LazyVStack {
+                    ForEach(state.postList, id: \.postID) { item in
+                        postViewCell(item) //ListCellView
+                            .onTapGesture {
+                                print(item.postID)
+                                print("-----")
+                                //673807612cced30805615894
+                                appCoordinator.push(.communityDetail(postID: item.postID))
+                            }
+                            .onAppear {
+                                guard let index = state.postList.firstIndex(where: {$0.postID == item.postID}) else { return }
+                                if index == state.postList.count - 2 {
+                                    intent.postPageNation()
+                                }
+                            }
                         
+                    }
+                    .padding()
+                    
                 }
-                .padding()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
