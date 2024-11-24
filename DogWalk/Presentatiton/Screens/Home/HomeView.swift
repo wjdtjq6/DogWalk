@@ -17,7 +17,7 @@ struct HomeView: View {
     @EnvironmentObject var coordinator: MainCoordinator
     var body: some View {
         NavigationView {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 topCharactorView()
                 middleButtonSView()
                 adBannerView()
