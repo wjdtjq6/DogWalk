@@ -30,6 +30,7 @@ enum NetworkError: Int, Error {
     case NoProductIDInHeader = 421
     case OverCall = 429
     case InvalidURL = 444
+    case InvalidParticipants = 445
     case ServerError = 500
     
     // 👇여기부터는 새싹에서 정의한 에러가 아니라, 내부적으로 네트워크 통신 호출 로직에서 필요한 에러 상황입니다.

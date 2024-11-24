@@ -34,7 +34,7 @@ final class SocketIOManager: SocketProvider {
         guard let baseURL = URL(string: APIKey.socketBaseURL) else { return }
         self.manager = SocketManager(
             socketURL: baseURL, config: [
-                .log(false), // 소켓 통신 중에 로그를 표시 유무
+                .log(true), // 소켓 통신 중에 로그를 표시 유무
                 .compress,  // 데이터를 압축해서 전송할 것인지
             ]
         )
@@ -72,6 +72,10 @@ final class SocketIOManager: SocketProvider {
         // 소켓 해제될 때 실행
         socket?.on(clientEvent: .disconnect) { data, ack in
             print("⛓️‍💥 Socket is Disconnected", data, ack)
+        }
+        
+        socket?.on(clientEvent: .reconnect) { data, ack in
+            print("🔅 Socket is Connected", data, ack)
         }
     }
     

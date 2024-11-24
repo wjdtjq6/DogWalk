@@ -104,6 +104,7 @@
 		C41F67E42CEC8A28003BCCCC /* ChattingRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F67E32CEC8A28003BCCCC /* ChattingRoomUseCase.swift */; };
 		C41F67E72CEC9898003BCCCC /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = C41F67E62CEC9898003BCCCC /* SocketIO */; };
 		C41F67EA2CECAE92003BCCCC /* ChattingListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */; };
+		C41F680A2CF32D64003BCCCC /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C41F68082CF32D64003BCCCC /* CoreDataModel.xcdatamodeld */; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -248,6 +249,7 @@
 		C41F67DF2CEB5429003BCCCC /* SocketDMDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketDMDTO.swift; sourceTree = "<group>"; };
 		C41F67E32CEC8A28003BCCCC /* ChattingRoomUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomUseCase.swift; sourceTree = "<group>"; };
 		C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListUseCase.swift; sourceTree = "<group>"; };
+		C41F68092CF32D64003BCCCC /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -365,7 +367,7 @@
 		9966F6DD2CE1C92800E7569E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				062284E02CF3416F00860F7A /* CoreDataModel.xcdatamodeld */,
+				C41F68082CF32D64003BCCCC /* CoreDataModel.xcdatamodeld */,
 				99DF93962CEEC93F0022E471 /* CoreChatMessageTransformer.swift */,
 				99DF93982CEEC96A0022E471 /* PersistentContainer.swift */,
 				99DF939A2CEEC9830022E471 /* CoreDataManager.swift */,
@@ -1125,6 +1127,7 @@
 				C4097B062CD7AF28002155EA /* PostBody.swift in Sources */,
 				C4D48E832CE70A7C006E39A0 /* SocketError.swift in Sources */,
 				06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */,
+				C41F680A2CF32D64003BCCCC /* CoreDataModel.xcdatamodeld in Sources */,
 				BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */,
 				C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */,
 				C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */,
@@ -1412,14 +1415,14 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		062284E02CF3416F00860F7A /* CoreDataModel.xcdatamodeld */ = {
+		C41F68082CF32D64003BCCCC /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				062284E12CF3416F00860F7A /* CoreDataModel.xcdatamodel */,
+				C41F68092CF32D64003BCCCC /* CoreDataModel.xcdatamodel */,
 			);
-			currentVersion = 062284E12CF3416F00860F7A /* CoreDataModel.xcdatamodel */;
+			currentVersion = C41F68092CF32D64003BCCCC /* CoreDataModel.xcdatamodel */;
 			name = CoreDataModel.xcdatamodeld;
-			path = CoreDataModel.xcdatamodeld;
+			path = /Users/junehee/Desktop/sesac/SLP/DogWalk/Data/CoreData/CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
