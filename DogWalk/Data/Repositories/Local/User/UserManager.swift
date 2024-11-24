@@ -20,10 +20,10 @@ final class UserManager {
     @UserDefault(key: .userNick, defaultValue: "도그워크")
     var userNick: String
     
-    @UserDefault(key: .lon, defaultValue: 126.88633) // MARK: 현재 새싹 위치로 정해져 있어서 실제 유저 데이터 연결 되면 바꾸겠습니다
+    @UserDefault(key: .lon, defaultValue: 126.8863) // MARK: 현재 새싹 위치로 정해져 있어서 실제 유저 데이터 연결 되면 바꾸겠습니다
     var lon: Double
     
-    @UserDefault(key: .lat, defaultValue:  37.51765) // MARK: 현재 새싹 위치로 정해져 있어서 실제 유저 데이터 연결 되면 바꾸겠습니다
+    @UserDefault(key: .lat, defaultValue:  37.5176) // MARK: 현재 새싹 위치로 정해져 있어서 실제 유저 데이터 연결 되면 바꾸겠습니다
     var lat: Double
     
     @UserDefault(key: .roadAddress, defaultValue: "")

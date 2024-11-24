@@ -1295,7 +1295,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = Y2VDXSZQ3M;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1314,7 +1314,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1337,7 +1337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogWalk/Preview Content\"";
-				DEVELOPMENT_TEAM = Y2VDXSZQ3M;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DogWalk/Info.plist;
@@ -1356,7 +1356,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.junehee.DogWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1419,7 +1419,7 @@
 			);
 			currentVersion = 062284E12CF3416F00860F7A /* CoreDataModel.xcdatamodel */;
 			name = CoreDataModel.xcdatamodeld;
-			path = "/Users/bagseongmin/Desktop/SwiftUI프로젝트/DogWalk/DogWalk/Data/CoreData/CoreDataModel.xcdatamodeld";
+			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

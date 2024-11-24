@@ -12,6 +12,7 @@ import Combine
 protocol MapStateProtocol { // 속성들을 가지는 프로토콜
     var isShowingSheet: Bool { get }
     var visibleRegion: MKCoordinateRegion { get }
+    var showRefreshButton: Bool { get }
     //Timer
     var count: Int { get }
     var timer: DispatchSourceTimer? { get }
@@ -41,12 +42,14 @@ protocol MapActionProtocol: AnyObject { // 메서드을 가지고있는 프로�
     func updatePosition(_ newPosition: MapCameraPosition)
     func getPosts(_ data: [PostModel])
     func getSelectedAnnotation(_ post: PostModel)
+    func showRefreshButton(_ isOn: Bool)
 }
 //MARK: - view에 전달할 데이터
 @Observable
 final class MapState: MapStateProtocol, ObservableObject {
     var isShowingSheet: Bool = false
     var visibleRegion: MKCoordinateRegion = MKCoordinateRegion()
+    var showRefreshButton: Bool = false
     //Timer
     var posts: [PostModel] = []
     var count: Int = 0
@@ -69,9 +72,14 @@ final class MapState: MapStateProtocol, ObservableObject {
 }
 // MARK: - intent에 줄 함수
 extension MapState: MapActionProtocol {
+    func showRefreshButton(_ isOn: Bool) {
+        showRefreshButton = isOn
+    }
+    
     func getSelectedAnnotation(_ post: PostModel) {
         self.selectedAnnotation = post
     }
+    
     func getPosts(_ data: [PostModel]) {
         self.posts = data
     }

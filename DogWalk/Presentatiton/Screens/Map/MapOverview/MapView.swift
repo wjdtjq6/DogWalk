@@ -15,8 +15,6 @@ struct MapView: View {
     private var state: MapStateProtocol { container.state }
     private var intent: MapIntentProtocol { container.intent }
     @EnvironmentObject var coordinator: MainCoordinator
-    //@State private var posts: [PostModel] = []
-    @State private var showRefreshButton = false
     @State private var showAnnotation = false
     @State private var isShowingSheet = false
     @State private var showResultPostView = false
@@ -26,8 +24,7 @@ extension MapView {
     var body: some View {
         ZStack {
             mapView()
-            //MARK: 새로고침 버튼
-            if showRefreshButton {
+            if state.showRefreshButton {
                 VStack {
                     refreshButton()
                         .padding()
@@ -56,6 +53,23 @@ extension MapView {
 }
 // MARK: - 지도 관련 부분
 private extension MapView {
+    func currentLocationButton() -> some View {
+        Button {
+            print("현위치 버튼 클릭")
+            withAnimation {
+                guard let coordinate = state.locationManager.locationManager.location?.coordinate else { return }
+                intent.updatePosition((MapCameraPosition.region(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.0169, longitudeDelta: 0.0169)))))
+            }
+        } label: {
+            ZStack {
+                Circle()
+                    .foregroundStyle(Color.primaryWhite)
+                Image(systemName: "dot.scope")
+            }
+            .frame(width: 45, height: 45)
+        }
+    }
+    
     func mapView() -> some View {
         Map(position: Binding(get: {
             state.position
@@ -69,16 +83,6 @@ private extension MapView {
                     setAnnotation(lat: data.geolocation.lat, lng: data.geolocation.lon, post: data)
                 }
             }
-            let coordinate = state.locationManager.locationManager.location?.coordinate
-            //            let _ = Task {
-            //                do {
-            //                    let post = try await intent.getPostsAtLocation(lat: coordinate!.latitude, lon: coordinate!.longitude)
-            //                    self.posts = post
-            //                } catch {
-            //                    print("Annotation 설정 중 에러: \(error)")
-            //                }
-            //            }
-            
             if state.locationManager.locations.count > 1 {
                 let polylineCoordinates = state.locationManager.locations
                 MapPolyline(coordinates: polylineCoordinates)
@@ -86,21 +90,24 @@ private extension MapView {
             }
         }
         .onAppear {//MARK: 1-1현위치 좌표 전달 완료 
-            guard let coordinate = state.locationManager.locationManager.location?.coordinate else {return} 
-            intent.getPostsAtLocation(lat: coordinate.latitude, lon: coordinate.longitude) 
+            let center = state.position.region?.center ?? state.locationManager.locationManager.location?.coordinate
+            guard let coordinate = center else { return }
+            if state.position.followsUserLocation {
+                intent.getPostsAtLocation(lat: coordinate.latitude, lon: coordinate.longitude)
+            }
             showAnnotation = true
         }//처음엔 annotation 보이도록
         .onMapCameraChange { context in//MARK: 1-2새로고침 시 중심 좌표 전달 완료
             //MARK: **Trouble Shooting** 처음 맵 띄울 때 현 위치와 카메라포지션이 같이 움직여서 해결
             if !state.position.followsUserLocation {
-                showRefreshButton = true
+                intent.showRefreshButton()
             }
             //MARK: 산책중 지도 움직였을 때 새로고침버튼 숨김
             if state.isTimerOn {
-                showRefreshButton = false
+                intent.hideRefreshButton()
             }
-            let center = intent.getCenter(context.region)
-            print(center,"뷰에서 센터 좌표")
+            //MARK: 새로고침 시 통신
+            intent.getCenter(context.region)
         }
     }
     //새로고침 버튼
@@ -108,11 +115,9 @@ private extension MapView {
         HStack {
             Button {
                 print("새로고침 버튼 클릭")
-                //MARK: 1-2 새로고침 시 중심 좌표 전달
-                
-                guard let coordinate = state.locationManager.locationManager.location?.coordinate else {return}
-                intent.getPostsAtLocation(lat: coordinate.latitude, lon: coordinate.longitude)
-                showRefreshButton = false//MARK: 새로고침 버튼 숨기기
+                //MARK: 새로고침 시 통신
+                intent.getPostsAtLocation(lat: state.visibleRegion.center.latitude, lon: state.visibleRegion.center.longitude)
+                intent.hideRefreshButton()//MARK: 새로고침 버튼 숨기기
             } label: {
                 CommonButton(width: 170, height: 44, cornerradius: 22, backColor: .primaryGreen, text: "이 지역 검색하기", textFont: .pretendardBold14, leftLogo: Image(systemName: "arrow.clockwise"), imageSize: 22)
                     .foregroundStyle(Color.primaryBlack)
@@ -157,38 +162,45 @@ private extension MapView {
 private extension MapView {
     //디폴트 프로필 + 산책 시작 버튼
     func defaultBottomView() -> some View {
-        HStack {
-            CommonProfile(imageURL: "", size: 45)
-            
-            Spacer()
-                .frame(width: 30)
-            
-            CommonButton(width: Self.width * 0.65, height: 44, cornerradius: 20, backColor: .primaryLime, text: "산책 시작하기", textFont: .pretendardBold14)
-                .clipShape(RoundedRectangle(cornerRadius: 20)) // 버튼 모양에 맞게 그림자 조정
-                .shadow(color: .black.opacity(0.6), radius: 5, x: 0, y: 5) // 버튼 그림자
-                .wrapToButton {
-                    print("산책 시작 버튼 클릭")
-                    if state.locationManager.locationManager.authorizationStatus == .authorizedAlways || state.locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
-                        intent.startWalk()
-                        intent.startBackgroundTimer()
-                        //MARK: 4.마커와 새로고침버튼 안보이도록
-                        showRefreshButton = false
-                        showAnnotation = false
-                    } else {
-                        intent.showAlert()
+        VStack {
+            currentLocationButton()
+                .padding(.horizontal,30)
+                .padding(.vertical,5)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            HStack {
+                CommonProfile(imageURL: "", size: 45)
+                
+                Spacer()
+                    .frame(width: 30)
+                
+                CommonButton(width: Self.width * 0.65, height: 44, cornerradius: 20, backColor: .primaryLime, text: "산책 시작하기", textFont: .pretendardBold14)
+                    .clipShape(RoundedRectangle(cornerRadius: 20)) // 버튼 모양에 맞게 그림자 조정
+                    .shadow(color: .black.opacity(0.6), radius: 5, x: 0, y: 5) // 버튼 그림자
+                    .wrapToButton {
+                        print("산책 시작 버튼 클릭")
+                        if state.locationManager.locationManager.authorizationStatus == .authorizedAlways || state.locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+                            intent.startWalk()
+                            intent.startBackgroundTimer()
+                            //MARK: 4.마커와 새로고침버튼 안보이도록
+                            intent.hideRefreshButton()
+                            showAnnotation = false
+                        } else {
+                            intent.showAlert()
+                        }
                     }
-                }
-                .alert("위치 권한 허용하러 갈멍?", isPresented: Binding(get: {
-                    state.isAlert
-                }, set: { newAlert in
-                    if !newAlert {
-                        intent.closeAlert()
+                    .alert("위치 권한 허용하러 갈멍?", isPresented: Binding(get: {
+                        state.isAlert
+                    }, set: { newAlert in
+                        if !newAlert {
+                            intent.closeAlert()
+                        }
+                    })) {
+                        Button("이동", role: .destructive) { intent.openAppSettings() }
+                        Button("취소", role: .cancel) {}
                     }
-                })) {
-                    Button("이동", role: .destructive) { intent.openAppSettings() }
-                    Button("취소", role: .cancel) {}
-                }
-        } //:HSTACK
+            } //:HSTACK
+
+        }
         .padding(.bottom)
     }
     //타이머 시작 시 바텀 뷰
@@ -252,9 +264,6 @@ private extension MapView {
             HStack(alignment: .center, spacing: 15) {
                 CommonButton(width: Self.width * 0.55, height: 44, cornerradius: 20, backColor: .primaryLime, text: "작성한 게시물 보기", textFont: .pretendardBold14)
                     .wrapToButton {
-                        // TODO: 해당 게시글의  PostModel 프린트 해주기
-                        print("게시글 보기 버튼 클릭")
-                        print("PostModel")
                         isShowingSheet = false
                         coordinator.push(.communityDetail(postID: post.postID))
                     }
