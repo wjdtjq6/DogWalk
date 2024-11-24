@@ -131,6 +131,7 @@ extension NetworkManager {
         if (isPaging == false) {
             self.page = ""
         }
+        if self.page == "0" { return []}
         let query = GetPostQuery(next: self.page, limit: "20", category: category)
         //let future = try await request(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
         let decodedResponse = try await requestDTO(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
