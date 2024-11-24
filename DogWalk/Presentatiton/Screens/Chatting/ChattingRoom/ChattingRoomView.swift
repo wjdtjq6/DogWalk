@@ -15,11 +15,13 @@ struct ChattingRoomView: View {
     private var state: ChattingRoomStateProtocol { container.state }
     private var intent: ChattingRoomIntentProtocol { container.intent }
     
+    @EnvironmentObject var coordinator: MainCoordinator
+    @EnvironmentObject var appDelegate: AppDelegate
+    
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
-    // @State private var text: String = ""     // 임시 키보드 입력
-    // @State private var message = Message()   // 임시 채팅 내역
-    // @State private var sendTest = false
+
+    @Environment(\.scenePhase) private var scenePhase
 }
 
 extension ChattingRoomView {
@@ -70,6 +72,35 @@ extension ChattingRoomView {
         .onDisappear {
             intent.onDisappearTrigger()
         }
+        .onChange(of: scenePhase) { oldValue, newValue in
+            print("oldValue", oldValue)
+            print("newValue", newValue)
+            switch newValue {
+            case .active: // Socket 다시 열어주기
+                intent.onActiveTrigger(roomID: state.roomID)
+                // coordinator.pop()
+            case .background: // Socket 닫아주기
+                // intent.onDisappearTrigger()
+                // intent.onBackgroundTrigger()
+                scheduleDisconnectTask(after: 60)
+            default:
+                return
+            }
+        }
+    }
+    
+    private func scrollToLastMessage(scroll: ScrollViewProxy) {
+        if let lastMessage = state.chattingData.last {
+            scroll.scrollTo(lastMessage.id, anchor: .bottom)
+        }
+    }
+    
+    private func scheduleDisconnectTask(after interval: TimeInterval) {
+        // guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        //     print("Failed to get AppDelegate")
+        //     return
+        // }
+        appDelegate.scheduleSocketDisconnectTask(after: interval)
     }
 }
 
@@ -89,29 +120,18 @@ private extension ChattingRoomView {
                             }
                     }
                 } //:VSTACK
-                .onAppear {
-                    //마지막 채팅 내역으로 스크롤 이동
-                    // scroll.scrollTo(message.modles.last?.id, anchor: .top)
-                    scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
-                    
-                }
-                .onChange(of: showKeyboard) { oldValue, newValue in //키보드 감지
+                .onChange(of: showKeyboard) { oldValue, newValue in // 키보드 감지
                     guard newValue else { return }
-                    //자연스러운 스크롤 구현
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        withAnimation {
-                            scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
-                        }
+                        withAnimation { scrollToLastMessage(scroll: scroll) } // 키보드 상태가 바뀌면 스크롤 위치 변경
                     }
                     
                 }
-                .onChange(of: state.chattingData) { oldValue, newValue in //새로운 메시지 감지
+                .onChange(of: state.chattingData) { oldValue, newValue in // 새로운 메시지 감지
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        withAnimation {
-                            scroll.scrollTo(state.chattingData.last?.id, anchor: .top)
-                        }
+                        withAnimation { scrollToLastMessage(scroll: scroll) } // 새로운 데이터가 들어올 경우 스크롤 위치 변경
                     }
-                }//새로운 데이터가 들어올 경우 스크롤 위치 하단으로
+                }
             } //:SCROLL
             .scrollIndicators(.hidden) //스크롤 Indicators 숨김
             .padding(.trailing) //자신도 프로필이 있을경유 horizontal으로 변경해주기
@@ -154,6 +174,7 @@ private extension ChattingRoomView {
     @ViewBuilder
     func messageView(size: CGSize, model: ChattingModel) -> some View {
         let isRight = model.sender.userID == UserManager.shared.userID
+        
         //말풍선 size 지정
         let minBubbleHeight: CGFloat = 18.0
         let minBubbleWidth: CGFloat = 15.0
@@ -169,6 +190,7 @@ private extension ChattingRoomView {
         let bubbleHeight = mesHeight + 15
         let bubbleWidth = mesWidth + 20
         let xOffSet = (size.width - bubbleWidth) / 2 - 20.0 // 말풍선 offSet 설정
+        
         HStack {
             if model.sender.userID == UserManager.shared.userID { //상대 프로필
                 chatDateView(model.createdAt)    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
@@ -217,7 +239,7 @@ private extension ChattingRoomView {
         let width = size.width
         HStack {
             if isRight {
-                chatDateView("2024-05-06T06:04:52.542Z")    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
+                chatDateView(model.createdAt)    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
                     .offset(x: width * 0.1985)
                     .padding(.bottom, 5)
             }

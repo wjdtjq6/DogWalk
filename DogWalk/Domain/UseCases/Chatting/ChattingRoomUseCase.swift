@@ -42,7 +42,8 @@ protocol ChattingRoomUseCase {
     func sendTextMessage(roomID: String, message: String) async throws -> ChattingModel
     func sendImageMessage(roomID: String, image: Data) async throws -> ChattingFilesModel
     func closeSocket()
-    func testSubject(roomID: String) -> [ChattingModel]
+    // func testSubject(roomID: String) -> [ChattingModel]
+    func reconnectSocket(roomID: String)
 }
 
 final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
@@ -64,7 +65,6 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
                 self.updateChattingData(roomID: roomID, data: socketDMModel)
             }
             .store(in: &cancellable)
-
     }
     
     // DB에서 기존 대화 내역 가져오기
@@ -77,6 +77,11 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         guard let updateAt = room?.updatedAt else { return  "2024-05-06T05:13:54.357Z" }
         print("UpdateAt123", updateAt)
         print(room?.lastChat ?? "DB에서 최신 대화 날짜 가져오기 실패")
+
+        // let room = chatRepository.fetchChatRoom(chatRoomID: roomID)
+        // // guard let updateAt = room?.updateAt else { return  "2024-05-06T05:13:54.357Z" }
+        // guard let updateAt = room?.updateAt else { return  "" }
+        print("UpdateAt", updateAt)
         return updateAt
     }
     
@@ -84,7 +89,6 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     func fetchChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel] {
         do {
             let query = GetChatListQuery(cursor_date: "")
-            print("fetchChattingData",cursorDate)
             let DTO = try await network.requestDTO(target: .chat(.getChatList(roomId: roomID, query: query)), of: ChattingResponseDTO.self)
             let chattingModels = DTO.toDomain()
             print("Fetched Chatting Models from Server: \(chattingModels)")
@@ -178,6 +182,20 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         socket.connect()
     }
     
+    func reconnectSocket(roomID: String) {
+        print(#function)
+        socket = SocketIOManager(roomID: roomID)
+        socket.socketSubject
+            .receive(on: RunLoop.main)
+            .sink { error in
+                print("ChattingSubject ERROR", error)
+            } receiveValue: { socketDMModel in
+                self.updateChattingData(roomID: roomID, data: socketDMModel)
+            }
+            .store(in: &cancellable)
+        socket.connect()
+    }
+    
     // 텍스트 보내기
     func sendTextMessage(roomID: String, message: String) async throws  -> ChattingModel {
         do {
@@ -207,19 +225,19 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         socket.disconnect()
     }
     
-    func testSubject(roomID: String) -> [ChattingModel] {
-        var temp: [ChattingModel] = []
-        
-        self.socket.socketSubject
-//            .receive(on: RunLoop.main)
-            .sink { error in
-                print("ChattingSubject ERROR", error)
-            } receiveValue: { [weak self] socketDMModel in
-                self?.updateChattingData(roomID: roomID, data: socketDMModel)
-                temp = self?.chatRepository.fetchAllMessages(for: roomID) ?? []
-            }
-            .store(in: &cancellable)
-        
-        return temp
-    }
+    // func testSubject(roomID: String) -> [ChattingModel] {
+    //     var temp: [ChattingModel] = []
+    //     
+    //     self.socket.socketSubject
+    //         .receive(on: RunLoop.main)
+    //         .sink { error in
+    //             print("ChattingSubject ERROR", error)
+    //         } receiveValue: { [weak self] socketDMModel in
+    //             self?.updateChattingData(roomID: roomID, data: socketDMModel)
+    //             temp = self?.chatRepository.fetchAllMessages(for: roomID) ?? []
+    //         }
+    //         .store(in: &cancellable)
+    //     
+    //     return temp
+    // }
 }

@@ -18,9 +18,9 @@ public class CoreChatMessage: NSObject, NSSecureCoding {
     public var senderUserID: String?
     public var senderUserNick: String?
     public var senderProfileImage: String?
-    
+    public var createdAt: String?
 
-    public init(chatID: String? = nil, roomID: String? = nil, type: String? = nil, files: [String]? = nil, message: String? = nil, senderUserID: String? = nil, senderUserNick: String? = nil, profileImage: String? = nil) {
+    public init(chatID: String? = nil, roomID: String? = nil, type: String? = nil, files: [String]? = nil, message: String? = nil, senderUserID: String? = nil, senderUserNick: String? = nil, profileImage: String? = nil, createdAt: String? = nil) {
         self.chatID = chatID
         self.roomID = roomID
         self.type = type
@@ -29,6 +29,7 @@ public class CoreChatMessage: NSObject, NSSecureCoding {
         self.senderUserID = senderUserID
         self.senderUserNick = senderUserNick
         self.senderProfileImage = profileImage
+        self.createdAt = createdAt
     }
 
     public func encode(with coder: NSCoder) {
@@ -40,6 +41,7 @@ public class CoreChatMessage: NSObject, NSSecureCoding {
         coder.encode(senderUserID, forKey: "senderUserID")
         coder.encode(senderUserNick, forKey: "senderUserNick")
         coder.encode(senderProfileImage, forKey: "profileImage")
+        coder.encode(createdAt, forKey: "createdAt")
     }
 
     public required init?(coder: NSCoder) {
@@ -51,5 +53,6 @@ public class CoreChatMessage: NSObject, NSSecureCoding {
         self.senderUserID = coder.decodeObject(forKey: "senderUserID") as? String
         self.senderUserNick = coder.decodeObject(forKey: "senderUserNick") as? String
         self.senderProfileImage = coder.decodeObject(forKey: "profileImage") as? String
+        self.createdAt = coder.decodeObject(forKey: "createdAt") as? String
     }
 }

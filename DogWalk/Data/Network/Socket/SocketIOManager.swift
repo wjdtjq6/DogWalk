@@ -11,6 +11,7 @@ import SocketIO
 
 protocol SocketProvider {
     var socketSubject: PassthroughSubject<SocketDMModel, Never> { get }
+    
     func connect()          // 소켓 연결
     func disconnect()       // 소켓 연결 해제
 }
@@ -34,7 +35,7 @@ final class SocketIOManager: SocketProvider {
         guard let baseURL = URL(string: APIKey.socketBaseURL) else { return }
         self.manager = SocketManager(
             socketURL: baseURL, config: [
-                .log(false), // 소켓 통신 중에 로그를 표시 유무
+                .log(true), // 소켓 통신 중에 로그를 표시 유무
                 .compress,  // 데이터를 압축해서 전송할 것인지
             ]
         )
@@ -73,6 +74,19 @@ final class SocketIOManager: SocketProvider {
         socket?.on(clientEvent: .disconnect) { data, ack in
             print("⛓️‍💥 Socket is Disconnected", data, ack)
         }
+        
+        socket?.on(clientEvent: .reconnect) { data, ack in
+            print("🔅 Socket is Connected", data, ack)
+        }
+    }
+    
+    // 등록된 이벤트 핸들러 해제
+    func removeSocketEvent() {
+        print(#function)
+        socket?.off(clientEvent: .connect)
+        socket?.off(clientEvent: .disconnect)
+        socket?.off("chat")
+        socket?.off(clientEvent: .reconnect)
     }
     
     func connect() {
@@ -83,12 +97,9 @@ final class SocketIOManager: SocketProvider {
     func disconnect() {
         print(#function)
         socket?.disconnect()
+        removeSocketEvent()
         socket = nil
         manager = nil
-    }
-    
-    func recieveData(data: SocketDMModel) async {
-        
     }
 }
 

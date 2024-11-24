@@ -49,4 +49,7 @@ final class UserManager {
     
     @UserDefault(key: .imageCache, defaultValue: ["":""])
     var imageCache: [String: String]
+    
+    @UserDefault(key: .recentRoomID, defaultValue: "")
+    var recentRoomID: String
 }

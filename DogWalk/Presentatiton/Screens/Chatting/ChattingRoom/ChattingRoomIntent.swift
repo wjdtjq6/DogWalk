@@ -12,6 +12,8 @@ protocol ChattingRoomIntentProtocol {
     func onAppearTrigger(roomID: String)
     func sendTextMessage(roomID: String, message: String) async
     func onDisappearTrigger()
+    func onActiveTrigger(roomID: String)
+    func onBackgroundTrigger()
 }
 
 final class ChattingRoomIntent {
@@ -34,10 +36,9 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         /// 1) DB에서 기존 대화 내역 가져와서 저장
         let chattingData = useCase.getChattingData(roomID: roomID)
         state?.updateChattingView(data: chattingData)
-        
+        // print(chattingData)
         /// 2) 최근 대화 날짜 가져오기
         let cursorDate = useCase.getCursorDate(roomID: roomID)
-            print(cursorDate, "dsadasdasdsadasd")
         
         /// 3) 최근 대화 날짜 기반 새로운 대화 내역 요청
         Task {
@@ -56,8 +57,6 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 state?.changeViewState(state: .error)
             }
         }
-        
-        
     }
     
     // 텍스트 메세지 전송
@@ -72,6 +71,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 useCase.updateChattingData(roomID: roomID, data: [result])
                 print("전체 메세지 다시 가져와서 뷰에 띄움")
                 let newMessages = useCase.getAllChattingData(roomID: roomID)
+                // dump(newMessages)
                 state?.updateChattingView(data: newMessages)
             } catch  {
                 print(#function, error)
@@ -93,8 +93,21 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         }
     }
     
-    // 채팅방 퇴장 - Socket Close
+    // App Active 상태일 때
+    func onActiveTrigger(roomID: String) {
+        print(#function)
+        // useCase.openSocket(roomID: roomID)
+        useCase.reconnectSocket(roomID: roomID)
+    }
+    
+    func onBackgroundTrigger() {
+        print(#function)
+        useCase.closeSocket()
+    }
+    
+    // 채팅방 퇴장 or Background - Socket Close
     func onDisappearTrigger() {
+        print(#function)
         // 이 시점에서 ChattingList LastChat 업데이트 해주기
         useCase.closeSocket()
     }
