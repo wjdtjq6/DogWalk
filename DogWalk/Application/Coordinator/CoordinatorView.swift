@@ -27,7 +27,7 @@ struct CoordinatorView: View {
     }
 }
 
-#Preview {
-    CoordinatorView()   
-}
-
+//#Preview {
+//    CoordinatorView()   
+//}
+//

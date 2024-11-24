@@ -13,7 +13,7 @@ class PersistentContainer {
 
     private init() {
         // Core Data 모델 파일의 URL 명시
-        guard let modelURL = Bundle.main.url(forResource: "CoreChatRoom", withExtension: "momd") else {
+        guard let modelURL = Bundle.main.url(forResource: "CoreDataModel", withExtension: "momd") else {
             fatalError("Failed to locate Core Data model")
         }
         // NSManagedObjectModel 생성
@@ -21,7 +21,7 @@ class PersistentContainer {
             fatalError("Failed to load Core Data model")
         }
         // NSPersistentContainer 초기화
-        container = NSPersistentContainer(name: "CoreChatRoom", managedObjectModel: managedObjectModel)
+        container = NSPersistentContainer(name: "CoreDataModel", managedObjectModel: managedObjectModel)
         container.loadPersistentStores { storeDescription, error in
             if let error = error {
                 fatalError("Unresolved error \(error)")

@@ -57,7 +57,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     init(roomID: String) {
         self.socket = SocketIOManager(roomID: roomID)
         self.socket.socketSubject
-            .receive(on: RunLoop.main)
+//            .receive(on: RunLoop.main)
             .sink { error in
                 print("ChattingSubject ERROR", error)
             } receiveValue: { socketDMModel in
@@ -69,70 +69,102 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     
     // DB에서 기존 대화 내역 가져오기
     func getChattingData(roomID: String) -> [ChattingModel] {
-        return chatRepository.fetchAllMessages(for: roomID)
-    }
+        return chatRepository.fetchMessages(for: roomID)}
     
     // DB에서 최신 대화 날짜 가져오기
     func getCursorDate(roomID: String) -> String {
-        let room = chatRepository.fetchChatRoom(chatRoomID: roomID)
-        guard let updateAt = room?.updateAt else { return  "2024-05-06T05:13:54.357Z" }
-        print("UpdateAt", updateAt)
+        let room = chatRepository.fetchChatRoom(roomID: roomID)
+        guard let updateAt = room?.updatedAt else { return  "2024-05-06T05:13:54.357Z" }
+        print("UpdateAt123", updateAt)
+        print(room?.lastChat ?? "DB에서 최신 대화 날짜 가져오기 실패")
         return updateAt
     }
     
     // cursor_date 기반으로 서버에 최신 대화 내역 요청
     func fetchChattingData(roomID: String, cursorDate: String) async throws -> [ChattingModel] {
         do {
-            let query = GetChatListQuery(cursor_date: cursorDate)
+            let query = GetChatListQuery(cursor_date: "")
+            print("fetchChattingData",cursorDate)
             let DTO = try await network.requestDTO(target: .chat(.getChatList(roomId: roomID, query: query)), of: ChattingResponseDTO.self)
-            return DTO.toDomain()
+            let chattingModels = DTO.toDomain()
+            print("Fetched Chatting Models from Server: \(chattingModels)")
+            return chattingModels
         } catch {
-            print(#function, "최신 대화 요청 실패")
+            print("Failed to fetch chatting data from server: \(error)")
             throw error
         }
     }
     
      // 서버에서 응답 받은 최신 대화 내용을 DB에 업데이트
     func updateChattingData(roomID: String, data: [ChattingModel]) {
-        // 1. CoreData에서 채팅방 가지고 오고
-        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else {
-            print("Chat room not found for ID: \(roomID)")
+        // 1. 채팅방 가져오기
+        guard chatRepository.fetchChatRoom(roomID: roomID) != nil else {
+//            print("❌ Chat room not found for ID: \(roomID)")
             return
         }
 
-        // ChattingModel 데이터를 CoreChatMessage로 변환
-        let newMessages = data.map { msg in
-            chatRepository.createChatMessage(
-                chatID: msg.chatID,
-                content: msg.content,
-                sender: msg.sender,
-                files: msg.files,
-                in: chatRoom
-            )
+        // 2. 기존 메시지 가져오기
+        let existingMessages = chatRepository.fetchMessages(for: roomID)
+        let existingChatIDs = Set(existingMessages.map { $0.chatID })
+
+        // 3. 새로운 메시지 필터링 및 저장
+        var newMessages: [CoreDataChatMessage] = []
+
+        for msg in data where !existingChatIDs.contains(msg.chatID) {
+            if let createdMessage = chatRepository.createChatMessage(chatRoomID: roomID, messageData: msg) {
+                print("✅ Message created successfully: \(createdMessage.chatID ?? "Unknown ID")")
+                newMessages.append(createdMessage)
+            } else {
+                print("❌ Failed to create message for chatID: \(msg.chatID)")
+            }
         }
-        // 채팅방 메시지 업데이트
-        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: newMessages)
+
+        // 4. 새로운 메시지가 없는 경우 종료
+        guard !newMessages.isEmpty else {
+//            print("❌ No new messages were added for RoomID: \(roomID)")
+            return
+        }
+
+        // 5. 채팅방 업데이트
+        chatRepository.updateChatRoom(chatRoomID: roomID, with: newMessages)
+
+        // 6. 최종 메시지 목록 출력
+        let allMessages = chatRepository.fetchMessages(for: roomID)
+        print("✅ Updated Messages in DB for RoomID \(roomID): \(allMessages)")
     }
-    
     // 소켓에서 받은 대화 내용을 DB에 업데이트
     func updateChattingData(roomID: String, data: SocketDMModel) {
-        guard let chatRoom = chatRepository.fetchChatRoom(chatRoomID: roomID) else {
+        // 1. 채팅방 가져오기
+        guard chatRepository.fetchChatRoom(roomID: roomID) != nil else {
             print("Chat room not found for ID: \(roomID)")
             return
         }
         
-        let socketMessage = chatRepository.createChatMessage(
-            chatID: data.chatID,
-            content: data.content,
-            sender: UserModel(userID: data.sender.userID,
-                              nick: data.sender.nick,
-                              profileImage: data.sender.profileImage),
-            files: data.files,
-            in: chatRoom
+        // 2. SocketDMModel 데이터를 UserModel로 변환
+        let senderModel = UserModel(
+            userID: data.sender.userID,
+            nick: data.sender.nick,
+            profileImage: data.sender.profileImage
         )
         
-        chatRepository.updateChatRoom(chatRoomID: roomID, newMessages: [socketMessage])
-        chattingSubject.send(chatRepository.fetchAllMessages(for: roomID))
+        // 3. 채팅 메시지 생성 및 추가
+        chatRepository.createChatMessage(
+            chatRoomID: roomID,
+            messageData: ChattingModel(
+                chatID: data.chatID,
+                roomID: roomID,
+                type: .text ,
+                content: data.content,
+                createdAt: data.createdAt,
+                sender: senderModel,
+                files: data.files
+            )
+            
+        )
+       
+        // 4. 채팅방 메시지 리스트 업데이트 후 Subject 전송
+        chattingSubject.send(chatRepository.fetchMessages(for: roomID))
+        print("채팅 데이터가 업데이트되었습니다.")
     }
     
     
@@ -179,7 +211,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         var temp: [ChattingModel] = []
         
         self.socket.socketSubject
-            .receive(on: RunLoop.main)
+//            .receive(on: RunLoop.main)
             .sink { error in
                 print("ChattingSubject ERROR", error)
             } receiveValue: { [weak self] socketDMModel in

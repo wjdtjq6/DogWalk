@@ -37,7 +37,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         
         /// 2) 최근 대화 날짜 가져오기
         let cursorDate = useCase.getCursorDate(roomID: roomID)
-
+            print(cursorDate, "dsadasdasdsadasd")
         
         /// 3) 최근 대화 날짜 기반 새로운 대화 내역 요청
         Task {

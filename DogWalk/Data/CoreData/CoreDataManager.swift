@@ -12,11 +12,11 @@ final class CoreDataManager {
     let persistentContainer: NSPersistentContainer
 
     init() {
-        persistentContainer = NSPersistentContainer(name: "CoreChatRoom") // Core Data 모델 이름
+        persistentContainer = NSPersistentContainer(name: "CoreDataModel") // Core Data 모델 이름
         
         // Storage 경로 고정
-        let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                  .appendingPathComponent("CoreChatRoom.dogwalk")
+//        let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//                  .appendingPathComponent("CoreDataModel.dogwalk")
         persistentContainer.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Failed to load Core Data stack: \(error)")

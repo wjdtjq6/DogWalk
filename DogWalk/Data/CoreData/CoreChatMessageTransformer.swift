@@ -7,125 +7,115 @@
 
 import Foundation
 
-//class CoreChatMessageTransformer: ValueTransformer {
-//    override func transformedValue(_ value: Any?) -> Any? {
-//        guard let messages = value as? [CoreChatMessage] else { return nil }
-//        
-//        // CoreData의 지정되어 있지 않은 Custom(Transformable은 NsData형식으로 CoreData에 저장 후 사용할 때 Decoding)
-//        // CoreChatMessage 배열을 NSData로 변환 (PropertyListEncoder 사용)
-//        do {
-//            let encoder = PropertyListEncoder()
-//            let data = try encoder.encode(messages)
-//            return data
-//        } catch {
-//            print("CoreChatMessageTransformer 인코딩 실패: \(error)")
-//            return nil
-//        }
-//    }
-//    
-//    // NsData를 CoreChatMessage 배열로 복원
-//    override func reverseTransformedValue(_ value: Any?) -> Any? {
-//        guard let data = value as? Data else { return nil }
-//        
-//        do {
-//            let decoder = PropertyListDecoder()
-//            let messages = try decoder.decode([CoreChatMessage].self, from: data)
-//            return messages
-//        } catch {
-//            print("CoreChatMessageTransformer 디코딩 실패: \(error)")
-//        }
-//        return nil
-//    }
-//    
-//    // 변환기
-//    static func register() {
-//        let className = String(describing: CoreChatMessageTransformer.self)
-//        let name = NSValueTransformerName(className)
-//        let transformer = CoreChatMessageTransformer()
-//        ValueTransformer.setValueTransformer(transformer, forName: name)
-//    }
-//}
+//MARK: NSKeyedArchiver, PropertyListDecoder 디,인코딩 어떤 코더로 할지 고민
+@objc(CoreChatMessageTransformer)
 class CoreChatMessageTransformer: ValueTransformer {
-    // CoreChatMessage 변환
+    
     override func transformedValue(_ value: Any?) -> Any? {
-        guard let messages = value as? [CoreChatMessage] else { return nil }
+        guard let value = value as? CoreChatMessage else { return nil }
         do {
-            let encoder = PropertyListEncoder()
-            let data = try encoder.encode(messages)
+            let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true)
             return data
         } catch {
             print("CoreChatMessageTransformer 인코딩 실패: \(error)")
             return nil
         }
     }
-
+    
     override func reverseTransformedValue(_ value: Any?) -> Any? {
         guard let data = value as? Data else { return nil }
         do {
-            let decoder = PropertyListDecoder()
-            let messages = try decoder.decode([CoreChatMessage].self, from: data)
-            return messages
+            let allowedClasses: [AnyClass] = [
+                CoreChatMessage.self,
+                NSString.self,  // 속성 타입이 NSString일 경우
+                NSNumber.self,  // 숫자 타입 (필요 시)
+                NSData.self     // 파일 데이터 포함 가능
+            ]
+            let message = try NSKeyedUnarchiver.unarchivedObject(ofClasses: allowedClasses, from: data) as? CoreChatMessage
+            return message
         } catch {
             print("CoreChatMessageTransformer 디코딩 실패: \(error)")
-        }
-        return nil
-    }
-
-    // CoreLastChat 변환
-    func transformedValueLastChat(_ value: Any?) -> Any? {
-        guard let lastChat = value as? CoreLastChat else { return nil }
-        do {
-            let encoder = PropertyListEncoder()
-            let data = try encoder.encode(lastChat)
-            return data
-        } catch {
-            print("CoreLastChat 인코딩 실패: \(error)")
             return nil
         }
-    }
-
-    func reverseTransformedValueLastChat(_ value: Any?) -> Any? {
-        guard let data = value as? Data else { return nil }
-        do {
-            let decoder = PropertyListDecoder()
-            let lastChat = try decoder.decode(CoreLastChat.self, from: data)
-            return lastChat
-        } catch {
-            print("CoreLastChat 디코딩 실패: \(error)")
-        }
-        return nil
-    }
-
-    // CoreUserModel 변환
-    func transformedUserModel(_ value: Any?) -> Any? {
-        guard let userModel = value as? CoreUserModel else { return nil }
-        do {
-            let encoder = PropertyListEncoder()
-            let data = try encoder.encode(userModel)
-            return data
-        } catch {
-            print("CoreUserModel 인코딩 실패: \(error)")
-            return nil
-        }
-    }
-
-    func reverseTransformedUserModel(_ value: Any?) -> Any? {
-        guard let data = value as? Data else { return nil }
-        do {
-            let decoder = PropertyListDecoder()
-            let userModel = try decoder.decode(CoreUserModel.self, from: data)
-            return userModel
-        } catch {
-            print("CoreUserModel 디코딩 실패: \(error)")
-        }
-        return nil
     }
     
-    // 변환기 등록 (static 메서드 사용)
     static func register() {
-        let className = String(describing: CoreChatMessageTransformer.self)
-        let name = NSValueTransformerName(className)
-        let transformer = CoreChatMessageTransformer()
-        ValueTransformer.setValueTransformer(transformer, forName: name)
+        let name = NSValueTransformerName(rawValue: "CoreChatMessageTransformer")
+        ValueTransformer.setValueTransformer(CoreChatMessageTransformer(), forName: name)
+    }
+}
+
+@objc(CoreLastChatTransformer)
+class CoreLastChatTransformer: ValueTransformer {
+    
+    override func transformedValue(_ value: Any?) -> Any? {
+        guard let value = value as? CoreLastChat else { return nil }
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true)
+            return data
+        } catch {
+            print("CoreLastChatTransformer 인코딩 실패: \(error)")
+            return nil
+        }
+    }
+    
+    override func reverseTransformedValue(_ value: Any?) -> Any? {
+        guard let data = value as? Data else { return nil }
+        do {
+            let allowedClasses: [AnyClass] = [
+                CoreLastChat.self,
+                CoreUser.self,     // CoreUser 추가
+                NSString.self,     // 문자열 속성
+                NSArray.self,     // 파일 배열 속성
+                NSData.self,       // 데이터 속성
+                NSNumber.self      // 숫자 속성
+            ]
+            let lastChat = try NSKeyedUnarchiver.unarchivedObject(ofClasses: allowedClasses, from: data) as? CoreLastChat
+            return lastChat
+        } catch {
+            print("CoreLastChatTransformer 디코딩 실패: \(error)")
+            return nil
+        }
+    }
+    
+    static func register() {
+        let name = NSValueTransformerName(rawValue: "CoreLastChatTransformer")
+        ValueTransformer.setValueTransformer(CoreLastChatTransformer(), forName: name)
+    }
+}
+
+@objc(CoreUserTransformer)
+class CoreUserTransformer: ValueTransformer {
+    
+    override func transformedValue(_ value: Any?) -> Any? {
+        guard let value = value as? CoreUser else { return nil }
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true)
+            return data
+        } catch {
+            print("CoreUserTransformer 인코딩 실패: \(error)")
+            return nil
+        }
+    }
+    
+    override func reverseTransformedValue(_ value: Any?) -> Any? {
+        guard let data = value as? Data else { return nil }
+        do {
+            let allowedClasses: [AnyClass] = [
+                CoreUser.self,   // 디코딩 대상 클래스
+                NSString.self,   // 속성 타입이 NSString일 경우
+                NSData.self      // 파일 데이터 포함 가능
+            ]
+            let user = try NSKeyedUnarchiver.unarchivedObject(ofClasses: allowedClasses, from: data) as? CoreUser
+            return user
+        } catch {
+            print("CoreUserTransformer 디코딩 실패: \(error)")
+            return nil
+        }
+    }
+    
+    static func register() {
+        let name = NSValueTransformerName(rawValue: "CoreUserTransformer")
+        ValueTransformer.setValueTransformer(CoreUserTransformer(), forName: name)
     }
 }
