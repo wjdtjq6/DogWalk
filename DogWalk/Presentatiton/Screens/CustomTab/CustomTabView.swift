@@ -7,38 +7,44 @@
 
 import SwiftUI
 
-struct CustomTabView: View {
+struct MainTabView: View {
+    @ObservedObject var coordinator: MainCoordinator // Coordinator 주입
+
     var body: some View {
-        TabView {
-            HomeView.build()
+        TabView(selection: $coordinator.selectedTab) {
+            coordinator.build(.home) // 홈 화면 생성
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)
                     Text("홈")
                 }
-            MapView.build()
+                .tag(Tab.home)
+
+            coordinator.build(.map) // 산책하기 화면 생성
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)
                     Text("산책하기")
                 }
-            CommunityView.build()
+                .tag(Tab.dogWalk)
+
+            coordinator.build(.community) // 커뮤니티 화면 생성
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)
                     Text("커뮤니티")
                 }
-            ChattingListView.build()
+                .tag(Tab.community)
+
+            coordinator.build(.chatting) // 멍톡 화면 생성
                 .tabItem {
                     Image.asWalk
                         .renderingMode(.template)
                     Text("멍톡")
                 }
+                .tag(Tab.chatting)
         }
         .tint(Color.primaryGreen)
+        .navigationBarBackButtonHidden()
     }
-}
-
-#Preview {
-    CustomTabView()
 }

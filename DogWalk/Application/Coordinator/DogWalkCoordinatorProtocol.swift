@@ -19,7 +19,7 @@ protocol DogWalkCoordinatorProtocol: ObservableObject {
     func popToRoot() // 홈화면으로 이동
     func dismissSheet() // 시트 내리기
     func dismissFullScreenOver() // 풀스크린 커버 내리기
-    
+    func changeTab(tab: Tab)
 }
 
 //MARK: 필요한 뷰 추가해서 사용
@@ -77,3 +77,5 @@ enum FullScreenCover:  Identifiable, Hashable {
     
     case dogWalkResult(walkTime: Int, walkDistance: Double, routeImage: UIImage)
 }
+
+

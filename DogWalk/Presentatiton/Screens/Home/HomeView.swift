@@ -92,9 +92,14 @@ extension HomeView {
     //MARK: 함께 산책하기, 산책 인증하기 뷰
     func middleButtonSView() -> some View {
         HStack(spacing: 20) {
-            //버튼들
             CommonButton(width: 170, height: 50, cornerradius: 20, backColor: .primaryGreen, text: "함께 산책하기  🐾", textFont: .pretendardSemiBold18)
+                .wrapToButton {
+                    coordinator.changeTab(tab: .dogWalk)
+                }
             CommonButton(width: 170, height: 50, cornerradius: 20, backColor: .primaryLime, text: "산책 인증하기", textFont: .pretendardSemiBold18, rightLogo: .asTestLogo, imageSize: 20)
+                .wrapToButton {
+                    coordinator.changeTab(tab: .community)
+                }
         }
         .padding(.vertical,10)
     }
