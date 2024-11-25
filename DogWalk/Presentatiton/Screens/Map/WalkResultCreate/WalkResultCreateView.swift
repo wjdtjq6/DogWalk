@@ -26,6 +26,9 @@ struct WalkResultCreateView: View {
     @State private var category: CommunityCategoryType = .walkCertification
     @State private var titleText = ""       // 게시물 제목
     @State private var contentText = ""     // 게시물 내용
+    @State private var alertShow = false   //얼럿
+    @State private var errAlertShow = false // 오류 얼럿
+    @EnvironmentObject var coordinator: MainCoordinator
     //int, double,double
     var walkTime: Int
     var walkDistance: Double
@@ -51,6 +54,7 @@ struct WalkResultCreateView: View {
                     Task {
                         do {
                             try await usecase.createPost(title: titleText, content: contentText, image: walkImage.jpegData(compressionQuality: 0.5) ?? Data(), time: walkTime, distance: walkDistance, calorie: walkCalorie)
+                            self.alertShow.toggle()
                         } catch {
                             print("미완 ㅠ")
                         }
@@ -59,6 +63,14 @@ struct WalkResultCreateView: View {
                     Text("등록하기")
                 }
             }
+        }
+        .alert("게시글 작성완료!", isPresented: $alertShow) {
+            Button("확인") {
+                coordinator.pop()
+            }
+        }
+        .alert("게시글 작성 오류 발생!", isPresented: $errAlertShow) {
+            Button("확인") {}
         }
     }
     
