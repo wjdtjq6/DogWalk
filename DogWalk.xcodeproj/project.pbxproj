@@ -22,7 +22,6 @@
 		062284C92CEF24B000860F7A /* FileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284C82CEF24B000860F7A /* FileDTO.swift */; };
 		062284CB2CEF2C0C00860F7A /* ImageUploadBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */; };
 		062284DC2CF30CB700860F7A /* UpdateUserBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284DB2CF30CB700860F7A /* UpdateUserBody.swift */; };
-		062284E22CF3416F00860F7A /* (null) in Sources */ = {isa = PBXBuildFile; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -35,6 +34,8 @@
 		993A70DE2CE8B6890003FA0C /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A70DD2CE8B6890003FA0C /* CommonImageView.swift */; };
 		994775B32CEC6DB90005DBBF /* WeatherKitAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994775B22CEC6DB90005DBBF /* WeatherKitAPIManager.swift */; };
 		994775B62CECA7CF0005DBBF /* CLLocation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994775B52CECA7CF0005DBBF /* CLLocation+.swift */; };
+		99595BEB2CF350C7007A84A8 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99595BE92CF350C7007A84A8 /* CoreDataModel.xcdatamodeld */; };
+		99595BEF2CF4010E007A84A8 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99595BED2CF4010E007A84A8 /* CoreDataModel.xcdatamodeld */; };
 		99646D062CEB59BD00B94C0B /* HomeContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D052CEB59BD00B94C0B /* HomeContentState.swift */; };
 		99646D082CEB615D00B94C0B /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D072CEB615D00B94C0B /* HomeUseCase.swift */; };
 		9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D02CDDE37900E7569E /* MainCoordinator.swift */; };
@@ -104,7 +105,7 @@
 		C41F67E42CEC8A28003BCCCC /* ChattingRoomUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F67E32CEC8A28003BCCCC /* ChattingRoomUseCase.swift */; };
 		C41F67E72CEC9898003BCCCC /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = C41F67E62CEC9898003BCCCC /* SocketIO */; };
 		C41F67EA2CECAE92003BCCCC /* ChattingListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */; };
-		C41F680A2CF32D64003BCCCC /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C41F68082CF32D64003BCCCC /* CoreDataModel.xcdatamodeld */; };
+		C41F680A2CF32D64003BCCCC /* (null) in Sources */ = {isa = PBXBuildFile; };
 		C477A2AA2CD0E594006B8DB6 /* DogWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */; };
 		C477A2AC2CD0E594006B8DB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477A2AB2CD0E594006B8DB6 /* ContentView.swift */; };
 		C477A2AE2CD0E596006B8DB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C477A2AD2CD0E596006B8DB6 /* Assets.xcassets */; };
@@ -180,6 +181,8 @@
 		993A70DD2CE8B6890003FA0C /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		994775B22CEC6DB90005DBBF /* WeatherKitAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherKitAPIManager.swift; sourceTree = "<group>"; };
 		994775B52CECA7CF0005DBBF /* CLLocation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+.swift"; sourceTree = "<group>"; };
+		99595BEA2CF350C7007A84A8 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		99595BEE2CF4010E007A84A8 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		99646D052CEB59BD00B94C0B /* HomeContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentState.swift; sourceTree = "<group>"; };
 		99646D072CEB615D00B94C0B /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
 		9966F6D02CDDE37900E7569E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -248,7 +251,6 @@
 		C41F67DF2CEB5429003BCCCC /* SocketDMDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketDMDTO.swift; sourceTree = "<group>"; };
 		C41F67E32CEC8A28003BCCCC /* ChattingRoomUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomUseCase.swift; sourceTree = "<group>"; };
 		C41F67E92CECAE92003BCCCC /* ChattingListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListUseCase.swift; sourceTree = "<group>"; };
-		C41F68092CF32D64003BCCCC /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		C477A2A62CD0E594006B8DB6 /* DogWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C477A2A92CD0E594006B8DB6 /* DogWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogWalkApp.swift; sourceTree = "<group>"; };
 		C477A2AB2CD0E594006B8DB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -349,8 +351,17 @@
 		994775B42CECA5E60005DBBF /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				994775B22CEC6DB90005DBBF /* WeatherKitAPIManager.swift */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		99595BEC2CF400F6007A84A8 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				99595BE92CF350C7007A84A8 /* CoreDataModel.xcdatamodeld */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		9966F6CF2CDDE35100E7569E /* Coordinator */ = {
@@ -366,7 +377,7 @@
 		9966F6DD2CE1C92800E7569E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				C41F68082CF32D64003BCCCC /* CoreDataModel.xcdatamodeld */,
+				99595BED2CF4010E007A84A8 /* CoreDataModel.xcdatamodeld */,
 				99DF93962CEEC93F0022E471 /* CoreChatMessageTransformer.swift */,
 				99DF93982CEEC96A0022E471 /* PersistentContainer.swift */,
 				99DF939A2CEEC9830022E471 /* CoreDataManager.swift */,
@@ -555,6 +566,7 @@
 				C477A2B72CD0E5DC006B8DB6 /* .gitignore */,
 				C477A2A82CD0E594006B8DB6 /* DogWalk */,
 				C477A2A72CD0E594006B8DB6 /* Products */,
+				99595BEC2CF400F6007A84A8 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -755,7 +767,6 @@
 				993A704A2CE59E6E0003FA0C /* HomeState.swift */,
 				993A704C2CE59E800003FA0C /* HomeIntent.swift */,
 				99646D052CEB59BD00B94C0B /* HomeContentState.swift */,
-				994775B22CEC6DB90005DBBF /* WeatherKitAPIManager.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1033,6 +1044,7 @@
 			files = (
 				C4097AFF2CD7AF28002155EA /* MyProfileDTO.swift in Sources */,
 				99BD37632CF0AB23008C135F /* APIKey.swift in Sources */,
+				99595BEF2CF4010E007A84A8 /* CoreDataModel.xcdatamodeld in Sources */,
 				C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */,
 				C4097B002CD7AF28002155EA /* UserProfileDTO.swift in Sources */,
 				994775B62CECA7CF0005DBBF /* CLLocation+.swift in Sources */,
@@ -1047,7 +1059,7 @@
 				BF159EF62CE33B5D001933C0 /* MapIntent.swift in Sources */,
 				C4097AD32CD7AEF5002155EA /* TargetType.swift in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
-				062284E22CF3416F00860F7A /* (null) in Sources */,
+				99595BEB2CF350C7007A84A8 /* CoreDataModel.xcdatamodeld in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
 				062284B62CEC60B200860F7A /* ContentState.swift in Sources */,
 				C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */,
@@ -1126,7 +1138,7 @@
 				C4097B062CD7AF28002155EA /* PostBody.swift in Sources */,
 				C4D48E832CE70A7C006E39A0 /* SocketError.swift in Sources */,
 				06CEA1902CD52DEF003249BF /* MessageModel.swift in Sources */,
-				C41F680A2CF32D64003BCCCC /* CoreDataModel.xcdatamodeld in Sources */,
+				C41F680A2CF32D64003BCCCC /* (null) in Sources */,
 				BF159EF12CDE4633001933C0 /* WalkResultView.swift in Sources */,
 				C4097AD22CD7AEF5002155EA /* AuthTarget.swift in Sources */,
 				C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */,
@@ -1414,14 +1426,25 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		C41F68082CF32D64003BCCCC /* CoreDataModel.xcdatamodeld */ = {
+		99595BE92CF350C7007A84A8 /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C41F68092CF32D64003BCCCC /* CoreDataModel.xcdatamodel */,
+				99595BEA2CF350C7007A84A8 /* CoreDataModel.xcdatamodel */,
 			);
-			currentVersion = C41F68092CF32D64003BCCCC /* CoreDataModel.xcdatamodel */;
+			currentVersion = 99595BEA2CF350C7007A84A8 /* CoreDataModel.xcdatamodel */;
 			name = CoreDataModel.xcdatamodeld;
-			path = /Users/junehee/Desktop/sesac/SLP/DogWalk/Data/CoreData/CoreDataModel.xcdatamodeld;
+			path = DogWalk/Data/CoreData/CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		99595BED2CF4010E007A84A8 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				99595BEE2CF4010E007A84A8 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 99595BEE2CF4010E007A84A8 /* CoreDataModel.xcdatamodel */;
+			name = CoreDataModel.xcdatamodeld;
+			path = /Users/yoonwoo/Desktop/sessac/SLP/DogWalk/Data/CoreData/CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

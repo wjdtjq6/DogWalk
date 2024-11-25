@@ -150,7 +150,7 @@ private extension ChattingRoomView {
         case .text:
             ZStack {
                 if model.sender.userID != UserManager.shared.userID {
-                    userProfileView()
+                    userProfileView(data: model)
                         .offset(x: -xOffSet + 30)
                 }
                 messageView(size: size, model: model)
@@ -159,7 +159,7 @@ private extension ChattingRoomView {
         case .image:
             ZStack {
                 if model.sender.userID != UserManager.shared.userID {
-                    userProfileView()
+                    userProfileView(data: model)
                         .offset(x: -xOffSet + 30)
                 }
                 imageMessageView(size: size, model: model)
@@ -272,8 +272,8 @@ private extension ChattingRoomView {
 // MARK: - 사용자 프로필 부분
 private extension ChattingRoomView {
     @ViewBuilder
-    func userProfileView() -> some View {
-        CommonProfile(imageURL: "", size: 33)
+    func userProfileView(data: ChattingModel ) -> some View {
+        CommonProfile(imageURL: data.sender.profileImage, size: 33)
             .vTop()
     }
 }

@@ -64,7 +64,7 @@ extension ChattingListView {
             
         } label: {
             HStack {
-                CommonProfile(imageURL: "", size: 60)
+                CommonProfile(imageURL: item.otherUser.profileImage, size: 60)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.otherUser.nick) // 이름
                         .font(.pretendardBold18)
