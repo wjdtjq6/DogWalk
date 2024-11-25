@@ -31,12 +31,16 @@ struct AuthView: View {
             .padding(.top, 60)
             Spacer()
             
-            Image(.test) // 강아지 이미지 에셋 필요
+            Image("authImage") // 강아지 이미지 에셋 필요
                 .resizable()
-                .frame(width: width/4, height: width/4)
-                .padding(.bottom)
+                .frame(width: width/2, height: width/2)
+                //.padding(.bottom)
             Spacer()
-            
+            LoginView.build()
+                .padding(.bottom)
+            Divider()
+                .foregroundStyle(Color.primaryGray)
+                .padding([.bottom,.horizontal])
             VStack(spacing: 12) {
                 //카카오 로그인
 //                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
@@ -45,7 +49,7 @@ struct AuthView: View {
 //                        .scaledToFit()
 //                })
                 //애플 로그인
-                SignInWithAppleButton  { request in
+                SignInWithAppleButton(SignInWithAppleButton.Label.continue)  { request in
                     request.requestedScopes = [.email] //요청할 내용
                 } onCompletion: { result in
                     switch result {
@@ -62,11 +66,12 @@ struct AuthView: View {
                     }
                 }
                 //.background(Color.primaryBlack)
-                .frame(width: 280, height: 60)
-                .blendMode(.normal)
+                .frame(width: width - 60, height: 60)
+                .clipShape(.rect(cornerRadius: 20))
+                //.blendMode(.plusDarker)
                 
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 60)
             .padding(.bottom, 60)
         }
         .frame(width: self.width, height: self.height)
