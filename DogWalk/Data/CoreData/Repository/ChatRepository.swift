@@ -204,7 +204,7 @@ final class ChatRepository {
         
         do {
             let coreMessages = try managedObjectContext.fetch(request)
-            print(coreMessages, "fetchMessages123")
+//            print(coreMessages, "fetchMessages123")
             dump(coreMessages.map { toChattingModel(from: $0) })
             return coreMessages.map { toChattingModel(from: $0) }
         } catch {
