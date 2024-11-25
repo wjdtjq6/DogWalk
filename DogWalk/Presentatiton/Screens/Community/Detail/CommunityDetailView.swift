@@ -98,6 +98,7 @@ extension CommunityDetailView {
                 }
 
                 Button {
+                    // TODO: 이거 채팅방에서 진행해주기
                     Task {
                         do {
                             let body = NewChatRoomBody(opponent_id: state.post.creator.userID)
@@ -123,16 +124,28 @@ extension CommunityDetailView {
 
 // MARK: - 컨텐츠 부분
 private extension CommunityDetailView {
+    // 카테고리 라벨
+    func categoryLabel(text: String) -> some View {
+        Text(text)
+            .font(.pretendardBold14)
+            .foregroundColor(.white)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 2)
+            .background(
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(Color.red.opacity(0.5))
+            )
+            .frame(height: 30)
+    }
     // 게시물 콘텐츠 뷰
     func communityContentView() -> some View {
         VStack {
             HStack {
-                CommonButton(width: 70, height: 30, cornerradius: 5, backColor: .red.opacity(0.5), text: state.post.category.rawValue, textFont: .pretendardBold14, textColor: .primaryWhite)
-                
-                //if state.post.views > 3 {
+                categoryLabel(text: state.post.category.rawValue)
+                if state.post.views > 3 {
                 CommonButton(width: 100, height: 30, cornerradius: 5, backColor: .primaryOrange, text: "인기글", textFont: .pretendardBold14,textColor: .primaryWhite, leftLogo: Image(systemName: "flame.fill"), imageSize: 17)
                     .foregroundStyle(Color.red)
-                //}
+                }
             }
             .hLeading()
             // 프로필 + 닉네임 + 게시물 작성일

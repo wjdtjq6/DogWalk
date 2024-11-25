@@ -21,6 +21,9 @@ enum CheckPostType {
         }
     }
 }
+enum CommunityError: Error {
+    case sameCategory
+}
 protocol CommunityUseCase {
     func changePostType(postType: CheckPostType) async throws -> [PostModel]
     func changeCategory(category: CommunityCategoryType) async throws -> [PostModel]
@@ -46,7 +49,7 @@ final class DefaultCommunityUseCase: CommunityUseCase {
     func changeCategory(category: CommunityCategoryType) async throws -> [PostModel] {
         // TODO: 빈값 줄 시 -[UIImageView _invalidateImageLayouts] must be called on the main queue라고 노란 경고창 뜸 ㅠ
         if category == self.category {
-            return []
+            throw CommunityError.sameCategory
         } else {
             self.category = category
             return try await self.getPosts(isPaging: false)

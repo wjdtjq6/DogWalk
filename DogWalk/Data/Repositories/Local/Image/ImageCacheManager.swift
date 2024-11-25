@@ -89,6 +89,8 @@ private extension ImageCacheManager {
     func getBaseRequest(urlStr: String) throws -> URLRequest {
         guard let url = URL(string: APIKey.baseURL + "/" + urlStr) else { throw NetworkError.InvalidURL}
         var request = URLRequest(url: url)
+//        request.cachePolicy = .reloadIgnoringCacheData // etag 통신시 304에러 보고싶을 때 이걸로 ㄱㄱ
+        request.cachePolicy = .useProtocolCachePolicy
         request.addValue(APIKey.key, forHTTPHeaderField: BaseHeader.sesacKey.rawValue)
         request.addValue(APIKey.appID, forHTTPHeaderField: BaseHeader.productId.rawValue)
         request.addValue(UserManager.shared.acess, forHTTPHeaderField: BaseHeader.authorization.rawValue)

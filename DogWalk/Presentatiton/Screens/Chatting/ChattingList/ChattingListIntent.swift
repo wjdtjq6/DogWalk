@@ -9,6 +9,7 @@ import Foundation
 
 protocol ChattingListIntentProtocol {
     func onAppearTrigger() async
+    func inputSearchText(_ text: String)
 }
 
 // 채팅방 리스트
@@ -23,6 +24,10 @@ final class ChattingListIntent {
 }
 
 extension ChattingListIntent: ChattingListIntentProtocol {
+    func inputSearchText(_ text: String) {
+        state?.updateSearchText(text)
+    }
+    
 //    func onAppearTrigger() async {
 //        print(#function, "멍톡 화면 진입")
 //        state?.changeViewState(state: .loading)
