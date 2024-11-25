@@ -490,6 +490,7 @@ extension Notification.Name {
     static let keyboardWillHide = UIResponder.keyboardWillHideNotification
 }
 // MARK: - 키보드 감지 부분
+@MainActor
 extension UIApplication {
     var KeyWindow: UIWindow {
         UIApplication.shared.connectedScenes

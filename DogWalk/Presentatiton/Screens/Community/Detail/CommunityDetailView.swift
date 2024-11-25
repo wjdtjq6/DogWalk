@@ -104,7 +104,10 @@ extension CommunityDetailView {
                             let response = try await network.requestDTO(
                                 target: .chat(.newChatRoom(body: body)),
                                 of: ChattingRoomDTO.self
+                                
                             )
+                            let _ = print(response, "dadasdasd")
+                            ChatRepository.shared.createChatRoom(chatRoomData: response.toDomain())
                             appCoordinator.push(.chattingRoom(roomID: response.room_id))
                         } catch {
                             print("Community DetailView: \(error)")
