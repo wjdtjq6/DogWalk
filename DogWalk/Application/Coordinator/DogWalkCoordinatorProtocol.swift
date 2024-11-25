@@ -46,7 +46,7 @@ enum Screen: Identifiable, Hashable {
     
     // 채팅 탭
     case chatting
-    case chattingRoom(roomID: String)
+    case chattingRoom(roomID: String, nick: String)
     
     // 설정 (추후 구현시 추가)
     case setting

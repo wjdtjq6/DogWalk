@@ -64,7 +64,7 @@ extension ChattingListView {
     // 채팅방 Cell
     private func chattingViewCell(_ item: ChattingRoomModel) -> some View {
         Button {
-            coordinator.push(.chattingRoom(roomID: item.roomID))
+            coordinator.push(.chattingRoom(roomID: item.roomID, nick: item.otherUser.nick))
         } label: {
             HStack {
                 CommonProfile(imageURL: item.otherUser.profileImage, size: 60)

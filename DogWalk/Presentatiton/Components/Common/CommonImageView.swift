@@ -18,6 +18,7 @@ struct asImageView: View {
     var body: some View {
         image
             .resizable()
+            .aspectRatio(contentMode: .fill)
             .task {
                 let result = await imageCacheManager.getImage(url)
                 image = Image(uiImage: result)
