@@ -18,6 +18,8 @@ struct MapView: View {
     @State private var showAnnotation = false
     @State private var isShowingSheet = false
     @State private var showResultPostView = false
+    private let network = NetworkManager()
+    @EnvironmentObject var appCoordinator: MainCoordinator
 }
 
 extension MapView {
@@ -275,10 +277,24 @@ private extension MapView {
                     )
                     .wrapToButton {
                         // TODO: 해당 게시글의 id (마커 클릭했을때)
-                        print("게시글 id 프린트해주기")
-                        print("멍톡 보내기 클릭")
-                        isShowingSheet = false
-                        coordinator.push(.chattingRoom(roomID: post.creator.userID))
+                        // TODO: 나중에 채팅에 넣어주기
+                        Task {
+                            do {
+                                let body = NewChatRoomBody(opponent_id: post.creator.userID)
+                                let response = try await network.requestDTO(
+                                    target: .chat(.newChatRoom(body: body)),
+                                    of: ChattingRoomDTO.self
+                                    
+                                )
+                                let _ = print(response, "dadasdasd")
+                                ChatRepository.shared.createChatRoom(chatRoomData: response.toDomain())
+                                isShowingSheet = false
+                                appCoordinator.push(.chattingRoom(roomID: response.room_id))
+                            } catch {
+                                print("Community DetailView: \(error)")
+                            }
+                        }
+                        
                     }
             } //:HSTACK
         } //:VSTACK

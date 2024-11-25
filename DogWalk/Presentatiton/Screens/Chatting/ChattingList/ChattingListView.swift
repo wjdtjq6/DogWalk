@@ -37,7 +37,11 @@ extension ChattingListView {
             ScrollView {
                 chattingListView()
             }
-            .searchable(text: $searchText, prompt: "검색") // SearchBar
+            .searchable(text: Binding(get: {
+                state.searchText //입력한 텍스트
+            }, set: { newText in
+                intent.inputSearchText(newText) //입력값 전달
+            }), prompt: "검색") // SearchBar
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     CommonTitleView(title: "MeongTalk")  // 좌상단 앱 로고

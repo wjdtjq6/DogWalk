@@ -194,6 +194,7 @@ private extension CommunityView {
                 HStack {
                     Text(item.title) // 제목
                         .font(.pretendardBold16)
+                        .lineLimit(1)
                     Spacer()
                     Text(item.created.getFormattedDateString(.dot)) // 게시된 시간
                         .font(.pretendardRegular12)
@@ -208,28 +209,20 @@ private extension CommunityView {
                 HStack {
                     categoryLabel(text: item.category.rawValue)
                     Spacer()
-                    Button {
-                        // 댓글 동작 구현
-                    } label: {
-                        HStack(spacing: 4) {
-                            Image.asMessage  // 댓글
-                                .foregroundColor(.primaryBlack)
-                            Text("\(item.comments.count)") // 댓글 수
-                                .font(.pretendardRegular14)
-                                .foregroundColor(.gray)
-                        }
-                        Button {
-                            // 좋아요 동작 구현
-                            UserManager.shared.acess = ""
-                        } label: {
-                            HStack(spacing: 4) {
-                                Image.asHeart
-                                    .foregroundColor(.primaryBlack)
-                                Text("\(item.likes.count)") // 좋아요 수
-                                    .font(.pretendardRegular14)
-                                    .foregroundColor(.gray)
-                            }
-                        }
+                    
+                    HStack(spacing: 4) {
+                        Image.asMessage  // 댓글
+                            .foregroundColor(.primaryBlack)
+                        Text("\(item.comments.count)") // 댓글 수
+                            .font(.pretendardRegular14)
+                            .foregroundColor(.gray)
+                    }
+                    HStack(spacing: 4) {
+                        Image.asHeart
+                            .foregroundColor(.primaryBlack)
+                        Text("\(item.likes.count)") // 좋아요 수
+                            .font(.pretendardRegular14)
+                            .foregroundColor(.gray)
                     }
                 }
             }
