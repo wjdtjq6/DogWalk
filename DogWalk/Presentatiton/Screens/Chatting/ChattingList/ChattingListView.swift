@@ -63,6 +63,7 @@ extension ChattingListView {
             coordinator.push(.chattingRoom(roomID: item.roomID))
             
         } label: {
+            let  _ = print("zzzzzzz", item.lastChat?.type)
             HStack {
                 CommonProfile(imageURL: item.otherUser.profileImage, size: 60)
                 VStack(alignment: .leading, spacing: 4) {

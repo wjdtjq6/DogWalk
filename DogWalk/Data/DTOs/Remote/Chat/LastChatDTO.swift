@@ -18,8 +18,11 @@ struct LastChatDTO: Decodable {
 
 extension LastChatDTO {
     func toDomain() -> LastChatModel {
-        let messageType: MessageType = self.content == nil ? .image : .text
-        let lastChat = messageType == .image ? self.files.first ?? "" : self.content ?? ""
+        let messageType: MessageType = self.files.first != "" ? .image : .text
+        let lastChat = messageType == .image
+                            ? self.files.first ?? ""
+                            : self.content ?? ""
+        
         return LastChatModel(type: messageType,
                              chatID: self.chat_id,
                              lastChat: lastChat,
@@ -34,7 +37,7 @@ enum MessageType: String {
 }
 
 struct LastChatModel {
-    let type: MessageType        // 메시지 종류 (텍스트 or 이미지)
+    let type: MessageType  // 메시지 종류 (텍스트 or 이미지)
     let chatID: String
     let lastChat: String
     let sender: UserModel

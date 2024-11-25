@@ -10,7 +10,8 @@ import Combine
 
 protocol ChattingRoomIntentProtocol {
     func onAppearTrigger(roomID: String)
-    func sendTextMessage(roomID: String, message: String) async
+    func sendTextMessage(roomID: String, text: String) async
+    func sendImageMessage(roomID: String, image: UIImage) async
     func onDisappearTrigger()
     func onActiveTrigger(roomID: String)
     func onBackgroundTrigger()
@@ -60,18 +61,18 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
     }
     
     // 텍스트 메세지 전송
-    func sendTextMessage(roomID: String, message: String) async {
+    // 파일 업로드 후 응답 데이터를 CoreData 저장
+    func sendTextMessage(roomID: String, text: String) async {
         print(#function, "채팅 전송 버튼 클릭")
         Task {
             do {
-                let result = try await useCase.sendTextMessage(roomID: roomID, message: message)
+                let result = try await useCase.sendTextMessage(roomID: roomID, text: text)
                 print("채팅 전송 완료")
                 print(result)
                 print("CoreData에 저장")
                 useCase.updateChattingData(roomID: roomID, data: [result])
                 print("전체 메세지 다시 가져와서 뷰에 띄움")
                 let newMessages = useCase.getAllChattingData(roomID: roomID)
-                // dump(newMessages)
                 state?.updateChattingView(data: newMessages)
             } catch  {
                 print(#function, error)
@@ -81,14 +82,22 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
     }
     
     // 이미지 메세지 전송
-    func sendImageMessage(roomID: String, image: UIImage) {
+    func sendImageMessage(roomID: String, image: UIImage) async {
+        print("1", #function)
+        // print(image)
         Task {
             do {
                 guard let jpegData = image.jpegData(compressionQuality: 10) else { return }
-                let result = try await useCase.sendImageMessage(roomID: roomID, image: jpegData)
-                print(result)
+                let files = try await useCase.sendImageMessage(roomID: roomID, image: jpegData) // files: [String]
+                let result = try await useCase.sendTextMessage(roomID: roomID, text: files.url.first ?? "")
+                print("result", result)
+                useCase.updateChattingData(roomID: roomID, data: [result])
+                
+                let newMessages = useCase.getAllChattingData(roomID: roomID)
+                state?.updateChattingView(data: newMessages)
             } catch {
                 print(#function, error)
+                state?.changeViewState(state: .error)
             }
         }
     }
