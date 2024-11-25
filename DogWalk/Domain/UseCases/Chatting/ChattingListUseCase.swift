@@ -21,14 +21,10 @@ protocol ChattingListUseCase {
 
 final class DefaultChattingListUseCase: ChattingListUseCase {
     private let network = NetworkManager()
-    
-    //임시
     private let chatRepository = ChatRepository.shared
     
     // DB에서 채팅방 목록 가져오기
     func getChattingRoomList() async throws -> [ChattingRoomModel] {
-       
-        
         // 1) DB에 저장된 모든 채팅방 가져오기
         // print("기존에 저장된 모든 채팅방 정보")
         // dump(chatRepository.fetchAllChatRoom() ?? [])

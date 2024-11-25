@@ -20,7 +20,8 @@ struct ChattingDTO: Decodable {
 
 extension ChattingDTO {
     func toDomain() -> ChattingModel {
-        let messageType: MessageType = self.content == nil ? .image : .text
+        // let messageType: MessageType = self.content == nil ? .image : .text
+        let messageType: MessageType = self.files.first != "" ? .image : .text
         return ChattingModel(chatID: self.chat_id,
                              roomID: self.room_id,
                              type: messageType,
@@ -47,6 +48,8 @@ struct ChattingModel: Equatable, Identifiable  {
     let createdAt: String               // 채팅 보낸 시간
     let sender: UserModel               // 채팅 보낸 사람
     let files: [String]                 // 이미지 파일
+    
+    
 }
 
 // 파일 업로드 후 받아오는 응답값
