@@ -22,6 +22,7 @@ extension LastChatDTO {
         let lastChat = messageType == .image
                             ? self.files.first ?? ""
                             : self.content ?? ""
+        
         return LastChatModel(type: messageType,
                              chatID: self.chat_id,
                              lastChat: lastChat,
@@ -36,7 +37,7 @@ enum MessageType: String {
 }
 
 struct LastChatModel {
-    let type: MessageType        // 메시지 종류 (텍스트 or 이미지)
+    let type: MessageType  // 메시지 종류 (텍스트 or 이미지)
     let chatID: String
     let lastChat: String
     let sender: UserModel

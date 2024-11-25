@@ -49,14 +49,15 @@ extension ChattingRoomView {
                     proxy: $0,
                     yOffset: $bottomPadding,
                     showKeyboard: $showKeyboard
-                ) { text in
-                    print(text) // 채팅 보낼 경우 텍스트 반환
+                ) { text in // 이미지 보낼 경우 (UIImage)
+                    print(text)
                     Task {
-                        await intent.sendTextMessage(roomID: state.roomID, message: text)
+                        await intent.sendTextMessage(roomID: state.roomID, text: text)
                     }
                 } completionSendImage: { image in // 이미지 보낼 경우 (UIImage)
+                    print(image)
                     Task {
-                        
+                        await intent.sendImageMessage(roomID: state.roomID, image: image)
                     }
                 }
             }
@@ -112,6 +113,7 @@ private extension ChattingRoomView {
             ScrollView {
                 LazyVStack(spacing: 2.0) {
                     ForEach(state.chattingData) { model in
+                        let _ = print("State에서 확인", model.files)
                         chattingView(size: size, model: model)
                             .padding(.bottom, 10)
                             .onTapGesture {
@@ -145,6 +147,7 @@ private extension ChattingRoomView {
 private extension ChattingRoomView {
     @ViewBuilder
     func chattingView(size: CGSize, model: ChattingModel) -> some View {
+        let _ = print("modelType", model.type)
         let xOffSet = size.width / 2
         switch model.type {
         case .text:
@@ -193,7 +196,7 @@ private extension ChattingRoomView {
         
         HStack {
             if model.sender.userID == UserManager.shared.userID { //상대 프로필
-                chatDateView(model.createdAt)    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
+                chatDateView(model.createdAt)
                     .offset(x: xOffSet - 15, y: 4)
             }
             //말풍선 부분
@@ -223,7 +226,7 @@ private extension ChattingRoomView {
                 }
             
             if model.sender.userID != UserManager.shared.userID { //상대방 날짜 부분
-                chatDateView(model.createdAt)  // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
+                chatDateView(model.createdAt)
                     .offset(x: -xOffSet + 55, y: 4)
             }
         } //:HSTACK
@@ -237,16 +240,17 @@ private extension ChattingRoomView {
     func imageMessageView(size: CGSize, model: ChattingModel) -> some View {
         let isRight = model.sender.userID == UserManager.shared.userID
         let width = size.width
+        let _ = print("ChattingRoomView~~~~", model.files.first ?? "없ㅇ어")
         HStack {
             if isRight {
-                chatDateView(model.createdAt)    // TODO: Model에서 채팅 보내 날짜가 없음! 확인 필요
+                chatDateView(model.createdAt)
                     .offset(x: width * 0.1985)
                     .padding(.bottom, 5)
             }
             // 이미지 말풍선 부분
-            Image(uiImage: UIImage.test)  // TODO: 채팅방 이미지!!!!!!
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            asImageView(url: model.files.first ?? "")  // TODO: 채팅방 이미지!!!!!!
+                // .resizable()
+                // .aspectRatio(contentMode: .fill)
                 .frame(width: 150, height: 150) // 이미지 크기 조정
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .background(
@@ -260,7 +264,7 @@ private extension ChattingRoomView {
                 .padding(.bottom, 10)
             
             if !isRight { // 상대방 날짜
-                chatDateView("2024-05-06T06:04:52.542Z") // TODO: Model에서 채팅 보낸 날짜가 없음! 확인 필요
+                chatDateView(model.createdAt)
                     .offset(x: -width * 0.105)
                     .padding(.bottom, 5)
             }

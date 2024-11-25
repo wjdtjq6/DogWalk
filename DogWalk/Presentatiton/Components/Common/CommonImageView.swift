@@ -21,6 +21,7 @@ struct asImageView: View {
             .task {
                 let result = await imageCacheManager.getImage(url)
                 image = Image(uiImage: result)
+                let _ = print(#function, url)
             }
     }
 }

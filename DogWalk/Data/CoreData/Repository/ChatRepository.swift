@@ -49,7 +49,6 @@ final class ChatRepository {
             
             existingChatRoom.updatedAt = chatRoomData.updatedAt
             existingChatRoom.lastChat = chatRoomData.lastChat.map { createLastChat(lastChatModel: $0) }
-            
             existingChatRoom.me = createCoreUser(userModel: chatRoomData.me)
             existingChatRoom.other = createCoreUser(userModel: chatRoomData.otherUser)
             print("💾 업데이트된 채팅방 데이터: \(existingChatRoom)")
@@ -80,7 +79,7 @@ final class ChatRepository {
         // 마지막 메시지 업데이트
         if let lastMessage = newMessages.last {
             chatRoom.lastChat = createLastChat(lastChatModel: LastChatModel(
-                type: MessageType(rawValue: lastMessage.type ?? "text") ?? .text,
+                type: MessageType(rawValue: lastMessage.type!) ?? .text,
                 chatID: lastMessage.chatID ?? "",
                 lastChat: lastMessage.content ?? "",
                 sender: UserModel(
@@ -179,6 +178,7 @@ final class ChatRepository {
         newMessage.content = messageData.content
         newMessage.createdAt = messageData.createdAt
         newMessage.files = messageData.files
+        newMessage.type = messageData.type.rawValue
 
         let sender = createCoreUser(userModel: messageData.sender)
         newMessage.sender = sender
@@ -310,6 +310,7 @@ extension ChatRepository {
                     profileImage: lastChat.sender?.profileImage ?? ""
                 )
             )
+            
         }
         
         return ChattingRoomModel(
@@ -371,6 +372,7 @@ extension ChatRepository {
             print("채팅방 삭제 실패: \(error.localizedDescription)")
         }
     }
+    
     func deleteAllChatRooms() {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CoreDataChatRoom.fetchRequest()
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
