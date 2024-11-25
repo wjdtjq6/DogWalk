@@ -15,6 +15,7 @@ protocol HomeIntentProtocol {
     func fetchWeatherData() async
     func profileButtonTap()
     func resetProfileButtonSate()
+    func fetchProfile() async
 }
 
 final class HomeIntent {
@@ -28,6 +29,7 @@ final class HomeIntent {
 }
 
 extension HomeIntent: HomeIntentProtocol {
+ 
     func onAppear() {
         state?.changeContentState(state: .loading)
     }
@@ -47,6 +49,16 @@ extension HomeIntent: HomeIntentProtocol {
     
     func resetProfileButtonSate() {
         state?.updateProfileButtonSate(false)
+    }
+    func fetchProfile() async {
+        do {
+            let profile = try await useCase.fetchProfile()
+            dump(profile)
+            state?.fetchProfile(profile: profile)
+        } catch {
+            
+        }
+        
     }
     
     func fetchWeatherData() async {

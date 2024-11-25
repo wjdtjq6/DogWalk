@@ -13,7 +13,8 @@ import CoreLocation
 protocol HomeUseCase {
     func getPostList() async throws -> [PostModel]
     func getUserLocationWeather() async throws -> Weather
-    func userWeatherData() async throws ->WeatherData
+    func userWeatherData() async throws -> WeatherData
+    func fetchProfile() async throws -> ProfileModel
 }
 
 final class HomeViewUseCase: HomeUseCase {
@@ -42,6 +43,11 @@ final class HomeViewUseCase: HomeUseCase {
         
         let (fetchedAddress, _) = try await (address, translateweather)
         return WeatherData(weather: translateweather, userAddress: fetchedAddress)
+    }
+    
+    func fetchProfile() async throws -> ProfileModel {
+        let profile = try await network.requestDTO(target: .user(.myProfile), of: MyProfileDTO.self)
+        return profile.toDomain()
     }
     
     private func translateCondition(_ condition: WeatherCondition) -> String {

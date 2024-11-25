@@ -29,7 +29,7 @@ struct HomeView: View {
                         .font(.bagelfat28)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    CommonProfile(imageURL: "", size: 44)
+                    CommonProfile(imageURL: state.myProfile.profileImage, size: 44)
                         .wrapToButton {
                             intent.profileButtonTap()
                             
@@ -49,6 +49,7 @@ struct HomeView: View {
         .task {
             await intent.fetchPostList()
             await intent.fetchWeatherData()
+            await intent.fetchProfile()
         }
     }
 }
@@ -133,7 +134,10 @@ extension HomeView {
                             .clipShape(.rect(cornerRadius: 15))
                             .wrapToButton {
                                 //MARK: Communitiy DetailView로 이동
-                                coordinator.push(.communityDetail(postID: data.postID))
+                                DispatchQueue.main.async {
+                                    coordinator.push(.communityDetail(postID: data.postID))
+                                    print(data.postID)
+                                }
                             }
                     }
                 }

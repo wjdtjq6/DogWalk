@@ -22,8 +22,19 @@ final class ChatRepository {
         request.sortDescriptors = [NSSortDescriptor(key: "updatedAt", ascending: false)] // 최신순 정렬
         do {
             let coreDataChatRooms = try managedObjectContext.fetch(request)
+            
+//            // 메시지가 없는 채팅방 삭제
+//            for chatRoom in coreDataChatRooms where chatRoom.message?.count == 0 {
+//                managedObjectContext.delete(chatRoom)
+//                print("메시지가 없는 채팅방 삭제됨: RoomID: \(chatRoom.roomID ?? "")")
+//            }
+            
+            // 컨텍스트 저장
+            saveContext()
+            
             print("정렬된 채팅방:")
             coreDataChatRooms.forEach { print("RoomID: \($0.roomID ?? ""), UpdatedAt: \($0.updatedAt ?? "")") }
+            
             return coreDataChatRooms.compactMap { toChattingRoomModel(chatRoom: $0) }
         } catch {
             print("채팅방 가져오기 실패: \(error.localizedDescription)")
