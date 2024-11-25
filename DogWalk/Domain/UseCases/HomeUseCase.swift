@@ -49,6 +49,7 @@ final class HomeViewUseCase: HomeUseCase {
         let profile = try await network.requestDTO(target: .user(.myProfile), of: MyProfileDTO.self)
         return profile.toDomain()
     }
+    
     private func translateCondition(_ condition: WeatherCondition) -> String {
         switch condition {
         case .clear:

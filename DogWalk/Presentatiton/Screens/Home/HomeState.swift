@@ -13,6 +13,7 @@ protocol HomeStateProtocol {
     var popularityDogWalkList: [PostModel] { get }  // 인기산책 인증 데이터
     var profileButtonState: Bool { get set }
     var weatherData: WeatherData { get }
+    var myProfile: ProfileModel { get }
 }
 
 protocol HomeIntentActionProtocol: AnyObject {
@@ -21,14 +22,17 @@ protocol HomeIntentActionProtocol: AnyObject {
     func updatePostList(posts: [PostModel])
     func updateProfileButtonSate(_ isButtonTapState: Bool)
     func getWeatherData(weatherData: WeatherData)
+    func fetchProfile(profile: ProfileModel)
 }
 
 @Observable
 final class HomeState: HomeStateProtocol, ObservableObject {
+    var myProfile: ProfileModel = ProfileModel(userID: "", nick: "", profileImage: "", address: "", location: GeolocationModel(lat: 0.0, lon: 0.0), point: 0, rating: 0.0)
     var contentState: HomeContentState = .loading
     var popularityDogWalkList: [PostModel] = []
     var profileButtonState: Bool = false
     var weatherData: WeatherData = WeatherData(weather: "", userAddress: "")
+    
 
 }
 
@@ -37,7 +41,9 @@ extension HomeState: HomeIntentActionProtocol {
         self.weatherData = weatherData
     }
     
-    
+    func fetchProfile(profile: ProfileModel) {
+        self.myProfile = profile
+    }
     func updatePostList(posts: [PostModel]) {
         popularityDogWalkList = posts
     }

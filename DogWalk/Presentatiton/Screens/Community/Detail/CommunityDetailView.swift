@@ -11,6 +11,7 @@ struct CommunityDetailView: View {
     @StateObject var container: Container<CommunityDetailIntentProtocol, CommunityDetailStateProtocol>
     private var intent: CommunityDetailIntentProtocol  { container.intent }
     private var state: CommunityDetailStateProtocol { container.state }
+    @EnvironmentObject var appCoordinator: MainCoordinator
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
     private let network = NetworkManager()
@@ -83,10 +84,9 @@ extension CommunityDetailView {
         .ignoresSafeArea(.all, edges: .bottom)
         .navigationTitle("산책 인증")  // 상위뷰에서 카테고리명 데이터 필요
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
                 Button {
-                    // Action
-                    intent.toggleisLike(isLike: state.isLike) //좋아요 버튼 누를 시
+                    intent.toggleisLike(isLike: state.isLike)
                 } label: {
                     if state.isLike {
                         Image.asHeartFill
@@ -95,16 +95,21 @@ extension CommunityDetailView {
                         Image.asHeart
                             .foregroundStyle(Color.primaryOrange)
                     }
-                    
                 }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
+
                 Button {
-                    // Action
                     Task {
-                        try await network.makeNewChattingRoom(id: state.post.creator.userID)
+                        do {
+                            let body = NewChatRoomBody(opponent_id: state.post.creator.userID)
+                            let response = try await network.requestDTO(
+                                target: .chat(.newChatRoom(body: body)),
+                                of: ChattingRoomDTO.self
+                            )
+                            appCoordinator.push(.chattingRoom(roomID: response.room_id))
+                        } catch {
+                            print("Community DetailView: \(error)")
+                        }
                     }
-                    //intent.toggleisLike(isLike: state.isLike) //좋아요 버튼 누를 시
                 } label: {
                     Image.asMessage
                 }
