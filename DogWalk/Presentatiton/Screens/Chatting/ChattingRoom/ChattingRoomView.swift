@@ -25,8 +25,8 @@ struct ChattingRoomView: View {
 }
 
 extension ChattingRoomView {
-    static func build(roomID: String) -> some View {
-        let state = ChattingRoomState(roomID: roomID)
+    static func build(roomID: String, nick: String) -> some View {
+        let state = ChattingRoomState(roomID: roomID, nick: nick)
         let useCase = DefaultChattingRoomUseCase(roomID: roomID)
         let intent = ChattingRoomIntent(state: state, useCase: useCase)
         let container = Container(intent: intent as ChattingRoomIntentProtocol,
@@ -66,6 +66,7 @@ extension ChattingRoomView {
         .background(Color.primaryWhite)
         .padding(.top, 1.0)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(state.nick)
         .tabBarHidden(true)
         .task {
             intent.onAppearTrigger(roomID: state.roomID)

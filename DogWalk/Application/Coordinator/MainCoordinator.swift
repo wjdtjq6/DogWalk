@@ -74,7 +74,7 @@ final class MainCoordinator: DogWalkCoordinatorProtocol {
         case .communityDetail(let id): CommunityDetailView.build(postID: id)    // 커뮤니티 게시글 디테일
             
         case .chatting: ChattingListView.build()        // 채팅방 리스트 화면
-        case .chattingRoom(let roomID): ChattingRoomView.build(roomID: roomID)    // 채팅방
+        case .chattingRoom(let roomID, let nick): ChattingRoomView.build(roomID: roomID, nick: nick)    // 채팅방
         case .setting: SettingView()                    // 세팅
         }
     }

@@ -11,6 +11,7 @@ import Combine
 protocol ChattingRoomStateProtocol {
     var viewState: CommonViewState { get }          // 화면 상태
     var roomID: String { get }                      // 채팅방 ID
+    var nick: String { get }                        // 채팅방 이름 (= 상대방 닉네임)
     var chattingData: [ChattingModel] { get }       // 채팅방 채팅 내역
     var isSent: Bool { get }                        // 채팅 전송 완료 여부
 }
@@ -23,9 +24,11 @@ protocol ChattingRoomActionProtocol: AnyObject {
 @Observable
 final class ChattingRoomState: ChattingRoomStateProtocol, ObservableObject {
     let roomID: String
+    let nick: String        // 대화하는 상대방 닉네임
     
-    init(roomID: String) {
+    init(roomID: String, nick: String) {
         self.roomID = roomID
+        self.nick = nick
     }
     
     var viewState: CommonViewState = .loading

@@ -109,7 +109,8 @@ extension CommunityDetailView {
                             )
                             let _ = print(response, "dadasdasd")
                             ChatRepository.shared.createChatRoom(chatRoomData: response.toDomain())
-                            appCoordinator.push(.chattingRoom(roomID: response.room_id))
+                            let nick = response.participants.filter { $0.user_id != UserManager.shared.userID }.first?.nick ?? "상대방"
+                            appCoordinator.push(.chattingRoom(roomID: response.room_id, nick: nick))
                         } catch {
                             print("Community DetailView: \(error)")
                         }

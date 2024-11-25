@@ -289,7 +289,9 @@ private extension MapView {
                                 let _ = print(response, "dadasdasd")
                                 ChatRepository.shared.createChatRoom(chatRoomData: response.toDomain())
                                 isShowingSheet = false
-                                appCoordinator.push(.chattingRoom(roomID: response.room_id))
+                                
+                                let otherNick = response.participants.filter { $0.user_id != UserManager.shared.userID }.first?.nick ?? "상대방"
+                                appCoordinator.push(.chattingRoom(roomID: response.room_id, nick: otherNick))
                             } catch {
                                 print("Community DetailView: \(error)")
                             }

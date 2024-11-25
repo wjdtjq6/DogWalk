@@ -44,7 +44,8 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         /// 3) 최근 대화 날짜 기반 새로운 대화 내역 요청
         Task {
             do {
-                let result = try await useCase.fetchChattingData(roomID: roomID, cursorDate: cursorDate)
+                // let result = try await useCase.fetchChattingData(roomID: roomID, cursorDate: cursorDate)
+                let result = try await useCase.fetchChattingData(roomID: roomID, cursorDate: "")
                 /// 3) 응답 받은 채팅 데이터를 DB 저장
                 useCase.updateChattingData(roomID: roomID, data: result)
                 /// 4) DB에 저장된 전체 채팅 데이터 가져온 후 State 전달
