@@ -15,8 +15,10 @@ struct CommunityCreateView: View {
     @State private var priceText = ""       // 게시물 가격
     @State private var contentText = ""     // 게시물 내용
     @State var selectedItems: [PhotosPickerItem] = []
+    @State private var alertShow = false   //얼럿
+    @State private var errAlertShow = false // 오류 얼럿
     private let width = UIScreen.main.bounds.width
-    
+    @EnvironmentObject var coordinator: MainCoordinator
     var body: some View {
         ScrollView(.vertical) {
             categoryButtonView()
@@ -28,6 +30,14 @@ struct CommunityCreateView: View {
         }
         .frame(maxWidth: .infinity)
         .navigationTitle("게시물 작성")
+        .alert("게시글 작성완료!", isPresented: $alertShow) {
+            Button("확인") {
+                coordinator.pop()
+            }
+        }
+        .alert("게시글 작성 오류 발생!", isPresented: $errAlertShow) {
+            Button("확인") {}
+        }
         submitButtonView()
     }
     
@@ -46,14 +56,14 @@ struct CommunityCreateView: View {
             .sheet(isPresented: $isPresent) {
                 categoryButtomSheet()
                     .presentationDragIndicator(.visible)
-                    .presentationDetents([.fraction(0.5)])
+                    .presentationDetents([.fraction(0.35)])
             }
         })
         .foregroundStyle(Color.primaryGreen)
         .padding(.top)
     }
     private func categoryButtomSheet() -> some View {
-        ForEach(CommunityCategoryType.allCases, id: \.self) { topic in
+        ForEach(CommunityCategoryType.allCases.filter {$0 != .all && $0 != .walkCertification}, id: \.self) { topic in
             Button(action: {
                 category = topic
                 isPresent.toggle()
@@ -217,10 +227,12 @@ struct CommunityCreateView: View {
                             
                             let _ = try await network.writePost(body: postBody)
                             print("게시글 작성완료!!!!!!!!")
+                            alertShow.toggle()
                         }
                         
                     case .failure(let failure):
                         print("이미지 변환 실패!")
+                        errAlertShow.toggle()
                     }
                 }
                 

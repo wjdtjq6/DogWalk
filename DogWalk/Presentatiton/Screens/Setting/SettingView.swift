@@ -25,6 +25,7 @@ import MapKit
 //    // let posts: [String]
 //}
 struct SettingView: View {
+    @EnvironmentObject var coordinator: MainCoordinator
     @State private var nick = UserManager.shared.userNick
     @State private var location = UserManager.shared.roadAddress
     @State private var lon = ""
@@ -32,6 +33,9 @@ struct SettingView: View {
     @State private var points = UserManager.shared.points.formatted()
     @State private var temperature = ""
     private let network = NetworkManager()
+    @State private var alertShow = false   //얼럿
+    @State private var errAlertShow = false // 오류 얼럿
+    
     var visibleRegion: MKCoordinateRegion = MKCoordinateRegion()
     var body: some View {
         VStack {
@@ -49,8 +53,10 @@ struct SettingView: View {
                         let result = try await network.requestDTO(target: .user(.updateMyProfile(body: body, boundary: UUID().uuidString)), of: MyProfileDTO.self)
                         setProfile(profile: result.toDomain())
                         print("프로필 세팅 완료~~")
+                        alertShow.toggle()
                     } catch {
                         print("프로필 설정 오류 발생!!!")
+                        errAlertShow.toggle()
                     }
                 }
             } label: {
@@ -59,6 +65,14 @@ struct SettingView: View {
             .onAppear {
                 lon = String(visibleRegion.center.longitude)
                 lat = String(visibleRegion.center.latitude)
+            }
+            .alert("게시글 작성완료!", isPresented: $alertShow) {
+                Button("확인") {
+                    coordinator.pop()
+                }
+            }
+            .alert("게시글 작성 오류 발생!", isPresented: $errAlertShow) {
+                Button("확인") {}
             }
         }
     }
