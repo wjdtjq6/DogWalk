@@ -49,6 +49,7 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
                 useCase.updateChattingData(roomID: roomID, data: result)
                 /// 4) DB에 저장된 전체 채팅 데이터 가져온 후 State 전달
                 let chattingData = useCase.getAllChattingData(roomID: roomID)
+                
                 state?.updateChattingView(data: chattingData)
                 /// 5) Socket 연결
                 useCase.openSocket(roomID: roomID)
@@ -66,11 +67,11 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         print(#function, "채팅 전송 버튼 클릭")
         Task {
             do {
-                let result = try await useCase.sendTextMessage(roomID: roomID, text: text)
+                let chattingModel = try await useCase.sendMessage(roomID: roomID, type: .text, content: text)
                 print("채팅 전송 완료")
-                print(result)
+                print(chattingModel)
                 print("CoreData에 저장")
-                useCase.updateChattingData(roomID: roomID, data: [result])
+                useCase.updateChattingData(roomID: roomID, data: [chattingModel])
                 print("전체 메세지 다시 가져와서 뷰에 띄움")
                 let newMessages = useCase.getAllChattingData(roomID: roomID)
                 state?.updateChattingView(data: newMessages)
@@ -88,9 +89,14 @@ extension ChattingRoomIntent: ChattingRoomIntentProtocol {
         Task {
             do {
                 guard let jpegData = image.jpegData(compressionQuality: 10) else { return }
-                let files = try await useCase.sendImageMessage(roomID: roomID, image: jpegData) // files: [String]
-                let result = try await useCase.sendTextMessage(roomID: roomID, text: files.url.first ?? "")
-                print("result", result)
+                let files = try await useCase.postChattingImage(roomID: roomID, image: jpegData) // files: [String]
+                
+                print("파일 잘 오니?", files)
+                
+                let result = try await useCase.sendMessage(roomID: roomID, type: .image, content: files.url.first ?? "")
+                
+                // fetchMessages123
+                print("SendImageMessage RESULT", result)
                 useCase.updateChattingData(roomID: roomID, data: [result])
                 
                 let newMessages = useCase.getAllChattingData(roomID: roomID)

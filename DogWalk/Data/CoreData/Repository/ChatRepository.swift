@@ -178,13 +178,20 @@ final class ChatRepository {
         newMessage.content = messageData.content
         newMessage.createdAt = messageData.createdAt
         newMessage.files = messageData.files
-        newMessage.type = messageData.type.rawValue
+        newMessage.type = messageData.files.isEmpty ? "텍스트" : "이미지"
+            // files 배열이 있는 경우에만 저장
+            if !messageData.files.isEmpty {
+                newMessage.files = messageData.files
+            }
 
         let sender = createCoreUser(userModel: messageData.sender)
         newMessage.sender = sender
 
         chatRoom.addToMessage(newMessage)
-
+        print( newMessage.type, "123123")
+        print(messageData.files, "123123213123")
+        print(newMessage.files ?? ["ㅅ"], "123123213123")
+        
         do {
             try managedObjectContext.save()
             print("✅ Chat message saved successfully.")
@@ -204,7 +211,7 @@ final class ChatRepository {
         
         do {
             let coreMessages = try managedObjectContext.fetch(request)
-//            print(coreMessages, "fetchMessages123")
+           print(coreMessages, "fetchMessages123")
             dump(coreMessages.map { toChattingModel(from: $0) })
             return coreMessages.map { toChattingModel(from: $0) }
         } catch {

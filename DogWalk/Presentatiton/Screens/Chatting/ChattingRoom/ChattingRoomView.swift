@@ -20,7 +20,7 @@ struct ChattingRoomView: View {
     
     @State private var bottomPadding: CGFloat = 0.0
     @State private var showKeyboard = false
-
+    
     @Environment(\.scenePhase) private var scenePhase
 }
 
@@ -97,10 +97,6 @@ extension ChattingRoomView {
     }
     
     private func scheduleDisconnectTask(after interval: TimeInterval) {
-        // guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        //     print("Failed to get AppDelegate")
-        //     return
-        // }
         appDelegate.scheduleSocketDisconnectTask(after: interval)
     }
 }
@@ -113,7 +109,7 @@ private extension ChattingRoomView {
             ScrollView {
                 LazyVStack(spacing: 2.0) {
                     ForEach(state.chattingData) { model in
-                        let _ = print("State에서 확인", model.files)
+                        let _ = print("State에서 확인", model)
                         chattingView(size: size, model: model)
                             .padding(.bottom, 10)
                             .onTapGesture {
@@ -148,18 +144,11 @@ private extension ChattingRoomView {
     @ViewBuilder
     func chattingView(size: CGSize, model: ChattingModel) -> some View {
         let _ = print("modelType", model.type)
+        let _ = print("files", model.files)  // 파일 배열 확인용 로그
         let xOffSet = size.width / 2
-        switch model.type {
-        case .text:
-            ZStack {
-                if model.sender.userID != UserManager.shared.userID {
-                    userProfileView(data: model)
-                        .offset(x: -xOffSet + 30)
-                }
-                messageView(size: size, model: model)
-                    
-            }
-        case .image:
+        
+        // files 배열로 실제 타입 판단
+        if !model.files.isEmpty {  // 파일이 있으면 이미지 메시지
             ZStack {
                 if model.sender.userID != UserManager.shared.userID {
                     userProfileView(data: model)
@@ -167,8 +156,15 @@ private extension ChattingRoomView {
                 }
                 imageMessageView(size: size, model: model)
             }
+        } else {  // 파일이 없으면 텍스트 메시지
+            ZStack {
+                if model.sender.userID != UserManager.shared.userID {
+                    userProfileView(data: model)
+                        .offset(x: -xOffSet + 30)
+                }
+                messageView(size: size, model: model)
+            }
         }
-        
     }
 }
 
@@ -248,9 +244,8 @@ private extension ChattingRoomView {
                     .padding(.bottom, 5)
             }
             // 이미지 말풍선 부분
-            asImageView(url: model.files.first ?? "")  // TODO: 채팅방 이미지!!!!!!
-                // .resizable()
-                // .aspectRatio(contentMode: .fill)
+            let _ = print(model.files.first)
+            asImageView(url: model.files.first ?? "")
                 .frame(width: 150, height: 150) // 이미지 크기 조정
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .background(

@@ -65,16 +65,13 @@ extension ChattingListView {
     private func chattingViewCell(_ item: ChattingRoomModel) -> some View {
         Button {
             coordinator.push(.chattingRoom(roomID: item.roomID))
-            
         } label: {
-            let  _ = print("zzzzzzz", item.lastChat?.type)
             HStack {
                 CommonProfile(imageURL: item.otherUser.profileImage, size: 60)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.otherUser.nick) // 이름
                         .font(.pretendardBold18)
                         .foregroundColor(.primaryBlack)
-                    // Text((item.lastChat?.type == .image ? "사진" : item.lastChat?.lastChat) ?? "") // 내용
                     Text(item.lastChat?.type == .image ? "사진" : item.lastChat?.lastChat ?? "")
                         .lineLimit(2)
                         .multilineTextAlignment(.leading)

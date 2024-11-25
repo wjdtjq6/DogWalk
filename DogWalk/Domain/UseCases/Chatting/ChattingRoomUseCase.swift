@@ -39,10 +39,9 @@ protocol ChattingRoomUseCase {
     func updateChattingData(roomID: String, data: [ChattingModel])
     func getAllChattingData(roomID: String) -> [ChattingModel]
     func openSocket(roomID: String)
-    func sendTextMessage(roomID: String, text: String) async throws -> ChattingModel
-    func sendImageMessage(roomID: String, image: Data) async throws -> FileModel
+    func postChattingImage(roomID: String, image: Data) async throws -> FileModel
+    func sendMessage(roomID: String, type: MessageType, content: String) async throws  -> ChattingModel
     func closeSocket()
-    // func testSubject(roomID: String) -> [ChattingModel]
     func reconnectSocket(roomID: String)
 }
 
@@ -81,10 +80,6 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
         guard let updateAt = room?.updatedAt else { return  "2024-05-06T05:13:54.357Z" }
         print("UpdateAt123", updateAt)
         print(room?.lastChat ?? "DB에서 최신 대화 날짜 가져오기 실패")
-
-        // let room = chatRepository.fetchChatRoom(chatRoomID: roomID)
-        // // guard let updateAt = room?.updateAt else { return  "2024-05-06T05:13:54.357Z" }
-        // guard let updateAt = room?.updateAt else { return  "" }
         print("UpdateAt", updateAt)
         return updateAt
     }
@@ -110,7 +105,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
 //            print("❌ Chat room not found for ID: \(roomID)")
             return
         }
-
+        print("updateChattingData", data)
         // 2. 기존 메시지 가져오기
         let existingMessages = chatRepository.fetchMessages(for: roomID)
         let existingChatIDs = Set(existingMessages.map { $0.chatID })
@@ -129,7 +124,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
 
         // 4. 새로운 메시지가 없는 경우 종료
         guard !newMessages.isEmpty else {
-//            print("❌ No new messages were added for RoomID: \(roomID)")
+           print("❌ No new messages were added for RoomID: \(roomID)")
             return
         }
 
@@ -187,24 +182,38 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     }
     
     func reconnectSocket(roomID: String) {
-        // print(#function)
-        // socket = SocketIOManager(roomID: roomID)
-        // socket.socketSubject
-        //     .receive(on: RunLoop.main)
-        //     .sink { error in
-        //         print("ChattingSubject ERROR", error)
-        //     } receiveValue: { socketDMModel in
-        //         self.updateChattingData(roomID: roomID, data: socketDMModel)
-        //     }
-        //     .store(in: &cancellable)
-        // socket.connect()
+        print(#function)
+        socket = SocketIOManager(roomID: roomID)
+        socket.socketSubject
+            .receive(on: RunLoop.main)
+            .sink { error in
+                print("ChattingSubject ERROR", error)
+            } receiveValue: { dm in
+                if let image = dm.files.first, image.isEmpty { // 비어있으면 텍스트 채팅
+                    self.updateChattingData(roomID: roomID, type: .text, data: dm)
+                } else {
+                    // 안 비어어있으면 사진을 보낸 채팅
+                    self.updateChattingData(roomID: roomID, type: .image, data: dm)
+                }
+            }
+            .store(in: &cancellable)
+        socket.connect()
     }
     
-    // 텍스트 보내기
-    func sendTextMessage(roomID: String, text: String) async throws  -> ChattingModel {
+    // 텍스트 이미지(URL String) 채팅 보내기
+    func sendMessage(roomID: String, type: MessageType, content: String) async throws  -> ChattingModel {
         do {
-            let body = SendChatBody(content: text)
+            let body: SendChatBody
+            switch type {
+            case .text:
+                body = SendChatBody(content: content, files: [])
+            case .image:
+                body = SendChatBody(content: "", files: [content])
+            }
+            print("바디야 잘 ㄷ ㅡㄹ어가니?", body)
+            
             let DTO = try await network.requestDTO(target: .chat(.sendChat(roomId: roomID, body: body)), of: ChattingDTO.self)
+            print("DDDDTTTTOOOO", DTO.toDomain())
             return DTO.toDomain()
         } catch {
             print(#function, error)
@@ -213,10 +222,8 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     }
     
     // 이미지 보내기
-    func sendImageMessage(roomID: String, image: Data) async throws -> FileModel {
+    func postChattingImage(roomID: String, image: Data) async throws -> FileModel {
         do {
-            // let body = PostFileBody(files: [image])
-            // let data = try await network.requestDTO(target: .chat(.postChatFiles(roomId: roomID, body: body)), of: ChattingFilesModel.self)
             let body = ImageUploadBody(files: [image])
             let data = try await network.requestDTO(target: .post(.files(body: body)), of: FileDTO.self)
             return data.toDomain()
@@ -230,20 +237,4 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
     func closeSocket() {
         socket.disconnect()
     }
-    
-    // func testSubject(roomID: String) -> [ChattingModel] {
-    //     var temp: [ChattingModel] = []
-    //     
-    //     self.socket.socketSubject
-    //         .receive(on: RunLoop.main)
-    //         .sink { error in
-    //             print("ChattingSubject ERROR", error)
-    //         } receiveValue: { [weak self] socketDMModel in
-    //             self?.updateChattingData(roomID: roomID, data: socketDMModel)
-    //             temp = self?.chatRepository.fetchAllMessages(for: roomID) ?? []
-    //         }
-    //         .store(in: &cancellable)
-    //     
-    //     return temp
-    // }
 }
