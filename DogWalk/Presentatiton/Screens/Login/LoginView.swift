@@ -45,7 +45,7 @@ extension LoginView {
             TextField("ID", text: $idText)
             TextField("Password", text: $pwText)
                 .padding(.bottom, 40)
-            CommonButton(width: width - 20, height: 60,
+            CommonButton(width: width - 60, height: 60,
                          cornerradius: 20, backColor: .primaryGreen,
                          text: "로그인", textFont: .pretendardBold18)
             .wrapToButton {
