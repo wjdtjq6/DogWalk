@@ -18,8 +18,10 @@ struct LastChatDTO: Decodable {
 
 extension LastChatDTO {
     func toDomain() -> LastChatModel {
-        let messageType: MessageType = self.content == nil ? .image : .text
-        let lastChat = messageType == .image ? self.files.first ?? "" : self.content ?? ""
+        let messageType: MessageType = self.files.first != "" ? .image : .text
+        let lastChat = messageType == .image
+                            ? self.files.first ?? ""
+                            : self.content ?? ""
         return LastChatModel(type: messageType,
                              chatID: self.chat_id,
                              lastChat: lastChat,
