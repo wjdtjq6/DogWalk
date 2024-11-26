@@ -263,10 +263,10 @@ extension ChatRepository {
             print("Deleted Objects:", managedObjectContext.deletedObjects)
             
             try managedObjectContext.save()
-            print("✅ 저장 성공")
+//            print("✅ 저장 성공")
         } catch {
             managedObjectContext.rollback()
-            print("❌ 저장 실패: \(error.localizedDescription)")
+//            print("❌ 저장 실패: \(error.localizedDescription)")
         }
     }
     
@@ -332,7 +332,7 @@ extension ChatRepository {
     // MARK: - ChattingRoomModel -> CoreDataChatRoom 변환
     private func toCoreDataChatRoom(from chatRoomData: ChattingRoomModel) -> CoreDataChatRoom {
         let newChatRoom = CoreDataChatRoom(context: managedObjectContext)
-        print("🗒️", chatRoomData)
+//        print("🗒️", chatRoomData)
         newChatRoom.roomID = chatRoomData.roomID
         print(newChatRoom.roomID ?? "")
         newChatRoom.createdAt = chatRoomData.createAt
@@ -340,7 +340,7 @@ extension ChatRepository {
         newChatRoom.me = createCoreUser(userModel: chatRoomData.me)
         newChatRoom.other = createCoreUser(userModel: chatRoomData.otherUser)
         newChatRoom.lastChat = chatRoomData.lastChat.map { createLastChat(lastChatModel: $0) }
-        print(newChatRoom,"🗒️")
+//        print(newChatRoom,"🗒️")
         dump(newChatRoom)
         return newChatRoom
     }
@@ -386,7 +386,7 @@ extension ChatRepository {
         do {
             try managedObjectContext.execute(batchDeleteRequest)
             saveContext() // 필요에 따라 Context 저장
-            print("모든 채팅방이 삭제되었습니다.")
+//            print("모든 채팅방이 삭제되었습니다.")
         } catch {
             print("모든 채팅방 삭제 중 오류 발생: \(error.localizedDescription)")
         }

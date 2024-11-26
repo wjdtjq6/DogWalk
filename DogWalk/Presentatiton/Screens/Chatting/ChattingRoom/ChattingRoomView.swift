@@ -144,8 +144,8 @@ private extension ChattingRoomView {
 private extension ChattingRoomView {
     @ViewBuilder
     func chattingView(size: CGSize, model: ChattingModel) -> some View {
-        let _ = print("modelType", model.type)
-        let _ = print("files", model.files)  // 파일 배열 확인용 로그
+//        let _ = print("modelType", model.type)
+//        let _ = print("files", model.files)  // 파일 배열 확인용 로그
         let xOffSet = size.width / 2
         
         // files 배열로 실제 타입 판단
@@ -237,7 +237,7 @@ private extension ChattingRoomView {
     func imageMessageView(size: CGSize, model: ChattingModel) -> some View {
         let isRight = model.sender.userID == UserManager.shared.userID
         let width = size.width
-        let _ = print("ChattingRoomView~~~~", model.files.first ?? "없ㅇ어")
+//        let _ = print("ChattingRoomView~~~~", model.files.first ?? "없ㅇ어")
         HStack {
             if isRight {
                 chatDateView(model.createdAt)
@@ -245,7 +245,7 @@ private extension ChattingRoomView {
                     .padding(.bottom, 5)
             }
             // 이미지 말풍선 부분
-            let _ = print(model.files.first)
+//            let _ = print(model.files.first)
             asImageView(url: model.files.first ?? "")
                 .frame(width: 150, height: 150) // 이미지 크기 조정
                 .clipShape(RoundedRectangle(cornerRadius: 15))

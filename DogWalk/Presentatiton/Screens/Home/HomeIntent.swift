@@ -53,7 +53,7 @@ extension HomeIntent: HomeIntentProtocol {
     func fetchProfile() async {
         do {
             let profile = try await useCase.fetchProfile()
-            dump(profile)
+//            dump(profile)
             state?.fetchProfile(profile: profile)
         } catch {
             
