@@ -26,7 +26,8 @@ final class HomeViewUseCase: HomeUseCase {
         let query = GetPostQuery(next: "", limit: "15", category: ["산책인증"])
         let response = try await network.requestDTO(target: .post(.getPosts(query: query)), of: PostResponseDTO.self)
         let domain = response.toDomain()
-        return domain.data
+        let sortedData = domain.data.sorted { $0.views > $1.views }
+        return sortedData
     }
     
     func getUserLocationWeather() async throws -> Weather{

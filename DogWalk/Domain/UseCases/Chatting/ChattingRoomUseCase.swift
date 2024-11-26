@@ -60,6 +60,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
             .sink { error in
                 print("ChattingSubject ERROR", error)
             } receiveValue: { dm in
+                print("📥 Socket received data: \(dm)")
                 if let image = dm.files.first, image.isEmpty { // 비어있으면 텍스트 채팅
                     self.updateChattingData(roomID: roomID, type: .text, data: dm)
                 } else {
@@ -124,7 +125,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
 
         // 4. 새로운 메시지가 없는 경우 종료
         guard !newMessages.isEmpty else {
-           print("❌ No new messages were added for RoomID: \(roomID)")
+//           print("❌ No new messages were added for RoomID: \(roomID)")
             return
         }
 
@@ -150,7 +151,8 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
             nick: data.sender.nick,
             profileImage: data.sender.profileImage
         )
-        
+//        print("📥 Received files: \(data.files)")
+
         // 3. 채팅 메시지 생성 및 추가
         let _ = chatRepository.createChatMessage(
             chatRoomID: roomID,
@@ -167,7 +169,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
        
         // 4. 채팅방 메시지 리스트 업데이트 후 Subject 전송
         chattingSubject.send(chatRepository.fetchMessages(for: roomID))
-        print("채팅 데이터가 업데이트되었습니다.")
+//        print("채팅 데이터가 업데이트되었습니다.")
     }
     
     
@@ -189,6 +191,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
             .sink { error in
                 print("ChattingSubject ERROR", error)
             } receiveValue: { dm in
+                print("📥 Socket received data: \(dm)")
                 if let image = dm.files.first, image.isEmpty { // 비어있으면 텍스트 채팅
                     self.updateChattingData(roomID: roomID, type: .text, data: dm)
                 } else {
