@@ -245,8 +245,8 @@ private extension ChattingRoomView {
                     .padding(.bottom, 5)
             }
             // 이미지 말풍선 부분
-//            let _ = print(model.files.first)
-            asImageView(url: model.files.first ?? "")
+            let _ = print(model.files.first)
+            asImageView(url: model.files.first ?? "", saveType: .document)
                 .frame(width: 150, height: 150) // 이미지 크기 조정
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .background(

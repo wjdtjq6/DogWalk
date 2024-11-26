@@ -22,6 +22,7 @@
 		062284C92CEF24B000860F7A /* FileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284C82CEF24B000860F7A /* FileDTO.swift */; };
 		062284CB2CEF2C0C00860F7A /* ImageUploadBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */; };
 		062284DC2CF30CB700860F7A /* UpdateUserBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284DB2CF30CB700860F7A /* UpdateUserBody.swift */; };
+		062284FB2CF55C6100860F7A /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062284F92CF55C6100860F7A /* CoreDataModel.xcdatamodeld */; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -166,6 +167,7 @@
 		062284C82CEF24B000860F7A /* FileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDTO.swift; sourceTree = "<group>"; };
 		062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadBody.swift; sourceTree = "<group>"; };
 		062284DB2CF30CB700860F7A /* UpdateUserBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserBody.swift; sourceTree = "<group>"; };
+		062284FA2CF55C6100860F7A /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };

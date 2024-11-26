@@ -135,15 +135,16 @@ private extension CommunityDetailView {
             .background(
                 RoundedRectangle(cornerRadius: 5)
                     .fill(Color.red.opacity(0.5))
+                    .frame(height: 30)
             )
-            .frame(height: 30)
+            
     }
     // 게시물 콘텐츠 뷰
     func communityContentView() -> some View {
         VStack {
             HStack {
                 categoryLabel(text: state.post.category.rawValue)
-                if state.post.views > 3 {
+                if state.post.views >= 3 {
                 CommonButton(width: 100, height: 30, cornerradius: 5, backColor: .primaryOrange, text: "인기글", textFont: .pretendardBold14,textColor: .primaryWhite, leftLogo: Image(systemName: "flame.fill"), imageSize: 17)
                     .foregroundStyle(Color.red)
                 }
