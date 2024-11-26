@@ -154,9 +154,9 @@ private extension WalkResultView {
         VStack(spacing: 0) {
             Spacer()
             HStack {
-                Image.asTestImage
+                Image("authImage")
                     .resizable()
-                    .frame(width: Self.width * 0.3, height: Self.height * 0.1)
+                    .frame(width: Self.width * 0.3, height: Self.width * 0.3)
                 Text("오늘 함께 한 샌책을\n기록하러 갈까요?")
                     .font(.pretendardRegular14)
                     .foregroundStyle(Color.primaryOrange).opacity(0.8)

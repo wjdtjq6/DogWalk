@@ -110,7 +110,7 @@ private extension ChattingRoomView {
             ScrollView {
                 LazyVStack(spacing: 2.0) {
                     ForEach(state.chattingData) { model in
-                        let _ = print("State에서 확인", model)
+//                        let _ = print("State에서 확인", model)
                         chattingView(size: size, model: model)
                             .padding(.bottom, 10)
                             .onTapGesture {
@@ -144,8 +144,8 @@ private extension ChattingRoomView {
 private extension ChattingRoomView {
     @ViewBuilder
     func chattingView(size: CGSize, model: ChattingModel) -> some View {
-        let _ = print("modelType", model.type)
-        let _ = print("files", model.files)  // 파일 배열 확인용 로그
+//        let _ = print("modelType", model.type)
+//        let _ = print("files", model.files)  // 파일 배열 확인용 로그
         let xOffSet = size.width / 2
         
         // files 배열로 실제 타입 판단
@@ -237,7 +237,7 @@ private extension ChattingRoomView {
     func imageMessageView(size: CGSize, model: ChattingModel) -> some View {
         let isRight = model.sender.userID == UserManager.shared.userID
         let width = size.width
-        let _ = print("ChattingRoomView~~~~", model.files.first ?? "없ㅇ어")
+//        let _ = print("ChattingRoomView~~~~", model.files.first ?? "없ㅇ어")
         HStack {
             if isRight {
                 chatDateView(model.createdAt)

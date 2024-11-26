@@ -119,3 +119,33 @@ class CoreUserTransformer: ValueTransformer {
         ValueTransformer.setValueTransformer(CoreUserTransformer(), forName: name)
     }
 }
+@objc(StringArrayTransformer)
+class StringArrayTransformer: ValueTransformer {
+    
+    override func transformedValue(_ value: Any?) -> Any? {
+        guard let value = value as? [String] else { return nil }
+        do {
+            let data = try JSONEncoder().encode(value)
+            return data
+        } catch {
+            print("StringArrayTransformer 인코딩 실패: \(error)")
+            return nil
+        }
+    }
+    
+    override func reverseTransformedValue(_ value: Any?) -> Any? {
+        guard let data = value as? Data else { return nil }
+        do {
+            let array = try JSONDecoder().decode([String].self, from: data)
+            return array
+        } catch {
+            print("StringArrayTransformer 디코딩 실패: \(error)")
+            return nil
+        }
+    }
+    
+    static func register() {
+        let name = NSValueTransformerName(rawValue: "StringArrayTransformer")
+        ValueTransformer.setValueTransformer(StringArrayTransformer(), forName: name)
+    }
+}

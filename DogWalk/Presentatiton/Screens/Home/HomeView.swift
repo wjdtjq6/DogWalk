@@ -45,6 +45,7 @@ struct HomeView: View {
         }
         .onAppear {
             UserManager.shared.isUser = false
+            ChatRepository.shared.deleteAllChatRooms()
         }
         .task {
             await intent.fetchPostList()
@@ -61,6 +62,13 @@ extension HomeView {
         ZStack {
             Color.init(hex: "BFD4EF")
                 .frame(maxWidth: .infinity, maxHeight: height/2.4)
+            
+            Image("almostClear")
+                .resizable()
+                .frame(width: 240, height: 240)
+                .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .bottomTrailing)
+                .padding(.trailing)
+            
             VStack {
                 VStack(alignment: .leading) {
                     Text("산책 가방 어디써? 빨리 나가자")//prompt
@@ -79,11 +87,6 @@ extension HomeView {
             }
             .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .topLeading)
             
-            Image("almostClear")
-                .resizable()
-                .frame(width: 240, height: 240)
-                .frame(maxWidth: .infinity, maxHeight: height/2, alignment: .bottomTrailing)
-                .padding(.trailing)
         }
         .frame(height: height/2.4)
     }

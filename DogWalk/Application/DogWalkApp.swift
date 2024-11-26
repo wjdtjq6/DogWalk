@@ -32,6 +32,7 @@ struct DogWalkApp: App {
         CoreChatMessageTransformer.register()
         CoreLastChatTransformer.register()
         CoreUserTransformer.register()
+        StringArrayTransformer.register()
         
     }
     
