@@ -110,7 +110,7 @@ private extension ChattingRoomView {
             ScrollView {
                 LazyVStack(spacing: 2.0) {
                     ForEach(state.chattingData) { model in
-                        let _ = print("State에서 확인", model)
+//                        let _ = print("State에서 확인", model)
                         chattingView(size: size, model: model)
                             .padding(.bottom, 10)
                             .onTapGesture {

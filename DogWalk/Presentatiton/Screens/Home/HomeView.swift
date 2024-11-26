@@ -45,6 +45,7 @@ struct HomeView: View {
         }
         .onAppear {
             UserManager.shared.isUser = false
+            ChatRepository.shared.deleteAllChatRooms()
         }
         .task {
             await intent.fetchPostList()

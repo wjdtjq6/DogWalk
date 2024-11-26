@@ -51,9 +51,9 @@ final class ChatRepository {
             existingChatRoom.lastChat = chatRoomData.lastChat.map { createLastChat(lastChatModel: $0) }
             existingChatRoom.me = createCoreUser(userModel: chatRoomData.me)
             existingChatRoom.other = createCoreUser(userModel: chatRoomData.otherUser)
-            print("💾 업데이트된 채팅방 데이터: \(existingChatRoom)")
+//            print("💾 업데이트된 채팅방 데이터: \(existingChatRoom)")
             saveContext()
-            print("이미 존재하는 채팅방 정보가 업데이트되었습니다. RoomID: \(chatRoomData.roomID)")
+//            print("이미 존재하는 채팅방 정보가 업데이트되었습니다. RoomID: \(chatRoomData.roomID)")
         } else {
             let newChatRoom = toCoreDataChatRoom(from: chatRoomData)
             print("💬 새 채팅방 데이터: \(newChatRoom)")
@@ -186,12 +186,10 @@ final class ChatRepository {
 
         let sender = createCoreUser(userModel: messageData.sender)
         newMessage.sender = sender
-
+//        print("💾 messageData.files: \(messageData.files)")
         chatRoom.addToMessage(newMessage)
-        print( newMessage.type, "123123")
-        print(messageData.files, "123123213123")
-        print(newMessage.files ?? ["ㅅ"], "123123213123")
-        
+//        print( newMessage.type, "123123")
+//        print("✅ 저장될 CoreData files: \(newMessage.files)")
         do {
             try managedObjectContext.save()
             print("✅ Chat message saved successfully.")
@@ -207,19 +205,20 @@ final class ChatRepository {
     func fetchMessages(for roomID: String) -> [ChattingModel] {
         let request: NSFetchRequest<CoreDataChatMessage> = CoreDataChatMessage.fetchRequest()
         request.predicate = NSPredicate(format: "roomID == %@", roomID)
-        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)] // 시간 순 정렬
+        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
         
         do {
             let coreMessages = try managedObjectContext.fetch(request)
-           print(coreMessages, "fetchMessages123")
-            dump(coreMessages.map { toChattingModel(from: $0) })
-            return coreMessages.map { toChattingModel(from: $0) }
+            coreMessages.forEach { message in print("📤 CoreData fetched message files: \(message.files ?? [])")}// CoreData 확인
+            
+            let chattingModels = coreMessages.map { toChattingModel(from: $0) }
+            chattingModels.forEach { model in print("📤 ChattingModel files: \(model.files)")} // 변환 후 확인
+            return chattingModels
         } catch {
             print("채팅 메시지 가져오기 실패: \(error.localizedDescription)")
             return []
         }
     }
-    
     
     func fetchChatRoom(roomID: String) -> ChattingRoomModel? {
         if let coreDataChatRoom = fetchChatRoom(by: roomID) {
@@ -258,7 +257,7 @@ extension ChatRepository {
     // MARK: - CoreData 저장
     private func saveContext() {
         do {
-            print("💾 저장 전 상태:")
+//            print("💾 저장 전 상태:")
             print("Inserted Objects:", managedObjectContext.insertedObjects)
             print("Updated Objects:", managedObjectContext.updatedObjects)
             print("Deleted Objects:", managedObjectContext.deletedObjects)

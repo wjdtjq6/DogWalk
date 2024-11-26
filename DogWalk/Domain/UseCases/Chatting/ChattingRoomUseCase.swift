@@ -60,6 +60,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
             .sink { error in
                 print("ChattingSubject ERROR", error)
             } receiveValue: { dm in
+                print("📥 Socket received data: \(dm)")
                 if let image = dm.files.first, image.isEmpty { // 비어있으면 텍스트 채팅
                     self.updateChattingData(roomID: roomID, type: .text, data: dm)
                 } else {
@@ -150,7 +151,8 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
             nick: data.sender.nick,
             profileImage: data.sender.profileImage
         )
-        
+        print("📥 Received files: \(data.files)")
+
         // 3. 채팅 메시지 생성 및 추가
         let _ = chatRepository.createChatMessage(
             chatRoomID: roomID,
@@ -189,6 +191,7 @@ final class DefaultChattingRoomUseCase: ChattingRoomUseCase {
             .sink { error in
                 print("ChattingSubject ERROR", error)
             } receiveValue: { dm in
+                print("📥 Socket received data: \(dm)")
                 if let image = dm.files.first, image.isEmpty { // 비어있으면 텍스트 채팅
                     self.updateChattingData(roomID: roomID, type: .text, data: dm)
                 } else {
