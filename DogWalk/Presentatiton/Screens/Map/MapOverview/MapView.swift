@@ -62,6 +62,11 @@ private extension MapView {
                 guard let coordinate = state.locationManager.locationManager.location?.coordinate else { return }
                 intent.updatePosition((MapCameraPosition.region(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.0169, longitudeDelta: 0.0169)))))
             }
+            if state.locationManager.locationManager.authorizationStatus == .authorizedAlways || state.locationManager.locationManager.authorizationStatus == .authorizedWhenInUse {
+                //showAnnotation = false
+            } else {
+                intent.showAlert()
+            }
         } label: {
             ZStack {
                 Circle()
@@ -69,6 +74,16 @@ private extension MapView {
                 Image(systemName: "dot.scope")
             }
             .frame(width: 45, height: 45)
+        }
+        .alert("위치 권한 허용하러 갈멍?", isPresented: Binding(get: {
+            state.isAlert
+        }, set: { newAlert in
+            if !newAlert {
+                intent.closeAlert()
+            }
+        })) {
+            Button("이동", role: .destructive) { intent.openAppSettings() }
+            Button("취소", role: .cancel) {}
         }
     }
     
@@ -120,6 +135,7 @@ private extension MapView {
                 //MARK: 새로고침 시 통신
                 intent.getPostsAtLocation(lat: state.visibleRegion.center.latitude, lon: state.visibleRegion.center.longitude)
                 intent.hideRefreshButton()//MARK: 새로고침 버튼 숨기기
+                showAnnotation = true
             } label: {
                 CommonButton(width: 170, height: 44, cornerradius: 22, backColor: .primaryGreen, text: "이 지역 검색하기", textFont: .pretendardBold14, leftLogo: Image(systemName: "arrow.clockwise"), imageSize: 22)
                     .foregroundStyle(Color.primaryBlack)
