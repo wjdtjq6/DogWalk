@@ -18,10 +18,15 @@ struct LastChatDTO: Decodable {
 
 extension LastChatDTO {
     func toDomain() -> LastChatModel {
-        let messageType: MessageType = self.files.first != "" ? .image : .text
-        let lastChat = messageType == .image
-                            ? self.files.first ?? ""
-                            : self.content ?? ""
+        // 채팅방 리스트
+        let messageType: MessageType = !(self.files.first?.isEmpty ?? true) ? .image : .text
+        let lastChat: String
+        
+        if messageType == .image {
+            lastChat = self.files.first ?? "사진" // 파일이 없으면 "[이미지]"로 표시
+        } else {
+            lastChat = self.content ?? "" // 텍스트가 없으면 "메시지 없음"으로 표시
+        }
         
         return LastChatModel(type: messageType,
                              chatID: self.chat_id,
