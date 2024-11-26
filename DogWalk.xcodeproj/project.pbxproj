@@ -22,6 +22,7 @@
 		062284C92CEF24B000860F7A /* FileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284C82CEF24B000860F7A /* FileDTO.swift */; };
 		062284CB2CEF2C0C00860F7A /* ImageUploadBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */; };
 		062284DC2CF30CB700860F7A /* UpdateUserBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062284DB2CF30CB700860F7A /* UpdateUserBody.swift */; };
+		062284FB2CF55C6100860F7A /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 062284F92CF55C6100860F7A /* CoreDataModel.xcdatamodeld */; };
 		0689C3602CDB3E9F00C5FC8C /* WalkResultIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */; };
 		0689C3622CDB3EB100C5FC8C /* WalkResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */; };
 		06CEA1862CD23181003249BF /* CommonProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CEA1852CD23181003249BF /* CommonProfile.swift */; };
@@ -34,7 +35,6 @@
 		993A70DE2CE8B6890003FA0C /* CommonImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993A70DD2CE8B6890003FA0C /* CommonImageView.swift */; };
 		994775B32CEC6DB90005DBBF /* WeatherKitAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994775B22CEC6DB90005DBBF /* WeatherKitAPIManager.swift */; };
 		994775B62CECA7CF0005DBBF /* CLLocation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994775B52CECA7CF0005DBBF /* CLLocation+.swift */; };
-		99595BFE2CF54416007A84A8 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99595BFC2CF54416007A84A8 /* CoreDataModel.xcdatamodeld */; };
 		99646D062CEB59BD00B94C0B /* HomeContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D052CEB59BD00B94C0B /* HomeContentState.swift */; };
 		99646D082CEB615D00B94C0B /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99646D072CEB615D00B94C0B /* HomeUseCase.swift */; };
 		9966F6D12CDDE37900E7569E /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9966F6D02CDDE37900E7569E /* MainCoordinator.swift */; };
@@ -54,6 +54,7 @@
 		BF159EF82CE33B6C001933C0 /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF159EF72CE33B6C001933C0 /* MapState.swift */; };
 		BF2F5EF72CDB8EEC008AEC9D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */; };
 		BF41B0A12CD3BC4500B67485 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF41B0A02CD3BC4500B67485 /* AuthView.swift */; };
+		BFBD1F162CF5688800E349F4 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BFBD1F142CF5688800E349F4 /* CoreDataModel.xcdatamodeld */; };
 		C4097ACF2CD7AEF5002155EA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC72CD7AEF4002155EA /* NetworkManager.swift */; };
 		C4097AD02CD7AEF5002155EA /* ChatTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC82CD7AEF5002155EA /* ChatTarget.swift */; };
 		C4097AD12CD7AEF5002155EA /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4097AC92CD7AEF5002155EA /* NetworkError.swift */; };
@@ -166,6 +167,7 @@
 		062284C82CEF24B000860F7A /* FileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDTO.swift; sourceTree = "<group>"; };
 		062284CA2CEF2C0C00860F7A /* ImageUploadBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadBody.swift; sourceTree = "<group>"; };
 		062284DB2CF30CB700860F7A /* UpdateUserBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserBody.swift; sourceTree = "<group>"; };
+		062284FA2CF55C6100860F7A /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		0689C35F2CDB3E9F00C5FC8C /* WalkResultIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultIntent.swift; sourceTree = "<group>"; };
 		0689C3612CDB3EB100C5FC8C /* WalkResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkResultState.swift; sourceTree = "<group>"; };
 		06CEA1852CD23181003249BF /* CommonProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProfile.swift; sourceTree = "<group>"; };
@@ -179,7 +181,6 @@
 		993A70DD2CE8B6890003FA0C /* CommonImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonImageView.swift; sourceTree = "<group>"; };
 		994775B22CEC6DB90005DBBF /* WeatherKitAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherKitAPIManager.swift; sourceTree = "<group>"; };
 		994775B52CECA7CF0005DBBF /* CLLocation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+.swift"; sourceTree = "<group>"; };
-		99595BFD2CF54416007A84A8 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		99646D052CEB59BD00B94C0B /* HomeContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentState.swift; sourceTree = "<group>"; };
 		99646D072CEB615D00B94C0B /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
 		9966F6D02CDDE37900E7569E /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 		BF159EF72CE33B6C001933C0 /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		BF2F5EF62CDB8EEC008AEC9D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BF41B0A02CD3BC4500B67485 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		BFBD1F152CF5688800E349F4 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		C4097AC72CD7AEF4002155EA /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C4097AC82CD7AEF5002155EA /* ChatTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTarget.swift; sourceTree = "<group>"; };
 		C4097AC92CD7AEF5002155EA /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -373,7 +375,7 @@
 		9966F6DD2CE1C92800E7569E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				99595BFC2CF54416007A84A8 /* CoreDataModel.xcdatamodeld */,
+				BFBD1F142CF5688800E349F4 /* CoreDataModel.xcdatamodeld */,
 				99DF93962CEEC93F0022E471 /* CoreChatMessageTransformer.swift */,
 				99DF93982CEEC96A0022E471 /* PersistentContainer.swift */,
 				99DF939A2CEEC9830022E471 /* CoreDataManager.swift */,
@@ -1055,7 +1057,7 @@
 				C4097AD32CD7AEF5002155EA /* TargetType.swift in Sources */,
 				C4A776882CD1251E00D60EEE /* View+.swift in Sources */,
 				C4A776862CD1235D00D60EEE /* Image+.swift in Sources */,
-				99595BFE2CF54416007A84A8 /* CoreDataModel.xcdatamodeld in Sources */,
+				BFBD1F162CF5688800E349F4 /* CoreDataModel.xcdatamodeld in Sources */,
 				062284B62CEC60B200860F7A /* ContentState.swift in Sources */,
 				C4097B082CD7AF28002155EA /* PutPostBody.swift in Sources */,
 				062284CB2CEF2C0C00860F7A /* ImageUploadBody.swift in Sources */,
@@ -1420,12 +1422,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		99595BFC2CF54416007A84A8 /* CoreDataModel.xcdatamodeld */ = {
+		BFBD1F142CF5688800E349F4 /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				99595BFD2CF54416007A84A8 /* CoreDataModel.xcdatamodel */,
+				BFBD1F152CF5688800E349F4 /* CoreDataModel.xcdatamodel */,
 			);
-			currentVersion = 99595BFD2CF54416007A84A8 /* CoreDataModel.xcdatamodel */;
+			currentVersion = BFBD1F152CF5688800E349F4 /* CoreDataModel.xcdatamodel */;
+			name = CoreDataModel.xcdatamodeld;
 			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
