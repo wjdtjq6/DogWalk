@@ -21,7 +21,8 @@ final class LocationManager: NSObject, CLLocationManagerDelegate , ObservableObj
         super.init()
         locationManager.delegate =  self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest// 정확도 설정 (원하는 정확도 설정 가능)
-        locationManager.distanceFilter = 1 //TODO: Test / 5미터마다 위치 갱신 수정!
+        locationManager.distanceFilter = 5 //TODO: Test / 5미터마다 위치 갱신 수정!
+        locationManager.pausesLocationUpdatesAutomatically = true
         checkLocationAuthorization()
     }
     // 위치 권한 확인 및 위치 업데이트 시작
