@@ -1427,7 +1427,7 @@
 			);
 			currentVersion = BFBD1F152CF5688800E349F4 /* CoreDataModel.xcdatamodel */;
 			name = CoreDataModel.xcdatamodeld;
-			path = /Users/jimmy/Desktop/DogWalk/DogWalk/Data/CoreData/CoreDataModel.xcdatamodeld;
+			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
